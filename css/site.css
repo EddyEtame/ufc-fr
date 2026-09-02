@@ -1904,3 +1904,285 @@ section.block.ed-club { padding: 0; }
   .filters a { padding: 7px 11px; font-size: 12px; }
   .related-list a { font-size: 17px; }
 }
+
+/* =========================================================================
+   Mouvement.
+   L'état masqué n'existe que sous `html.motion`, classe posée par le script
+   lui-même. Sans JavaScript, aucune de ces règles ne s'applique et la page
+   est intégralement lisible — le mouvement est un supplément, jamais une
+   condition.
+   ========================================================================= */
+
+html.motion [data-reveal] {
+  opacity: 0;
+  transform: translate3d(0, 14px, 0);
+  transition: opacity 0.62s var(--ease), transform 0.62s var(--ease);
+  will-change: opacity, transform;
+}
+html.motion [data-reveal].shown {
+  opacity: 1;
+  transform: none;
+  will-change: auto;
+}
+
+/* L'image se pose : elle arrive légèrement trop grande et se cale. Le cadre
+   masque le débord, donc rien ne saute dans la mise en page. */
+html.motion [data-reveal-media] { overflow: hidden; }
+html.motion [data-reveal-media] img {
+  transform: scale(1.06);
+  transition: transform 1.15s var(--ease);
+}
+html.motion [data-reveal-media].shown img { transform: scale(1); }
+
+/* Le titre d'article arrive seul, sans attendre le reste : c'est la première
+   chose qu'on lit, elle ne doit jamais être en file d'attente. */
+html.motion .ah [data-reveal] { transition-duration: 0.72s; }
+
+@media (prefers-reduced-motion: reduce) {
+  html.motion [data-reveal],
+  html.motion [data-reveal-media] img {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}
+
+/* =========================================================================
+   La carte de combats.
+   Une soirée de MMA a un ordre : on ouvre sur les préliminaires et on finit
+   par le main event. Un tableau écrase cet ordre en quatorze lignes égales.
+   Ici chaque combat occupe sa place dans la descente, et l'octogone au fond
+   se referme au fur et à mesure — c'est le seul indicateur de progression,
+   et il appartient au sujet.
+   ========================================================================= */
+
+.card-page { background: var(--void); color: var(--paper); }
+
+.card-hero {
+  position: relative;
+  padding: clamp(90px, 14vh, 160px) 0 clamp(50px, 8vh, 90px);
+  border-bottom: 1px solid rgba(247, 244, 238, 0.12);
+}
+.card-hero .crumbs { color: var(--ash); margin-bottom: 26px; }
+.card-hero .crumbs a { color: var(--ash); }
+.card-hero .crumbs a:hover { color: var(--paper); }
+.card-hero h1 {
+  font-family: var(--display);
+  font-size: clamp(44px, 9vw, 128px);
+  line-height: 0.88;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  margin: 14px 0 26px;
+}
+.card-hero .lede { color: var(--mist); max-width: 54ch; font-size: 17px; }
+.card-count { margin-top: 22px; font-family: var(--ui); font-size: 13px; letter-spacing: 0.06em; color: var(--ash); }
+.card-count b { color: var(--red); font-size: 17px; font-weight: 600; }
+
+.card-scrollhint {
+  position: absolute;
+  right: 24px;
+  bottom: 26px;
+  font-family: var(--ui);
+  font-size: 10px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--ash);
+  writing-mode: vertical-rl;
+}
+
+.card-body {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(240px, 34%) 1fr;
+  gap: clamp(24px, 5vw, 80px);
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 0 clamp(18px, 4vw, 56px);
+}
+
+/* L'octogone tient l'écran pendant toute la descente. */
+.cage {
+  position: sticky;
+  top: calc(var(--header) + 8vh);
+  align-self: start;
+  height: min(46vh, 420px);
+  display: grid;
+  place-items: center;
+  padding-top: 8vh;
+}
+.cage svg { width: 100%; height: 100%; overflow: visible; }
+.cage-bg { fill: none; stroke: rgba(247, 244, 238, 0.09); stroke-width: 1.5; }
+.cage-line {
+  fill: none;
+  stroke: var(--red);
+  stroke-width: 2.5;
+  stroke-linejoin: round;
+  stroke-dasharray: 1;
+  /* Rempli par le script au fil du défilement. Valeur de départ : le cadre
+     est vide tant que la première station n'est pas atteinte. */
+  stroke-dashoffset: 1;
+  transition: stroke-dashoffset 0.45s var(--ease);
+}
+.cage-count {
+  position: absolute;
+  display: flex;
+  align-items: baseline;
+  gap: 3px;
+  font-family: var(--display);
+}
+.cage-count b { font-size: clamp(34px, 5vw, 64px); color: var(--paper); font-weight: 600; }
+.cage-count i { font-size: 15px; color: var(--ash); font-style: normal; }
+
+.card-rail { padding: clamp(40px, 8vh, 100px) 0 clamp(60px, 12vh, 140px); }
+
+.card-part {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  margin: 0 0 8px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid rgba(247, 244, 238, 0.16);
+  font-family: var(--ui);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--ash);
+}
+.card-part + .bout { border-top: 0; }
+.card-part:not(:first-child) { margin-top: clamp(50px, 9vh, 110px); }
+
+/* Une station. Le combat français est le seul à porter une marque : c'est
+   la promesse éditoriale du site, elle mérite d'être lisible d'un coup d'œil. */
+.bout {
+  position: relative;
+  padding: clamp(30px, 5vh, 54px) 0 clamp(26px, 4vh, 44px);
+  border-top: 1px solid rgba(247, 244, 238, 0.12);
+}
+.bout[data-fr="1"]::before {
+  content: "";
+  position: absolute;
+  left: -14px;
+  top: clamp(30px, 5vh, 54px);
+  width: 3px;
+  height: 34px;
+  background: var(--red);
+}
+.bout-rank {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+  font-family: var(--ui);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  color: var(--ash);
+  margin-bottom: 14px;
+}
+.bout-rank span { color: var(--mist); }
+.bout-rank i { font-style: normal; }
+
+.bout-grid {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: clamp(12px, 3vw, 36px);
+  align-items: center;
+}
+.bout-side h3 {
+  font-family: var(--display);
+  font-size: clamp(20px, 3.1vw, 42px);
+  line-height: 1;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  margin: 0;
+}
+.bout-side.b { text-align: right; }
+.bout-meta { margin: 8px 0 0; font-family: var(--ui); font-size: 12px; color: var(--ash); }
+.bout-mid { display: grid; justify-items: center; gap: 6px; text-align: center; }
+.bout-vs {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 14px;
+  color: var(--ash);
+}
+.bout-div {
+  font-family: var(--ui);
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--mist);
+  white-space: nowrap;
+}
+.bout-tag {
+  font-family: var(--ui);
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--void);
+  background: var(--red);
+  padding: 3px 8px;
+}
+.bout.is-main h3 { font-size: clamp(26px, 4.4vw, 62px); }
+
+.bout-state {
+  margin: 18px 0 0;
+  font-family: var(--ui);
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ash);
+}
+.card-page[data-etat="termine"] .bout-state { color: var(--paper); }
+.bout-reserve {
+  margin: 10px 0 0;
+  font-family: var(--ui);
+  font-size: 13px;
+  color: var(--mist);
+  border-left: 2px solid rgba(225, 6, 19, 0.5);
+  padding-left: 12px;
+}
+.bout-reserve a { color: var(--red); text-decoration: underline; text-underline-offset: 3px; }
+
+/* La station active se détache pendant la descente. */
+.bout { transition: opacity 0.5s var(--ease); }
+html.motion .card-rail .bout { opacity: 0.42; }
+html.motion .card-rail .bout.near { opacity: 1; }
+
+.card-outro { background: var(--void); border-top: 1px solid rgba(247, 244, 238, 0.12); }
+.card-outro .related-list a { color: var(--paper); }
+.card-outro .related-list li { border-color: rgba(247, 244, 238, 0.14); }
+.card-honest {
+  margin-top: 30px;
+  padding-top: 18px;
+  border-top: 1px solid rgba(247, 244, 238, 0.14);
+  font-family: var(--ui);
+  font-size: 13px;
+  color: var(--ash);
+  max-width: 62ch;
+}
+
+@media (max-width: 980px) {
+  /* Le téléphone reçoit le même récit, pas une version amputée : l'octogone
+     passe en bandeau collé en haut au lieu de disparaître. */
+  .card-body { grid-template-columns: 1fr; gap: 0; }
+  .cage {
+    position: sticky;
+    top: var(--header);
+    height: 74px;
+    padding: 0;
+    z-index: 20;
+    background: linear-gradient(var(--void) 62%, rgba(7, 7, 7, 0));
+    grid-template-columns: 74px 1fr;
+    place-items: center start;
+    display: grid;
+  }
+  .cage svg { width: 58px; height: 58px; }
+  .cage-count { position: static; }
+  .cage-count b { font-size: 26px; }
+  .bout-grid { grid-template-columns: 1fr; gap: 10px; text-align: left; }
+  .bout-side.b { text-align: left; }
+  .bout-mid { justify-items: start; text-align: left; flex-direction: row; }
+  .bout[data-fr="1"]::before { left: -12px; }
+  .card-scrollhint { display: none; }
+}

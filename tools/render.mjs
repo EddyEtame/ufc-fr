@@ -119,7 +119,7 @@ ${DRAWER.map(([h, l]) => `      <a href="${h}">${l}</a>`).join("\n")}
 
 export function footer() {
   return `  <footer class="site">
-    <div class="wrap foot">
+    <div class="wrap foot" data-reveal>
       <a class="brand" href="/"><img src="/logo/ufc.fr.jpeg" alt="UFC.FR" width="120" height="40" /></a>
       <div class="foot-cols">
         <div>
@@ -162,6 +162,7 @@ ${ORGS.slice(0, 5).map(([h, l]) => `          <a href="${h}">${l}</a>`).join("\n
     </div>
   </footer>
   <script src="/js/site.js" defer></script>
+  <script src="/js/motion.js" defer></script>
 </body>
 </html>`;
 }

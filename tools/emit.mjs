@@ -194,7 +194,7 @@ ${header()}
       <p class="crumbs">${trail
         .map(([n, u], i) => (i === trail.length - 1 ? esc(n) : `<a href="${u}">${esc(n)}</a>`))
         .join(" · ")}</p>
-      <header class="ah">
+      <header class="ah" data-reveal>
         <span class="kicker">${esc(kicker)}</span>
         <h1>${esc(title)}</h1>
         <p class="byline">Rédaction UFC.FR · Publié le <time datetime="${doc.date.slice(0, 10)}">${dateFr(doc.date)}</time>${
@@ -205,17 +205,17 @@ ${header()}
       </header>
       ${
         img
-          ? `<figure class="figure lead"><img src="${img.url}" alt="${esc(img.alt)}"${
+          ? `<figure class="figure lead" data-reveal data-reveal-media><img src="${img.url}" alt="${esc(img.alt)}"${
               img.width && img.height ? ` width="${img.width}" height="${img.height}"` : ""
             } decoding="async" /></figure>`
           : ""
       }
-      <div class="prose">
+      <div class="prose" data-reveal>
 ${body}
       </div>
 ${
   sibs.length
-    ? `      <aside class="related">
+    ? `      <aside class="related" data-reveal>
         <h2>À lire ensuite</h2>
         <ul class="related-list">
 ${sibs.map((s) => `          <li><a href="/${s.slug}/">${esc(decode(s.title.rendered))}</a></li>`).join("\n")}

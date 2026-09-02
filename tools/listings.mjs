@@ -31,10 +31,10 @@ function thumb(p) {
 function card(p) {
   const t = thumb(p);
   const cat = (p.categories || []).map((id) => catById.get(id)).filter(Boolean)[0];
-  return `        <a class="card" href="/${p.slug}/">
+  return `        <a class="card" href="/${p.slug}/" data-reveal>
           ${
             t
-              ? `<div class="media"><img src="${t.url}" alt="${esc(t.alt)}"${
+              ? `<div class="media" data-reveal-media><img src="${t.url}" alt="${esc(t.alt)}"${
                   t.w && t.h ? ` width="${t.w}" height="${t.h}"` : ""
                 } loading="lazy" decoding="async" /></div>`
               : ""
@@ -101,7 +101,7 @@ ${header()}
   <main id="contenu">
     <section class="block">
       <div class="wrap">
-        <header class="head">
+        <header class="head" data-reveal>
           <span class="kicker">${esc(kicker)}</span>
           <h1>${esc(title)}</h1>
           <p class="lede">${esc(lede)}</p>

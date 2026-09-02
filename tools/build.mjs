@@ -110,6 +110,12 @@ function cleanContent(html) {
   out = out.replace(/<div[^>]*data-pages="[^"]*"[^>]*>[\s\S]*?<\/div>/gi, "");
   out = out.replace(/<span[^>]*current-page[^>]*>[\s\S]*?<\/span>/gi, "");
 
+  // Le corps venu du CMS porte parfois son propre <h1> : le theme WordPress
+  // ne rendait pas de titre au-dessus, l'auteur l'a donc ecrit dans le texte.
+  // Notre gabarit fournit le h1, celui du corps est retrograde en h2 — deux
+  // h1 sur une page, c'est un signal contradictoire envoye a l'indexation.
+  out = out.replace(/<(\/?)h1(\s|>)/gi, "<$1h2$2");
+
   return out.trim();
 }
 
