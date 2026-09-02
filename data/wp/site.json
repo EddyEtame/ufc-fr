@@ -1,0 +1,8 @@
+{
+ "name": "UFC.FR",
+ "description": "Média indépendant d’actualité MMA — France et international. Non affilié à l’UFC.",
+ "url": "https://www.ufc.fr",
+ "home": "https://www.ufc.fr",
+ "gmt_offset": 2,
+ "timezone_string": "Europe/Paris"
+}
