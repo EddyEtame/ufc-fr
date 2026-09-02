@@ -55,3 +55,34 @@
     if (e.target.tagName === "A") close();
   });
 })();
+
+/**
+ * L'en-tete compacte.
+ *
+ * Sur les pages a fond sombre, l'en-tete est transparente en haut de page —
+ * elle se pose sur le heros sans le couper. Des qu'on defile, elle doit
+ * redevenir opaque, sinon le logo et la navigation flottent au-dessus du
+ * contenu et deviennent illisibles. La classe existait dans la feuille de
+ * style ; plus rien ne la posait depuis le retrait de l'ancien script.
+ */
+(function () {
+  "use strict";
+  var entete = document.querySelector("body > header");
+  if (!entete) return;
+
+  var seuil = 40;
+  var attente = false;
+
+  function majuscule() {
+    attente = false;
+    entete.classList.toggle("is-compact", window.scrollY > seuil);
+  }
+
+  window.addEventListener("scroll", function () {
+    if (attente) return;
+    attente = true;
+    window.requestAnimationFrame(majuscule);
+  }, { passive: true });
+
+  majuscule();
+})();

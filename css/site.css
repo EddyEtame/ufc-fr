@@ -1990,7 +1990,12 @@ html.motion .ah [data-reveal] { transition-duration: 0.72s; }
   writing-mode: vertical-rl;
 }
 
-.card-body {
+/* NB : cette classe s'appelait .card-body et ecrasait le bloc texte des
+   cartes d'article, qui portait deja ce nom. Toutes les pages de liste du
+   site en sont sorties disloquees. Les classes de la page carte sont
+   desormais prefixees `carte-` : un prefixe par surface, pas de nom
+   generique reutilise. */
+.carte-corps {
   position: relative;
   display: grid;
   grid-template-columns: minmax(240px, 34%) 1fr;
@@ -2165,7 +2170,7 @@ html.motion .card-rail .bout.near { opacity: 1; }
 @media (max-width: 980px) {
   /* Le téléphone reçoit le même récit, pas une version amputée : l'octogone
      passe en bandeau collé en haut au lieu de disparaître. */
-  .card-body { grid-template-columns: 1fr; gap: 0; }
+  .carte-corps { grid-template-columns: 1fr; gap: 0; }
   .cage {
     position: sticky;
     top: var(--header);
@@ -2336,15 +2341,15 @@ body > header { view-transition-name: entete; }
 .card .media { overflow: hidden; }
 .card .media img { transition: transform 0.9s var(--ease), filter 0.6s var(--ease); }
 .card:hover .media img { transform: scale(1.045); }
-.card .card-body h3 {
+.card .carte-corps h3 {
   background-image: linear-gradient(var(--red), var(--red));
   background-repeat: no-repeat;
   background-size: 0% 1px;
   background-position: 0 100%;
   transition: background-size 0.5s var(--ease), color 0.3s var(--ease);
 }
-.card:hover .card-body h3 { background-size: 100% 1px; color: var(--red); }
-.card .card-body time {
+.card:hover .carte-corps h3 { background-size: 100% 1px; color: var(--red); }
+.card .carte-corps time {
   display: block;
   margin-top: 10px;
   font-family: var(--ui);
@@ -2354,15 +2359,15 @@ body > header { view-transition-name: entete; }
   color: var(--ash);
   transition: color 0.3s var(--ease);
 }
-.card:hover .card-body time { color: var(--ink); }
+.card:hover .carte-corps time { color: var(--ink); }
 
 /* Le roster : le nom monte a la rencontre du curseur, l'image se desature
    pour que le nom reste lisible. */
 .roster a { position: relative; overflow: hidden; }
 .roster a img { transition: transform 0.85s var(--ease), filter 0.5s var(--ease); }
 .roster a:hover img { transform: scale(1.06); filter: saturate(0.55) contrast(1.05); }
-.roster a span { transition: transform 0.45s var(--ease); }
-.roster a:hover span { transform: translateY(-3px); }
+.roster a .meta { transition: transform 0.45s var(--ease); }
+.roster a:hover .meta { transform: translateY(-4px); }
 
 /* Etat de focus visible partout : c'est la meme information que le survol,
    pour qui navigue au clavier. */
@@ -2562,3 +2567,186 @@ html.motion .cage-frame .cage-draw { animation: cage-close 1.5s var(--ease) 0.15
   .hero-foot { flex-direction: column; align-items: flex-start; }
   .cage-frame { inset: 10px; }
 }
+
+/* =========================================================================
+   CORRECTIFS — constates en ouvrant les pages, pas en lisant le code.
+   Chacun est note ici avec sa cause, parce qu'un correctif sans cause
+   revient toujours.
+   ========================================================================= */
+
+/* 1. Le heros etait ecrase.
+   `.hero-cage` porte aussi `.hero`, dont la regle historique impose
+   `grid-template-columns: 1.22fr 0.78fr`. Le duel se retrouvait comprime
+   dans la premiere colonne, le pied de heros ejecte dans la seconde, et les
+   deux noms se chevauchaient faute de place. Une colonne unique, et la
+   grille des rangees reprend la main. */
+.hero-cage {
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr auto;
+  min-height: min(100svh, 880px);
+}
+.hero-duel { width: 100%; min-height: 0; }
+.hero-man { min-width: 0; }
+
+/* Le nom reste dans sa colonne, quelle que soit la police effectivement
+   chargee : en repli, une graisse large deborde la ou Oswald condense. Se
+   fier a la police distante pour tenir une mise en page est un pari. */
+.hero-man figcaption {
+  right: clamp(20px, 4vw, 54px);
+  max-width: 100%;
+}
+.hero-man.b figcaption { left: clamp(20px, 4vw, 54px); }
+.hero-name {
+  display: block;
+  font-size: clamp(26px, 4.6vw, 76px);
+  max-width: 100%;
+  overflow-wrap: anywhere;
+  hyphens: none;
+}
+.hero-man .kicker { color: var(--mist); }
+
+/* 2. L'en-tete clair sur une page sombre.
+   Le bandeau et le logo gardaient leur fond papier au-dessus du noir : une
+   barre blanche et une vignette blanche posees sur l'arene. L'en-tete doit
+   appartenir a la page qu'il coiffe. */
+body:has(.card-page) > header,
+body:has(.hero-cage) > header {
+  background: linear-gradient(rgba(7, 7, 7, 0.88), rgba(7, 7, 7, 0));
+  backdrop-filter: none;
+  border-bottom-color: transparent;
+}
+body:has(.card-page) > header.is-compact,
+body:has(.hero-cage) > header.is-compact {
+  background: rgba(7, 7, 7, 0.95);
+  border-bottom-color: rgba(247, 244, 238, 0.14);
+}
+body:has(.card-page) nav.main a,
+body:has(.hero-cage) nav.main a { color: var(--mist); }
+body:has(.card-page) nav.main a:hover,
+body:has(.hero-cage) nav.main a:hover,
+body:has(.card-page) nav.main a.on,
+body:has(.hero-cage) nav.main a.on { color: var(--paper); }
+body:has(.card-page) .burger i,
+body:has(.hero-cage) .burger i { background: var(--paper); }
+
+/* 3. Le logo a fond blanc.
+   Le fichier historique est un JPEG : son fond est cuit dans l'image et
+   forme une vignette claire sur fond noir. La mediatheque contient la marque
+   en PNG detoure — c'est elle qu'on sert sur les pages sombres, sans
+   redessiner quoi que ce soit. */
+body:has(.card-page) .brand img,
+body:has(.hero-cage) .brand img { visibility: hidden; }
+body:has(.card-page) .brand,
+body:has(.hero-cage) .brand {
+  background: url("/media/brand/marque.png") left center / contain no-repeat;
+  width: 42px;
+  height: 42px;
+  display: block;
+}
+body:has(.card-page) .brand img,
+body:has(.hero-cage) .brand img { width: 42px; height: 42px; }
+
+/* 4. Le trace de l'octogone depassait en bas a gauche : le point de depart
+   du polygone et celui du trace ne coincidaient pas visuellement. On arrondit
+   les jonctions pour que la fermeture se lise comme un cadre continu. */
+.cage-line { stroke-linecap: round; }
+
+/* 5. Le cadre-octogone, refait.
+   Le SVG etire par `preserveAspectRatio="none"` deformait les diagonales :
+   sur un ecran large, les coupes de coin devenaient des diagonales de
+   plusieurs centaines de pixels qui traversaient les photos. Elles lisaient
+   comme un defaut d'affichage, pas comme une cage.
+
+   Ici les coupes sont en pixels, donc identiques quelle que soit la largeur.
+   Deux couches : un fond rouge decoupe en octogone, un fond noir decoupe en
+   octogone legerement plus petit. Ce qui depasse entre les deux est le trait.
+   Une seule valeur — `--coupe` — controle toute la forme. */
+.hero-cage { --coupe: clamp(26px, 4vw, 58px); }
+.cage-frame {
+  position: absolute;
+  inset: clamp(12px, 2.4vw, 34px);
+  z-index: 2;
+  pointer-events: none;
+  background: var(--red);
+  clip-path: polygon(
+    var(--coupe) 0, calc(100% - var(--coupe)) 0,
+    100% var(--coupe), 100% calc(100% - var(--coupe)),
+    calc(100% - var(--coupe)) 100%, var(--coupe) 100%,
+    0 calc(100% - var(--coupe)), 0 var(--coupe)
+  );
+}
+.cage-frame::after {
+  content: "";
+  position: absolute;
+  inset: 1.5px;
+  background: var(--void);
+  clip-path: inherit;
+}
+/* Le cadre se pose au chargement au lieu de se tracer : un trait qui se
+   dessine sur une forme aussi large demande deux secondes, et deux secondes
+   avant de pouvoir lire le heros, c'est deux secondes de trop. */
+html.motion .cage-frame { opacity: 0; animation: cadre 0.9s var(--ease) 0.2s forwards; }
+@keyframes cadre { from { opacity: 0; transform: scale(1.012); } to { opacity: 1; transform: none; } }
+
+/* 6. La marque sur fond sombre.
+   Le PNG detoure est un pictogramme carre : seul, il flotte et ne dit pas le
+   nom du media. On le double du mot-symbole compose — la typographie du site
+   fait le travail, sans dependre d'un fichier image qui n'existe pas. */
+body:has(.card-page) .brand,
+body:has(.hero-cage) .brand {
+  width: auto;
+  height: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: none;
+}
+body:has(.card-page) .brand::before,
+body:has(.hero-cage) .brand::before {
+  content: "";
+  width: 30px;
+  height: 30px;
+  flex: 0 0 30px;
+  background: url("/media/brand/marque.png") center / contain no-repeat;
+}
+body:has(.card-page) .brand::after,
+body:has(.hero-cage) .brand::after {
+  content: "UFC.FR";
+  font-family: var(--display);
+  font-size: 21px;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  color: var(--paper);
+}
+body:has(.card-page) .brand img,
+body:has(.hero-cage) .brand img { display: none; }
+
+/* 7. L'en-tete sombre etait un degrade gris, ni transparent ni opaque. Il
+   devient franc : rien en haut de page, plein des qu'on defile. */
+body:has(.card-page) > header:not(.is-compact),
+body:has(.hero-cage) > header:not(.is-compact) { background: transparent; }
+/* Des qu'on defile, l'en-tete redevient une surface : une barre transparente
+   posee sur du contenu rend son propre contenu illisible. */
+body:has(.hero-cage) > header.is-compact {
+  background: rgba(247, 244, 238, 0.96);
+  border-bottom-color: var(--mist);
+}
+body:has(.hero-cage) > header.is-compact nav.main a { color: var(--ink); }
+body:has(.hero-cage) > header.is-compact nav.main a.on,
+body:has(.hero-cage) > header.is-compact nav.main a:hover { color: var(--red); }
+body:has(.hero-cage) > header.is-compact .burger i { background: var(--ink); }
+body:has(.hero-cage) > header.is-compact .brand::after { color: var(--ink); }
+
+/* 8. Le pied de heros respirait mal : la date collee a gauche, les boutons
+   colles a droite, une bande noire vide entre les deux. On le ramene dans la
+   largeur de lecture et on rapproche les deux blocs. */
+.hero-foot {
+  max-width: var(--max);
+  width: 100%;
+  margin: 0 auto;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+.hero-when { gap: 14px; }
+.hero-man.b figcaption { align-items: flex-end; justify-items: end; }
+.hero-man.b .kicker { text-align: right; }

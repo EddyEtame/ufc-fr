@@ -9,15 +9,28 @@
  */
 import { writeFileSync, mkdirSync } from "node:fs";
 import { join } from "node:path";
-import { posts, categories, ROOT, SITE, esc, decode, stripTags, dateFr, metaDesc, localMedia } from "./build.mjs";
+import { posts, categories, ROOT, SITE, esc, decode, stripTags, dateFr, metaDesc, localMedia, resume } from "./build.mjs";
 import { head, header, footer } from "./render.mjs";
 
 const byDate = [...posts].sort((a, b) => new Date(b.date) - new Date(a.date));
 const catById = new Map(categories.map((c) => [c.id, c]));
 
-function thumb(p) {
+/**
+ * La vignette d'une carte.
+ *
+ * `vues` porte les images deja placees dans la liste en cours : plusieurs
+ * articles partagent la meme photo d'illustration generique (la facade de
+ * Bercy, l'octogone des Marines), et deux cartes voisines avec la meme image
+ * font passer la page pour cassee. La deuxieme occurrence devient une carte
+ * de texte, ce qui cree en prime du rythme dans la grille.
+ */
+function thumb(p, vues) {
   const fm = p._embedded?.["wp:featuredmedia"]?.[0];
   if (!fm?.source_url) return null;
+  if (vues) {
+    if (vues.has(fm.source_url)) return null;
+    vues.add(fm.source_url);
+  }
   const l = localMedia(fm.source_url);
   return {
     url: l ? l.url : fm.source_url,
@@ -28,8 +41,8 @@ function thumb(p) {
 }
 
 /** Une carte d'article, dans le système de composants existant du site. */
-function card(p) {
-  const t = thumb(p);
+function card(p, vues) {
+  const t = thumb(p, vues);
   const cat = (p.categories || []).map((id) => catById.get(id)).filter(Boolean)[0];
   return `        <a class="card" href="/${p.slug}/" data-reveal>
           ${
@@ -42,7 +55,7 @@ function card(p) {
           <div class="card-body">
             <span class="kicker">${esc(cat?.name || "Actualité")}</span>
             <h3>${esc(decode(p.title.rendered))}</h3>
-            <p>${esc(stripTags(p.excerpt.rendered).slice(0, 120))}…</p>
+            <p>${esc(resume(p, 130))}</p>
             <time datetime="${p.date.slice(0, 10)}">${dateFr(p.date)}</time>
           </div>
         </a>`;
@@ -108,7 +121,7 @@ ${header()}
         </header>
 ${filters(activeSlug)}
         <div class="cards grid-3">
-${items.map(card).join("\n")}
+${(() => { const vues = new Set(); return items.map((p) => card(p, vues)).join("\n"); })()}
         </div>
       </div>
     </section>

@@ -14,7 +14,7 @@
  */
 import { writeFileSync } from "node:fs";
 import { join } from "node:path";
-import { posts, categories, ROOT, SITE, esc, decode, stripTags, dateFr, localMedia } from "./build.mjs";
+import { posts, categories, ROOT, SITE, esc, decode, stripTags, dateFr, localMedia, resume } from "./build.mjs";
 import { head, header, footer } from "./render.mjs";
 
 const catBySlug = new Map(categories.map((c) => [c.slug, c]));
@@ -32,7 +32,7 @@ function media(p) {
   return { url: l ? l.url : fm.source_url, alt: fm.alt_text || "", w: fm.media_details?.width, h: fm.media_details?.height };
 }
 const T = (p) => esc(decode(p.title.rendered));
-const X = (p, n = 130) => esc(stripTags(p.excerpt.rendered).slice(0, n)) + "…";
+const X = (p, n = 130) => esc(resume(p, n));
 
 function pic(p, cls = "") {
   const m = media(p);
@@ -111,12 +111,7 @@ ${header("/")}
        Le compte a rebours n'est pas un gadget : trois jours avant Bercy,
        c'est l'information la plus utile de la page. -->
   <section class="hero hero-cage">
-    <div class="cage-frame" aria-hidden="true">
-      <svg viewBox="0 0 200 200" preserveAspectRatio="none">
-        <polygon class="cage-bg" points="59,4 141,4 196,59 196,141 141,196 59,196 4,141 4,59" />
-        <polygon class="cage-line cage-draw" points="59,4 141,4 196,59 196,141 141,196 59,196 4,141 4,59" pathLength="1" />
-      </svg>
-    </div>
+    <div class="cage-frame" aria-hidden="true"></div>
 
     <div class="hero-duel">
       <figure class="hero-man a">
@@ -218,9 +213,12 @@ ${fil
 ${portraits
   .slice(0, 12)
   .map(
-    (p) => `        <a href="/${p.slug}/" data-reveal>${pic(p)}<span>${esc(
+    // Le systeme de design attend `.roster a > .meta > h3`. Un <span> nu passe
+    // sous l'image, qui est en position absolue : le nom etait rendu, et
+    // invisible. On emet le balisage que la feuille de style connait.
+    (p) => `        <a href="/${p.slug}/" data-reveal>${pic(p)}<div class="meta"><h3>${esc(
       decode(p.title.rendered).replace(/^Portrait\s*[:–-]\s*/i, "").split(/[,–]/)[0]
-    )}</span></a>`
+    )}</h3></div></a>`
   )
   .join("\n")}
       </div>

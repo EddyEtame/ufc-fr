@@ -138,7 +138,7 @@ ${header()}
       <p class="card-scrollhint" aria-hidden="true">Descendre la carte</p>
     </header>
 
-    <div class="card-body">
+    <div class="carte-corps">
       <!-- L'octogone reste à l'écran et se referme au fil de la descente :
            c'est lui qui dit où on en est dans la soirée. -->
       <div class="cage" aria-hidden="true">

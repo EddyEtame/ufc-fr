@@ -209,7 +209,7 @@ function renderDocument(doc, { isPage }) {
           const t = featuredImage(p);
           return `  <a href="/${p.slug}/">${
             t ? `<img src="${t.url}" alt="${esc(t.alt)}" loading="lazy" decoding="async" />` : ""
-          }<span>${esc(decode(p.title.rendered).replace(/^Portrait\s*[:\u2013-]\s*/i, ""))}</span></a>`;
+          }<div class="meta"><h3>${esc(decode(p.title.rendered).replace(/^Portrait\s*[:\u2013-]\s*/i, "").split(/[,\u2013]/)[0])}</h3></div></a>`;
         })
         .join("\n")}\n</div>`;
     }

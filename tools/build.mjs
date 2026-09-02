@@ -129,6 +129,29 @@ const decode = (s = "") =>
     .replace(/&laquo;/g, "«").replace(/&raquo;/g, "»").replace(/&nbsp;/g, " ")
     .replace(/&amp;/g, "&").replace(/&quot;/g, '"').replace(/&#039;/g, "'");
 
+/**
+ * Le resume d'un document.
+ *
+ * L'extrait fourni par le CMS commence a la premiere ligne du corps — or les
+ * articles ouvrent sur une <figure>, donc l'extrait commençait par la
+ * legende : « Accor Arena, Paris. Photo Vilacor, Wikimedia Commons, licence
+ * CC BY 4.0. » sur chaque carte du fil. Un credit photo n'a jamais donne
+ * envie de cliquer. On prend le premier vrai paragraphe.
+ */
+export function resume(doc, n = 150) {
+  const corps = String(doc.content?.rendered || "")
+    .replace(/<figure[\s\S]*?<\/figure>/gi, "")
+    .replace(/<figcaption[\s\S]*?<\/figcaption>/gi, "");
+  const paras = [...corps.matchAll(/<p[^>]*>([\s\S]*?)<\/p>/gi)].map((m) => stripTags(m[1]));
+  // Un premier paragraphe de moins de 60 signes est presque toujours un
+  // chapeau technique ou une mention de source : on passe au suivant.
+  const texte = paras.find((t) => t.length > 60) || paras[0] || stripTags(doc.excerpt?.rendered || "");
+  if (!texte) return "";
+  if (texte.length <= n) return texte;
+  const coupe = texte.slice(0, n);
+  return coupe.slice(0, coupe.lastIndexOf(" ")) + "…";
+}
+
 const stripTags = (s = "") => decode(String(s).replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim());
 
 const MOIS = ["janvier","février","mars","avril","mai","juin","juillet","août","septembre","octobre","novembre","décembre"];
