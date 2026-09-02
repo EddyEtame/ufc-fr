@@ -1809,3 +1809,98 @@ section.block.ed-club { padding: 0; }
     object-position: 22% 28%;
   }
 }
+
+/* =========================================================================
+   Composants ajoutés par le générateur.
+   Rangés en fin de feuille pour rester lisibles comme un bloc, et écrits
+   avec les mêmes jetons que le reste : aucune nouvelle couleur, aucune
+   nouvelle famille. Un composant qui introduit sa propre palette est la
+   première marche vers un site qui ressemble à un thème.
+   ========================================================================= */
+
+/* Lien d'évitement : invisible tant qu'on ne tabule pas, indispensable dès
+   qu'on navigue au clavier. */
+.skip {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 100;
+  background: var(--ink);
+  color: var(--paper);
+  padding: 12px 18px;
+  font-family: var(--ui);
+  font-size: 13px;
+}
+.skip:focus { left: 8px; top: 8px; }
+
+/* Sortie du tiroir. Son absence était le défaut : le menu s'ouvrait en plein
+   écran sans qu'aucun signe ne dise comment en sortir. */
+.drawer-close {
+  position: absolute;
+  top: 14px;
+  right: 18px;
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--mist);
+  background: transparent;
+  color: var(--ink);
+  font-size: 26px;
+  line-height: 1;
+  cursor: pointer;
+  transition: background 0.25s var(--ease), color 0.25s var(--ease);
+}
+.drawer-close:hover,
+.drawer-close:focus-visible { background: var(--ink); color: var(--paper); }
+.drawer { position: fixed; }
+.drawer nav { display: flex; flex-direction: column; gap: 4px; }
+
+/* Rail de rubriques. Remplace le filtre JavaScript du CMS par des liens
+   réels : un robot les suit, un visiteur peut les partager. */
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 26px 0 40px;
+  padding-bottom: 22px;
+  border-bottom: 1px solid var(--mist);
+}
+.filters a {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 7px;
+  padding: 8px 14px;
+  border: 1px solid var(--mist);
+  font-family: var(--ui);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--ink);
+  transition: border-color 0.25s var(--ease), background 0.25s var(--ease), color 0.25s var(--ease);
+}
+.filters a b { font-size: 11px; font-weight: 600; color: var(--ash); }
+.filters a:hover { border-color: var(--ink); }
+.filters a.on { background: var(--ink); border-color: var(--ink); color: var(--paper); }
+.filters a.on b { color: var(--red); }
+
+/* Suite de lecture en fin d'article. */
+.related-list { list-style: none; margin: 14px 0 0; padding: 0; }
+.related-list li { border-top: 1px solid var(--mist); }
+.related-list a {
+  display: block;
+  padding: 14px 0;
+  font-family: var(--serif);
+  font-size: 19px;
+  line-height: 1.35;
+  color: var(--ink);
+  transition: color 0.25s var(--ease), padding-left 0.35s var(--ease);
+}
+.related-list a:hover { color: var(--red); padding-left: 10px; }
+
+/* Image d'ouverture d'article. */
+.figure.lead { margin: 0 0 34px; }
+.figure.lead img { width: 100%; height: auto; display: block; }
+
+@media (max-width: 980px) {
+  .filters { gap: 6px; margin: 20px 0 28px; }
+  .filters a { padding: 7px 11px; font-size: 12px; }
+  .related-list a { font-size: 17px; }
+}

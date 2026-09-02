@@ -1,0 +1,13 @@
+{
+ "source": "https://www.ufc.fr/wp-json/wp/v2",
+ "counts": {
+  "posts": 90,
+  "pages": 17,
+  "categories": 16,
+  "tags": 18,
+  "media": 158,
+  "comments": 0,
+  "media_files": 158
+ },
+ "at": "2026-09-02T20:02:13Z"
+}

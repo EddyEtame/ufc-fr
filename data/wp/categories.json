@@ -1,0 +1,2289 @@
+[
+ {
+  "id": 13,
+  "count": 44,
+  "description": "Actualité MMA en français : UFC, organisations européennes, clubs. UFC.FR, média indépendant — pas le site officiel de l’UFC.",
+  "link": "https://www.ufc.fr/category/actualite/",
+  "name": "Actualité",
+  "slug": "actualite",
+  "taxonomy": "category",
+  "parent": 0,
+  "meta": [],
+  "yoast_head": "<!-- This site is optimized with the Yoast SEO plugin v28.4 - https://yoast.com/product/yoast-seo-wordpress/ -->\n<title>Archives des Actualité - UFC.FR</title>\n<meta name=\"robots\" content=\"index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1\" />\n<link rel=\"canonical\" href=\"https://www.ufc.fr/category/actualite/\" />\n<meta property=\"og:locale\" content=\"fr_FR\" />\n<meta property=\"og:type\" content=\"article\" />\n<meta property=\"og:title\" content=\"Archives des Actualité - UFC.FR\" />\n<meta property=\"og:description\" content=\"Actualité MMA en français : UFC, organisations européennes, clubs. UFC.FR, média indépendant — pas le site officiel de l’UFC.\" />\n<meta property=\"og:url\" content=\"https://www.ufc.fr/category/actualite/\" />\n<meta property=\"og:site_name\" content=\"UFC.FR\" />\n<meta name=\"twitter:card\" content=\"summary_large_image\" />\n<script type=\"application/ld+json\" class=\"yoast-schema-graph\">{\"@context\":\"https:\\/\\/schema.org\",\"@graph\":[{\"@type\":\"CollectionPage\",\"@id\":\"https:\\/\\/www.ufc.fr\\/category\\/actualite\\/\",\"url\":\"https:\\/\\/www.ufc.fr\\/category\\/actualite\\/\",\"name\":\"Archives des Actualité - UFC.FR\",\"isPartOf\":{\"@id\":\"https:\\/\\/www.ufc.fr\\/#website\"},\"breadcrumb\":{\"@id\":\"https:\\/\\/www.ufc.fr\\/category\\/actualite\\/#breadcrumb\"},\"inLanguage\":\"fr-FR\"},{\"@type\":\"BreadcrumbList\",\"@id\":\"https:\\/\\/www.ufc.fr\\/category\\/actualite\\/#breadcrumb\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"name\":\"Accueil\",\"item\":\"https:\\/\\/www.ufc.fr\\/\"},{\"@type\":\"ListItem\",\"position\":2,\"name\":\"Actualité\"}]},{\"@type\":\"WebSite\",\"@id\":\"https:\\/\\/www.ufc.fr\\/#website\",\"url\":\"https:\\/\\/www.ufc.fr\\/\",\"name\":\"UFC.FR\",\"description\":\"Média indépendant d’actualité MMA — France et international. Non affilié à l’UFC.\",\"publisher\":{\"@id\":\"https:\\/\\/www.ufc.fr\\/#organization\"},\"potentialAction\":[{\"@type\":\"SearchAction\",\"target\":{\"@type\":\"EntryPoint\",\"urlTemplate\":\"https:\\/\\/www.ufc.fr\\/?s={search_term_string}\"},\"query-input\":{\"@type\":\"PropertyValueSpecification\",\"valueRequired\":true,\"valueName\":\"search_term_string\"}}],\"inLanguage\":\"fr-FR\"},{\"@type\":\"Organization\",\"@id\":\"https:\\/\\/www.ufc.fr\\/#organization\",\"name\":\"UFC.FR\",\"url\":\"https:\\/\\/www.ufc.fr\\/\",\"logo\":{\"@type\":\"ImageObject\",\"inLanguage\":\"fr-FR\",\"@id\":\"https:\\/\\/www.ufc.fr\\/#\\/schema\\/logo\\/image\\/\",\"url\":\"https:\\/\\/www.ufc.fr\\/wp-content\\/uploads\\/2025\\/04\\/ufc-fr-mma-sans-compromis-1.png\",\"contentUrl\":\"https:\\/\\/www.ufc.fr\\/wp-content\\/uploads\\/2025\\/04\\/ufc-fr-mma-sans-compromis-1.png\",\"width\":512,\"height\":512,\"caption\":\"UFC.FR\"},\"image\":{\"@id\":\"https:\\/\\/www.ufc.fr\\/#\\/schema\\/logo\\/image\\/\"}}]}</script>\n<!-- / Yoast SEO plugin. -->",
+  "yoast_head_json": {
+   "title": "Archives des Actualité - UFC.FR",
+   "robots": {
+    "index": "index",
+    "follow": "follow",
+    "max-snippet": "max-snippet:-1",
+    "max-image-preview": "max-image-preview:large",
+    "max-video-preview": "max-video-preview:-1"
+   },
+   "canonical": "https://www.ufc.fr/category/actualite/",
+   "og_locale": "fr_FR",
+   "og_type": "article",
+   "og_title": "Archives des Actualité - UFC.FR",
+   "og_description": "Actualité MMA en français : UFC, organisations européennes, clubs. UFC.FR, média indépendant — pas le site officiel de l’UFC.",
+   "og_url": "https://www.ufc.fr/category/actualite/",
+   "og_site_name": "UFC.FR",
+   "twitter_card": "summary_large_image",
+   "schema": {
+    "@context": "https://schema.org",
+    "@graph": [
+     {
+      "@type": "CollectionPage",
+      "@id": "https://www.ufc.fr/category/actualite/",
+      "url": "https://www.ufc.fr/category/actualite/",
+      "name": "Archives des Actualité - UFC.FR",
+      "isPartOf": {
+       "@id": "https://www.ufc.fr/#website"
+      },
+      "breadcrumb": {
+       "@id": "https://www.ufc.fr/category/actualite/#breadcrumb"
+      },
+      "inLanguage": "fr-FR"
+     },
+     {
+      "@type": "BreadcrumbList",
+      "@id": "https://www.ufc.fr/category/actualite/#breadcrumb",
+      "itemListElement": [
+       {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Accueil",
+        "item": "https://www.ufc.fr/"
+       },
+       {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Actualité"
+       }
+      ]
+     },
+     {
+      "@type": "WebSite",
+      "@id": "https://www.ufc.fr/#website",
+      "url": "https://www.ufc.fr/",
+      "name": "UFC.FR",
+      "description": "Média indépendant d’actualité MMA — France et international. Non affilié à l’UFC.",
+      "publisher": {
+       "@id": "https://www.ufc.fr/#organization"
+      },
+      "potentialAction": [
+       {
+        "@type": "SearchAction",
+        "target": {
+         "@type": "EntryPoint",
+         "urlTemplate": "https://www.ufc.fr/?s={search_term_string}"
+        },
+        "query-input": {
+         "@type": "PropertyValueSpecification",
+         "valueRequired": true,
+         "valueName": "search_term_string"
+        }
+       }
+      ],
+      "inLanguage": "fr-FR"
+     },
+     {
+      "@type": "Organization",
+      "@id": "https://www.ufc.fr/#organization",
+      "name": "UFC.FR",
+      "url": "https://www.ufc.fr/",
+      "logo": {
+       "@type": "ImageObject",
+       "inLanguage": "fr-FR",
+       "@id": "https://www.ufc.fr/#/schema/logo/image/",
+       "url": "https://www.ufc.fr/wp-content/uploads/2025/04/ufc-fr-mma-sans-compromis-1.png",
+       "contentUrl": "https://www.ufc.fr/wp-content/uploads/2025/04/ufc-fr-mma-sans-compromis-1.png",
+       "width": 512,
+       "height": 512,
+       "caption": "UFC.FR"
+      },
+      "image": {
+       "@id": "https://www.ufc.fr/#/schema/logo/image/"
+      }
+     }
+    ]
+   }
+  },
+  "_links": {
+   "self": [
+    {
+     "href": "https://www.ufc.fr/wp-json/wp/v2/categories/13",
+     "targetHints": {
+      "allow": [
+       "GET"
+      ]
+     }
+    }
+   ],
+   "collection": [
+    {
+     "href": "https://www.ufc.fr/wp-json/wp/v2/categories"
+    }
+   ],
+   "about": [
+    {
+     "href": "https://www.ufc.fr/wp-json/wp/v2/taxonomies/category"
+    }
+   ],
+   "wp:post_type": [
+    {
+     "href": "https://www.ufc.fr/wp-json/wp/v2/posts?categories=13"
+    }
+   ],
+   "curies": [
+    {
+     "name": "wp",
+     "href": "https://api.w.org/{rel}",
+     "templated": true
+    }
+   ]
+  }
+ },
+ {
+  "id": 59,
+  "count": 8,
+  "description": "Analyses : lectures de cartes et de hiérarchies, après les faits. Pas de pronostics déguisés en résultats.",
+  "link": "https://www.ufc.fr/category/analyses/",
+  "name": "Analyses",
+  "slug": "analyses",
+  "taxonomy": "category",
+  "parent": 0,
+  "meta": [],
+  "yoast_head": "<!-- This site is optimized with the Yoast SEO plugin v28.4 - https://yoast.com/product/yoast-seo-wordpress/ -->\n<title>Archives des Analyses - UFC.FR</title>\n<meta name=\"robots\" content=\"index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1\" />\n<link rel=\"canonical\" href=\"https://www.ufc.fr/category/analyses/\" />\n<meta property=\"og:locale\" content=\"fr_FR\" />\n<meta property=\"og:type\" content=\"article\" />\n<meta property=\"og:title\" content=\"Archives des Analyses - UFC.FR\" />\n<meta property=\"og:description\" content=\"Analyses : lectures de cartes et de hiérarchies, après les faits. Pas de pronostics déguisés en résultats.\" />\n<meta property=\"og:url\" content=\"https://www.ufc.fr/category/analyses/\" />\n<meta property=\"og:site_name\" content=\"UFC.FR\" />\n<meta name=\"twitter:card\" content=\"summary_large_image\" />\n<script type=\"application/ld+json\" class=\"yoast-schema-graph\">{\"@context\":\"https:\\/\\/schema.org\",\"@graph\":[{\"@type\":\"CollectionPage\",\"@id\":\"https:\\/\\/www.ufc.fr\\/category\\/analyses\\/\",\"url\":\"https:\\/\\/www.ufc.fr\\/category\\/analyses\\/\",\"name\":\"Archives des Analyses - UFC.FR\",\"isPartOf\":{\"@id\":\"https:\\/\\/www.ufc.fr\\/#website\"},\"breadcrumb\":{\"@id\":\"https:\\/\\/www.ufc.fr\\/category\\/analyses\\/#breadcrumb\"},\"inLanguage\":\"fr-FR\"},{\"@type\":\"BreadcrumbList\",\"@id\":\"https:\\/\\/www.ufc.fr\\/category\\/analyses\\/#breadcrumb\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"name\":\"Accueil\",\"item\":\"https:\\/\\/www.ufc.fr\\/\"},{\"@type\":\"ListItem\",\"position\":2,\"name\":\"Analyses\"}]},{\"@type\":\"WebSite\",\"@id\":\"https:\\/\\/www.ufc.fr\\/#website\",\"url\":\"https:\\/\\/www.ufc.fr\\/\",\"name\":\"UFC.FR\",\"description\":\"Média indépendant d’actualité MMA — France et international. Non affilié à l’UFC.\",\"publisher\":{\"@id\":\"https:\\/\\/www.ufc.fr\\/#organization\"},\"potentialAction\":[{\"@type\":\"SearchAction\",\"target\":{\"@type\":\"EntryPoint\",\"urlTemplate\":\"https:\\/\\/www.ufc.fr\\/?s={search_term_string}\"},\"query-input\":{\"@type\":\"PropertyValueSpecification\",\"valueRequired\":true,\"valueName\":\"search_term_string\"}}],\"inLanguage\":\"fr-FR\"},{\"@type\":\"Organization\",\"@id\":\"https:\\/\\/www.ufc.fr\\/#organization\",\"name\":\"UFC.FR\",\"url\":\"https:\\/\\/www.ufc.fr\\/\",\"logo\":{\"@type\":\"ImageObject\",\"inLanguage\":\"fr-FR\",\"@id\":\"https:\\/\\/www.ufc.fr\\/#\\/schema\\/logo\\/image\\/\",\"url\":\"https:\\/\\/www.ufc.fr\\/wp-content\\/uploads\\/2025\\/04\\/ufc-fr-mma-sans-compromis-1.png\",\"contentUrl\":\"https:\\/\\/www.ufc.fr\\/wp-content\\/uploads\\/2025\\/04\\/ufc-fr-mma-sans-compromis-1.png\",\"width\":512,\"height\":512,\"caption\":\"UFC.FR\"},\"image\":{\"@id\":\"https:\\/\\/www.ufc.fr\\/#\\/schema\\/logo\\/image\\/\"}}]}</script>\n<!-- / Yoast SEO plugin. -->",
+  "yoast_head_json": {
+   "title": "Archives des Analyses - UFC.FR",
+   "robots": {
+    "index": "index",
+    "follow": "follow",
+    "max-snippet": "max-snippet:-1",
+    "max-image-preview": "max-image-preview:large",
+    "max-video-preview": "max-video-preview:-1"
+   },
+   "canonical": "https://www.ufc.fr/category/analyses/",
+   "og_locale": "fr_FR",
+   "og_type": "article",
+   "og_title": "Archives des Analyses - UFC.FR",
+   "og_description": "Analyses : lectures de cartes et de hiérarchies, après les faits. Pas de pronostics déguisés en résultats.",
+   "og_url": "https://www.ufc.fr/category/analyses/",
+   "og_site_name": "UFC.FR",
+   "twitter_card": "summary_large_image",
+   "schema": {
+    "@context": "https://schema.org",
+    "@graph": [
+     {
+      "@type": "CollectionPage",
+      "@id": "https://www.ufc.fr/category/analyses/",
+      "url": "https://www.ufc.fr/category/analyses/",
+      "name": "Archives des Analyses - UFC.FR",
+      "isPartOf": {
+       "@id": "https://www.ufc.fr/#website"
+      },
+      "breadcrumb": {
+       "@id": "https://www.ufc.fr/category/analyses/#breadcrumb"
+      },
+      "inLanguage": "fr-FR"
+     },
+     {
+      "@type": "BreadcrumbList",
+      "@id": "https://www.ufc.fr/category/analyses/#breadcrumb",
+      "itemListElement": [
+       {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Accueil",
+        "item": "https://www.ufc.fr/"
+       },
+       {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Analyses"
+       }
+      ]
+     },
+     {
+      "@type": "WebSite",
+      "@id": "https://www.ufc.fr/#website",
+      "url": "https://www.ufc.fr/",
+      "name": "UFC.FR",
+      "description": "Média indépendant d’actualité MMA — France et international. Non affilié à l’UFC.",
+      "publisher": {
+       "@id": "https://www.ufc.fr/#organization"
+      },
+      "potentialAction": [
+       {
+        "@type": "SearchAction",
+        "target": {
+         "@type": "EntryPoint",
+         "urlTemplate": "https://www.ufc.fr/?s={search_term_string}"
+        },
+        "query-input": {
+         "@type": "PropertyValueSpecification",
+         "valueRequired": true,
+         "valueName": "search_term_string"
+        }
+       }
+      ],
+      "inLanguage": "fr-FR"
+     },
+     {
+      "@type": "Organization",
+      "@id": "https://www.ufc.fr/#organization",
+      "name": "UFC.FR",
+      "url": "https://www.ufc.fr/",
+      "logo": {
+       "@type": "ImageObject",
+       "inLanguage": "fr-FR",
+       "@id": "https://www.ufc.fr/#/schema/logo/image/",
+       "url": "https://www.ufc.fr/wp-content/uploads/2025/04/ufc-fr-mma-sans-compromis-1.png",
+       "contentUrl": "https://www.ufc.fr/wp-content/uploads/2025/04/ufc-fr-mma-sans-compromis-1.png",
+       "width": 512,
+       "height": 512,
+       "caption": "UFC.FR"
+      },
+      "image": {
+       "@id": "https://www.ufc.fr/#/schema/logo/image/"
+      }
+     }
+    ]
+   }
+  },
+  "_links": {
+   "self": [
+    {
+     "href": "https://www.ufc.fr/wp-json/wp/v2/categories/59",
+     "targetHints": {
+      "allow": [
+       "GET"
+      ]
+     }
+    }
+   ],
+   "collection": [
+    {
+     "href": "https://www.ufc.fr/wp-json/wp/v2/categories"
+    }
+   ],
+   "about": [
+    {
+     "href": "https://www.ufc.fr/wp-json/wp/v2/taxonomies/category"
+    }
+   ],
+   "wp:post_type": [
+    {
+     "href": "https://www.ufc.fr/wp-json/wp/v2/posts?categories=59"
+    }
+   ],
+   "curies": [
+    {
+     "name": "wp",
+     "href": "https://api.w.org/{rel}",
+     "templated": true
+    }
+   ]
+  }
+ },
+ {
+  "id": 36,
+  "count": 9,
+  "description": "ARES Fighting Championship : cartes, ceintures, combattants français. Calendrier 2026 et page Champions.",
+  "link": "https://www.ufc.fr/category/ares/",
+  "name": "ARES",
+  "slug": "ares",
+  "taxonomy": "category",
+  "parent": 0,
+  "meta": [],
+  "yoast_head": "<!-- This site is optimized with the Yoast SEO plugin v28.4 - https://yoast.com/product/yoast-seo-wordpress/ -->\n<title>Archives des ARES - UFC.FR</title>\n<meta name=\"robots\" content=\"index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1\" />\n<link rel=\"canonical\" href=\"https://www.ufc.fr/category/ares/\" />\n<meta property=\"og:locale\" content=\"fr_FR\" />\n<meta property=\"og:type\" content=\"article\" />\n<meta property=\"og:title\" content=\"Archives des ARES - UFC.FR\" />\n<meta property=\"og:description\" content=\"ARES Fighting Championship : cartes, ceintures, combattants français. Calendrier 2026 et page Champions.\" />\n<meta property=\"og:url\" content=\"https://www.ufc.fr/category/ares/\" />\n<meta property=\"og:site_name\" content=\"UFC.FR\" />\n<meta name=\"twitter:card\" content=\"summary_large_image\" />\n<script type=\"application/ld+json\" class=\"yoast-schema-graph\">{\"@context\":\"https:\\/\\/schema.org\",\"@graph\":[{\"@type\":\"CollectionPage\",\"@id\":\"https:\\/\\/www.ufc.fr\\/category\\/ares\\/\",\"url\":\"https:\\/\\/www.ufc.fr\\/category\\/ares\\/\",\"name\":\"Archives des ARES - UFC.FR\",\"isPartOf\":{\"@id\":\"https:\\/\\/www.ufc.fr\\/#website\"},\"breadcrumb\":{\"@id\":\"https:\\/\\/www.ufc.fr\\/category\\/ares\\/#breadcrumb\"},\"inLanguage\":\"fr-FR\"},{\"@type\":\"BreadcrumbList\",\"@id\":\"https:\\/\\/www.ufc.fr\\/category\\/ares\\/#breadcrumb\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"name\":\"Accueil\",\"item\":\"https:\\/\\/www.ufc.fr\\/\"},{\"@type\":\"ListItem\",\"position\":2,\"name\":\"ARES\"}]},{\"@type\":\"WebSite\",\"@id\":\"https:\\/\\/www.ufc.fr\\/#website\",\"url\":\"https:\\/\\/www.ufc.fr\\/\",\"name\":\"UFC.FR\",\"description\":\"Média indépendant d’actualité MMA — France et international. Non affilié à l’UFC.\",\"publisher\":{\"@id\":\"https:\\/\\/www.ufc.fr\\/#organization\"},\"potentialAction\":[{\"@type\":\"SearchAction\",\"target\":{\"@type\":\"EntryPoint\",\"urlTemplate\":\"https:\\/\\/www.ufc.fr\\/?s={search_term_string}\"},\"query-input\":{\"@type\":\"PropertyValueSpecification\",\"valueRequired\":true,\"valueName\":\"search_term_string\"}}],\"inLanguage\":\"fr-FR\"},{\"@type\":\"Organization\",\"@id\":\"https:\\/\\/www.ufc.fr\\/#organization\",\"name\":\"UFC.FR\",\"url\":\"https:\\/\\/www.ufc.fr\\/\",\"logo\":{\"@type\":\"ImageObject\",\"inLanguage\":\"fr-FR\",\"@id\":\"https:\\/\\/www.ufc.fr\\/#\\/schema\\/logo\\/image\\/\",\"url\":\"https:\\/\\/www.ufc.fr\\/wp-content\\/uploads\\/2025\\/04\\/ufc-fr-mma-sans-compromis-1.png\",\"contentUrl\":\"https:\\/\\/www.ufc.fr\\/wp-content\\/uploads\\/2025\\/04\\/ufc-fr-mma-sans-compromis-1.png\",\"width\":512,\"height\":512,\"caption\":\"UFC.FR\"},\"image\":{\"@id\":\"https:\\/\\/www.ufc.fr\\/#\\/schema\\/logo\\/image\\/\"}}]}</script>\n<!-- / Yoast SEO plugin. -->",
+  "yoast_head_json": {
+   "title": "Archives des ARES - UFC.FR",
+   "robots": {
+    "index": "index",
+    "follow": "follow",
+    "max-snippet": "max-snippet:-1",
+    "max-image-preview": "max-image-preview:large",
+    "max-video-preview": "max-video-preview:-1"
+   },
+   "canonical": "https://www.ufc.fr/category/ares/",
+   "og_locale": "fr_FR",
+   "og_type": "article",
+   "og_title": "Archives des ARES - UFC.FR",
+   "og_description": "ARES Fighting Championship : cartes, ceintures, combattants français. Calendrier 2026 et page Champions.",
+   "og_url": "https://www.ufc.fr/category/ares/",
+   "og_site_name": "UFC.FR",
+   "twitter_card": "summary_large_image",
+   "schema": {
+    "@context": "https://schema.org",
+    "@graph": [
+     {
+      "@type": "CollectionPage",
+      "@id": "https://www.ufc.fr/category/ares/",
+      "url": "https://www.ufc.fr/category/ares/",
+      "name": "Archives des ARES - UFC.FR",
+      "isPartOf": {
+       "@id": "https://www.ufc.fr/#website"
+      },
+      "breadcrumb": {
+       "@id": "https://www.ufc.fr/category/ares/#breadcrumb"
+      },
+      "inLanguage": "fr-FR"
+     },
+     {
+      "@type": "BreadcrumbList",
+      "@id": "https://www.ufc.fr/category/ares/#breadcrumb",
+      "itemListElement": [
+       {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Accueil",
+        "item": "https://www.ufc.fr/"
+       },
+       {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "ARES"
+       }
+      ]
+     },
+     {
+      "@type": "WebSite",
+      "@id": "https://www.ufc.fr/#website",
+      "url": "https://www.ufc.fr/",
+      "name": "UFC.FR",
+      "description": "Média indépendant d’actualité MMA — France et international. Non affilié à l’UFC.",
+      "publisher": {
+       "@id": "https://www.ufc.fr/#organization"
+      },
+      "potentialAction": [
+       {
+        "@type": "SearchAction",
+        "target": {
+         "@type": "EntryPoint",
+         "urlTemplate": "https://www.ufc.fr/?s={search_term_string}"
+        },
+        "query-input": {
+         "@type": "PropertyValueSpecification",
+         "valueRequired": true,
+         "valueName": "search_term_string"
+        }
+       }
+      ],
+      "inLanguage": "fr-FR"
+     },
+     {
+      "@type": "Organization",
+      "@id": "https://www.ufc.fr/#organization",
+      "name": "UFC.FR",
+      "url": "https://www.ufc.fr/",
+      "logo": {
+       "@type": "ImageObject",
+       "inLanguage": "fr-FR",
+       "@id": "https://www.ufc.fr/#/schema/logo/image/",
+       "url": "https://www.ufc.fr/wp-content/uploads/2025/04/ufc-fr-mma-sans-compromis-1.png",
+       "contentUrl": "https://www.ufc.fr/wp-content/uploads/2025/04/ufc-fr-mma-sans-compromis-1.png",
+       "width": 512,
+       "height": 512,
+       "caption": "UFC.FR"
+      },
+      "image": {
+       "@id": "https://www.ufc.fr/#/schema/logo/image/"
+      }
+     }
+    ]
+   }
+  },
+  "_links": {
+   "self": [
+    {
+     "href": "https://www.ufc.fr/wp-json/wp/v2/categories/36",
+     "targetHints": {
+      "allow": [
+       "GET"
+      ]
+     }
+    }
+   ],
+   "collection": [
+    {
+     "href": "https://www.ufc.fr/wp-json/wp/v2/categories"
+    }
+   ],
+   "about": [
+    {
+     "href": "https://www.ufc.fr/wp-json/wp/v2/taxonomies/category"
+    }
+   ],
+   "wp:post_type": [
+    {
+     "href": "https://www.ufc.fr/wp-json/wp/v2/posts?categories=36"
+    }
+   ],
+   "curies": [
+    {
+     "name": "wp",
+     "href": "https://api.w.org/{rel}",
+     "templated": true
+    }
+   ]
+  }
+ },
+ {
+  "id": 35,
+  "count": 5,
+  "description": "Cage Warriors : circuit européen, passerelle vers l’UFC. Titres à jour sur Champions MMA actuels.",
+  "link": "https://www.ufc.fr/category/cage-warriors/",
+  "name": "Cage Warriors",
+  "slug": "cage-warriors",
+  "taxonomy": "category",
+  "parent": 0,
+  "meta": [],
+  "yoast_head": "<!-- This site is optimized with the Yoast SEO plugin v28.4 - https://yoast.com/product/yoast-seo-wordpress/ -->\n<title>Archives des Cage Warriors - UFC.FR</title>\n<meta name=\"robots\" content=\"index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1\" />\n<link rel=\"canonical\" href=\"https://www.ufc.fr/category/cage-warriors/\" />\n<meta property=\"og:locale\" content=\"fr_FR\" />\n<meta property=\"og:type\" content=\"article\" />\n<meta property=\"og:title\" content=\"Archives des Cage Warriors - UFC.FR\" />\n<meta property=\"og:description\" content=\"Cage Warriors : circuit européen, passerelle vers l’UFC. Titres à jour sur Champions MMA actuels.\" />\n<meta property=\"og:url\" content=\"https://www.ufc.fr/category/cage-warriors/\" />\n<meta property=\"og:site_name\" content=\"UFC.FR\" />\n<meta name=\"twitter:card\" content=\"summary_large_image\" />\n<script type=\"application/ld+json\" class=\"yoast-schema-graph\">{\"@context\":\"https:\\/\\/schema.org\",\"@graph\":[{\"@type\":\"CollectionPage\",\"@id\":\"https:\\/\\/www.ufc.fr\\/category\\/cage-warriors\\/\",\"url\":\"https:\\/\\/www.ufc.fr\\/category\\/cage-warriors\\/\",\"name\":\"Archives des Cage Warriors - UFC.FR\",\"isPartOf\":{\"@id\":\"https:\\/\\/www.ufc.fr\\/#website\"},\"breadcrumb\":{\"@id\":\"https:\\/\\/www.ufc.fr\\/category\\/cage-warriors\\/#breadcrumb\"},\"inLanguage\":\"fr-FR\"},{\"@type\":\"BreadcrumbList\",\"@id\":\"https:\\/\\/www.ufc.fr\\/category\\/cage-warriors\\/#breadcrumb\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"name\":\"Accueil\",\"item\":\"https:\\/\\/www.ufc.fr\\/\"},{\"@type\":\"ListItem\",\"position\":2,\"name\":\"Cage Warriors\"}]},{\"@type\":\"WebSite\",\"@id\":\"https:\\/\\/www.ufc.fr\\/#website\",\"url\":\"https:\\/\\/www.ufc.fr\\/\",\"name\":\"UFC.FR\",\"description\":\"Média indépendant d’actualité MMA — France et international. Non affilié à l’UFC.\",\"publisher\":{\"@id\":\"https:\\/\\/www.ufc.fr\\/#organization\"},\"potentialAction\":[{\"@type\":\"SearchAction\",\"target\":{\"@type\":\"EntryPoint\",\"urlTemplate\":\"https:\\/\\/www.ufc.fr\\/?s={search_term_string}\"},\"query-input\":{\"@type\":\"PropertyValueSpecification\",\"valueRequired\":true,\"valueName\":\"search_term_string\"}}],\"inLanguage\":\"fr-FR\"},{\"@type\":\"Organization\",\"@id\":\"https:\\/\\/www.ufc.fr\\/#organization\",\"name\":\"UFC.FR\",\"url\":\"https:\\/\\/www.ufc.fr\\/\",\"logo\":{\"@type\":\"ImageObject\",\"inLanguage\":\"fr-FR\",\"@id\":\"https:\\/\\/www.ufc.fr\\/#\\/schema\\/logo\\/image\\/\",\"url\":\"https:\\/\\/www.ufc.fr\\/wp-content\\/uploads\\/2025\\/04\\/ufc-fr-mma-sans-compromis-1.png\",\"contentUrl\":\"https:\\/\\/www.ufc.fr\\/wp-content\\/uploads\\/2025\\/04\\/ufc-fr-mma-sans-compromis-1.png\",\"width\":512,\"height\":512,\"caption\":\"UFC.FR\"},\"image\":{\"@id\":\"https:\\/\\/www.ufc.fr\\/#\\/schema\\/logo\\/image\\/\"}}]}</script>\n<!-- / Yoast SEO plugin. -->",
+  "yoast_head_json": {
+   "title": "Archives des Cage Warriors - UFC.FR",
+   "robots": {
+    "index": "index",
+    "follow": "follow",
+    "max-snippet": "max-snippet:-1",
+    "max-image-preview": "max-image-preview:large",
+    "max-video-preview": "max-video-preview:-1"
+   },
+   "canonical": "https://www.ufc.fr/category/cage-warriors/",
+   "og_locale": "fr_FR",
+   "og_type": "article",
+   "og_title": "Archives des Cage Warriors - UFC.FR",
+   "og_description": "Cage Warriors : circuit européen, passerelle vers l’UFC. Titres à jour sur Champions MMA actuels.",
+   "og_url": "https://www.ufc.fr/category/cage-warriors/",
+   "og_site_name": "UFC.FR",
+   "twitter_card": "summary_large_image",
+   "schema": {
+    "@context": "https://schema.org",
+    "@graph": [
+     {
+      "@type": "CollectionPage",
+      "@id": "https://www.ufc.fr/category/cage-warriors/",
+      "url": "https://www.ufc.fr/category/cage-warriors/",
+      "name": "Archives des Cage Warriors - UFC.FR",
+      "isPartOf": {
+       "@id": "https://www.ufc.fr/#website"
+      },
+      "breadcrumb": {
+       "@id": "https://www.ufc.fr/category/cage-warriors/#breadcrumb"
+      },
+      "inLanguage": "fr-FR"
+     },
+     {
+      "@type": "BreadcrumbList",
+      "@id": "https://www.ufc.fr/category/cage-warriors/#breadcrumb",
+      "itemListElement": [
+       {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Accueil",
+        "item": "https://www.ufc.fr/"
+       },
+       {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Cage Warriors"
+       }
+      ]
+     },
+     {
+      "@type": "WebSite",
+      "@id": "https://www.ufc.fr/#website",
+      "url": "https://www.ufc.fr/",
+      "name": "UFC.FR",
+      "description": "Média indépendant d’actualité MMA — France et international. Non affilié à l’UFC.",
+      "publisher": {
+       "@id": "https://www.ufc.fr/#organization"
+      },
+      "potentialAction": [
+       {
+        "@type": "SearchAction",
+        "target": {
+         "@type": "EntryPoint",
+         "urlTemplate": "https://www.ufc.fr/?s={search_term_string}"
+        },
+        "query-input": {
+         "@type": "PropertyValueSpecification",
+         "valueRequired": true,
+         "valueName": "search_term_string"
+        }
+       }
+      ],
+      "inLanguage": "fr-FR"
+     },
+     {
+      "@type": "Organization",
+      "@id": "https://www.ufc.fr/#organization",
+      "name": "UFC.FR",
+      "url": "https://www.ufc.fr/",
+      "logo": {
+       "@type": "ImageObject",
+       "inLanguage": "fr-FR",
+       "@id": "https://www.ufc.fr/#/schema/logo/image/",
+       "url": "https://www.ufc.fr/wp-content/uploads/2025/04/ufc-fr-mma-sans-compromis-1.png",
+       "contentUrl": "https://www.ufc.fr/wp-content/uploads/2025/04/ufc-fr-mma-sans-compromis-1.png",
+       "width": 512,
+       "height": 512,
+       "caption": "UFC.FR"
+      },
+      "image": {
+       "@id": "https://www.ufc.fr/#/schema/logo/image/"
+      }
+     }
+    ]
+   }
+  },
+  "_links": {
+   "self": [
+    {
+     "href": "https://www.ufc.fr/wp-json/wp/v2/categories/35",
+     "targetHints": {
+      "allow": [
+       "GET"
+      ]
+     }
+    }
+   ],
+   "collection": [
+    {
+     "href": "https://www.ufc.fr/wp-json/wp/v2/categories"
+    }
+   ],
+   "about": [
+    {
+     "href": "https://www.ufc.fr/wp-json/wp/v2/taxonomies/category"
+    }
+   ],
+   "wp:post_type": [
+    {
+     "href": "https://www.ufc.fr/wp-json/wp/v2/posts?categories=35"
+    }
+   ],
+   "curies": [
+    {
+     "name": "wp",
+     "href": "https://api.w.org/{rel}",
+     "templated": true
+    }
+   ]
+  }
+ },
+ {
+  "id": 56,
+  "count": 14,
+  "description": "Clubs de MMA français : portraits sourcés (adresse, coachs, tarifs publics). Toulouse, Paris, Lyon, Lille, Nantes, Bordeaux, Nice, Montpellier, Strasbourg, Rennes.",
+  "link": "https://www.ufc.fr/category/clubs-mma-francais/",
+  "name": "Clubs de MMA français",
+  "slug": "clubs-mma-francais",
+  "taxonomy": "category",
+  "parent": 0,
+  "meta": [],
+  "yoast_head": "<!-- This site is optimized with the Yoast SEO plugin v28.4 - https://yoast.com/product/yoast-seo-wordpress/ -->\n<title>Archives des Clubs de MMA français - UFC.FR</title>\n<meta name=\"robots\" content=\"index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1\" />\n<link rel=\"canonical\" href=\"https://www.ufc.fr/category/clubs-mma-francais/\" />\n<meta property=\"og:locale\" content=\"fr_FR\" />\n<meta property=\"og:type\" content=\"article\" />\n<meta property=\"og:title\" content=\"Archives des Clubs de MMA français - UFC.FR\" />\n<meta property=\"og:description\" content=\"Clubs de MMA français : portraits sourcés (adresse, coachs, tarifs publics). Toulouse, Paris, Lyon, Lille, Nantes, Bordeaux, Nice, Montpellier, Strasbourg, Rennes.\" />\n<meta property=\"og:url\" content=\"https://www.ufc.fr/category/clubs-mma-francais/\" />\n<meta property=\"og:site_name\" content=\"UFC.FR\" />\n<meta name=\"twitter:card\" content=\"summary_large_image\" />\n<script type=\"application/ld+json\" class=\"yoast-schema-graph\">{\"@context\":\"https:\\/\\/schema.org\",\"@graph\":[{\"@type\":\"CollectionPage\",\"@id\":\"https:\\/\\/www.ufc.fr\\/category\\/clubs-mma-francais\\/\",\"url\":\"https:\\/\\/www.ufc.fr\\/category\\/clubs-mma-francais\\/\",\"name\":\"Archives des Clubs de MMA français - UFC.FR\",\"isPartOf\":{\"@id\":\"https:\\/\\/www.ufc.fr\\/#website\"},\"breadcrumb\":{\"@id\":\"https:\\/\\/www.ufc.fr\\/category\\/clubs-mma-francais\\/#breadcrumb\"},\"inLanguage\":\"fr-FR\"},{\"@type\":\"BreadcrumbList\",\"@id\":\"https:\\/\\/www.ufc.fr\\/category\\/clubs-mma-francais\\/#breadcrumb\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"name\":\"Accueil\",\"item\":\"https:\\/\\/www.ufc.fr\\/\"},{\"@type\":\"ListItem\",\"position\":2,\"name\":\"Clubs de MMA français\"}]},{\"@type\":\"WebSite\",\"@id\":\"https:\\/\\/www.ufc.fr\\/#website\",\"url\":\"https:\\/\\/www.ufc.fr\\/\",\"name\":\"UFC.FR\",\"description\":\"Média indépendant d’actualité MMA — France et international. Non affilié à l’UFC.\",\"publisher\":{\"@id\":\"https:\\/\\/www.ufc.fr\\/#organization\"},\"potentialAction\":[{\"@type\":\"SearchAction\",\"target\":{\"@type\":\"EntryPoint\",\"urlTemplate\":\"https:\\/\\/www.ufc.fr\\/?s={search_term_string}\"},\"query-input\":{\"@type\":\"PropertyValueSpecification\",\"valueRequired\":true,\"valueName\":\"search_term_string\"}}],\"inLanguage\":\"fr-FR\"},{\"@type\":\"Organization\",\"@id\":\"https:\\/\\/www.ufc.fr\\/#organization\",\"name\":\"UFC.FR\",\"url\":\"https:\\/\\/www.ufc.fr\\/\",\"logo\":{\"@type\":\"ImageObject\",\"inLanguage\":\"fr-FR\",\"@id\":\"https:\\/\\/www.ufc.fr\\/#\\/schema\\/logo\\/image\\/\",\"url\":\"https:\\/\\/www.ufc.fr\\/wp-content\\/uploads\\/2025\\/04\\/ufc-fr-mma-sans-compromis-1.png\",\"contentUrl\":\"https:\\/\\/www.ufc.fr\\/wp-content\\/uploads\\/2025\\/04\\/ufc-fr-mma-sans-compromis-1.png\",\"width\":512,\"height\":512,\"caption\":\"UFC.FR\"},\"image\":{\"@id\":\"https:\\/\\/www.ufc.fr\\/#\\/schema\\/logo\\/image\\/\"}}]}</script>\n<!-- / Yoast SEO plugin. -->",
+  "yoast_head_json": {
+   "title": "Archives des Clubs de MMA français - UFC.FR",
+   "robots": {
+    "index": "index",
+    "follow": "follow",
+    "max-snippet": "max-snippet:-1",
+    "max-image-preview": "max-image-preview:large",
+    "max-video-preview": "max-video-preview:-1"
+   },
+   "canonical": "https://www.ufc.fr/category/clubs-mma-francais/",
+   "og_locale": "fr_FR",
+   "og_type": "article",
+   "og_title": "Archives des Clubs de MMA français - UFC.FR",
+   "og_description": "Clubs de MMA français : portraits sourcés (adresse, coachs, tarifs publics). Toulouse, Paris, Lyon, Lille, Nantes, Bordeaux, Nice, Montpellier, Strasbourg, Rennes.",
+   "og_url": "https://www.ufc.fr/category/clubs-mma-francais/",
+   "og_site_name": "UFC.FR",
+   "twitter_card": "summary_large_image",
+   "schema": {
+    "@context": "https://schema.org",
+    "@graph": [
+     {
+      "@type": "CollectionPage",
+      "@id": "https://www.ufc.fr/category/clubs-mma-francais/",
+      "url": "https://www.ufc.fr/category/clubs-mma-francais/",
+      "name": "Archives des Clubs de MMA français - UFC.FR",
+      "isPartOf": {
+       "@id": "https://www.ufc.fr/#website"
+      },
+      "breadcrumb": {
+       "@id": "https://www.ufc.fr/category/clubs-mma-francais/#breadcrumb"
+      },
+      "inLanguage": "fr-FR"
+     },
+     {
+      "@type": "BreadcrumbList",
+      "@id": "https://www.ufc.fr/category/clubs-mma-francais/#breadcrumb",
+      "itemListElement": [
+       {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Accueil",
+        "item": "https://www.ufc.fr/"
+       },
+       {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Clubs de MMA français"
+       }
+      ]
+     },
+     {
+      "@type": "WebSite",
+      "@id": "https://www.ufc.fr/#website",
+      "url": "https://www.ufc.fr/",
+      "name": "UFC.FR",
+      "description": "Média indépendant d’actualité MMA — France et international. Non affilié à l’UFC.",
+      "publisher": {
+       "@id": "https://www.ufc.fr/#organization"
+      },
+      "potentialAction": [
+       {
+        "@type": "SearchAction",
+        "target": {
+         "@type": "EntryPoint",
+         "urlTemplate": "https://www.ufc.fr/?s={search_term_string}"
+        },
+        "query-input": {
+         "@type": "PropertyValueSpecification",
+         "valueRequired": true,
+         "valueName": "search_term_string"
+        }
+       }
+      ],
+      "inLanguage": "fr-FR"
+     },
+     {
+      "@type": "Organization",
+      "@id": "https://www.ufc.fr/#organization",
+      "name": "UFC.FR",
+      "url": "https://www.ufc.fr/",
+      "logo": {
+       "@type": "ImageObject",
+       "inLanguage": "fr-FR",
+       "@id": "https://www.ufc.fr/#/schema/logo/image/",
+       "url": "https://www.ufc.fr/wp-content/uploads/2025/04/ufc-fr-mma-sans-compromis-1.png",
+       "contentUrl": "https://www.ufc.fr/wp-content/uploads/2025/04/ufc-fr-mma-sans-compromis-1.png",
+       "width": 512,
+       "height": 512,
+       "caption": "UFC.FR"
+      },
+      "image": {
+       "@id": "https://www.ufc.fr/#/schema/logo/image/"
+      }
+     }
+    ]
+   }
+  },
+  "_links": {
+   "self": [
+    {
+     "href": "https://www.ufc.fr/wp-json/wp/v2/categories/56",
+     "targetHints": {
+      "allow": [
+       "GET"
+      ]
+     }
+    }
+   ],
+   "collection": [
+    {
+     "href": "https://www.ufc.fr/wp-json/wp/v2/categories"
+    }
+   ],
+   "about": [
+    {
+     "href": "https://www.ufc.fr/wp-json/wp/v2/taxonomies/category"
+    }
+   ],
+   "wp:post_type": [
+    {
+     "href": "https://www.ufc.fr/wp-json/wp/v2/posts?categories=56"
+    }
+   ],
+   "curies": [
+    {
+     "name": "wp",
+     "href": "https://api.w.org/{rel}",
+     "templated": true
+    }
+   ]
+  }
+ },
+ {
+  "id": 60,
+  "count": 7,
+  "description": "Combattants : portraits, débuts UFC, Français sur les cartes. Fiches 2025 : vérifier la page Champions.",
+  "link": "https://www.ufc.fr/category/combattants/",
+  "name": "Combattants",
+  "slug": "combattants",
+  "taxonomy": "category",
+  "parent": 0,
+  "meta": [],
+  "yoast_head": "<!-- This site is optimized with the Yoast SEO plugin v28.4 - https://yoast.com/product/yoast-seo-wordpress/ -->\n<title>Archives des Combattants - UFC.FR</title>\n<meta name=\"robots\" content=\"index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1\" />\n<link rel=\"canonical\" href=\"https://www.ufc.fr/category/combattants/\" />\n<meta property=\"og:locale\" content=\"fr_FR\" />\n<meta property=\"og:type\" content=\"article\" />\n<meta property=\"og:title\" content=\"Archives des Combattants - UFC.FR\" />\n<meta property=\"og:description\" content=\"Combattants : portraits, débuts UFC, Français sur les cartes. Fiches 2025 : vérifier la page Champions.\" />\n<meta property=\"og:url\" content=\"https://www.ufc.fr/category/combattants/\" />\n<meta property=\"og:site_name\" content=\"UFC.FR\" />\n<meta name=\"twitter:card\" content=\"summary_large_image\" />\n<script type=\"application/ld+json\" class=\"yoast-schema-graph\">{\"@context\":\"https:\\/\\/schema.org\",\"@graph\":[{\"@type\":\"CollectionPage\",\"@id\":\"https:\\/\\/www.ufc.fr\\/category\\/combattants\\/\",\"url\":\"https:\\/\\/www.ufc.fr\\/category\\/combattants\\/\",\"name\":\"Archives des Combattants - UFC.FR\",\"isPartOf\":{\"@id\":\"https:\\/\\/www.ufc.fr\\/#website\"},\"breadcrumb\":{\"@id\":\"https:\\/\\/www.ufc.fr\\/category\\/combattants\\/#breadcrumb\"},\"inLanguage\":\"fr-FR\"},{\"@type\":\"BreadcrumbList\",\"@id\":\"https:\\/\\/www.ufc.fr\\/category\\/combattants\\/#breadcrumb\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"name\":\"Accueil\",\"item\":\"https:\\/\\/www.ufc.fr\\/\"},{\"@type\":\"ListItem\",\"position\":2,\"name\":\"Combattants\"}]},{\"@type\":\"WebSite\",\"@id\":\"https:\\/\\/www.ufc.fr\\/#website\",\"url\":\"https:\\/\\/www.ufc.fr\\/\",\"name\":\"UFC.FR\",\"description\":\"Média indépendant d’actualité MMA — France et international. Non affilié à l’UFC.\",\"publisher\":{\"@id\":\"https:\\/\\/www.ufc.fr\\/#organization\"},\"potentialAction\":[{\"@type\":\"SearchAction\",\"target\":{\"@type\":\"EntryPoint\",\"urlTemplate\":\"https:\\/\\/www.ufc.fr\\/?s={search_term_string}\"},\"query-input\":{\"@type\":\"PropertyValueSpecification\",\"valueRequired\":true,\"valueName\":\"search_term_string\"}}],\"inLanguage\":\"fr-FR\"},{\"@type\":\"Organization\",\"@id\":\"https:\\/\\/www.ufc.fr\\/#organization\",\"name\":\"UFC.FR\",\"url\":\"https:\\/\\/www.ufc.fr\\/\",\"logo\":{\"@type\":\"ImageObject\",\"inLanguage\":\"fr-FR\",\"@id\":\"https:\\/\\/www.ufc.fr\\/#\\/schema\\/logo\\/image\\/\",\"url\":\"https:\\/\\/www.ufc.fr\\/wp-content\\/uploads\\/2025\\/04\\/ufc-fr-mma-sans-compromis-1.png\",\"contentUrl\":\"https:\\/\\/www.ufc.fr\\/wp-content\\/uploads\\/2025\\/04\\/ufc-fr-mma-sans-compromis-1.png\",\"width\":512,\"height\":512,\"caption\":\"UFC.FR\"},\"image\":{\"@id\":\"https:\\/\\/www.ufc.fr\\/#\\/schema\\/logo\\/image\\/\"}}]}</script>\n<!-- / Yoast SEO plugin. -->",
+  "yoast_head_json": {
+   "title": "Archives des Combattants - UFC.FR",
+   "robots": {
+    "index": "index",
+    "follow": "follow",
+    "max-snippet": "max-snippet:-1",
+    "max-image-preview": "max-image-preview:large",
+    "max-video-preview": "max-video-preview:-1"
+   },
+   "canonical": "https://www.ufc.fr/category/combattants/",
+   "og_locale": "fr_FR",
+   "og_type": "article",
+   "og_title": "Archives des Combattants - UFC.FR",
+   "og_description": "Combattants : portraits, débuts UFC, Français sur les cartes. Fiches 2025 : vérifier la page Champions.",
+   "og_url": "https://www.ufc.fr/category/combattants/",
+   "og_site_name": "UFC.FR",
+   "twitter_card": "summary_large_image",
+   "schema": {
+    "@context": "https://schema.org",
+    "@graph": [
+     {
+      "@type": "CollectionPage",
+      "@id": "https://www.ufc.fr/category/combattants/",
+      "url": "https://www.ufc.fr/category/combattants/",
+      "name": "Archives des Combattants - UFC.FR",
+      "isPartOf": {
+       "@id": "https://www.ufc.fr/#website"
+      },
+      "breadcrumb": {
+       "@id": "https://www.ufc.fr/category/combattants/#breadcrumb"
+      },
+      "inLanguage": "fr-FR"
+     },
+     {
+      "@type": "BreadcrumbList",
+      "@id": "https://www.ufc.fr/category/combattants/#breadcrumb",
+      "itemListElement": [
+       {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Accueil",
+        "item": "https://www.ufc.fr/"
+       },
+       {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Combattants"
+       }
+      ]
+     },
+     {
+      "@type": "WebSite",
+      "@id": "https://www.ufc.fr/#website",
+      "url": "https://www.ufc.fr/",
+      "name": "UFC.FR",
+      "description": "Média indépendant d’actualité MMA — France et international. Non affilié à l’UFC.",
+      "publisher": {
+       "@id": "https://www.ufc.fr/#organization"
+      },
+      "potentialAction": [
+       {
+        "@type": "SearchAction",
+        "target": {
+         "@type": "EntryPoint",
+         "urlTemplate": "https://www.ufc.fr/?s={search_term_string}"
+        },
+        "query-input": {
+         "@type": "PropertyValueSpecification",
+         "valueRequired": true,
+         "valueName": "search_term_string"
+        }
+       }
+      ],
+      "inLanguage": "fr-FR"
+     },
+     {
+      "@type": "Organization",
+      "@id": "https://www.ufc.fr/#organization",
+      "name": "UFC.FR",
+      "url": "https://www.ufc.fr/",
+      "logo": {
+       "@type": "ImageObject",
+       "inLanguage": "fr-FR",
+       "@id": "https://www.ufc.fr/#/schema/logo/image/",
+       "url": "https://www.ufc.fr/wp-content/uploads/2025/04/ufc-fr-mma-sans-compromis-1.png",
+       "contentUrl": "https://www.ufc.fr/wp-content/uploads/2025/04/ufc-fr-mma-sans-compromis-1.png",
+       "width": 512,
+       "height": 512,
+       "caption": "UFC.FR"
+      },
+      "image": {
+       "@id": "https://www.ufc.fr/#/schema/logo/image/"
+      }
+     }
+    ]
+   }
+  },
+  "_links": {
+   "self": [
+    {
+     "href": "https://www.ufc.fr/wp-json/wp/v2/categories/60",
+     "targetHints": {
+      "allow": [
+       "GET"
+      ]
+     }
+    }
+   ],
+   "collection": [
+    {
+     "href": "https://www.ufc.fr/wp-json/wp/v2/categories"
+    }
+   ],
+   "about": [
+    {
+     "href": "https://www.ufc.fr/wp-json/wp/v2/taxonomies/category"
+    }
+   ],
+   "wp:post_type": [
+    {
+     "href": "https://www.ufc.fr/wp-json/wp/v2/posts?categories=60"
+    }
+   ],
+   "curies": [
+    {
+     "name": "wp",
+     "href": "https://api.w.org/{rel}",
+     "templated": true
+    }
+   ]
+  }
+ },
+ {
+  "id": 58,
+  "count": 4,
+  "description": "Événements MMA : UFC Paris, Hexagone, ARES, calendrier France. Dates sourcées.",
+  "link": "https://www.ufc.fr/category/evenements/",
+  "name": "Événements",
+  "slug": "evenements",
+  "taxonomy": "category",
+  "parent": 0,
+  "meta": [],
+  "yoast_head": "<!-- This site is optimized with the Yoast SEO plugin v28.4 - https://yoast.com/product/yoast-seo-wordpress/ -->\n<title>Archives des Événements - UFC.FR</title>\n<meta name=\"robots\" content=\"index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1\" />\n<link rel=\"canonical\" href=\"https://www.ufc.fr/category/evenements/\" />\n<meta property=\"og:locale\" content=\"fr_FR\" />\n<meta property=\"og:type\" content=\"article\" />\n<meta property=\"og:title\" content=\"Archives des Événements - UFC.FR\" />\n<meta property=\"og:description\" content=\"Événements MMA : UFC Paris, Hexagone, ARES, calendrier France. Dates sourcées.\" />\n<meta property=\"og:url\" content=\"https://www.ufc.fr/category/evenements/\" />\n<meta property=\"og:site_name\" content=\"UFC.FR\" />\n<meta name=\"twitter:card\" content=\"summary_large_image\" />\n<script type=\"application/ld+json\" class=\"yoast-schema-graph\">{\"@context\":\"https:\\/\\/schema.org\",\"@graph\":[{\"@type\":\"CollectionPage\",\"@id\":\"https:\\/\\/www.ufc.fr\\/category\\/evenements\\/\",\"url\":\"https:\\/\\/www.ufc.fr\\/category\\/evenements\\/\",\"name\":\"Archives des Événements - UFC.FR\",\"isPartOf\":{\"@id\":\"https:\\/\\/www.ufc.fr\\/#website\"},\"breadcrumb\":{\"@id\":\"https:\\/\\/www.ufc.fr\\/category\\/evenements\\/#breadcrumb\"},\"inLanguage\":\"fr-FR\"},{\"@type\":\"BreadcrumbList\",\"@id\":\"https:\\/\\/www.ufc.fr\\/category\\/evenements\\/#breadcrumb\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"name\":\"Accueil\",\"item\":\"https:\\/\\/www.ufc.fr\\/\"},{\"@type\":\"ListItem\",\"position\":2,\"name\":\"Événements\"}]},{\"@type\":\"WebSite\",\"@id\":\"https:\\/\\/www.ufc.fr\\/#website\",\"url\":\"https:\\/\\/www.ufc.fr\\/\",\"name\":\"UFC.FR\",\"description\":\"Média indépendant d’actualité MMA — France et international. Non affilié à l’UFC.\",\"publisher\":{\"@id\":\"https:\\/\\/www.ufc.fr\\/#organization\"},\"potentialAction\":[{\"@type\":\"SearchAction\",\"target\":{\"@type\":\"EntryPoint\",\"urlTemplate\":\"https:\\/\\/www.ufc.fr\\/?s={search_term_string}\"},\"query-input\":{\"@type\":\"PropertyValueSpecification\",\"valueRequired\":true,\"valueName\":\"search_term_string\"}}],\"inLanguage\":\"fr-FR\"},{\"@type\":\"Organization\",\"@id\":\"https:\\/\\/www.ufc.fr\\/#organization\",\"name\":\"UFC.FR\",\"url\":\"https:\\/\\/www.ufc.fr\\/\",\"logo\":{\"@type\":\"ImageObject\",\"inLanguage\":\"fr-FR\",\"@id\":\"https:\\/\\/www.ufc.fr\\/#\\/schema\\/logo\\/image\\/\",\"url\":\"https:\\/\\/www.ufc.fr\\/wp-content\\/uploads\\/2025\\/04\\/ufc-fr-mma-sans-compromis-1.png\",\"contentUrl\":\"https:\\/\\/www.ufc.fr\\/wp-content\\/uploads\\/2025\\/04\\/ufc-fr-mma-sans-compromis-1.png\",\"width\":512,\"height\":512,\"caption\":\"UFC.FR\"},\"image\":{\"@id\":\"https:\\/\\/www.ufc.fr\\/#\\/schema\\/logo\\/image\\/\"}}]}</script>\n<!-- / Yoast SEO plugin. -->",
+  "yoast_head_json": {
+   "title": "Archives des Événements - UFC.FR",
+   "robots": {
+    "index": "index",
+    "follow": "follow",
+    "max-snippet": "max-snippet:-1",
+    "max-image-preview": "max-image-preview:large",
+    "max-video-preview": "max-video-preview:-1"
+   },
+   "canonical": "https://www.ufc.fr/category/evenements/",
+   "og_locale": "fr_FR",
+   "og_type": "article",
+   "og_title": "Archives des Événements - UFC.FR",
+   "og_description": "Événements MMA : UFC Paris, Hexagone, ARES, calendrier France. Dates sourcées.",
+   "og_url": "https://www.ufc.fr/category/evenements/",
+   "og_site_name": "UFC.FR",
+   "twitter_card": "summary_large_image",
+   "schema": {
+    "@context": "https://schema.org",
+    "@graph": [
+     {
+      "@type": "CollectionPage",
+      "@id": "https://www.ufc.fr/category/evenements/",
+      "url": "https://www.ufc.fr/category/evenements/",
+      "name": "Archives des Événements - UFC.FR",
+      "isPartOf": {
+       "@id": "https://www.ufc.fr/#website"
+      },
+      "breadcrumb": {
+       "@id": "https://www.ufc.fr/category/evenements/#breadcrumb"
+      },
+      "inLanguage": "fr-FR"
+     },
+     {
+      "@type": "BreadcrumbList",
+      "@id": "https://www.ufc.fr/category/evenements/#breadcrumb",
+      "itemListElement": [
+       {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Accueil",
+        "item": "https://www.ufc.fr/"
+       },
+       {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Événements"
+       }
+      ]
+     },
+     {
+      "@type": "WebSite",
+      "@id": "https://www.ufc.fr/#website",
+      "url": "https://www.ufc.fr/",
+      "name": "UFC.FR",
+      "description": "Média indépendant d’actualité MMA — France et international. Non affilié à l’UFC.",
+      "publisher": {
+       "@id": "https://www.ufc.fr/#organization"
+      },
+      "potentialAction": [
+       {
+        "@type": "SearchAction",
+        "target": {
+         "@type": "EntryPoint",
+         "urlTemplate": "https://www.ufc.fr/?s={search_term_string}"
+        },
+        "query-input": {
+         "@type": "PropertyValueSpecification",
+         "valueRequired": true,
+         "valueName": "search_term_string"
+        }
+       }
+      ],
+      "inLanguage": "fr-FR"
+     },
+     {
+      "@type": "Organization",
+      "@id": "https://www.ufc.fr/#organization",
+      "name": "UFC.FR",
+      "url": "https://www.ufc.fr/",
+      "logo": {
+       "@type": "ImageObject",
+       "inLanguage": "fr-FR",
+       "@id": "https://www.ufc.fr/#/schema/logo/image/",
+       "url": "https://www.ufc.fr/wp-content/uploads/2025/04/ufc-fr-mma-sans-compromis-1.png",
+       "contentUrl": "https://www.ufc.fr/wp-content/uploads/2025/04/ufc-fr-mma-sans-compromis-1.png",
+       "width": 512,
+       "height": 512,
+       "caption": "UFC.FR"
+      },
+      "image": {
+       "@id": "https://www.ufc.fr/#/schema/logo/image/"
+      }
+     }
+    ]
+   }
+  },
+  "_links": {
+   "self": [
+    {
+     "href": "https://www.ufc.fr/wp-json/wp/v2/categories/58",
+     "targetHints": {
+      "allow": [
+       "GET"
+      ]
+     }
+    }
+   ],
+   "collection": [
+    {
+     "href": "https://www.ufc.fr/wp-json/wp/v2/categories"
+    }
+   ],
+   "about": [
+    {
+     "href": "https://www.ufc.fr/wp-json/wp/v2/taxonomies/category"
+    }
+   ],
+   "wp:post_type": [
+    {
+     "href": "https://www.ufc.fr/wp-json/wp/v2/posts?categories=58"
+    }
+   ],
+   "curies": [
+    {
+     "name": "wp",
+     "href": "https://api.w.org/{rel}",
+     "templated": true
+    }
+   ]
+  }
+ },
+ {
+  "id": 37,
+  "count": 5,
+  "description": "Hexagone MMA : galas France (Toulouse, Rouen…), ceintures, clubs. Calendrier automne 2026.",
+  "link": "https://www.ufc.fr/category/hexagone-mma/",
+  "name": "Hexagone MMA",
+  "slug": "hexagone-mma",
+  "taxonomy": "category",
+  "parent": 0,
+  "meta": [],
+  "yoast_head": "<!-- This site is optimized with the Yoast SEO plugin v28.4 - https://yoast.com/product/yoast-seo-wordpress/ -->\n<title>Archives des Hexagone MMA - UFC.FR</title>\n<meta name=\"robots\" content=\"index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1\" />\n<link rel=\"canonical\" href=\"https://www.ufc.fr/category/hexagone-mma/\" />\n<meta property=\"og:locale\" content=\"fr_FR\" />\n<meta property=\"og:type\" content=\"article\" />\n<meta property=\"og:title\" content=\"Archives des Hexagone MMA - UFC.FR\" />\n<meta property=\"og:description\" content=\"Hexagone MMA : galas France (Toulouse, Rouen…), ceintures, clubs. Calendrier automne 2026.\" />\n<meta property=\"og:url\" content=\"https://www.ufc.fr/category/hexagone-mma/\" />\n<meta property=\"og:site_name\" content=\"UFC.FR\" />\n<meta name=\"twitter:card\" content=\"summary_large_image\" />\n<script type=\"application/ld+json\" class=\"yoast-schema-graph\">{\"@context\":\"https:\\/\\/schema.org\",\"@graph\":[{\"@type\":\"CollectionPage\",\"@id\":\"https:\\/\\/www.ufc.fr\\/category\\/hexagone-mma\\/\",\"url\":\"https:\\/\\/www.ufc.fr\\/category\\/hexagone-mma\\/\",\"name\":\"Archives des Hexagone MMA - UFC.FR\",\"isPartOf\":{\"@id\":\"https:\\/\\/www.ufc.fr\\/#website\"},\"breadcrumb\":{\"@id\":\"https:\\/\\/www.ufc.fr\\/category\\/hexagone-mma\\/#breadcrumb\"},\"inLanguage\":\"fr-FR\"},{\"@type\":\"BreadcrumbList\",\"@id\":\"https:\\/\\/www.ufc.fr\\/category\\/hexagone-mma\\/#breadcrumb\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"name\":\"Accueil\",\"item\":\"https:\\/\\/www.ufc.fr\\/\"},{\"@type\":\"ListItem\",\"position\":2,\"name\":\"Hexagone MMA\"}]},{\"@type\":\"WebSite\",\"@id\":\"https:\\/\\/www.ufc.fr\\/#website\",\"url\":\"https:\\/\\/www.ufc.fr\\/\",\"name\":\"UFC.FR\",\"description\":\"Média indépendant d’actualité MMA — France et international. Non affilié à l’UFC.\",\"publisher\":{\"@id\":\"https:\\/\\/www.ufc.fr\\/#organization\"},\"potentialAction\":[{\"@type\":\"SearchAction\",\"target\":{\"@type\":\"EntryPoint\",\"urlTemplate\":\"https:\\/\\/www.ufc.fr\\/?s={search_term_string}\"},\"query-input\":{\"@type\":\"PropertyValueSpecification\",\"valueRequired\":true,\"valueName\":\"search_term_string\"}}],\"inLanguage\":\"fr-FR\"},{\"@type\":\"Organization\",\"@id\":\"https:\\/\\/www.ufc.fr\\/#organization\",\"name\":\"UFC.FR\",\"url\":\"https:\\/\\/www.ufc.fr\\/\",\"logo\":{\"@type\":\"ImageObject\",\"inLanguage\":\"fr-FR\",\"@id\":\"https:\\/\\/www.ufc.fr\\/#\\/schema\\/logo\\/image\\/\",\"url\":\"https:\\/\\/www.ufc.fr\\/wp-content\\/uploads\\/2025\\/04\\/ufc-fr-mma-sans-compromis-1.png\",\"contentUrl\":\"https:\\/\\/www.ufc.fr\\/wp-content\\/uploads\\/2025\\/04\\/ufc-fr-mma-sans-compromis-1.png\",\"width\":512,\"height\":512,\"caption\":\"UFC.FR\"},\"image\":{\"@id\":\"https:\\/\\/www.ufc.fr\\/#\\/schema\\/logo\\/image\\/\"}}]}</script>\n<!-- / Yoast SEO plugin. -->",
+  "yoast_head_json": {
+   "title": "Archives des Hexagone MMA - UFC.FR",
+   "robots": {
+    "index": "index",
+    "follow": "follow",
+    "max-snippet": "max-snippet:-1",
+    "max-image-preview": "max-image-preview:large",
+    "max-video-preview": "max-video-preview:-1"
+   },
+   "canonical": "https://www.ufc.fr/category/hexagone-mma/",
+   "og_locale": "fr_FR",
+   "og_type": "article",
+   "og_title": "Archives des Hexagone MMA - UFC.FR",
+   "og_description": "Hexagone MMA : galas France (Toulouse, Rouen…), ceintures, clubs. Calendrier automne 2026.",
+   "og_url": "https://www.ufc.fr/category/hexagone-mma/",
+   "og_site_name": "UFC.FR",
+   "twitter_card": "summary_large_image",
+   "schema": {
+    "@context": "https://schema.org",
+    "@graph": [
+     {
+      "@type": "CollectionPage",
+      "@id": "https://www.ufc.fr/category/hexagone-mma/",
+      "url": "https://www.ufc.fr/category/hexagone-mma/",
+      "name": "Archives des Hexagone MMA - UFC.FR",
+      "isPartOf": {
+       "@id": "https://www.ufc.fr/#website"
+      },
+      "breadcrumb": {
+       "@id": "https://www.ufc.fr/category/hexagone-mma/#breadcrumb"
+      },
+      "inLanguage": "fr-FR"
+     },
+     {
+      "@type": "BreadcrumbList",
+      "@id": "https://www.ufc.fr/category/hexagone-mma/#breadcrumb",
+      "itemListElement": [
+       {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Accueil",
+        "item": "https://www.ufc.fr/"
+       },
+       {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Hexagone MMA"
+       }
+      ]
+     },
+     {
+      "@type": "WebSite",
+      "@id": "https://www.ufc.fr/#website",
+      "url": "https://www.ufc.fr/",
+      "name": "UFC.FR",
+      "description": "Média indépendant d’actualité MMA — France et international. Non affilié à l’UFC.",
+      "publisher": {
+       "@id": "https://www.ufc.fr/#organization"
+      },
+      "potentialAction": [
+       {
+        "@type": "SearchAction",
+        "target": {
+         "@type": "EntryPoint",
+         "urlTemplate": "https://www.ufc.fr/?s={search_term_string}"
+        },
+        "query-input": {
+         "@type": "PropertyValueSpecification",
+         "valueRequired": true,
+         "valueName": "search_term_string"
+        }
+       }
+      ],
+      "inLanguage": "fr-FR"
+     },
+     {
+      "@type": "Organization",
+      "@id": "https://www.ufc.fr/#organization",
+      "name": "UFC.FR",
+      "url": "https://www.ufc.fr/",
+      "logo": {
+       "@type": "ImageObject",
+       "inLanguage": "fr-FR",
+       "@id": "https://www.ufc.fr/#/schema/logo/image/",
+       "url": "https://www.ufc.fr/wp-content/uploads/2025/04/ufc-fr-mma-sans-compromis-1.png",
+       "contentUrl": "https://www.ufc.fr/wp-content/uploads/2025/04/ufc-fr-mma-sans-compromis-1.png",
+       "width": 512,
+       "height": 512,
+       "caption": "UFC.FR"
+      },
+      "image": {
+       "@id": "https://www.ufc.fr/#/schema/logo/image/"
+      }
+     }
+    ]
+   }
+  },
+  "_links": {
+   "self": [
+    {
+     "href": "https://www.ufc.fr/wp-json/wp/v2/categories/37",
+     "targetHints": {
+      "allow": [
+       "GET"
+      ]
+     }
+    }
+   ],
+   "collection": [
+    {
+     "href": "https://www.ufc.fr/wp-json/wp/v2/categories"
+    }
+   ],
+   "about": [
+    {
+     "href": "https://www.ufc.fr/wp-json/wp/v2/taxonomies/category"
+    }
+   ],
+   "wp:post_type": [
+    {
+     "href": "https://www.ufc.fr/wp-json/wp/v2/posts?categories=37"
+    }
+   ],
+   "curies": [
+    {
+     "name": "wp",
+     "href": "https://api.w.org/{rel}",
+     "templated": true
+    }
+   ]
+  }
+ },
+ {
+  "id": 61,
+  "count": 4,
+  "description": "Interviews et citations sourcées (presse, podcasts). UFC.FR n’invente pas d’exclusives.",
+  "link": "https://www.ufc.fr/category/interviews/",
+  "name": "Interviews",
+  "slug": "interviews",
+  "taxonomy": "category",
+  "parent": 0,
+  "meta": [],
+  "yoast_head": "<!-- This site is optimized with the Yoast SEO plugin v28.4 - https://yoast.com/product/yoast-seo-wordpress/ -->\n<title>Archives des Interviews - UFC.FR</title>\n<meta name=\"robots\" content=\"index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1\" />\n<link rel=\"canonical\" href=\"https://www.ufc.fr/category/interviews/\" />\n<meta property=\"og:locale\" content=\"fr_FR\" />\n<meta property=\"og:type\" content=\"article\" />\n<meta property=\"og:title\" content=\"Archives des Interviews - UFC.FR\" />\n<meta property=\"og:description\" content=\"Interviews et citations sourcées (presse, podcasts). UFC.FR n’invente pas d’exclusives.\" />\n<meta property=\"og:url\" content=\"https://www.ufc.fr/category/interviews/\" />\n<meta property=\"og:site_name\" content=\"UFC.FR\" />\n<meta name=\"twitter:card\" content=\"summary_large_image\" />\n<script type=\"application/ld+json\" class=\"yoast-schema-graph\">{\"@context\":\"https:\\/\\/schema.org\",\"@graph\":[{\"@type\":\"CollectionPage\",\"@id\":\"https:\\/\\/www.ufc.fr\\/category\\/interviews\\/\",\"url\":\"https:\\/\\/www.ufc.fr\\/category\\/interviews\\/\",\"name\":\"Archives des Interviews - UFC.FR\",\"isPartOf\":{\"@id\":\"https:\\/\\/www.ufc.fr\\/#website\"},\"breadcrumb\":{\"@id\":\"https:\\/\\/www.ufc.fr\\/category\\/interviews\\/#breadcrumb\"},\"inLanguage\":\"fr-FR\"},{\"@type\":\"BreadcrumbList\",\"@id\":\"https:\\/\\/www.ufc.fr\\/category\\/interviews\\/#breadcrumb\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"name\":\"Accueil\",\"item\":\"https:\\/\\/www.ufc.fr\\/\"},{\"@type\":\"ListItem\",\"position\":2,\"name\":\"Interviews\"}]},{\"@type\":\"WebSite\",\"@id\":\"https:\\/\\/www.ufc.fr\\/#website\",\"url\":\"https:\\/\\/www.ufc.fr\\/\",\"name\":\"UFC.FR\",\"description\":\"Média indépendant d’actualité MMA — France et international. Non affilié à l’UFC.\",\"publisher\":{\"@id\":\"https:\\/\\/www.ufc.fr\\/#organization\"},\"potentialAction\":[{\"@type\":\"SearchAction\",\"target\":{\"@type\":\"EntryPoint\",\"urlTemplate\":\"https:\\/\\/www.ufc.fr\\/?s={search_term_string}\"},\"query-input\":{\"@type\":\"PropertyValueSpecification\",\"valueRequired\":true,\"valueName\":\"search_term_string\"}}],\"inLanguage\":\"fr-FR\"},{\"@type\":\"Organization\",\"@id\":\"https:\\/\\/www.ufc.fr\\/#organization\",\"name\":\"UFC.FR\",\"url\":\"https:\\/\\/www.ufc.fr\\/\",\"logo\":{\"@type\":\"ImageObject\",\"inLanguage\":\"fr-FR\",\"@id\":\"https:\\/\\/www.ufc.fr\\/#\\/schema\\/logo\\/image\\/\",\"url\":\"https:\\/\\/www.ufc.fr\\/wp-content\\/uploads\\/2025\\/04\\/ufc-fr-mma-sans-compromis-1.png\",\"contentUrl\":\"https:\\/\\/www.ufc.fr\\/wp-content\\/uploads\\/2025\\/04\\/ufc-fr-mma-sans-compromis-1.png\",\"width\":512,\"height\":512,\"caption\":\"UFC.FR\"},\"image\":{\"@id\":\"https:\\/\\/www.ufc.fr\\/#\\/schema\\/logo\\/image\\/\"}}]}</script>\n<!-- / Yoast SEO plugin. -->",
+  "yoast_head_json": {
+   "title": "Archives des Interviews - UFC.FR",
+   "robots": {
+    "index": "index",
+    "follow": "follow",
+    "max-snippet": "max-snippet:-1",
+    "max-image-preview": "max-image-preview:large",
+    "max-video-preview": "max-video-preview:-1"
+   },
+   "canonical": "https://www.ufc.fr/category/interviews/",
+   "og_locale": "fr_FR",
+   "og_type": "article",
+   "og_title": "Archives des Interviews - UFC.FR",
+   "og_description": "Interviews et citations sourcées (presse, podcasts). UFC.FR n’invente pas d’exclusives.",
+   "og_url": "https://www.ufc.fr/category/interviews/",
+   "og_site_name": "UFC.FR",
+   "twitter_card": "summary_large_image",
+   "schema": {
+    "@context": "https://schema.org",
+    "@graph": [
+     {
+      "@type": "CollectionPage",
+      "@id": "https://www.ufc.fr/category/interviews/",
+      "url": "https://www.ufc.fr/category/interviews/",
+      "name": "Archives des Interviews - UFC.FR",
+      "isPartOf": {
+       "@id": "https://www.ufc.fr/#website"
+      },
+      "breadcrumb": {
+       "@id": "https://www.ufc.fr/category/interviews/#breadcrumb"
+      },
+      "inLanguage": "fr-FR"
+     },
+     {
+      "@type": "BreadcrumbList",
+      "@id": "https://www.ufc.fr/category/interviews/#breadcrumb",
+      "itemListElement": [
+       {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Accueil",
+        "item": "https://www.ufc.fr/"
+       },
+       {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Interviews"
+       }
+      ]
+     },
+     {
+      "@type": "WebSite",
+      "@id": "https://www.ufc.fr/#website",
+      "url": "https://www.ufc.fr/",
+      "name": "UFC.FR",
+      "description": "Média indépendant d’actualité MMA — France et international. Non affilié à l’UFC.",
+      "publisher": {
+       "@id": "https://www.ufc.fr/#organization"
+      },
+      "potentialAction": [
+       {
+        "@type": "SearchAction",
+        "target": {
+         "@type": "EntryPoint",
+         "urlTemplate": "https://www.ufc.fr/?s={search_term_string}"
+        },
+        "query-input": {
+         "@type": "PropertyValueSpecification",
+         "valueRequired": true,
+         "valueName": "search_term_string"
+        }
+       }
+      ],
+      "inLanguage": "fr-FR"
+     },
+     {
+      "@type": "Organization",
+      "@id": "https://www.ufc.fr/#organization",
+      "name": "UFC.FR",
+      "url": "https://www.ufc.fr/",
+      "logo": {
+       "@type": "ImageObject",
+       "inLanguage": "fr-FR",
+       "@id": "https://www.ufc.fr/#/schema/logo/image/",
+       "url": "https://www.ufc.fr/wp-content/uploads/2025/04/ufc-fr-mma-sans-compromis-1.png",
+       "contentUrl": "https://www.ufc.fr/wp-content/uploads/2025/04/ufc-fr-mma-sans-compromis-1.png",
+       "width": 512,
+       "height": 512,
+       "caption": "UFC.FR"
+      },
+      "image": {
+       "@id": "https://www.ufc.fr/#/schema/logo/image/"
+      }
+     }
+    ]
+   }
+  },
+  "_links": {
+   "self": [
+    {
+     "href": "https://www.ufc.fr/wp-json/wp/v2/categories/61",
+     "targetHints": {
+      "allow": [
+       "GET"
+      ]
+     }
+    }
+   ],
+   "collection": [
+    {
+     "href": "https://www.ufc.fr/wp-json/wp/v2/categories"
+    }
+   ],
+   "about": [
+    {
+     "href": "https://www.ufc.fr/wp-json/wp/v2/taxonomies/category"
+    }
+   ],
+   "wp:post_type": [
+    {
+     "href": "https://www.ufc.fr/wp-json/wp/v2/posts?categories=61"
+    }
+   ],
+   "curies": [
+    {
+     "name": "wp",
+     "href": "https://api.w.org/{rel}",
+     "templated": true
+    }
+   ]
+  }
+ },
+ {
+  "id": 38,
+  "count": 5,
+  "description": "KSW : organisation polonaise. Salahdine Parnasse (légers/plumes) boxe à l’UFC Paris le 5 septembre 2026.",
+  "link": "https://www.ufc.fr/category/ksw/",
+  "name": "KSW",
+  "slug": "ksw",
+  "taxonomy": "category",
+  "parent": 0,
+  "meta": [],
+  "yoast_head": "<!-- This site is optimized with the Yoast SEO plugin v28.4 - https://yoast.com/product/yoast-seo-wordpress/ -->\n<title>Archives des KSW - UFC.FR</title>\n<meta name=\"robots\" content=\"index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1\" />\n<link rel=\"canonical\" href=\"https://www.ufc.fr/category/ksw/\" />\n<meta property=\"og:locale\" content=\"fr_FR\" />\n<meta property=\"og:type\" content=\"article\" />\n<meta property=\"og:title\" content=\"Archives des KSW - UFC.FR\" />\n<meta property=\"og:description\" content=\"KSW : organisation polonaise. Salahdine Parnasse (légers/plumes) boxe à l’UFC Paris le 5 septembre 2026.\" />\n<meta property=\"og:url\" content=\"https://www.ufc.fr/category/ksw/\" />\n<meta property=\"og:site_name\" content=\"UFC.FR\" />\n<meta name=\"twitter:card\" content=\"summary_large_image\" />\n<script type=\"application/ld+json\" class=\"yoast-schema-graph\">{\"@context\":\"https:\\/\\/schema.org\",\"@graph\":[{\"@type\":\"CollectionPage\",\"@id\":\"https:\\/\\/www.ufc.fr\\/category\\/ksw\\/\",\"url\":\"https:\\/\\/www.ufc.fr\\/category\\/ksw\\/\",\"name\":\"Archives des KSW - UFC.FR\",\"isPartOf\":{\"@id\":\"https:\\/\\/www.ufc.fr\\/#website\"},\"breadcrumb\":{\"@id\":\"https:\\/\\/www.ufc.fr\\/category\\/ksw\\/#breadcrumb\"},\"inLanguage\":\"fr-FR\"},{\"@type\":\"BreadcrumbList\",\"@id\":\"https:\\/\\/www.ufc.fr\\/category\\/ksw\\/#breadcrumb\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"name\":\"Accueil\",\"item\":\"https:\\/\\/www.ufc.fr\\/\"},{\"@type\":\"ListItem\",\"position\":2,\"name\":\"KSW\"}]},{\"@type\":\"WebSite\",\"@id\":\"https:\\/\\/www.ufc.fr\\/#website\",\"url\":\"https:\\/\\/www.ufc.fr\\/\",\"name\":\"UFC.FR\",\"description\":\"Média indépendant d’actualité MMA — France et international. Non affilié à l’UFC.\",\"publisher\":{\"@id\":\"https:\\/\\/www.ufc.fr\\/#organization\"},\"potentialAction\":[{\"@type\":\"SearchAction\",\"target\":{\"@type\":\"EntryPoint\",\"urlTemplate\":\"https:\\/\\/www.ufc.fr\\/?s={search_term_string}\"},\"query-input\":{\"@type\":\"PropertyValueSpecification\",\"valueRequired\":true,\"valueName\":\"search_term_string\"}}],\"inLanguage\":\"fr-FR\"},{\"@type\":\"Organization\",\"@id\":\"https:\\/\\/www.ufc.fr\\/#organization\",\"name\":\"UFC.FR\",\"url\":\"https:\\/\\/www.ufc.fr\\/\",\"logo\":{\"@type\":\"ImageObject\",\"inLanguage\":\"fr-FR\",\"@id\":\"https:\\/\\/www.ufc.fr\\/#\\/schema\\/logo\\/image\\/\",\"url\":\"https:\\/\\/www.ufc.fr\\/wp-content\\/uploads\\/2025\\/04\\/ufc-fr-mma-sans-compromis-1.png\",\"contentUrl\":\"https:\\/\\/www.ufc.fr\\/wp-content\\/uploads\\/2025\\/04\\/ufc-fr-mma-sans-compromis-1.png\",\"width\":512,\"height\":512,\"caption\":\"UFC.FR\"},\"image\":{\"@id\":\"https:\\/\\/www.ufc.fr\\/#\\/schema\\/logo\\/image\\/\"}}]}</script>\n<!-- / Yoast SEO plugin. -->",
+  "yoast_head_json": {
+   "title": "Archives des KSW - UFC.FR",
+   "robots": {
+    "index": "index",
+    "follow": "follow",
+    "max-snippet": "max-snippet:-1",
+    "max-image-preview": "max-image-preview:large",
+    "max-video-preview": "max-video-preview:-1"
+   },
+   "canonical": "https://www.ufc.fr/category/ksw/",
+   "og_locale": "fr_FR",
+   "og_type": "article",
+   "og_title": "Archives des KSW - UFC.FR",
+   "og_description": "KSW : organisation polonaise. Salahdine Parnasse (légers/plumes) boxe à l’UFC Paris le 5 septembre 2026.",
+   "og_url": "https://www.ufc.fr/category/ksw/",
+   "og_site_name": "UFC.FR",
+   "twitter_card": "summary_large_image",
+   "schema": {
+    "@context": "https://schema.org",
+    "@graph": [
+     {
+      "@type": "CollectionPage",
+      "@id": "https://www.ufc.fr/category/ksw/",
+      "url": "https://www.ufc.fr/category/ksw/",
+      "name": "Archives des KSW - UFC.FR",
+      "isPartOf": {
+       "@id": "https://www.ufc.fr/#website"
+      },
+      "breadcrumb": {
+       "@id": "https://www.ufc.fr/category/ksw/#breadcrumb"
+      },
+      "inLanguage": "fr-FR"
+     },
+     {
+      "@type": "BreadcrumbList",
+      "@id": "https://www.ufc.fr/category/ksw/#breadcrumb",
+      "itemListElement": [
+       {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Accueil",
+        "item": "https://www.ufc.fr/"
+       },
+       {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "KSW"
+       }
+      ]
+     },
+     {
+      "@type": "WebSite",
+      "@id": "https://www.ufc.fr/#website",
+      "url": "https://www.ufc.fr/",
+      "name": "UFC.FR",
+      "description": "Média indépendant d’actualité MMA — France et international. Non affilié à l’UFC.",
+      "publisher": {
+       "@id": "https://www.ufc.fr/#organization"
+      },
+      "potentialAction": [
+       {
+        "@type": "SearchAction",
+        "target": {
+         "@type": "EntryPoint",
+         "urlTemplate": "https://www.ufc.fr/?s={search_term_string}"
+        },
+        "query-input": {
+         "@type": "PropertyValueSpecification",
+         "valueRequired": true,
+         "valueName": "search_term_string"
+        }
+       }
+      ],
+      "inLanguage": "fr-FR"
+     },
+     {
+      "@type": "Organization",
+      "@id": "https://www.ufc.fr/#organization",
+      "name": "UFC.FR",
+      "url": "https://www.ufc.fr/",
+      "logo": {
+       "@type": "ImageObject",
+       "inLanguage": "fr-FR",
+       "@id": "https://www.ufc.fr/#/schema/logo/image/",
+       "url": "https://www.ufc.fr/wp-content/uploads/2025/04/ufc-fr-mma-sans-compromis-1.png",
+       "contentUrl": "https://www.ufc.fr/wp-content/uploads/2025/04/ufc-fr-mma-sans-compromis-1.png",
+       "width": 512,
+       "height": 512,
+       "caption": "UFC.FR"
+      },
+      "image": {
+       "@id": "https://www.ufc.fr/#/schema/logo/image/"
+      }
+     }
+    ]
+   }
+  },
+  "_links": {
+   "self": [
+    {
+     "href": "https://www.ufc.fr/wp-json/wp/v2/categories/38",
+     "targetHints": {
+      "allow": [
+       "GET"
+      ]
+     }
+    }
+   ],
+   "collection": [
+    {
+     "href": "https://www.ufc.fr/wp-json/wp/v2/categories"
+    }
+   ],
+   "about": [
+    {
+     "href": "https://www.ufc.fr/wp-json/wp/v2/taxonomies/category"
+    }
+   ],
+   "wp:post_type": [
+    {
+     "href": "https://www.ufc.fr/wp-json/wp/v2/posts?categories=38"
+    }
+   ],
+   "curies": [
+    {
+     "name": "wp",
+     "href": "https://api.w.org/{rel}",
+     "templated": true
+    }
+   ]
+  }
+ },
+ {
+  "id": 1,
+  "count": 0,
+  "description": "",
+  "link": "https://www.ufc.fr/category/non-classe/",
+  "name": "Non Classé",
+  "slug": "non-classe",
+  "taxonomy": "category",
+  "parent": 0,
+  "meta": [],
+  "yoast_head": "<!-- This site is optimized with the Yoast SEO plugin v28.4 - https://yoast.com/product/yoast-seo-wordpress/ -->\n<title>Archives des Non Classé - UFC.FR</title>\n<meta name=\"robots\" content=\"index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1\" />\n<link rel=\"canonical\" href=\"https://www.ufc.fr/category/non-classe/\" />\n<meta property=\"og:locale\" content=\"fr_FR\" />\n<meta property=\"og:type\" content=\"article\" />\n<meta property=\"og:title\" content=\"Archives des Non Classé - UFC.FR\" />\n<meta property=\"og:url\" content=\"https://www.ufc.fr/category/non-classe/\" />\n<meta property=\"og:site_name\" content=\"UFC.FR\" />\n<meta name=\"twitter:card\" content=\"summary_large_image\" />\n<script type=\"application/ld+json\" class=\"yoast-schema-graph\">{\"@context\":\"https:\\/\\/schema.org\",\"@graph\":[{\"@type\":\"CollectionPage\",\"@id\":\"https:\\/\\/www.ufc.fr\\/category\\/non-classe\\/\",\"url\":\"https:\\/\\/www.ufc.fr\\/category\\/non-classe\\/\",\"name\":\"Archives des Non Classé - UFC.FR\",\"isPartOf\":{\"@id\":\"https:\\/\\/www.ufc.fr\\/#website\"},\"breadcrumb\":{\"@id\":\"https:\\/\\/www.ufc.fr\\/category\\/non-classe\\/#breadcrumb\"},\"inLanguage\":\"fr-FR\"},{\"@type\":\"BreadcrumbList\",\"@id\":\"https:\\/\\/www.ufc.fr\\/category\\/non-classe\\/#breadcrumb\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"name\":\"Accueil\",\"item\":\"https:\\/\\/www.ufc.fr\\/\"},{\"@type\":\"ListItem\",\"position\":2,\"name\":\"Non Classé\"}]},{\"@type\":\"WebSite\",\"@id\":\"https:\\/\\/www.ufc.fr\\/#website\",\"url\":\"https:\\/\\/www.ufc.fr\\/\",\"name\":\"UFC.FR\",\"description\":\"Média indépendant d’actualité MMA — France et international. Non affilié à l’UFC.\",\"publisher\":{\"@id\":\"https:\\/\\/www.ufc.fr\\/#organization\"},\"potentialAction\":[{\"@type\":\"SearchAction\",\"target\":{\"@type\":\"EntryPoint\",\"urlTemplate\":\"https:\\/\\/www.ufc.fr\\/?s={search_term_string}\"},\"query-input\":{\"@type\":\"PropertyValueSpecification\",\"valueRequired\":true,\"valueName\":\"search_term_string\"}}],\"inLanguage\":\"fr-FR\"},{\"@type\":\"Organization\",\"@id\":\"https:\\/\\/www.ufc.fr\\/#organization\",\"name\":\"UFC.FR\",\"url\":\"https:\\/\\/www.ufc.fr\\/\",\"logo\":{\"@type\":\"ImageObject\",\"inLanguage\":\"fr-FR\",\"@id\":\"https:\\/\\/www.ufc.fr\\/#\\/schema\\/logo\\/image\\/\",\"url\":\"https:\\/\\/www.ufc.fr\\/wp-content\\/uploads\\/2025\\/04\\/ufc-fr-mma-sans-compromis-1.png\",\"contentUrl\":\"https:\\/\\/www.ufc.fr\\/wp-content\\/uploads\\/2025\\/04\\/ufc-fr-mma-sans-compromis-1.png\",\"width\":512,\"height\":512,\"caption\":\"UFC.FR\"},\"image\":{\"@id\":\"https:\\/\\/www.ufc.fr\\/#\\/schema\\/logo\\/image\\/\"}}]}</script>\n<!-- / Yoast SEO plugin. -->",
+  "yoast_head_json": {
+   "title": "Archives des Non Classé - UFC.FR",
+   "robots": {
+    "index": "index",
+    "follow": "follow",
+    "max-snippet": "max-snippet:-1",
+    "max-image-preview": "max-image-preview:large",
+    "max-video-preview": "max-video-preview:-1"
+   },
+   "canonical": "https://www.ufc.fr/category/non-classe/",
+   "og_locale": "fr_FR",
+   "og_type": "article",
+   "og_title": "Archives des Non Classé - UFC.FR",
+   "og_url": "https://www.ufc.fr/category/non-classe/",
+   "og_site_name": "UFC.FR",
+   "twitter_card": "summary_large_image",
+   "schema": {
+    "@context": "https://schema.org",
+    "@graph": [
+     {
+      "@type": "CollectionPage",
+      "@id": "https://www.ufc.fr/category/non-classe/",
+      "url": "https://www.ufc.fr/category/non-classe/",
+      "name": "Archives des Non Classé - UFC.FR",
+      "isPartOf": {
+       "@id": "https://www.ufc.fr/#website"
+      },
+      "breadcrumb": {
+       "@id": "https://www.ufc.fr/category/non-classe/#breadcrumb"
+      },
+      "inLanguage": "fr-FR"
+     },
+     {
+      "@type": "BreadcrumbList",
+      "@id": "https://www.ufc.fr/category/non-classe/#breadcrumb",
+      "itemListElement": [
+       {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Accueil",
+        "item": "https://www.ufc.fr/"
+       },
+       {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Non Classé"
+       }
+      ]
+     },
+     {
+      "@type": "WebSite",
+      "@id": "https://www.ufc.fr/#website",
+      "url": "https://www.ufc.fr/",
+      "name": "UFC.FR",
+      "description": "Média indépendant d’actualité MMA — France et international. Non affilié à l’UFC.",
+      "publisher": {
+       "@id": "https://www.ufc.fr/#organization"
+      },
+      "potentialAction": [
+       {
+        "@type": "SearchAction",
+        "target": {
+         "@type": "EntryPoint",
+         "urlTemplate": "https://www.ufc.fr/?s={search_term_string}"
+        },
+        "query-input": {
+         "@type": "PropertyValueSpecification",
+         "valueRequired": true,
+         "valueName": "search_term_string"
+        }
+       }
+      ],
+      "inLanguage": "fr-FR"
+     },
+     {
+      "@type": "Organization",
+      "@id": "https://www.ufc.fr/#organization",
+      "name": "UFC.FR",
+      "url": "https://www.ufc.fr/",
+      "logo": {
+       "@type": "ImageObject",
+       "inLanguage": "fr-FR",
+       "@id": "https://www.ufc.fr/#/schema/logo/image/",
+       "url": "https://www.ufc.fr/wp-content/uploads/2025/04/ufc-fr-mma-sans-compromis-1.png",
+       "contentUrl": "https://www.ufc.fr/wp-content/uploads/2025/04/ufc-fr-mma-sans-compromis-1.png",
+       "width": 512,
+       "height": 512,
+       "caption": "UFC.FR"
+      },
+      "image": {
+       "@id": "https://www.ufc.fr/#/schema/logo/image/"
+      }
+     }
+    ]
+   }
+  },
+  "_links": {
+   "self": [
+    {
+     "href": "https://www.ufc.fr/wp-json/wp/v2/categories/1",
+     "targetHints": {
+      "allow": [
+       "GET"
+      ]
+     }
+    }
+   ],
+   "collection": [
+    {
+     "href": "https://www.ufc.fr/wp-json/wp/v2/categories"
+    }
+   ],
+   "about": [
+    {
+     "href": "https://www.ufc.fr/wp-json/wp/v2/taxonomies/category"
+    }
+   ],
+   "wp:post_type": [
+    {
+     "href": "https://www.ufc.fr/wp-json/wp/v2/posts?categories=1"
+    }
+   ],
+   "curies": [
+    {
+     "name": "wp",
+     "href": "https://api.w.org/{rel}",
+     "templated": true
+    }
+   ]
+  }
+ },
+ {
+  "id": 34,
+  "count": 9,
+  "description": "ONE Championship : MMA et règles spécifiques ONE. Titres à jour sur Champions MMA actuels.",
+  "link": "https://www.ufc.fr/category/one-championship/",
+  "name": "ONE Championship",
+  "slug": "one-championship",
+  "taxonomy": "category",
+  "parent": 0,
+  "meta": [],
+  "yoast_head": "<!-- This site is optimized with the Yoast SEO plugin v28.4 - https://yoast.com/product/yoast-seo-wordpress/ -->\n<title>Archives des ONE Championship - UFC.FR</title>\n<meta name=\"robots\" content=\"index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1\" />\n<link rel=\"canonical\" href=\"https://www.ufc.fr/category/one-championship/\" />\n<meta property=\"og:locale\" content=\"fr_FR\" />\n<meta property=\"og:type\" content=\"article\" />\n<meta property=\"og:title\" content=\"Archives des ONE Championship - UFC.FR\" />\n<meta property=\"og:description\" content=\"ONE Championship : MMA et règles spécifiques ONE. Titres à jour sur Champions MMA actuels.\" />\n<meta property=\"og:url\" content=\"https://www.ufc.fr/category/one-championship/\" />\n<meta property=\"og:site_name\" content=\"UFC.FR\" />\n<meta name=\"twitter:card\" content=\"summary_large_image\" />\n<script type=\"application/ld+json\" class=\"yoast-schema-graph\">{\"@context\":\"https:\\/\\/schema.org\",\"@graph\":[{\"@type\":\"CollectionPage\",\"@id\":\"https:\\/\\/www.ufc.fr\\/category\\/one-championship\\/\",\"url\":\"https:\\/\\/www.ufc.fr\\/category\\/one-championship\\/\",\"name\":\"Archives des ONE Championship - UFC.FR\",\"isPartOf\":{\"@id\":\"https:\\/\\/www.ufc.fr\\/#website\"},\"breadcrumb\":{\"@id\":\"https:\\/\\/www.ufc.fr\\/category\\/one-championship\\/#breadcrumb\"},\"inLanguage\":\"fr-FR\"},{\"@type\":\"BreadcrumbList\",\"@id\":\"https:\\/\\/www.ufc.fr\\/category\\/one-championship\\/#breadcrumb\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"name\":\"Accueil\",\"item\":\"https:\\/\\/www.ufc.fr\\/\"},{\"@type\":\"ListItem\",\"position\":2,\"name\":\"ONE Championship\"}]},{\"@type\":\"WebSite\",\"@id\":\"https:\\/\\/www.ufc.fr\\/#website\",\"url\":\"https:\\/\\/www.ufc.fr\\/\",\"name\":\"UFC.FR\",\"description\":\"Média indépendant d’actualité MMA — France et international. Non affilié à l’UFC.\",\"publisher\":{\"@id\":\"https:\\/\\/www.ufc.fr\\/#organization\"},\"potentialAction\":[{\"@type\":\"SearchAction\",\"target\":{\"@type\":\"EntryPoint\",\"urlTemplate\":\"https:\\/\\/www.ufc.fr\\/?s={search_term_string}\"},\"query-input\":{\"@type\":\"PropertyValueSpecification\",\"valueRequired\":true,\"valueName\":\"search_term_string\"}}],\"inLanguage\":\"fr-FR\"},{\"@type\":\"Organization\",\"@id\":\"https:\\/\\/www.ufc.fr\\/#organization\",\"name\":\"UFC.FR\",\"url\":\"https:\\/\\/www.ufc.fr\\/\",\"logo\":{\"@type\":\"ImageObject\",\"inLanguage\":\"fr-FR\",\"@id\":\"https:\\/\\/www.ufc.fr\\/#\\/schema\\/logo\\/image\\/\",\"url\":\"https:\\/\\/www.ufc.fr\\/wp-content\\/uploads\\/2025\\/04\\/ufc-fr-mma-sans-compromis-1.png\",\"contentUrl\":\"https:\\/\\/www.ufc.fr\\/wp-content\\/uploads\\/2025\\/04\\/ufc-fr-mma-sans-compromis-1.png\",\"width\":512,\"height\":512,\"caption\":\"UFC.FR\"},\"image\":{\"@id\":\"https:\\/\\/www.ufc.fr\\/#\\/schema\\/logo\\/image\\/\"}}]}</script>\n<!-- / Yoast SEO plugin. -->",
+  "yoast_head_json": {
+   "title": "Archives des ONE Championship - UFC.FR",
+   "robots": {
+    "index": "index",
+    "follow": "follow",
+    "max-snippet": "max-snippet:-1",
+    "max-image-preview": "max-image-preview:large",
+    "max-video-preview": "max-video-preview:-1"
+   },
+   "canonical": "https://www.ufc.fr/category/one-championship/",
+   "og_locale": "fr_FR",
+   "og_type": "article",
+   "og_title": "Archives des ONE Championship - UFC.FR",
+   "og_description": "ONE Championship : MMA et règles spécifiques ONE. Titres à jour sur Champions MMA actuels.",
+   "og_url": "https://www.ufc.fr/category/one-championship/",
+   "og_site_name": "UFC.FR",
+   "twitter_card": "summary_large_image",
+   "schema": {
+    "@context": "https://schema.org",
+    "@graph": [
+     {
+      "@type": "CollectionPage",
+      "@id": "https://www.ufc.fr/category/one-championship/",
+      "url": "https://www.ufc.fr/category/one-championship/",
+      "name": "Archives des ONE Championship - UFC.FR",
+      "isPartOf": {
+       "@id": "https://www.ufc.fr/#website"
+      },
+      "breadcrumb": {
+       "@id": "https://www.ufc.fr/category/one-championship/#breadcrumb"
+      },
+      "inLanguage": "fr-FR"
+     },
+     {
+      "@type": "BreadcrumbList",
+      "@id": "https://www.ufc.fr/category/one-championship/#breadcrumb",
+      "itemListElement": [
+       {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Accueil",
+        "item": "https://www.ufc.fr/"
+       },
+       {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "ONE Championship"
+       }
+      ]
+     },
+     {
+      "@type": "WebSite",
+      "@id": "https://www.ufc.fr/#website",
+      "url": "https://www.ufc.fr/",
+      "name": "UFC.FR",
+      "description": "Média indépendant d’actualité MMA — France et international. Non affilié à l’UFC.",
+      "publisher": {
+       "@id": "https://www.ufc.fr/#organization"
+      },
+      "potentialAction": [
+       {
+        "@type": "SearchAction",
+        "target": {
+         "@type": "EntryPoint",
+         "urlTemplate": "https://www.ufc.fr/?s={search_term_string}"
+        },
+        "query-input": {
+         "@type": "PropertyValueSpecification",
+         "valueRequired": true,
+         "valueName": "search_term_string"
+        }
+       }
+      ],
+      "inLanguage": "fr-FR"
+     },
+     {
+      "@type": "Organization",
+      "@id": "https://www.ufc.fr/#organization",
+      "name": "UFC.FR",
+      "url": "https://www.ufc.fr/",
+      "logo": {
+       "@type": "ImageObject",
+       "inLanguage": "fr-FR",
+       "@id": "https://www.ufc.fr/#/schema/logo/image/",
+       "url": "https://www.ufc.fr/wp-content/uploads/2025/04/ufc-fr-mma-sans-compromis-1.png",
+       "contentUrl": "https://www.ufc.fr/wp-content/uploads/2025/04/ufc-fr-mma-sans-compromis-1.png",
+       "width": 512,
+       "height": 512,
+       "caption": "UFC.FR"
+      },
+      "image": {
+       "@id": "https://www.ufc.fr/#/schema/logo/image/"
+      }
+     }
+    ]
+   }
+  },
+  "_links": {
+   "self": [
+    {
+     "href": "https://www.ufc.fr/wp-json/wp/v2/categories/34",
+     "targetHints": {
+      "allow": [
+       "GET"
+      ]
+     }
+    }
+   ],
+   "collection": [
+    {
+     "href": "https://www.ufc.fr/wp-json/wp/v2/categories"
+    }
+   ],
+   "about": [
+    {
+     "href": "https://www.ufc.fr/wp-json/wp/v2/taxonomies/category"
+    }
+   ],
+   "wp:post_type": [
+    {
+     "href": "https://www.ufc.fr/wp-json/wp/v2/posts?categories=34"
+    }
+   ],
+   "curies": [
+    {
+     "name": "wp",
+     "href": "https://api.w.org/{rel}",
+     "templated": true
+    }
+   ]
+  }
+ },
+ {
+  "id": 33,
+  "count": 6,
+  "description": "PFL (Professional Fighters League) : ceintures, saisons, combattants. Titres à jour sur la page Champions MMA actuels.",
+  "link": "https://www.ufc.fr/category/pfl/",
+  "name": "PFL",
+  "slug": "pfl",
+  "taxonomy": "category",
+  "parent": 0,
+  "meta": [],
+  "yoast_head": "<!-- This site is optimized with the Yoast SEO plugin v28.4 - https://yoast.com/product/yoast-seo-wordpress/ -->\n<title>Archives des PFL - UFC.FR</title>\n<meta name=\"robots\" content=\"index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1\" />\n<link rel=\"canonical\" href=\"https://www.ufc.fr/category/pfl/\" />\n<meta property=\"og:locale\" content=\"fr_FR\" />\n<meta property=\"og:type\" content=\"article\" />\n<meta property=\"og:title\" content=\"Archives des PFL - UFC.FR\" />\n<meta property=\"og:description\" content=\"PFL (Professional Fighters League) : ceintures, saisons, combattants. Titres à jour sur la page Champions MMA actuels.\" />\n<meta property=\"og:url\" content=\"https://www.ufc.fr/category/pfl/\" />\n<meta property=\"og:site_name\" content=\"UFC.FR\" />\n<meta name=\"twitter:card\" content=\"summary_large_image\" />\n<script type=\"application/ld+json\" class=\"yoast-schema-graph\">{\"@context\":\"https:\\/\\/schema.org\",\"@graph\":[{\"@type\":\"CollectionPage\",\"@id\":\"https:\\/\\/www.ufc.fr\\/category\\/pfl\\/\",\"url\":\"https:\\/\\/www.ufc.fr\\/category\\/pfl\\/\",\"name\":\"Archives des PFL - UFC.FR\",\"isPartOf\":{\"@id\":\"https:\\/\\/www.ufc.fr\\/#website\"},\"breadcrumb\":{\"@id\":\"https:\\/\\/www.ufc.fr\\/category\\/pfl\\/#breadcrumb\"},\"inLanguage\":\"fr-FR\"},{\"@type\":\"BreadcrumbList\",\"@id\":\"https:\\/\\/www.ufc.fr\\/category\\/pfl\\/#breadcrumb\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"name\":\"Accueil\",\"item\":\"https:\\/\\/www.ufc.fr\\/\"},{\"@type\":\"ListItem\",\"position\":2,\"name\":\"PFL\"}]},{\"@type\":\"WebSite\",\"@id\":\"https:\\/\\/www.ufc.fr\\/#website\",\"url\":\"https:\\/\\/www.ufc.fr\\/\",\"name\":\"UFC.FR\",\"description\":\"Média indépendant d’actualité MMA — France et international. Non affilié à l’UFC.\",\"publisher\":{\"@id\":\"https:\\/\\/www.ufc.fr\\/#organization\"},\"potentialAction\":[{\"@type\":\"SearchAction\",\"target\":{\"@type\":\"EntryPoint\",\"urlTemplate\":\"https:\\/\\/www.ufc.fr\\/?s={search_term_string}\"},\"query-input\":{\"@type\":\"PropertyValueSpecification\",\"valueRequired\":true,\"valueName\":\"search_term_string\"}}],\"inLanguage\":\"fr-FR\"},{\"@type\":\"Organization\",\"@id\":\"https:\\/\\/www.ufc.fr\\/#organization\",\"name\":\"UFC.FR\",\"url\":\"https:\\/\\/www.ufc.fr\\/\",\"logo\":{\"@type\":\"ImageObject\",\"inLanguage\":\"fr-FR\",\"@id\":\"https:\\/\\/www.ufc.fr\\/#\\/schema\\/logo\\/image\\/\",\"url\":\"https:\\/\\/www.ufc.fr\\/wp-content\\/uploads\\/2025\\/04\\/ufc-fr-mma-sans-compromis-1.png\",\"contentUrl\":\"https:\\/\\/www.ufc.fr\\/wp-content\\/uploads\\/2025\\/04\\/ufc-fr-mma-sans-compromis-1.png\",\"width\":512,\"height\":512,\"caption\":\"UFC.FR\"},\"image\":{\"@id\":\"https:\\/\\/www.ufc.fr\\/#\\/schema\\/logo\\/image\\/\"}}]}</script>\n<!-- / Yoast SEO plugin. -->",
+  "yoast_head_json": {
+   "title": "Archives des PFL - UFC.FR",
+   "robots": {
+    "index": "index",
+    "follow": "follow",
+    "max-snippet": "max-snippet:-1",
+    "max-image-preview": "max-image-preview:large",
+    "max-video-preview": "max-video-preview:-1"
+   },
+   "canonical": "https://www.ufc.fr/category/pfl/",
+   "og_locale": "fr_FR",
+   "og_type": "article",
+   "og_title": "Archives des PFL - UFC.FR",
+   "og_description": "PFL (Professional Fighters League) : ceintures, saisons, combattants. Titres à jour sur la page Champions MMA actuels.",
+   "og_url": "https://www.ufc.fr/category/pfl/",
+   "og_site_name": "UFC.FR",
+   "twitter_card": "summary_large_image",
+   "schema": {
+    "@context": "https://schema.org",
+    "@graph": [
+     {
+      "@type": "CollectionPage",
+      "@id": "https://www.ufc.fr/category/pfl/",
+      "url": "https://www.ufc.fr/category/pfl/",
+      "name": "Archives des PFL - UFC.FR",
+      "isPartOf": {
+       "@id": "https://www.ufc.fr/#website"
+      },
+      "breadcrumb": {
+       "@id": "https://www.ufc.fr/category/pfl/#breadcrumb"
+      },
+      "inLanguage": "fr-FR"
+     },
+     {
+      "@type": "BreadcrumbList",
+      "@id": "https://www.ufc.fr/category/pfl/#breadcrumb",
+      "itemListElement": [
+       {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Accueil",
+        "item": "https://www.ufc.fr/"
+       },
+       {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "PFL"
+       }
+      ]
+     },
+     {
+      "@type": "WebSite",
+      "@id": "https://www.ufc.fr/#website",
+      "url": "https://www.ufc.fr/",
+      "name": "UFC.FR",
+      "description": "Média indépendant d’actualité MMA — France et international. Non affilié à l’UFC.",
+      "publisher": {
+       "@id": "https://www.ufc.fr/#organization"
+      },
+      "potentialAction": [
+       {
+        "@type": "SearchAction",
+        "target": {
+         "@type": "EntryPoint",
+         "urlTemplate": "https://www.ufc.fr/?s={search_term_string}"
+        },
+        "query-input": {
+         "@type": "PropertyValueSpecification",
+         "valueRequired": true,
+         "valueName": "search_term_string"
+        }
+       }
+      ],
+      "inLanguage": "fr-FR"
+     },
+     {
+      "@type": "Organization",
+      "@id": "https://www.ufc.fr/#organization",
+      "name": "UFC.FR",
+      "url": "https://www.ufc.fr/",
+      "logo": {
+       "@type": "ImageObject",
+       "inLanguage": "fr-FR",
+       "@id": "https://www.ufc.fr/#/schema/logo/image/",
+       "url": "https://www.ufc.fr/wp-content/uploads/2025/04/ufc-fr-mma-sans-compromis-1.png",
+       "contentUrl": "https://www.ufc.fr/wp-content/uploads/2025/04/ufc-fr-mma-sans-compromis-1.png",
+       "width": 512,
+       "height": 512,
+       "caption": "UFC.FR"
+      },
+      "image": {
+       "@id": "https://www.ufc.fr/#/schema/logo/image/"
+      }
+     }
+    ]
+   }
+  },
+  "_links": {
+   "self": [
+    {
+     "href": "https://www.ufc.fr/wp-json/wp/v2/categories/33",
+     "targetHints": {
+      "allow": [
+       "GET"
+      ]
+     }
+    }
+   ],
+   "collection": [
+    {
+     "href": "https://www.ufc.fr/wp-json/wp/v2/categories"
+    }
+   ],
+   "about": [
+    {
+     "href": "https://www.ufc.fr/wp-json/wp/v2/taxonomies/category"
+    }
+   ],
+   "wp:post_type": [
+    {
+     "href": "https://www.ufc.fr/wp-json/wp/v2/posts?categories=33"
+    }
+   ],
+   "curies": [
+    {
+     "name": "wp",
+     "href": "https://api.w.org/{rel}",
+     "templated": true
+    }
+   ]
+  }
+ },
+ {
+  "id": 57,
+  "count": 2,
+  "description": "Résultats MMA officiels uniquement. Pas de score inventé : on attend l’annonce UFC / orga.",
+  "link": "https://www.ufc.fr/category/resultats/",
+  "name": "Résultats",
+  "slug": "resultats",
+  "taxonomy": "category",
+  "parent": 0,
+  "meta": [],
+  "yoast_head": "<!-- This site is optimized with the Yoast SEO plugin v28.4 - https://yoast.com/product/yoast-seo-wordpress/ -->\n<title>Archives des Résultats - UFC.FR</title>\n<meta name=\"robots\" content=\"index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1\" />\n<link rel=\"canonical\" href=\"https://www.ufc.fr/category/resultats/\" />\n<meta property=\"og:locale\" content=\"fr_FR\" />\n<meta property=\"og:type\" content=\"article\" />\n<meta property=\"og:title\" content=\"Archives des Résultats - UFC.FR\" />\n<meta property=\"og:description\" content=\"Résultats MMA officiels uniquement. Pas de score inventé : on attend l’annonce UFC / orga.\" />\n<meta property=\"og:url\" content=\"https://www.ufc.fr/category/resultats/\" />\n<meta property=\"og:site_name\" content=\"UFC.FR\" />\n<meta name=\"twitter:card\" content=\"summary_large_image\" />\n<script type=\"application/ld+json\" class=\"yoast-schema-graph\">{\"@context\":\"https:\\/\\/schema.org\",\"@graph\":[{\"@type\":\"CollectionPage\",\"@id\":\"https:\\/\\/www.ufc.fr\\/category\\/resultats\\/\",\"url\":\"https:\\/\\/www.ufc.fr\\/category\\/resultats\\/\",\"name\":\"Archives des Résultats - UFC.FR\",\"isPartOf\":{\"@id\":\"https:\\/\\/www.ufc.fr\\/#website\"},\"breadcrumb\":{\"@id\":\"https:\\/\\/www.ufc.fr\\/category\\/resultats\\/#breadcrumb\"},\"inLanguage\":\"fr-FR\"},{\"@type\":\"BreadcrumbList\",\"@id\":\"https:\\/\\/www.ufc.fr\\/category\\/resultats\\/#breadcrumb\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"name\":\"Accueil\",\"item\":\"https:\\/\\/www.ufc.fr\\/\"},{\"@type\":\"ListItem\",\"position\":2,\"name\":\"Résultats\"}]},{\"@type\":\"WebSite\",\"@id\":\"https:\\/\\/www.ufc.fr\\/#website\",\"url\":\"https:\\/\\/www.ufc.fr\\/\",\"name\":\"UFC.FR\",\"description\":\"Média indépendant d’actualité MMA — France et international. Non affilié à l’UFC.\",\"publisher\":{\"@id\":\"https:\\/\\/www.ufc.fr\\/#organization\"},\"potentialAction\":[{\"@type\":\"SearchAction\",\"target\":{\"@type\":\"EntryPoint\",\"urlTemplate\":\"https:\\/\\/www.ufc.fr\\/?s={search_term_string}\"},\"query-input\":{\"@type\":\"PropertyValueSpecification\",\"valueRequired\":true,\"valueName\":\"search_term_string\"}}],\"inLanguage\":\"fr-FR\"},{\"@type\":\"Organization\",\"@id\":\"https:\\/\\/www.ufc.fr\\/#organization\",\"name\":\"UFC.FR\",\"url\":\"https:\\/\\/www.ufc.fr\\/\",\"logo\":{\"@type\":\"ImageObject\",\"inLanguage\":\"fr-FR\",\"@id\":\"https:\\/\\/www.ufc.fr\\/#\\/schema\\/logo\\/image\\/\",\"url\":\"https:\\/\\/www.ufc.fr\\/wp-content\\/uploads\\/2025\\/04\\/ufc-fr-mma-sans-compromis-1.png\",\"contentUrl\":\"https:\\/\\/www.ufc.fr\\/wp-content\\/uploads\\/2025\\/04\\/ufc-fr-mma-sans-compromis-1.png\",\"width\":512,\"height\":512,\"caption\":\"UFC.FR\"},\"image\":{\"@id\":\"https:\\/\\/www.ufc.fr\\/#\\/schema\\/logo\\/image\\/\"}}]}</script>\n<!-- / Yoast SEO plugin. -->",
+  "yoast_head_json": {
+   "title": "Archives des Résultats - UFC.FR",
+   "robots": {
+    "index": "index",
+    "follow": "follow",
+    "max-snippet": "max-snippet:-1",
+    "max-image-preview": "max-image-preview:large",
+    "max-video-preview": "max-video-preview:-1"
+   },
+   "canonical": "https://www.ufc.fr/category/resultats/",
+   "og_locale": "fr_FR",
+   "og_type": "article",
+   "og_title": "Archives des Résultats - UFC.FR",
+   "og_description": "Résultats MMA officiels uniquement. Pas de score inventé : on attend l’annonce UFC / orga.",
+   "og_url": "https://www.ufc.fr/category/resultats/",
+   "og_site_name": "UFC.FR",
+   "twitter_card": "summary_large_image",
+   "schema": {
+    "@context": "https://schema.org",
+    "@graph": [
+     {
+      "@type": "CollectionPage",
+      "@id": "https://www.ufc.fr/category/resultats/",
+      "url": "https://www.ufc.fr/category/resultats/",
+      "name": "Archives des Résultats - UFC.FR",
+      "isPartOf": {
+       "@id": "https://www.ufc.fr/#website"
+      },
+      "breadcrumb": {
+       "@id": "https://www.ufc.fr/category/resultats/#breadcrumb"
+      },
+      "inLanguage": "fr-FR"
+     },
+     {
+      "@type": "BreadcrumbList",
+      "@id": "https://www.ufc.fr/category/resultats/#breadcrumb",
+      "itemListElement": [
+       {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Accueil",
+        "item": "https://www.ufc.fr/"
+       },
+       {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Résultats"
+       }
+      ]
+     },
+     {
+      "@type": "WebSite",
+      "@id": "https://www.ufc.fr/#website",
+      "url": "https://www.ufc.fr/",
+      "name": "UFC.FR",
+      "description": "Média indépendant d’actualité MMA — France et international. Non affilié à l’UFC.",
+      "publisher": {
+       "@id": "https://www.ufc.fr/#organization"
+      },
+      "potentialAction": [
+       {
+        "@type": "SearchAction",
+        "target": {
+         "@type": "EntryPoint",
+         "urlTemplate": "https://www.ufc.fr/?s={search_term_string}"
+        },
+        "query-input": {
+         "@type": "PropertyValueSpecification",
+         "valueRequired": true,
+         "valueName": "search_term_string"
+        }
+       }
+      ],
+      "inLanguage": "fr-FR"
+     },
+     {
+      "@type": "Organization",
+      "@id": "https://www.ufc.fr/#organization",
+      "name": "UFC.FR",
+      "url": "https://www.ufc.fr/",
+      "logo": {
+       "@type": "ImageObject",
+       "inLanguage": "fr-FR",
+       "@id": "https://www.ufc.fr/#/schema/logo/image/",
+       "url": "https://www.ufc.fr/wp-content/uploads/2025/04/ufc-fr-mma-sans-compromis-1.png",
+       "contentUrl": "https://www.ufc.fr/wp-content/uploads/2025/04/ufc-fr-mma-sans-compromis-1.png",
+       "width": 512,
+       "height": 512,
+       "caption": "UFC.FR"
+      },
+      "image": {
+       "@id": "https://www.ufc.fr/#/schema/logo/image/"
+      }
+     }
+    ]
+   }
+  },
+  "_links": {
+   "self": [
+    {
+     "href": "https://www.ufc.fr/wp-json/wp/v2/categories/57",
+     "targetHints": {
+      "allow": [
+       "GET"
+      ]
+     }
+    }
+   ],
+   "collection": [
+    {
+     "href": "https://www.ufc.fr/wp-json/wp/v2/categories"
+    }
+   ],
+   "about": [
+    {
+     "href": "https://www.ufc.fr/wp-json/wp/v2/taxonomies/category"
+    }
+   ],
+   "wp:post_type": [
+    {
+     "href": "https://www.ufc.fr/wp-json/wp/v2/posts?categories=57"
+    }
+   ],
+   "curies": [
+    {
+     "name": "wp",
+     "href": "https://api.w.org/{rel}",
+     "templated": true
+    }
+   ]
+  }
+ },
+ {
+  "id": 32,
+  "count": 27,
+  "description": "Actualité UFC : cartes, résultats, classements Meta, combattants. Couverture indépendante, sources nommées.",
+  "link": "https://www.ufc.fr/category/ufc/",
+  "name": "UFC",
+  "slug": "ufc",
+  "taxonomy": "category",
+  "parent": 0,
+  "meta": [],
+  "yoast_head": "<!-- This site is optimized with the Yoast SEO plugin v28.4 - https://yoast.com/product/yoast-seo-wordpress/ -->\n<title>Archives des UFC - UFC.FR</title>\n<meta name=\"robots\" content=\"index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1\" />\n<link rel=\"canonical\" href=\"https://www.ufc.fr/category/ufc/\" />\n<meta property=\"og:locale\" content=\"fr_FR\" />\n<meta property=\"og:type\" content=\"article\" />\n<meta property=\"og:title\" content=\"Archives des UFC - UFC.FR\" />\n<meta property=\"og:description\" content=\"Actualité UFC : cartes, résultats, classements Meta, combattants. Couverture indépendante, sources nommées.\" />\n<meta property=\"og:url\" content=\"https://www.ufc.fr/category/ufc/\" />\n<meta property=\"og:site_name\" content=\"UFC.FR\" />\n<meta name=\"twitter:card\" content=\"summary_large_image\" />\n<script type=\"application/ld+json\" class=\"yoast-schema-graph\">{\"@context\":\"https:\\/\\/schema.org\",\"@graph\":[{\"@type\":\"CollectionPage\",\"@id\":\"https:\\/\\/www.ufc.fr\\/category\\/ufc\\/\",\"url\":\"https:\\/\\/www.ufc.fr\\/category\\/ufc\\/\",\"name\":\"Archives des UFC - UFC.FR\",\"isPartOf\":{\"@id\":\"https:\\/\\/www.ufc.fr\\/#website\"},\"breadcrumb\":{\"@id\":\"https:\\/\\/www.ufc.fr\\/category\\/ufc\\/#breadcrumb\"},\"inLanguage\":\"fr-FR\"},{\"@type\":\"BreadcrumbList\",\"@id\":\"https:\\/\\/www.ufc.fr\\/category\\/ufc\\/#breadcrumb\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"name\":\"Accueil\",\"item\":\"https:\\/\\/www.ufc.fr\\/\"},{\"@type\":\"ListItem\",\"position\":2,\"name\":\"UFC\"}]},{\"@type\":\"WebSite\",\"@id\":\"https:\\/\\/www.ufc.fr\\/#website\",\"url\":\"https:\\/\\/www.ufc.fr\\/\",\"name\":\"UFC.FR\",\"description\":\"Média indépendant d’actualité MMA — France et international. Non affilié à l’UFC.\",\"publisher\":{\"@id\":\"https:\\/\\/www.ufc.fr\\/#organization\"},\"potentialAction\":[{\"@type\":\"SearchAction\",\"target\":{\"@type\":\"EntryPoint\",\"urlTemplate\":\"https:\\/\\/www.ufc.fr\\/?s={search_term_string}\"},\"query-input\":{\"@type\":\"PropertyValueSpecification\",\"valueRequired\":true,\"valueName\":\"search_term_string\"}}],\"inLanguage\":\"fr-FR\"},{\"@type\":\"Organization\",\"@id\":\"https:\\/\\/www.ufc.fr\\/#organization\",\"name\":\"UFC.FR\",\"url\":\"https:\\/\\/www.ufc.fr\\/\",\"logo\":{\"@type\":\"ImageObject\",\"inLanguage\":\"fr-FR\",\"@id\":\"https:\\/\\/www.ufc.fr\\/#\\/schema\\/logo\\/image\\/\",\"url\":\"https:\\/\\/www.ufc.fr\\/wp-content\\/uploads\\/2025\\/04\\/ufc-fr-mma-sans-compromis-1.png\",\"contentUrl\":\"https:\\/\\/www.ufc.fr\\/wp-content\\/uploads\\/2025\\/04\\/ufc-fr-mma-sans-compromis-1.png\",\"width\":512,\"height\":512,\"caption\":\"UFC.FR\"},\"image\":{\"@id\":\"https:\\/\\/www.ufc.fr\\/#\\/schema\\/logo\\/image\\/\"}}]}</script>\n<!-- / Yoast SEO plugin. -->",
+  "yoast_head_json": {
+   "title": "Archives des UFC - UFC.FR",
+   "robots": {
+    "index": "index",
+    "follow": "follow",
+    "max-snippet": "max-snippet:-1",
+    "max-image-preview": "max-image-preview:large",
+    "max-video-preview": "max-video-preview:-1"
+   },
+   "canonical": "https://www.ufc.fr/category/ufc/",
+   "og_locale": "fr_FR",
+   "og_type": "article",
+   "og_title": "Archives des UFC - UFC.FR",
+   "og_description": "Actualité UFC : cartes, résultats, classements Meta, combattants. Couverture indépendante, sources nommées.",
+   "og_url": "https://www.ufc.fr/category/ufc/",
+   "og_site_name": "UFC.FR",
+   "twitter_card": "summary_large_image",
+   "schema": {
+    "@context": "https://schema.org",
+    "@graph": [
+     {
+      "@type": "CollectionPage",
+      "@id": "https://www.ufc.fr/category/ufc/",
+      "url": "https://www.ufc.fr/category/ufc/",
+      "name": "Archives des UFC - UFC.FR",
+      "isPartOf": {
+       "@id": "https://www.ufc.fr/#website"
+      },
+      "breadcrumb": {
+       "@id": "https://www.ufc.fr/category/ufc/#breadcrumb"
+      },
+      "inLanguage": "fr-FR"
+     },
+     {
+      "@type": "BreadcrumbList",
+      "@id": "https://www.ufc.fr/category/ufc/#breadcrumb",
+      "itemListElement": [
+       {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Accueil",
+        "item": "https://www.ufc.fr/"
+       },
+       {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "UFC"
+       }
+      ]
+     },
+     {
+      "@type": "WebSite",
+      "@id": "https://www.ufc.fr/#website",
+      "url": "https://www.ufc.fr/",
+      "name": "UFC.FR",
+      "description": "Média indépendant d’actualité MMA — France et international. Non affilié à l’UFC.",
+      "publisher": {
+       "@id": "https://www.ufc.fr/#organization"
+      },
+      "potentialAction": [
+       {
+        "@type": "SearchAction",
+        "target": {
+         "@type": "EntryPoint",
+         "urlTemplate": "https://www.ufc.fr/?s={search_term_string}"
+        },
+        "query-input": {
+         "@type": "PropertyValueSpecification",
+         "valueRequired": true,
+         "valueName": "search_term_string"
+        }
+       }
+      ],
+      "inLanguage": "fr-FR"
+     },
+     {
+      "@type": "Organization",
+      "@id": "https://www.ufc.fr/#organization",
+      "name": "UFC.FR",
+      "url": "https://www.ufc.fr/",
+      "logo": {
+       "@type": "ImageObject",
+       "inLanguage": "fr-FR",
+       "@id": "https://www.ufc.fr/#/schema/logo/image/",
+       "url": "https://www.ufc.fr/wp-content/uploads/2025/04/ufc-fr-mma-sans-compromis-1.png",
+       "contentUrl": "https://www.ufc.fr/wp-content/uploads/2025/04/ufc-fr-mma-sans-compromis-1.png",
+       "width": 512,
+       "height": 512,
+       "caption": "UFC.FR"
+      },
+      "image": {
+       "@id": "https://www.ufc.fr/#/schema/logo/image/"
+      }
+     }
+    ]
+   }
+  },
+  "_links": {
+   "self": [
+    {
+     "href": "https://www.ufc.fr/wp-json/wp/v2/categories/32",
+     "targetHints": {
+      "allow": [
+       "GET"
+      ]
+     }
+    }
+   ],
+   "collection": [
+    {
+     "href": "https://www.ufc.fr/wp-json/wp/v2/categories"
+    }
+   ],
+   "about": [
+    {
+     "href": "https://www.ufc.fr/wp-json/wp/v2/taxonomies/category"
+    }
+   ],
+   "wp:post_type": [
+    {
+     "href": "https://www.ufc.fr/wp-json/wp/v2/posts?categories=32"
+    }
+   ],
+   "curies": [
+    {
+     "name": "wp",
+     "href": "https://api.w.org/{rel}",
+     "templated": true
+    }
+   ]
+  }
+ },
+ {
+  "id": 55,
+  "count": 13,
+  "description": "UFC Paris 2026 : samedi 5 septembre, Accor Arena. Hooker vs Parnasse, Ziam vs Sola, huit Français. Dossier, carte, citations.",
+  "link": "https://www.ufc.fr/category/ufc-paris-2026/",
+  "name": "UFC Paris 2026",
+  "slug": "ufc-paris-2026",
+  "taxonomy": "category",
+  "parent": 0,
+  "meta": [],
+  "yoast_head": "<!-- This site is optimized with the Yoast SEO plugin v28.4 - https://yoast.com/product/yoast-seo-wordpress/ -->\n<title>Archives des UFC Paris 2026 - UFC.FR</title>\n<meta name=\"robots\" content=\"index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1\" />\n<link rel=\"canonical\" href=\"https://www.ufc.fr/category/ufc-paris-2026/\" />\n<meta property=\"og:locale\" content=\"fr_FR\" />\n<meta property=\"og:type\" content=\"article\" />\n<meta property=\"og:title\" content=\"Archives des UFC Paris 2026 - UFC.FR\" />\n<meta property=\"og:description\" content=\"UFC Paris 2026 : samedi 5 septembre, Accor Arena. Hooker vs Parnasse, Ziam vs Sola, huit Français. Dossier, carte, citations.\" />\n<meta property=\"og:url\" content=\"https://www.ufc.fr/category/ufc-paris-2026/\" />\n<meta property=\"og:site_name\" content=\"UFC.FR\" />\n<meta name=\"twitter:card\" content=\"summary_large_image\" />\n<script type=\"application/ld+json\" class=\"yoast-schema-graph\">{\"@context\":\"https:\\/\\/schema.org\",\"@graph\":[{\"@type\":\"CollectionPage\",\"@id\":\"https:\\/\\/www.ufc.fr\\/category\\/ufc-paris-2026\\/\",\"url\":\"https:\\/\\/www.ufc.fr\\/category\\/ufc-paris-2026\\/\",\"name\":\"Archives des UFC Paris 2026 - UFC.FR\",\"isPartOf\":{\"@id\":\"https:\\/\\/www.ufc.fr\\/#website\"},\"breadcrumb\":{\"@id\":\"https:\\/\\/www.ufc.fr\\/category\\/ufc-paris-2026\\/#breadcrumb\"},\"inLanguage\":\"fr-FR\"},{\"@type\":\"BreadcrumbList\",\"@id\":\"https:\\/\\/www.ufc.fr\\/category\\/ufc-paris-2026\\/#breadcrumb\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"name\":\"Accueil\",\"item\":\"https:\\/\\/www.ufc.fr\\/\"},{\"@type\":\"ListItem\",\"position\":2,\"name\":\"UFC Paris 2026\"}]},{\"@type\":\"WebSite\",\"@id\":\"https:\\/\\/www.ufc.fr\\/#website\",\"url\":\"https:\\/\\/www.ufc.fr\\/\",\"name\":\"UFC.FR\",\"description\":\"Média indépendant d’actualité MMA — France et international. Non affilié à l’UFC.\",\"publisher\":{\"@id\":\"https:\\/\\/www.ufc.fr\\/#organization\"},\"potentialAction\":[{\"@type\":\"SearchAction\",\"target\":{\"@type\":\"EntryPoint\",\"urlTemplate\":\"https:\\/\\/www.ufc.fr\\/?s={search_term_string}\"},\"query-input\":{\"@type\":\"PropertyValueSpecification\",\"valueRequired\":true,\"valueName\":\"search_term_string\"}}],\"inLanguage\":\"fr-FR\"},{\"@type\":\"Organization\",\"@id\":\"https:\\/\\/www.ufc.fr\\/#organization\",\"name\":\"UFC.FR\",\"url\":\"https:\\/\\/www.ufc.fr\\/\",\"logo\":{\"@type\":\"ImageObject\",\"inLanguage\":\"fr-FR\",\"@id\":\"https:\\/\\/www.ufc.fr\\/#\\/schema\\/logo\\/image\\/\",\"url\":\"https:\\/\\/www.ufc.fr\\/wp-content\\/uploads\\/2025\\/04\\/ufc-fr-mma-sans-compromis-1.png\",\"contentUrl\":\"https:\\/\\/www.ufc.fr\\/wp-content\\/uploads\\/2025\\/04\\/ufc-fr-mma-sans-compromis-1.png\",\"width\":512,\"height\":512,\"caption\":\"UFC.FR\"},\"image\":{\"@id\":\"https:\\/\\/www.ufc.fr\\/#\\/schema\\/logo\\/image\\/\"}}]}</script>\n<!-- / Yoast SEO plugin. -->",
+  "yoast_head_json": {
+   "title": "Archives des UFC Paris 2026 - UFC.FR",
+   "robots": {
+    "index": "index",
+    "follow": "follow",
+    "max-snippet": "max-snippet:-1",
+    "max-image-preview": "max-image-preview:large",
+    "max-video-preview": "max-video-preview:-1"
+   },
+   "canonical": "https://www.ufc.fr/category/ufc-paris-2026/",
+   "og_locale": "fr_FR",
+   "og_type": "article",
+   "og_title": "Archives des UFC Paris 2026 - UFC.FR",
+   "og_description": "UFC Paris 2026 : samedi 5 septembre, Accor Arena. Hooker vs Parnasse, Ziam vs Sola, huit Français. Dossier, carte, citations.",
+   "og_url": "https://www.ufc.fr/category/ufc-paris-2026/",
+   "og_site_name": "UFC.FR",
+   "twitter_card": "summary_large_image",
+   "schema": {
+    "@context": "https://schema.org",
+    "@graph": [
+     {
+      "@type": "CollectionPage",
+      "@id": "https://www.ufc.fr/category/ufc-paris-2026/",
+      "url": "https://www.ufc.fr/category/ufc-paris-2026/",
+      "name": "Archives des UFC Paris 2026 - UFC.FR",
+      "isPartOf": {
+       "@id": "https://www.ufc.fr/#website"
+      },
+      "breadcrumb": {
+       "@id": "https://www.ufc.fr/category/ufc-paris-2026/#breadcrumb"
+      },
+      "inLanguage": "fr-FR"
+     },
+     {
+      "@type": "BreadcrumbList",
+      "@id": "https://www.ufc.fr/category/ufc-paris-2026/#breadcrumb",
+      "itemListElement": [
+       {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Accueil",
+        "item": "https://www.ufc.fr/"
+       },
+       {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "UFC Paris 2026"
+       }
+      ]
+     },
+     {
+      "@type": "WebSite",
+      "@id": "https://www.ufc.fr/#website",
+      "url": "https://www.ufc.fr/",
+      "name": "UFC.FR",
+      "description": "Média indépendant d’actualité MMA — France et international. Non affilié à l’UFC.",
+      "publisher": {
+       "@id": "https://www.ufc.fr/#organization"
+      },
+      "potentialAction": [
+       {
+        "@type": "SearchAction",
+        "target": {
+         "@type": "EntryPoint",
+         "urlTemplate": "https://www.ufc.fr/?s={search_term_string}"
+        },
+        "query-input": {
+         "@type": "PropertyValueSpecification",
+         "valueRequired": true,
+         "valueName": "search_term_string"
+        }
+       }
+      ],
+      "inLanguage": "fr-FR"
+     },
+     {
+      "@type": "Organization",
+      "@id": "https://www.ufc.fr/#organization",
+      "name": "UFC.FR",
+      "url": "https://www.ufc.fr/",
+      "logo": {
+       "@type": "ImageObject",
+       "inLanguage": "fr-FR",
+       "@id": "https://www.ufc.fr/#/schema/logo/image/",
+       "url": "https://www.ufc.fr/wp-content/uploads/2025/04/ufc-fr-mma-sans-compromis-1.png",
+       "contentUrl": "https://www.ufc.fr/wp-content/uploads/2025/04/ufc-fr-mma-sans-compromis-1.png",
+       "width": 512,
+       "height": 512,
+       "caption": "UFC.FR"
+      },
+      "image": {
+       "@id": "https://www.ufc.fr/#/schema/logo/image/"
+      }
+     }
+    ]
+   }
+  },
+  "_links": {
+   "self": [
+    {
+     "href": "https://www.ufc.fr/wp-json/wp/v2/categories/55",
+     "targetHints": {
+      "allow": [
+       "GET"
+      ]
+     }
+    }
+   ],
+   "collection": [
+    {
+     "href": "https://www.ufc.fr/wp-json/wp/v2/categories"
+    }
+   ],
+   "about": [
+    {
+     "href": "https://www.ufc.fr/wp-json/wp/v2/taxonomies/category"
+    }
+   ],
+   "wp:post_type": [
+    {
+     "href": "https://www.ufc.fr/wp-json/wp/v2/posts?categories=55"
+    }
+   ],
+   "curies": [
+    {
+     "name": "wp",
+     "href": "https://api.w.org/{rel}",
+     "templated": true
+    }
+   ]
+  }
+ }
+]
