@@ -68,34 +68,47 @@
   </div>
   <main id="contenu">
 
-  <!-- Palier 1 — l'événement. Il occupe l'écran parce qu'il a lieu dans
-       trois jours et que rien d'autre sur ce site n'a cette urgence. -->
-  <section class="hero">
-    <div class="hero-slash"></div>
-    <p class="vs">contre</p>
-    <div class="fighter a">
-      <img class="hero-photo" src="/img/parnasse.jpg" alt="Salahdine Parnasse, double champion KSW" width="1200" height="1600" />
-      <div class="sil"></div>
-      <div class="corner">
-        <span class="kicker">France · Débuts UFC</span>
-        <span class="name">Parnasse</span>
-        <span class="div">Poids légers</span>
-      </div>
+  <!-- Palier 1 — l'evenement.
+       L'octogone qu'on a construit pour la carte devient ici la signature du
+       site : les deux hommes se font face a l'interieur de la cage, et le
+       trace se referme au chargement. Une forme, deux usages, une identite —
+       plutot qu'un heros decoratif qui ne veut rien dire.
+       Le compte a rebours n'est pas un gadget : trois jours avant Bercy,
+       c'est l'information la plus utile de la page. -->
+  <section class="hero hero-cage">
+    <div class="cage-frame" aria-hidden="true">
+      <svg viewBox="0 0 200 200" preserveAspectRatio="none">
+        <polygon class="cage-bg" points="59,4 141,4 196,59 196,141 141,196 59,196 4,141 4,59" />
+        <polygon class="cage-line cage-draw" points="59,4 141,4 196,59 196,141 141,196 59,196 4,141 4,59" pathLength="1" />
+      </svg>
     </div>
-    <div class="fighter b">
-      <img class="hero-photo" src="/img/hooker.jpg" alt="Dan Hooker, poids légers, Nouvelle-Zélande" width="1200" height="1600" />
-      <div class="sil"></div>
-      <div class="corner">
-        <span class="kicker">Nouvelle-Zélande</span>
-        <span class="name">Hooker</span>
-        <span class="div">Poids légers</span>
-      </div>
+
+    <div class="hero-duel">
+      <figure class="hero-man a">
+        <img src="/img/parnasse.jpg" alt="Salahdine Parnasse, double champion KSW, avant ses debuts a l'UFC" width="1200" height="1600" fetchpriority="high" />
+        <figcaption>
+          <span class="kicker">France · Debuts UFC</span>
+          <span class="hero-name">Parnasse</span>
+        </figcaption>
+      </figure>
+      <p class="hero-vs" aria-hidden="true">contre</p>
+      <figure class="hero-man b">
+        <img src="/img/hooker.jpg" alt="Dan Hooker, poids legers, Nouvelle-Zelande" width="1200" height="1600" fetchpriority="high" />
+        <figcaption>
+          <span class="kicker">Nouvelle-Zelande</span>
+          <span class="hero-name">Hooker</span>
+        </figcaption>
+      </figure>
     </div>
-    <div class="hero-cta">
-      <p class="hero-date">Samedi 5 septembre · Accor Arena</p>
+
+    <div class="hero-foot">
+      <p class="hero-when">
+        <time datetime="2026-09-05T21:00:00+02:00">Samedi 5 septembre · Accor Arena</time>
+        <b data-countdown="2026-09-05T21:00:00+02:00">21h00</b>
+      </p>
       <div class="hero-actions">
-        <a class="btn btn-fill cut" href="/carte/ufc-paris-2026/">La carte, combat par combat</a>
-        <a class="btn btn-line cut" href="/ufc-paris-2026-date-lieu-carte-enjeux/">Le dossier</a>
+        <a class="btn btn-fill cut" href="/carte/${"ufc-paris-2026"}/">La carte, combat par combat</a>
+        <a class="btn btn-line cut" href="/${une.slug}/">Le dossier</a>
       </div>
     </div>
   </section>

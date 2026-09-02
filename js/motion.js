@@ -67,3 +67,33 @@
     });
   }, 3000);
 })();
+
+/**
+ * Le compte a rebours du heros.
+ *
+ * Il est pose apres coup et non dans le HTML genere pour une raison simple :
+ * une valeur calculee au build serait fausse des la minute suivante, et une
+ * page mise en cache par Vercel afficherait un delai perime. Le serveur donne
+ * la date, le navigateur donne l'heure.
+ */
+(function () {
+  "use strict";
+  var el = document.querySelector("[data-countdown]");
+  if (!el) return;
+
+  var cible = new Date(el.getAttribute("data-countdown")).getTime();
+  if (isNaN(cible)) return;
+
+  function ecrire() {
+    var reste = cible - Date.now();
+    if (reste <= 0) { el.textContent = "En cours"; return true; }
+    var h = Math.floor(reste / 36e5);
+    var j = Math.floor(h / 24);
+    // Au-dela de deux jours on parle en jours : afficher « 71h » avant un
+    // evenement dans trois jours est exact et illisible.
+    el.textContent = j >= 2 ? "J−" + j : h + "h" + String(Math.floor((reste % 36e5) / 6e4)).padStart(2, "0");
+    return false;
+  }
+
+  if (!ecrire()) window.setInterval(ecrire, 30000);
+})();

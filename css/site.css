@@ -2186,3 +2186,379 @@ html.motion .card-rail .bout.near { opacity: 1; }
   .bout[data-fr="1"]::before { left: -12px; }
   .card-scrollhint { display: none; }
 }
+
+/* =========================================================================
+   LES VISAGES D'ARTICLE
+   Cinq formats, cinq mises en page. Un portrait est une personne, un
+   resultat est une chronologie, un reportage est un lieu, des citations
+   sont une voix. Les servir dans le meme gabarit, c'est ce qui fait dire
+   « site genere » — et c'est exactement ce qu'on refuse ici.
+   ========================================================================= */
+
+/* --- PORTRAIT — le combattant occupe l'ecran avant qu'on lise une ligne. */
+.face-portrait .wrap-read { max-width: none; padding: 0; }
+.face-portrait .crumbs,
+.face-portrait .ah,
+.face-portrait .prose,
+.face-portrait .related {
+  max-width: var(--read);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: clamp(18px, 4vw, 32px);
+  padding-right: clamp(18px, 4vw, 32px);
+}
+.face-portrait .figure.lead {
+  position: relative;
+  max-width: none;
+  margin: 0 0 clamp(34px, 6vh, 64px);
+  aspect-ratio: 16 / 9;
+  background: var(--void);
+}
+.face-portrait .figure.lead img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* Le cadrage porte sur le haut : sur un portrait, ce qui compte est le
+     visage, et un recadrage centre coupe les fronts. */
+  object-position: 50% 22%;
+}
+.face-portrait .lead-org {
+  position: absolute;
+  left: clamp(18px, 4vw, 40px);
+  bottom: clamp(16px, 3vh, 28px);
+  font-family: var(--display);
+  font-size: clamp(38px, 8vw, 96px);
+  line-height: 0.85;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  color: var(--paper);
+  mix-blend-mode: difference;
+  pointer-events: none;
+}
+.face-portrait .ah h1 { font-size: clamp(34px, 5.4vw, 66px); line-height: 0.96; }
+
+/* --- LIEU — la salle porte. Photo large, reperes en rail. */
+.face-lieu .figure.lead { max-width: none; margin: 0 0 clamp(30px, 5vh, 54px); }
+.face-lieu .figure.lead img { width: 100%; aspect-ratio: 21 / 9; object-fit: cover; }
+.face-lieu .ah::after {
+  content: "";
+  display: block;
+  width: 54px;
+  height: 3px;
+  background: var(--red);
+  margin-top: 22px;
+}
+.face-lieu .prose h2 {
+  font-family: var(--ui);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ash);
+  border-top: 1px solid var(--mist);
+  padding-top: 16px;
+  margin-top: 44px;
+}
+
+/* --- RESULTAT — une chronologie. Le texte se resserre, les tableaux
+       respirent, et chaque intertitre est un moment de la soiree. */
+.face-resultat .prose { font-size: 17px; }
+.face-resultat .prose h2 {
+  font-family: var(--display);
+  font-size: clamp(20px, 2.4vw, 30px);
+  text-transform: uppercase;
+  letter-spacing: -0.005em;
+  margin-top: 48px;
+  padding-left: 16px;
+  border-left: 3px solid var(--red);
+}
+.face-resultat .prose table { font-family: var(--ui); font-size: 14px; }
+.face-resultat .prose table th {
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ash);
+}
+
+/* --- CITATIONS — c'est une voix. Le texte cite prend la taille du titre,
+       parce que c'est lui l'article. */
+.face-citations .prose blockquote,
+.face-citations .prose p:has(> em:only-child) {
+  font-family: var(--serif);
+  font-size: clamp(22px, 3vw, 34px);
+  font-style: italic;
+  line-height: 1.28;
+  margin: 40px 0;
+  padding-left: 24px;
+  border-left: 2px solid var(--red);
+  color: var(--ink);
+}
+.face-citations .prose blockquote p { font-size: inherit; font-style: inherit; margin: 0 0 12px; }
+
+/* --- RECIT — la colonne de lecture classique, deja en place. */
+.face-recit .prose > p:first-of-type::first-letter {
+  font-family: var(--display);
+  float: left;
+  font-size: 4.2em;
+  line-height: 0.78;
+  padding: 6px 12px 0 0;
+  color: var(--red);
+}
+
+/* =========================================================================
+   TRANSITIONS DE PAGE
+   L'API native : aucune bibliotheque, aucun routeur, et les navigateurs qui
+   ne la connaissent pas naviguent normalement. Le mouvement est court —
+   une transition de page qu'on remarque est une transition ratee.
+   ========================================================================= */
+@view-transition { navigation: auto; }
+
+::view-transition-old(root) { animation: vt-out 0.18s var(--ease) both; }
+::view-transition-new(root) { animation: vt-in 0.32s var(--ease) both; }
+@keyframes vt-out { to { opacity: 0; transform: translate3d(0, -8px, 0); } }
+@keyframes vt-in { from { opacity: 0; transform: translate3d(0, 12px, 0); } }
+
+/* L'en-tete ne doit pas clignoter entre deux pages : il est le point fixe. */
+body > header { view-transition-name: entete; }
+::view-transition-group(entete) { animation-duration: 0.001s; }
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(root), ::view-transition-new(root) { animation: none; }
+}
+
+/* =========================================================================
+   SURVOLS QUI INFORMENT
+   Un survol decoratif deplace des pixels. Un survol utile dit ce qui va se
+   passer si on clique : ou on va, et ce qu'on y trouvera.
+   ========================================================================= */
+
+.card { position: relative; }
+.card .media { overflow: hidden; }
+.card .media img { transition: transform 0.9s var(--ease), filter 0.6s var(--ease); }
+.card:hover .media img { transform: scale(1.045); }
+.card .card-body h3 {
+  background-image: linear-gradient(var(--red), var(--red));
+  background-repeat: no-repeat;
+  background-size: 0% 1px;
+  background-position: 0 100%;
+  transition: background-size 0.5s var(--ease), color 0.3s var(--ease);
+}
+.card:hover .card-body h3 { background-size: 100% 1px; color: var(--red); }
+.card .card-body time {
+  display: block;
+  margin-top: 10px;
+  font-family: var(--ui);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ash);
+  transition: color 0.3s var(--ease);
+}
+.card:hover .card-body time { color: var(--ink); }
+
+/* Le roster : le nom monte a la rencontre du curseur, l'image se desature
+   pour que le nom reste lisible. */
+.roster a { position: relative; overflow: hidden; }
+.roster a img { transition: transform 0.85s var(--ease), filter 0.5s var(--ease); }
+.roster a:hover img { transform: scale(1.06); filter: saturate(0.55) contrast(1.05); }
+.roster a span { transition: transform 0.45s var(--ease); }
+.roster a:hover span { transform: translateY(-3px); }
+
+/* Etat de focus visible partout : c'est la meme information que le survol,
+   pour qui navigue au clavier. */
+a:focus-visible,
+button:focus-visible,
+.filters a:focus-visible,
+.card:focus-visible {
+  outline: 2px solid var(--red);
+  outline-offset: 3px;
+}
+
+/* =========================================================================
+   RUPTURES REELLES
+   Un iPhone SE, un grand telephone, une tablette et un portable ne sont pas
+   le meme appareil. Les regles ci-dessous ne touchent jamais au bureau :
+   elles sont toutes plafonnees.
+   ========================================================================= */
+
+/* Portable et petite tablette. */
+@media (max-width: 900px) {
+  .ed-keys-grid { grid-template-columns: 1fr; gap: 34px; }
+  .cards.grid-3 { grid-template-columns: repeat(2, 1fr); }
+  .roster { grid-template-columns: repeat(3, 1fr); }
+  .face-portrait .figure.lead { aspect-ratio: 4 / 3; }
+}
+
+/* Grand telephone. La lecture prime : on passe en colonne unique et on
+   redescend les titres d'un cran, sans jamais casser la hierarchie. */
+@media (max-width: 600px) {
+  .cards.grid-3, .cards.grid-2 { grid-template-columns: 1fr; gap: 30px; }
+  .roster { grid-template-columns: repeat(2, 1fr); }
+  .ah h1, .face-portrait .ah h1 { font-size: clamp(28px, 8vw, 40px); }
+  .prose { font-size: 17px; }
+  .face-recit .prose > p:first-of-type::first-letter { font-size: 3.4em; }
+  .filters { overflow-x: auto; flex-wrap: nowrap; -webkit-overflow-scrolling: touch; }
+  .filters::-webkit-scrollbar { display: none; }
+  .filters a { flex: 0 0 auto; }
+  .face-portrait .lead-org { font-size: clamp(30px, 12vw, 54px); }
+}
+
+/* Petit telephone. Rien ne disparait : on resserre les marges et on reduit
+   l'echelle typographique. Couper une section ici serait un echec. */
+@media (max-width: 400px) {
+  :root { --header: 56px; }
+  .wrap, .wrap-read { padding-left: 16px; padding-right: 16px; }
+  .roster { grid-template-columns: 1fr 1fr; gap: 10px; }
+  .bout-side h3 { font-size: 22px; }
+  .bout.is-main h3 { font-size: 27px; }
+  .card-hero h1 { font-size: clamp(34px, 12vw, 46px); }
+  .drawer a { font-size: 20px; padding: 10px 0; }
+}
+
+/* =========================================================================
+   LE HEROS — L'OCTOGONE COMME SIGNATURE
+   La forme vient de la page carte. La reutiliser ici n'est pas une economie :
+   c'est ce qui fait qu'un visiteur reconnait le site d'une page a l'autre.
+   Une identite, c'est une forme qu'on retrouve, pas un logo qu'on repete.
+   ========================================================================= */
+
+.hero-cage {
+  position: relative;
+  min-height: min(100svh, 900px);
+  background: var(--void);
+  color: var(--paper);
+  display: grid;
+  grid-template-rows: 1fr auto;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+/* Le cadre. `preserveAspectRatio="none"` etire volontairement l'octogone a la
+   forme de l'ecran : ce n'est pas un logo centre, c'est une arene dans
+   laquelle la page se tient. */
+.cage-frame { position: absolute; inset: clamp(14px, 3vw, 40px); z-index: 2; pointer-events: none; }
+.cage-frame svg { width: 100%; height: 100%; }
+.cage-frame .cage-bg { stroke: rgba(247, 244, 238, 0.14); stroke-width: 0.6; vector-effect: non-scaling-stroke; }
+.cage-frame .cage-line {
+  stroke: var(--red);
+  stroke-width: 1.6;
+  vector-effect: non-scaling-stroke;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+}
+/* Le trace se referme au chargement — une seule fois, en une seconde et
+   demie. Assez pour etre vu, trop court pour retarder la lecture. */
+html.motion .cage-frame .cage-draw { animation: cage-close 1.5s var(--ease) 0.15s forwards; }
+@keyframes cage-close { to { stroke-dashoffset: 0; } }
+
+.hero-duel {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: stretch;
+  z-index: 1;
+}
+.hero-man { position: relative; margin: 0; overflow: hidden; }
+.hero-man img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 18%;
+  filter: grayscale(1) contrast(1.12) brightness(0.78);
+  transition: filter 0.9s var(--ease), transform 1.4s var(--ease);
+}
+/* La couleur revient sur celui qu'on regarde : le survol dit qui on a
+   choisi, sans deplacer quoi que ce soit. */
+.hero-man:hover img { filter: grayscale(0) contrast(1.05) brightness(0.92); transform: scale(1.03); }
+.hero-man::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(7, 7, 7, 0.92) 0%, rgba(7, 7, 7, 0.1) 46%);
+}
+.hero-man figcaption {
+  position: absolute;
+  left: clamp(20px, 4vw, 54px);
+  bottom: clamp(26px, 6vh, 68px);
+  z-index: 2;
+  display: grid;
+  gap: 8px;
+}
+.hero-man.b figcaption { left: auto; right: clamp(20px, 4vw, 54px); text-align: right; }
+.hero-name {
+  font-family: var(--display);
+  font-size: clamp(38px, 7.4vw, 122px);
+  line-height: 0.84;
+  letter-spacing: -0.025em;
+  text-transform: uppercase;
+}
+
+/* Le « contre » est pose sur la couture, pas dans une colonne : c'est le
+   point de contact des deux images. */
+.hero-vs {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 3;
+  margin: 0;
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: clamp(15px, 1.7vw, 23px);
+  color: var(--paper);
+  background: var(--void);
+  padding: 9px 17px;
+  border: 1px solid rgba(247, 244, 238, 0.2);
+}
+
+.hero-foot {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  padding: clamp(20px, 4vh, 40px) clamp(28px, 6vw, 76px) clamp(28px, 5vh, 54px);
+}
+.hero-when {
+  margin: 0;
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  flex-wrap: wrap;
+  font-family: var(--ui);
+  font-size: 13px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--mist);
+}
+/* Le compte a rebours est une information, pas un ornement : a trois jours
+   de l'evenement, c'est ce que le visiteur veut savoir en premier. */
+.hero-when b {
+  font-family: var(--display);
+  font-size: clamp(19px, 2.3vw, 30px);
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  color: var(--red);
+}
+.hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+.hero-cage .btn-fill { background: var(--red); color: var(--paper); border-color: var(--red); }
+.hero-cage .btn-fill:hover { background: var(--paper); color: var(--void); border-color: var(--paper); }
+.hero-cage .btn-line { color: var(--paper); border-color: rgba(247, 244, 238, 0.42); }
+.hero-cage .btn-line:hover { background: var(--paper); color: var(--void); border-color: var(--paper); }
+
+@media (max-width: 900px) {
+  .hero-cage { min-height: min(92svh, 760px); }
+  .hero-name { font-size: clamp(30px, 9vw, 62px); }
+}
+@media (max-width: 600px) {
+  /* Le telephone garde les deux combattants : c'est l'affiche. On empile au
+     lieu de couper — supprimer l'un des deux serait perdre le sujet. */
+  .hero-duel { grid-template-columns: 1fr; grid-template-rows: 1fr 1fr; }
+  .hero-man.b figcaption { left: clamp(20px, 4vw, 54px); right: auto; text-align: left; }
+  .hero-man figcaption { bottom: clamp(16px, 3vh, 28px); }
+  .hero-vs { font-size: 13px; padding: 7px 13px; }
+  .hero-foot { flex-direction: column; align-items: flex-start; }
+  .cage-frame { inset: 10px; }
+}

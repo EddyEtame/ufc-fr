@@ -90,6 +90,40 @@ function newsArticle(doc, url, image) {
 
 const catById = new Map(categories.map((c) => [c.id, c]));
 
+/**
+ * Le visage d'un document.
+ *
+ * Un media se reconnait a ce que ses formats ont des visages differents. Un
+ * portrait de combattant, un resultat de gala et un reportage de salle ne se
+ * lisent pas de la meme facon : le portrait est une personne, le resultat est
+ * une chronologie, le reportage est un lieu. Servir les trois dans le meme
+ * gabarit, c'est le defaut qui fait dire « site genere ».
+ *
+ * La detection s'appuie sur le slug puis sur la rubrique — dans cet ordre,
+ * parce qu'un portrait range par erreur dans « actualite » reste un portrait.
+ */
+function faceOf(doc, cats) {
+  const slug = doc.slug;
+  const slugs = cats.map((c) => c.slug);
+  if (slug.startsWith("portrait-")) return "portrait";
+  if (slugs.includes("clubs-mma-francais") || /club|gym|academy|team-/.test(slug)) return "lieu";
+  if (slugs.includes("resultats") || /resultat|-\d{3}-|vs-/.test(slug)) return "resultat";
+  if (/citations/.test(slug)) return "citations";
+  return "recit";
+}
+
+/** L'organisation d'un portrait, tiree de son slug : portrait-ufc-x → UFC. */
+const ORG_LABEL = {
+  ufc: "UFC", pfl: "PFL", ksw: "KSW", ares: "ARES",
+  one: "ONE Championship", "one-championship": "ONE Championship",
+  "cage-warriors": "Cage Warriors", "cage-wrarriors": "Cage Warriors",
+  "hexagone-mma": "Hexagone MMA",
+};
+function orgOf(slug) {
+  const m = slug.match(/^portrait-(one-championship|cage-wrarriors|cage-warriors|hexagone-mma|ufc|pfl|ksw|ares|one)-/);
+  return m ? ORG_LABEL[m[1]] : null;
+}
+
 /** Quelle rubrique alimente la grille de chaque page organisation. */
 const ORG_CATEGORY = {
   "organisation-mma-ultimate-fighting-championship": "ufc",
@@ -131,7 +165,9 @@ function renderDocument(doc, { isPage }) {
   const seoTitle = decode(doc.yoast_head_json?.title || `${title} | UFC.FR`);
   const img = featuredImage(doc);
   const cats = (doc.categories || []).map((id) => catById.get(id)).filter(Boolean);
-  const kicker = cats[0]?.name || (isPage ? "Rubrique" : "Actualité");
+  const face = isPage ? "page" : faceOf(doc, cats);
+  const org = face === "portrait" ? orgOf(doc.slug) : null;
+  const kicker = org || cats[0]?.name || (isPage ? "Rubrique" : "Actualité");
 
   const trail = [["Accueil", "/"]];
   if (cats[0]) trail.push([cats[0].name, `/categorie/${cats[0].slug}/`]);
@@ -189,7 +225,7 @@ function renderDocument(doc, { isPage }) {
   })}
 ${header()}
   <main id="contenu">
-  <article class="article">
+  <article class="article face-${face}">
     <div class="wrap-read">
       <p class="crumbs">${trail
         .map(([n, u], i) => (i === trail.length - 1 ? esc(n) : `<a href="${u}">${esc(n)}</a>`))
@@ -207,7 +243,9 @@ ${header()}
         img
           ? `<figure class="figure lead" data-reveal data-reveal-media><img src="${img.url}" alt="${esc(img.alt)}"${
               img.width && img.height ? ` width="${img.width}" height="${img.height}"` : ""
-            } decoding="async" /></figure>`
+            } decoding="async" />${
+              face === "portrait" && org ? `<figcaption class="lead-org">${esc(org)}</figcaption>` : ""
+            }</figure>`
           : ""
       }
       <div class="prose" data-reveal>
