@@ -95,9 +95,16 @@ ${schema.map((s) => `  <script type="application/ld+json">${JSON.stringify(s)}</
  * En-tête et tiroir. Le tiroir porte enfin un bouton de fermeture : sans lui,
  * l'utilisateur mobile n'a aucun repère pour sortir du menu.
  */
-export function header(current = "") {
+/**
+ * @param current  chemin de la page courante, pour marquer l'onglet actif
+ * @param corps    classe posee sur <body>. `home` fait passer l'en-tete en
+ *                 position fixe pour qu'elle se superpose au heros sombre —
+ *                 sans elle, l'en-tete se pose au-dessus du heros sur le fond
+ *                 clair de la page, et son texte clair devient invisible.
+ */
+export function header(current = "", corps = "") {
   const on = (href) => (href === current ? ' class="on"' : "");
-  return `<body>
+  return `<body${corps ? ` class="${corps}"` : ""}>
   <a class="skip" href="#contenu">Aller au contenu</a>
   <header>
     <div class="header-inner">

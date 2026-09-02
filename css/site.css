@@ -2651,42 +2651,13 @@ body:has(.hero-cage) .brand img { width: 42px; height: 42px; }
    les jonctions pour que la fermeture se lise comme un cadre continu. */
 .cage-line { stroke-linecap: round; }
 
-/* 5. Le cadre-octogone, refait.
-   Le SVG etire par `preserveAspectRatio="none"` deformait les diagonales :
-   sur un ecran large, les coupes de coin devenaient des diagonales de
-   plusieurs centaines de pixels qui traversaient les photos. Elles lisaient
-   comme un defaut d'affichage, pas comme une cage.
-
-   Ici les coupes sont en pixels, donc identiques quelle que soit la largeur.
-   Deux couches : un fond rouge decoupe en octogone, un fond noir decoupe en
-   octogone legerement plus petit. Ce qui depasse entre les deux est le trait.
-   Une seule valeur — `--coupe` — controle toute la forme. */
-.hero-cage { --coupe: clamp(26px, 4vw, 58px); }
-.cage-frame {
-  position: absolute;
-  inset: clamp(12px, 2.4vw, 34px);
-  z-index: 2;
-  pointer-events: none;
-  background: var(--red);
-  clip-path: polygon(
-    var(--coupe) 0, calc(100% - var(--coupe)) 0,
-    100% var(--coupe), 100% calc(100% - var(--coupe)),
-    calc(100% - var(--coupe)) 100%, var(--coupe) 100%,
-    0 calc(100% - var(--coupe)), 0 var(--coupe)
-  );
-}
-.cage-frame::after {
-  content: "";
-  position: absolute;
-  inset: 1.5px;
-  background: var(--void);
-  clip-path: inherit;
-}
-/* Le cadre se pose au chargement au lieu de se tracer : un trait qui se
-   dessine sur une forme aussi large demande deux secondes, et deux secondes
-   avant de pouvoir lire le heros, c'est deux secondes de trop. */
-html.motion .cage-frame { opacity: 0; animation: cadre 0.9s var(--ease) 0.2s forwards; }
-@keyframes cadre { from { opacity: 0; transform: scale(1.012); } to { opacity: 1; transform: none; } }
+/* 5. Le cadre-octogone du heros : supprime.
+   Deux tentatives, deux echecs. En SVG etire, ses diagonales traversaient les
+   photos ; en CSS, le remplissage interieur formait un panneau noir opaque
+   par-dessus tout le heros — un clip-path ne perce pas de trou.
+   La bonne decision n'etait pas une troisieme technique : c'etait de
+   constater que cet ornement ne portait aucune information. L'octogone garde
+   sa place sur la page carte, ou il dit ou l'on en est dans la soiree. */
 
 /* 6. La marque sur fond sombre.
    Le PNG detoure est un pictogramme carre : seul, il flotte et ne dit pas le

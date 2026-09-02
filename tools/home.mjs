@@ -100,18 +100,17 @@ const html = `${head({
   type: "website",
   schema,
 })}
-${header("/")}
+${header("/", "home")}
   <main id="contenu">
 
   <!-- Palier 1 — l'evenement.
-       L'octogone qu'on a construit pour la carte devient ici la signature du
-       site : les deux hommes se font face a l'interieur de la cage, et le
-       trace se referme au chargement. Une forme, deux usages, une identite —
-       plutot qu'un heros decoratif qui ne veut rien dire.
-       Le compte a rebours n'est pas un gadget : trois jours avant Bercy,
-       c'est l'information la plus utile de la page. -->
+       Pas de cadre decoratif ici : l'octogone appartient a la page carte, ou
+       il porte la progression dans la soiree. Le reprendre sur l'accueil en
+       ornement, c'etait du decor qui ne dit rien — et il masquait les photos.
+       Ce qui reste tient tout seul : deux hommes, la couture entre eux, leurs
+       noms, et le compte a rebours, qui est l'information la plus utile de la
+       page a trois jours de Bercy. -->
   <section class="hero hero-cage">
-    <div class="cage-frame" aria-hidden="true"></div>
 
     <div class="hero-duel">
       <figure class="hero-man a">

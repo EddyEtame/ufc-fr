@@ -122,7 +122,7 @@ const html = `${head({
   type: "article",
   schema: [schema],
 })}
-${header()}
+${header("", "home")}
   <main id="contenu" class="card-page" data-etat="${carte.etat}">
 
     <header class="card-hero">
