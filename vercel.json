@@ -4,7 +4,8 @@
   "installCommand": "echo 'aucune dependance a installer'",
   "buildCommand": "npm run build",
   "outputDirectory": ".",
-  "trailingSlash": false,
+  "_note_trailingSlash": "Vrai, et ce n'est pas un detail : toutes les URL deja indexees du WordPress se terminent par un slash. Passer a false ferait repondre 308 a chacune d'elles, ce qui annulerait la raison meme d'avoir garde les slugs d'origine.",
+  "trailingSlash": true,
   "headers": [
     {
       "source": "/media/(.*)",
