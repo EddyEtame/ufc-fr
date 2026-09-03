@@ -87,7 +87,10 @@
           '<a class="resultat" href="' + d.u + '">' +
           (d.c.length ? '<span class="kicker">' + echapper(d.c[0]) + "</span>" : "") +
           "<h2>" + echapper(d.t) + "</h2>" +
-          "<p>" + echapper(d.r) + "…</p>" +
+          // Le resume porte deja ses points de suspension quand il a ete
+          // coupe. En rajouter donnait « reprennent les…… », et « français.… »
+          // sur ceux qui tenaient en entier.
+          "<p>" + echapper(d.r) + "</p>" +
           '<time datetime="' + d.d + '">' + d.d.split("-").reverse().join("/") + "</time>" +
           "</a>"
         );

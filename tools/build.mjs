@@ -556,7 +556,9 @@ export function resume(doc, n = 150) {
   if (!texte) return "";
   if (texte.length <= n) return texte;
   const coupe = texte.slice(0, n);
-  return coupe.slice(0, coupe.lastIndexOf(" ")) + "…";
+  // On retire la ponctuation de fin avant d'ajouter les points de suspension :
+  // couper sur « les... » donnait « les…... » dans les resultats de recherche.
+  return coupe.slice(0, coupe.lastIndexOf(" ")).replace(/[\s.,;:…]+$/, "") + "…";
 }
 
 /**
@@ -575,6 +577,9 @@ const stripTags = (s = "") =>
       .replace(/\s+/g, " ")
       .replace(/\s+([.,)\]])/g, "$1")
       .replace(/([(\[])\s+/g, "$1")
+      // L'elision colle au mot suivant : « l'<strong>UFC</strong> » devenait
+      // « l' UFC » des que la balise etait remplacee par une espace.
+      .replace(/([a-zà-ÿ])([\u2019'])\s+/gi, "$1$2")
       .trim()
   );
 

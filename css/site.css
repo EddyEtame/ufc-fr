@@ -3770,3 +3770,31 @@ section.block > .wrap > .tete-liste { margin-bottom: 40px; }
 @media (max-width: 600px) {
   .prose .maj { padding: 12px 14px; font-size: 13px; }
 }
+
+/* =========================================================================
+   LE BOUTON D'EFFACEMENT DU CHAMP DE RECHERCHE
+
+   `<input type="search">` porte une croix dessinee par le navigateur, dans
+   sa propre couleur : bleue dans Chrome. Sur une page qui n'a que de l'encre,
+   de la creme et du rouge, c'etait le seul objet etranger de tout le site.
+
+   On ne la supprime pas — elle efface le champ et declenche l'evenement que
+   la recherche ecoute, gratuitement. On la repeint : le masque remplace son
+   image par la notre, et la couleur vient des variables comme le reste.
+   ========================================================================= */
+
+.recherche input[type="search"]::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  background-color: var(--ash);
+  -webkit-mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'><path d='M4 4 L16 16 M16 4 L4 16' stroke='black' stroke-width='2' fill='none' stroke-linecap='round'/></svg>") center / 100% no-repeat;
+  mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'><path d='M4 4 L16 16 M16 4 L4 16' stroke='black' stroke-width='2' fill='none' stroke-linecap='round'/></svg>") center / 100% no-repeat;
+  transition: background-color 0.25s var(--ease);
+}
+.recherche input[type="search"]:hover::-webkit-search-cancel-button,
+.recherche input[type="search"]::-webkit-search-cancel-button:hover {
+  background-color: var(--red);
+}

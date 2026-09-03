@@ -55,9 +55,9 @@ const html = `${head({
 })}
 ${header()}
   <main id="contenu">
-    <section class="block">
+    <section class="block block-liste">
       <div class="wrap">
-        <header class="head" data-reveal>
+        <header class="head tete-liste" data-reveal>
           <div>
             <span class="kicker">Chercher</span>
             <h1>Dans ${index.length} pages</h1>
