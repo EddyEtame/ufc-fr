@@ -2171,18 +2171,31 @@ html.motion .card-rail .bout.near { opacity: 1; }
   /* Le téléphone reçoit le même récit, pas une version amputée : l'octogone
      passe en bandeau collé en haut au lieu de disparaître. */
   .carte-corps { grid-template-columns: 1fr; gap: 0; }
+  /* Le bandeau doit etre opaque : en degrade, le texte des combats passait au
+     travers et se melangeait au compteur. Un repere de progression qu'on lit
+     par-dessus l'information qu'il repere ne repere plus rien. */
   .cage {
     position: sticky;
     top: var(--header);
-    height: 74px;
-    padding: 0;
+    height: 64px;
+    padding: 0 4px;
     z-index: 20;
-    background: linear-gradient(var(--void) 62%, rgba(7, 7, 7, 0));
-    grid-template-columns: 74px 1fr;
+    background: var(--void);
+    border-bottom: 1px solid rgba(247, 244, 238, 0.16);
+    box-shadow: 0 14px 22px rgba(7, 7, 7, 0.92);
+    grid-template-columns: 52px 1fr;
     place-items: center start;
     display: grid;
   }
-  .cage svg { width: 58px; height: 58px; }
+  .cage svg { width: 42px; height: 42px; }
+  /* Sur 42 px, un trait de 2,5 unites SVG disparait : on l'epaissit et on le
+     rend independant de l'echelle. */
+  .cage .cage-line { stroke-width: 7; vector-effect: non-scaling-stroke; }
+  .cage .cage-bg { stroke-width: 4; vector-effect: non-scaling-stroke; }
+  /* Le premier combat passait sous le bandeau au chargement et a chaque
+     ancre. */
+  .bout { scroll-margin-top: calc(var(--header) + 76px); }
+  .card-rail { padding-top: 18px; }
   .cage-count { position: static; }
   .cage-count b { font-size: 26px; }
   .bout-grid { grid-template-columns: 1fr; gap: 10px; text-align: left; }
@@ -2586,9 +2599,10 @@ body:has(.hero-cage) > header {
   backdrop-filter: none;
   border-bottom-color: transparent;
 }
+/* Opaque, pas 95 % : le nom du combat qui defile dessous transparaissait. */
 body:has(.card-page) > header.is-compact,
 body:has(.hero-cage) > header.is-compact {
-  background: rgba(7, 7, 7, 0.95);
+  background: var(--void);
   border-bottom-color: rgba(247, 244, 238, 0.14);
 }
 body:has(.card-page) nav.main a,
