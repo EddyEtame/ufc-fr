@@ -248,8 +248,12 @@ ${header()}
   <article class="article face-${face}">
     <div class="wrap-read">
       <p class="crumbs">${trail
-        .map(([n, u], i) => (i === trail.length - 1 ? esc(n) : `<a href="${u}">${esc(n)}</a>`))
-        .join(" · ")}</p>
+        .map(([n, u], i) =>
+          i === trail.length - 1
+            ? `<span class="crumb-actuel">${esc(n)}</span>`
+            : `<a href="${u}">${esc(n)}</a><span class="crumb-sep"> · </span>`
+        )
+        .join("")}</p>
       <header class="ah" data-reveal>
         <span class="kicker">${esc(kicker)}</span>
         <h1>${esc(title)}</h1>

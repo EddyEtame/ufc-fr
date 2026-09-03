@@ -3168,3 +3168,36 @@ html.entree-active, html.entree-active body { overflow: hidden; }
    de suite de lecture : il laissait deux cents pixels de blanc avant le pied
    de page. */
 .wrap-read-vide { display: none; }
+
+/* ------------------------------------------------- article sur telephone
+   1. La photo d'ouverture debordait a droite.
+      La mise en page de bureau la fait deliberement sortir du cadre
+      (`margin-right: calc((100% - 100vw) / 2)`), ce qui est juste sur large
+      et faux des que la colonne occupe tout l'ecran : l'image partait hors
+      champ sans que rien ne la ramene. */
+@media (max-width: 900px) {
+  .article .figure,
+  .article .figure.lead {
+    width: auto;
+    max-width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+  }
+  .article .figure img,
+  .article .figure.lead img {
+    width: 100%;
+    height: auto;
+    max-height: 62vh;
+    object-fit: cover;
+    aspect-ratio: auto;
+    min-height: 0;
+  }
+
+  /* 2. Le fil d'Ariane reprenait le titre complet, en majuscules, sur trois
+        lignes, juste au-dessus du titre lui-meme. Sur un ecran etroit, un
+        chemin de navigation sert a remonter, pas a redire ou l'on est. Le
+        dernier maillon disparait ; les precedents restent cliquables. */
+  .crumbs { font-size: 11px; }
+  .crumbs .crumb-actuel { display: none; }
+  .crumbs a:last-of-type + .crumb-sep { display: none; }
+}
