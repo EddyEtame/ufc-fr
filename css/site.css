@@ -3013,3 +3013,75 @@ body:has(.hero-cage) > header.is-compact { background: var(--paper); }
 body:has(.drawer.open) > header .brand::after { color: var(--ink) !important; }
 body:has(.drawer.open) > header .burger i { background: var(--ink) !important; }
 body:has(.drawer.open) > header { background: var(--paper) !important; }
+
+/* ---------------------------------------------------------------- entree
+   L'ecran d'entree. Toutes ces regles ne s'appliquent que si le script a
+   pose l'element : rien ici ne peut cacher la page a quelqu'un dont le
+   JavaScript n'a pas repondu. */
+.entree {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  background: var(--void);
+  display: grid;
+  place-items: center;
+  /* La sortie se fait par le haut, dans le sens de la lecture qui commence :
+     le voile se leve, il ne s'evapore pas. */
+  clip-path: inset(0 0 0 0);
+  transition: clip-path 0.72s var(--ease);
+}
+.entree.partie { clip-path: inset(0 0 100% 0); }
+
+.entree-corps {
+  display: grid;
+  justify-items: center;
+  gap: 14px;
+  text-align: center;
+  padding: 24px;
+}
+.entree-marque {
+  font-family: var(--display);
+  font-size: clamp(30px, 5vw, 52px);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: var(--paper);
+}
+.entree-compte {
+  font-family: var(--display);
+  font-size: clamp(52px, 12vw, 132px);
+  font-weight: 600;
+  line-height: 0.86;
+  letter-spacing: -0.02em;
+  color: var(--red);
+}
+.entree-lieu {
+  font-family: var(--ui);
+  font-size: 11px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--ash);
+}
+/* La barre se remplit sur la duree exacte de l'entree : elle ne simule pas
+   un chargement, elle annonce la fin de l'attente. */
+.entree-barre {
+  width: min(220px, 52vw);
+  height: 2px;
+  margin-top: 10px;
+  background: rgba(247, 244, 238, 0.16);
+  overflow: hidden;
+}
+.entree-barre i {
+  display: block;
+  height: 100%;
+  width: 100%;
+  background: var(--red);
+  transform-origin: left center;
+  transform: scaleX(0);
+  animation: entree-barre 1.1s var(--ease) forwards;
+}
+@keyframes entree-barre { to { transform: scaleX(1); } }
+
+/* Le defilement est bloque tant que le voile est la, et rendu ensuite. */
+html.entree-active, html.entree-active body { overflow: hidden; }
+
+@media (prefers-reduced-motion: reduce) { .entree { display: none; } }

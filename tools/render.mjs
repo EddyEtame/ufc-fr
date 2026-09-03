@@ -169,6 +169,7 @@ ${ORGS.slice(0, 5).map(([h, l]) => `          <a href="${h}">${l}</a>`).join("\n
       </div>
     </div>
   </footer>
+  <script src="/js/entree.js" defer></script>
   <script src="/js/scroll.js" defer></script>
   <script src="/js/site.js" defer></script>
   <script src="/js/motion.js" defer></script>
