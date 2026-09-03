@@ -22,7 +22,18 @@
   <link rel="apple-touch-icon" href="/media/brand/favicon-192.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400;1,6..72,600&family=Oswald:wght@500;600;700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <!-- La feuille de polices ne bloque plus le premier rendu.
+       Chargee en <link rel="stylesheet"> classique, elle est une ressource
+       bloquante : tant que Google n'a pas repondu, le navigateur n'affiche
+       rien. Une panne ou une lenteur chez un tiers devenait une page blanche
+       chez nous. Avec media="print", le navigateur la telecharge sans
+       attendre, et le onload la rend active des qu'elle arrive.
+       Le texte s'affiche donc dans la police de repli puis bascule — un
+       changement de police est un desagrement, une page blanche est une
+       perte. -->
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400;1,6..72,600&family=Oswald:wght@500;600;700&family=Outfit:wght@400;500;600;700&display=swap" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400;1,6..72,600&family=Oswald:wght@500;600;700&family=Outfit:wght@400;500;600;700&display=swap" media="print" onload="this.media='all';this.onload=null" />
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400;1,6..72,600&family=Oswald:wght@500;600;700&family=Outfit:wght@400;500;600;700&display=swap" /></noscript>
   <link rel="stylesheet" href="/css/site.css" />
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"CollectionPage","name":"Cage Warriors","description":"Cage Warriors : circuit européen, passerelle vers l’UFC. Titres à jour sur Champions MMA actuels.","url":"https://www.ufc.fr/categorie/cage-warriors/","inLanguage":"fr-FR","isPartOf":{"@type":"WebSite","name":"UFC.FR","url":"https://www.ufc.fr/"},"mainEntity":{"@type":"ItemList","numberOfItems":5,"itemListElement":[{"@type":"ListItem","position":1,"url":"https://www.ufc.fr/portrait-cage-wrarriors-harry-hardwick/","name":"Harry Hardwick"},{"@type":"ListItem","position":2,"url":"https://www.ufc.fr/portrait-cage-wrarriors-samuel-silva/","name":"Samuel Silva"},{"@type":"ListItem","position":3,"url":"https://www.ufc.fr/portrait-cage-wrarriors-justin-burlinson/","name":"Justin Burlinson"},{"@type":"ListItem","position":4,"url":"https://www.ufc.fr/portrait-cage-warriors-dario-bellandi/","name":"Dario Bellandi"},{"@type":"ListItem","position":5,"url":"https://www.ufc.fr/portrait-cage-warriors-james-webb/","name":"James Webb"}]}}</script>
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Accueil","item":"https://www.ufc.fr/"},{"@type":"ListItem","position":2,"name":"Cage Warriors","item":"https://www.ufc.fr/categorie/cage-warriors/"}]}</script>

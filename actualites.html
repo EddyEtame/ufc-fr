@@ -9,7 +9,18 @@
   <link rel="canonical" href="https://www.ufc.fr/actualite-du-mma/" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400;1,6..72,600&family=Oswald:wght@500;600;700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <!-- La feuille de polices ne bloque plus le premier rendu.
+       Chargee en <link rel="stylesheet"> classique, elle est une ressource
+       bloquante : tant que Google n'a pas repondu, le navigateur n'affiche
+       rien. Une panne ou une lenteur chez un tiers devenait une page blanche
+       chez nous. Avec media="print", le navigateur la telecharge sans
+       attendre, et le onload la rend active des qu'elle arrive.
+       Le texte s'affiche donc dans la police de repli puis bascule — un
+       changement de police est un desagrement, une page blanche est une
+       perte. -->
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400;1,6..72,600&family=Oswald:wght@500;600;700&family=Outfit:wght@400;500;600;700&display=swap" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400;1,6..72,600&family=Oswald:wght@500;600;700&family=Outfit:wght@400;500;600;700&display=swap" media="print" onload="this.media='all';this.onload=null" />
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400;1,6..72,600&family=Oswald:wght@500;600;700&family=Outfit:wght@400;500;600;700&display=swap" /></noscript>
   <meta property="og:site_name" content="UFC.FR" />
   <meta property="og:locale" content="fr_FR" />
   <meta property="og:type" content="article" />

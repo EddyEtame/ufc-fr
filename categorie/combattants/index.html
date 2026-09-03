@@ -22,7 +22,18 @@
   <link rel="apple-touch-icon" href="/media/brand/favicon-192.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400;1,6..72,600&family=Oswald:wght@500;600;700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <!-- La feuille de polices ne bloque plus le premier rendu.
+       Chargee en <link rel="stylesheet"> classique, elle est une ressource
+       bloquante : tant que Google n'a pas repondu, le navigateur n'affiche
+       rien. Une panne ou une lenteur chez un tiers devenait une page blanche
+       chez nous. Avec media="print", le navigateur la telecharge sans
+       attendre, et le onload la rend active des qu'elle arrive.
+       Le texte s'affiche donc dans la police de repli puis bascule — un
+       changement de police est un desagrement, une page blanche est une
+       perte. -->
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400;1,6..72,600&family=Oswald:wght@500;600;700&family=Outfit:wght@400;500;600;700&display=swap" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400;1,6..72,600&family=Oswald:wght@500;600;700&family=Outfit:wght@400;500;600;700&display=swap" media="print" onload="this.media='all';this.onload=null" />
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400;1,6..72,600&family=Oswald:wght@500;600;700&family=Outfit:wght@400;500;600;700&display=swap" /></noscript>
   <link rel="stylesheet" href="/css/site.css" />
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"CollectionPage","name":"Combattants","description":"Combattants : portraits, débuts UFC, Français sur les cartes. Fiches 2025 : vérifier la page Champions.","url":"https://www.ufc.fr/categorie/combattants/","inLanguage":"fr-FR","isPartOf":{"@type":"WebSite","name":"UFC.FR","url":"https://www.ufc.fr/"},"mainEntity":{"@type":"ItemList","numberOfItems":7,"itemListElement":[{"@type":"ListItem","position":1,"url":"https://www.ufc.fr/ciryl-gane-retour-entrainement-aspinall/","name":"Ciryl Gane de retour à l’entraînement, unification Aspinall en attente"},{"@type":"ListItem","position":2,"url":"https://www.ufc.fr/team-ezbiri-lyon-club-mma/","name":"Team Ezbiri Lyon : le club de Farès Ziam, cage à Villeurbanne"},{"@type":"ListItem","position":3,"url":"https://www.ufc.fr/duclos-aljarouj-debuts-ufc-paris-2026/","name":"Duclos et Aljarouj : deux débuts UFC à Paris, sans roman"},{"@type":"ListItem","position":4,"url":"https://www.ufc.fr/femmes-mma-francais-cornelle-benouaich/","name":"Femmes dans le MMA français : Cornolle, Benouaich, et la carte Paris"},{"@type":"ListItem","position":5,"url":"https://www.ufc.fr/coachs-cage-fight-toulouse-jerome-tancrede-yannis/","name":"Les coachs de Cage Fight Toulouse : Jérôme, Tancrède, Yannis"},{"@type":"ListItem","position":6,"url":"https://www.ufc.fr/salahdine-parnasse-debuts-ufc-paris-2026/","name":"Salahdine Parnasse à l’UFC : ce que changent ses débuts à Paris"},{"@type":"ListItem","position":7,"url":"https://www.ufc.fr/ufc-paris-2026-combattants-francais/","name":"UFC Paris 2026 : les 8 combattants français à suivre"}]}}</script>
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Accueil","item":"https://www.ufc.fr/"},{"@type":"ListItem","position":2,"name":"Combattants","item":"https://www.ufc.fr/categorie/combattants/"}]}</script>

@@ -86,7 +86,18 @@ export function head({ title, description, canonical, image, type = "article", s
   <link rel="apple-touch-icon" href="/media/brand/favicon-192.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="${FONTS}" rel="stylesheet" />
+  <!-- La feuille de polices ne bloque plus le premier rendu.
+       Chargee en <link rel="stylesheet"> classique, elle est une ressource
+       bloquante : tant que Google n'a pas repondu, le navigateur n'affiche
+       rien. Une panne ou une lenteur chez un tiers devenait une page blanche
+       chez nous. Avec media="print", le navigateur la telecharge sans
+       attendre, et le onload la rend active des qu'elle arrive.
+       Le texte s'affiche donc dans la police de repli puis bascule — un
+       changement de police est un desagrement, une page blanche est une
+       perte. -->
+  <link rel="preload" as="style" href="${FONTS}" />
+  <link rel="stylesheet" href="${FONTS}" media="print" onload="this.media='all';this.onload=null" />
+  <noscript><link rel="stylesheet" href="${FONTS}" /></noscript>
   <link rel="stylesheet" href="/css/site.css" />
 ${schema.map((s) => `  <script type="application/ld+json">${JSON.stringify(s)}</script>`).join("\n")}
 </head>`;

@@ -22,7 +22,18 @@
   <link rel="apple-touch-icon" href="/media/brand/favicon-192.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400;1,6..72,600&family=Oswald:wght@500;600;700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <!-- La feuille de polices ne bloque plus le premier rendu.
+       Chargee en <link rel="stylesheet"> classique, elle est une ressource
+       bloquante : tant que Google n'a pas repondu, le navigateur n'affiche
+       rien. Une panne ou une lenteur chez un tiers devenait une page blanche
+       chez nous. Avec media="print", le navigateur la telecharge sans
+       attendre, et le onload la rend active des qu'elle arrive.
+       Le texte s'affiche donc dans la police de repli puis bascule — un
+       changement de police est un desagrement, une page blanche est une
+       perte. -->
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400;1,6..72,600&family=Oswald:wght@500;600;700&family=Outfit:wght@400;500;600;700&display=swap" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400;1,6..72,600&family=Oswald:wght@500;600;700&family=Outfit:wght@400;500;600;700&display=swap" media="print" onload="this.media='all';this.onload=null" />
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400;1,6..72,600&family=Oswald:wght@500;600;700&family=Outfit:wght@400;500;600;700&display=swap" /></noscript>
   <link rel="stylesheet" href="/css/site.css" />
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"CollectionPage","name":"ARES","description":"ARES Fighting Championship : cartes, ceintures, combattants français. Calendrier 2026 et page Champions.","url":"https://www.ufc.fr/categorie/ares/","inLanguage":"fr-FR","isPartOf":{"@type":"WebSite","name":"UFC.FR","url":"https://www.ufc.fr/"},"mainEntity":{"@type":"ItemList","numberOfItems":9,"itemListElement":[{"@type":"ListItem","position":1,"url":"https://www.ufc.fr/calendrier-mma-france-automne-2026/","name":"Calendrier MMA France automne 2026 : Paris, Rouen, Toulouse"},{"@type":"ListItem","position":2,"url":"https://www.ufc.fr/ares-43-oconnor-diatta-adidas-arena/","name":"ARES 43 : O’Connor vs Diatta pour le titre, le 25 septembre à Paris"},{"@type":"ListItem","position":3,"url":"https://www.ufc.fr/portrait-ares-felix-klinkhammer/","name":"Felix Klinkhammer"},{"@type":"ListItem","position":4,"url":"https://www.ufc.fr/portrait-ares-axel-sola/","name":"Axel Sola"},{"@type":"ListItem","position":5,"url":"https://www.ufc.fr/portrait-ares-jady-menezes/","name":"Jady Menezes"},{"@type":"ListItem","position":6,"url":"https://www.ufc.fr/portrait-ares-aboubakar-younousov/","name":"Aboubakar Younousov"},{"@type":"ListItem","position":7,"url":"https://www.ufc.fr/portrait-ares-aboubacar-bathily/","name":"Aboubacar Bathily"},{"@type":"ListItem","position":8,"url":"https://www.ufc.fr/portrait-ares-abdulrakhman-yakhyaev/","name":"Abdulrakhman Yakhyaev"},{"@type":"ListItem","position":9,"url":"https://www.ufc.fr/portrait-ares-virgil-augen/","name":"Virgil Augen"}]}}</script>
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Accueil","item":"https://www.ufc.fr/"},{"@type":"ListItem","position":2,"name":"ARES","item":"https://www.ufc.fr/categorie/ares/"}]}</script>

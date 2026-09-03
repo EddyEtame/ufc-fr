@@ -22,7 +22,18 @@
   <link rel="apple-touch-icon" href="/media/brand/favicon-192.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400;1,6..72,600&family=Oswald:wght@500;600;700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <!-- La feuille de polices ne bloque plus le premier rendu.
+       Chargee en <link rel="stylesheet"> classique, elle est une ressource
+       bloquante : tant que Google n'a pas repondu, le navigateur n'affiche
+       rien. Une panne ou une lenteur chez un tiers devenait une page blanche
+       chez nous. Avec media="print", le navigateur la telecharge sans
+       attendre, et le onload la rend active des qu'elle arrive.
+       Le texte s'affiche donc dans la police de repli puis bascule — un
+       changement de police est un desagrement, une page blanche est une
+       perte. -->
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400;1,6..72,600&family=Oswald:wght@500;600;700&family=Outfit:wght@400;500;600;700&display=swap" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400;1,6..72,600&family=Oswald:wght@500;600;700&family=Outfit:wght@400;500;600;700&display=swap" media="print" onload="this.media='all';this.onload=null" />
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400;1,6..72,600&family=Oswald:wght@500;600;700&family=Outfit:wght@400;500;600;700&display=swap" /></noscript>
   <link rel="stylesheet" href="/css/site.css" />
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Accueil","item":"https://www.ufc.fr/"},{"@type":"ListItem","position":2,"name":"PFL","item":"https://www.ufc.fr/categorie/pfl/"},{"@type":"ListItem","position":3,"name":"Gadzhi Rabadanov","item":"https://www.ufc.fr/portrait-pfl-gadzhi-rabadanov/"}]}</script>
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"NewsArticle","headline":"Gadzhi Rabadanov","description":"Vétéran du sambo, Denis Goltsov règne sur les poids lourds du PFL avec deux titres consécutifs et un style brutal.","datePublished":"2025-05-01T07:31:42Z","dateModified":"2026-08-31T14:59:39Z","author":{"@type":"Organization","name":"Rédaction UFC.FR","url":"https://www.ufc.fr/a-propos/"},"publisher":{"@type":"NewsMediaOrganization","name":"UFC.FR","url":"https://www.ufc.fr/","logo":{"@type":"ImageObject","url":"https://www.ufc.fr/logo/ufc.fr.jpeg"},"description":"Média indépendant d’actualité MMA en France et à l’international. Non affilié à l’Ultimate Fighting Championship."},"mainEntityOfPage":{"@type":"WebPage","@id":"https://www.ufc.fr/portrait-pfl-gadzhi-rabadanov/"},"image":["https://www.ufc.fr/media/2025/05/portrait-pfl-gadzhi-rabadanov.webp"],"inLanguage":"fr-FR","isAccessibleForFree":true}</script>
