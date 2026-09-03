@@ -1916,16 +1916,62 @@ section.block.ed-club { padding: 0; }
    condition.
    ========================================================================= */
 
+/* Les blocs ne s'estompent pas, ils se decouvrent. Un fondu dit « ceci
+   apparait » ; un devoilement par le bas dit « ceci etait la, tu y arrives »
+   — ce qui est vrai d'un article qu'on fait defiler. Le clip-path fait le
+   travail, la translation ne fait que l'accompagner. */
 html.motion [data-reveal] {
   opacity: 0;
-  transform: translate3d(0, 14px, 0);
-  transition: opacity 0.62s var(--ease), transform 0.62s var(--ease);
-  will-change: opacity, transform;
+  clip-path: inset(0 0 22% 0);
+  transform: translate3d(0, 18px, 0);
+  transition:
+    opacity 0.5s var(--ease),
+    clip-path 0.78s var(--ease),
+    transform 0.78s var(--ease);
+  will-change: opacity, clip-path, transform;
 }
 html.motion [data-reveal].shown {
   opacity: 1;
+  clip-path: inset(0 0 0 0);
   transform: none;
   will-change: auto;
+}
+
+/* Le heros s'ouvre au defilement : les deux combattants s'ecartent, la
+   couture laisse voir le noir. Les transformations sont posees par le
+   script ; ici on ne fait qu'annoncer au navigateur ce qui va bouger. */
+.hero-cage .hero-man { will-change: transform; }
+.hero-cage .hero-vs { will-change: transform, opacity; }
+
+/* Le compteur : chiffre en display, aligne sur la ligne de base du libelle,
+   pour que la montee ne fasse pas sauter la mise en page. */
+.compteur {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 7px;
+  font-variant-numeric: tabular-nums;
+}
+.compteur b {
+  font-family: var(--display);
+  font-size: clamp(30px, 3.4vw, 54px);
+  font-weight: 600;
+  line-height: 1;
+  color: var(--red);
+}
+.compteur span {
+  font-family: var(--ui);
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ash);
+}
+.chiffres {
+  display: flex;
+  flex-wrap: wrap;
+  gap: clamp(26px, 5vw, 72px);
+  padding: clamp(30px, 5vh, 52px) 0 0;
+  border-top: 1px solid var(--mist);
+  margin-top: clamp(30px, 5vh, 52px);
 }
 
 /* L'image se pose : elle arrive légèrement trop grande et se cale. Le cadre
@@ -2709,3 +2755,78 @@ body:has(.hero-cage) > header.is-compact .brand::after { color: var(--ink); }
 .hero-when { gap: 14px; }
 .hero-man.b figcaption { align-items: flex-end; justify-items: end; }
 .hero-man.b .kicker { text-align: right; }
+
+/* Le bandeau defilant.
+   Un ticker qui ne defile pas n'est pas un ticker. Le contenu est double
+   dans le balisage et la piste se translate de la moitie de sa largeur : la
+   boucle se ferme sans saut, parce que la seconde copie occupe exactement la
+   place de la premiere au moment ou celle-ci sort. La duplication est
+   masquee aux lecteurs d'ecran. */
+.ticker { grid-template-columns: 56px 1fr; overflow: hidden; }
+.ticker-rail { overflow: hidden; display: flex; align-items: center; }
+.ticker-run {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  white-space: nowrap;
+  animation: defile 46s linear infinite;
+}
+/* Le survol suspend : on ne peut pas lire une information qui fuit. */
+.ticker:hover .ticker-run { animation-play-state: paused; }
+@keyframes defile { to { transform: translate3d(-50%, 0, 0); } }
+
+.ticker .tick {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 10px;
+  padding: 0 clamp(20px, 3vw, 44px);
+  border-right: 1px solid rgba(247, 244, 238, 0.1);
+  font-family: var(--ui);
+}
+.ticker .tick strong {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--paper);
+}
+.ticker .tick > span { font-size: 12px; color: var(--ash); }
+
+@media (prefers-reduced-motion: reduce) {
+  .ticker-run { animation: none; }
+}
+
+/* L'en-tete de section place ses quatre enfants explicitement.
+   Sans placement, la grille `1fr auto` les distribue en serpentin : le
+   sur-titre et le titre sur la premiere rangee, l'accroche et le lien sur la
+   seconde — ce qui envoyait le titre dans la colonne de droite. Le probleme
+   est apparu en passant de h2 a h1 : la feuille ne stylait que h2, et rien
+   ne placait quoi que ce soit. */
+.ed-head > .kicker { grid-column: 1; grid-row: 1; }
+.ed-head > h1,
+.ed-head > h2 { grid-column: 1; grid-row: 2; }
+.ed-head > .lede { grid-column: 1; grid-row: 3; align-self: start; max-width: 46ch; }
+.ed-head > .more { grid-column: 2; grid-row: 3; justify-self: end; align-self: end; }
+
+/* Le titre de l'accueil est un h1 pour l'indexation, et doit se lire comme
+   le h2 des autres sections : meme famille, meme graisse, meme rythme. */
+.ed-head h1 {
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 300;
+  font-size: clamp(40px, 6vw, 76px);
+  letter-spacing: -0.045em;
+  line-height: 0.96;
+  margin: 0;
+}
+
+/* L'en-tete collante doit etre opaque, y compris sur les pages a heros
+   sombre : a 96 %, le bas du heros transparaissait pendant le defilement. */
+body:has(.hero-cage) > header.is-compact { background: var(--paper); }
+
+@media (max-width: 900px) {
+  /* En colonne unique, le lien « tout le fil » passe sous l'accroche plutot
+     que de comprimer le titre. */
+  .ed-head { grid-template-columns: 1fr; }
+  .ed-head > .more { grid-column: 1; grid-row: 4; justify-self: start; margin-top: 14px; }
+}

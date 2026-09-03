@@ -142,12 +142,35 @@ ${header("/", "home")}
     </div>
   </section>
 
+  <!-- Le bandeau d'info. Un ticker qui ne defile pas n'est pas un ticker,
+       c'est une ligne de texte. Le contenu est double dans le balisage : la
+       boucle se ferme sans saut parce que la seconde copie prend la place de
+       la premiere exactement quand celle-ci sort. Le point rouge, lui, reste
+       fixe — c'est le repere, il ne defile pas avec l'information. -->
   <div class="ticker">
     <div class="pulse"><b></b></div>
-    <div class="tick"><strong>Samedi 5 sept.</strong><span>Accor Arena, 18h / 21h</span></div>
-    <div class="tick"><strong>Hooker–Parnasse</strong><span>Main event, poids légers</span></div>
-    <div class="tick"><strong>Neuf Français</strong><span>Sur la carte de Bercy</span></div>
-    <div class="tick"><strong>${posts.length} articles</strong><span>Toutes organisations</span></div>
+    <div class="ticker-rail">
+      <div class="ticker-run">
+${[
+  ["Samedi 5 sept.", "Accor Arena · préliminaires 18h, carte principale 21h"],
+  ["Hooker–Parnasse", "Main event, poids légers"],
+  ["Neuf Français", "Sur la carte de Bercy"],
+  ["Ziam–Sola", "Duel tricolore en poids légers"],
+  ["Santos forfait", "Le combat de Wood à confirmer"],
+  [`${posts.length} articles`, "Toutes organisations, en français"],
+]
+  .concat([
+    ["Samedi 5 sept.", "Accor Arena · préliminaires 18h, carte principale 21h"],
+    ["Hooker–Parnasse", "Main event, poids légers"],
+    ["Neuf Français", "Sur la carte de Bercy"],
+    ["Ziam–Sola", "Duel tricolore en poids légers"],
+    ["Santos forfait", "Le combat de Wood à confirmer"],
+    [`${posts.length} articles`, "Toutes organisations, en français"],
+  ])
+  .map(([t, d], i) => `        <span class="tick"${i >= 6 ? ' aria-hidden="true"' : ""}><strong>${esc(t)}</strong><span>${esc(d)}</span></span>`)
+  .join("\n")}
+      </div>
+    </div>
   </div>
 
   <!-- Palier 2 — le fil. Refus de la grille égale : une pièce large, deux
@@ -160,7 +183,7 @@ ${header("/", "home")}
       <a class="more" href="/actualite-du-mma/">Tout le fil (${posts.length})</a>
     </div>
     <a class="ed-lead" href="/${carte ? carte.slug : une.slug}/" data-reveal data-reveal-media>
-      <div class="ed-lead-media">${pic(carte || une)}</div>
+      <div class="ed-lead-media" data-profondeur>${pic(carte || une)}</div>
       <div class="ed-lead-copy">
         <span class="kicker">Dossier</span>
         <h2>${T(carte || une)}</h2>
@@ -183,6 +206,15 @@ ${fil
   .join("\n")}
     </div>
     <div class="wrap">
+      <!-- Les chiffres du corpus. Ce site n'a pas d'exclusivite a vendre : son
+           argument est le volume et la tenue. Autant le dire avec les nombres,
+           qui montent quand on arrive dessus. -->
+      <div class="chiffres" data-reveal>
+        <p class="compteur"><b data-compte="${posts.length}">0</b><span>articles</span></p>
+        <p class="compteur"><b data-compte="${portraits.length}">0</b><span>portraits</span></p>
+        <p class="compteur"><b data-compte="${clubs.length}">0</b><span>clubs français</span></p>
+        <p class="compteur"><b data-compte="7">0</b><span>organisations</span></p>
+      </div>
       <div class="split-list home-list">
 ${fil
   .slice(2)
