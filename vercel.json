@@ -4,7 +4,6 @@
   "installCommand": "echo 'aucune dependance a installer'",
   "buildCommand": "echo 'site pre-genere, aucune construction necessaire'",
   "outputDirectory": ".",
-  "_note_trailingSlash": "Vrai, et ce n'est pas un detail : toutes les URL deja indexees du WordPress se terminent par un slash. Passer a false ferait repondre 308 a chacune d'elles, ce qui annulerait la raison meme d'avoir garde les slugs d'origine.",
   "trailingSlash": true,
   "headers": [
     {
@@ -51,6 +50,5 @@
         }
       ]
     }
-  ],
-  "_note_build": "Le site est genere et commite. Vercel ne construit rien : le faire builder ajoutait un point de rupture entre le push et la mise en ligne, deux jours avant l'evenement. `npm run build` reste la commande de generation, elle tourne avant le commit."
+  ]
 }

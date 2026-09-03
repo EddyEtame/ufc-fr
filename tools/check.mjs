@@ -120,5 +120,33 @@ for (const p of pages) {
   if (d.length > 165) fail(`description de ${d.length} signes (coupee a 165) dans ${p.slice(ROOT.length + 1)}`);
 }
 
+/**
+ * `vercel.json` ne contient que ce que Vercel connait.
+ *
+ * JSON n'accepte pas de commentaires, alors les explications avaient ete
+ * mises dans des cles `_note_trailingSlash` et `_note_build`. Vercel refuse
+ * tout fichier de configuration portant une propriete inconnue :
+ *
+ *   Invalid request: should NOT have additional property `_note_trailingSlash`.
+ *
+ * Plus aucun deploiement ne partait, et le site est reste seize heures sur
+ * une version perimee — sans que la cause soit visible ailleurs que dans la
+ * fenetre d'import de Vercel. Les explications vivent maintenant dans
+ * docs-vercel.md, ou elles ne cassent rien.
+ */
+const CLES_VERCEL = new Set([
+  "$schema", "framework", "installCommand", "buildCommand", "devCommand",
+  "outputDirectory", "public", "trailingSlash", "cleanUrls", "headers",
+  "redirects", "rewrites", "regions", "functions", "crons", "images",
+  "git", "ignoreCommand", "github", "builds", "routes",
+]);
+try {
+  const vercel = JSON.parse(readFileSync(join(ROOT, "vercel.json"), "utf8"));
+  for (const k of Object.keys(vercel))
+    if (!CLES_VERCEL.has(k)) fail(`vercel.json : propriete « ${k} » inconnue de Vercel — l'import sera refuse`);
+} catch (e) {
+  if (e.code !== "ENOENT") fail(`vercel.json illisible : ${e.message}`);
+}
+
 console.log(fails ? `\n${fails} defaut(s).` : "\nAucun defaut.");
 process.exit(fails ? 1 : 0);
