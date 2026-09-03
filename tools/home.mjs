@@ -115,8 +115,11 @@ const schema = [
 
 const html = `${head({
   title: "UFC.FR — l’actualité du MMA, en français",
+  /* 174 signes : Google en affiche environ 160, et c'est la mise en garde
+     « pas le site officiel » qui sautait — celle qui evite justement la
+     deception au clic. Elle passe donc avant ce qui peut sauter. */
   description:
-    "Média MMA indépendant : UFC Paris 2026 en direct, résultats, champions de toutes les organisations, clubs français et portraits de combattants. Pas le site officiel de l’UFC.",
+    "Média MMA indépendant, pas le site officiel de l’UFC. UFC Paris 2026, résultats, champions de toutes les organisations et clubs français.",
   canonical: "/",
   image: "/media/brand/ufc-fr-og.jpg",
   type: "website",

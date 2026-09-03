@@ -3715,3 +3715,43 @@ section.block > .wrap > .tete-liste { margin-bottom: 40px; }
     margin-right: calc((100% - 100vw) / 2);
   }
 }
+
+/* =========================================================================
+   LE BANDEAU DE FRAICHEUR
+
+   Trente-sept fiches de combattant portent en tete « Mise a jour 31 aout
+   2026 — statut titre. Cette fiche date de 2025. » C'est exactement ce qu'un
+   lecteur veut savoir sur un site de resultats : une ceinture a pu changer
+   de proprietaire depuis. Pose dans le fil du texte, en corps 19, il se
+   lisait pourtant comme la premiere phrase de l'article.
+
+   Il devient un element de service : filet rouge a gauche, corps reduit,
+   sur un fond qui le detache sans crier. Le lecteur voit en un coup d'oeil
+   que c'est le site qui parle, pas l'article.
+   ========================================================================= */
+
+.prose .maj {
+  border-left: 2px solid var(--red);
+  background: var(--bone);
+  padding: 14px 18px;
+  margin: 0 0 30px;
+  font-family: var(--ui);
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--steel);
+}
+.prose .maj strong {
+  display: block;
+  font-family: var(--ui);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--red);
+  margin-bottom: 5px;
+}
+.prose .maj a { font-weight: 600; }
+
+@media (max-width: 600px) {
+  .prose .maj { padding: 12px 14px; font-size: 13px; }
+}

@@ -69,3 +69,13 @@ ce fichier est le plancher.
     trahit une intention (`calc((100% - 100vw) / 2)` ne s'écrit pas par
     hasard), vérifier à l'écran qu'elle produit encore quelque chose : une
     règle morte ne lève aucune erreur, elle ne fait simplement plus rien.
+29. **Une suppression se mesure à ce qui reste, jamais à ce qui part.** Un
+    nettoyeur qui fait passer une page de 24 à 12 Ko n'a rien prouvé : il a
+    peut-être retiré le gabarit, il a peut-être retiré l'article. Après tout
+    filtre sur du contenu, compter les signes de texte qui survivent et
+    refuser zéro. C'est la faute qui a mis 55 % du corpus en ligne sans une
+    ligne de texte, en croyant l'avoir allégé.
+30. **Jamais `git checkout .` ni `git restore .` sans chemin.** Pour tester
+    une régression, copier le fichier (`cp x x.bak`), pas manipuler l'index.
+    Et commiter dès qu'un ensemble cohérent passe le contrôle : un travail
+    non commité n'existe pas.

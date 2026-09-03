@@ -61,5 +61,64 @@ for (const p of pages) {
     if (!existsSync(join(ROOT, a))) fail(`${a} manquant (${rel})`);
   }
 }
+/**
+ * Un article a du texte. C'est le controle qui manquait.
+ *
+ * Cinquante-et-un articles sur quatre-vingt-douze sont partis en ligne avec
+ * un titre, une photo, une signature et rien d'autre : le nettoyeur coupait
+ * le corps au premier marqueur du constructeur de pages, et sur ces
+ * articles-la ce marqueur est le septieme caractere. La page pesait moins
+ * lourd, ce qui ressemblait a une victoire ; c'etait l'article qui manquait.
+ *
+ * Une suppression se mesure a ce qui reste. Ici, on compte.
+ */
+for (const p of pages) {
+  const h = readFileSync(p, "utf8");
+  const rel = p.slice(ROOT.length + 1);
+  const m = h.match(/<div class="prose"[^>]*>([\s\S]*?)<\/div>\s*(?:<\/div>|<aside|<div class="wrap)/);
+  if (!m) continue;
+  const texte = m[1].replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim();
+  if (texte.length < 200) fail(`corps de ${texte.length} signes seulement dans ${rel}`);
+}
+
+/**
+ * Deux pages ne se presentent jamais aux moteurs sous la meme identite.
+ *
+ * Le CMS livrait des champs SEO copies-colles : la fiche de Tang Kai
+ * s'annoncait sous le surnom d'Oumar Kane, celle d'Aboubakar Younousov
+ * decrivait Aboubacar Bathily. Six pages mentaient a Google et aux moteurs
+ * de reponse sur ce qu'elles contenaient — sur un site dont c'est la
+ * strategie.
+ *
+ * Le generateur ecarte desormais tout champ duplique, mais la garde reste
+ * ici : c'est elle qui refuse la mise en ligne si la regle cede un jour.
+ * Les copies mises en noindex sont exclues — elles portent volontairement le
+ * meme texte que leur version de reference, avec un canonique qui le dit.
+ */
+const titresVus = new Map();
+const descsVus = new Map();
+for (const p of pages) {
+  const h = readFileSync(p, "utf8");
+  if (/noindex/.test(h)) continue;
+  const rel = p.slice(ROOT.length + 1);
+  const t = (h.match(/<title>([\s\S]*?)<\/title>/) || [])[1];
+  const d = (h.match(/<meta name="description" content="([^"]*)"/) || [])[1];
+  if (t) titresVus.set(t, (titresVus.get(t) || []).concat(rel));
+  if (d) descsVus.set(d, (descsVus.get(d) || []).concat(rel));
+}
+for (const [t, l] of titresVus) if (l.length > 1) fail(`titre partage par ${l.length} pages indexables : « ${t.slice(0, 60)} » — ${l.join(", ")}`);
+for (const [d, l] of descsVus) if (l.length > 1) fail(`description partagee par ${l.length} pages indexables : « ${d.slice(0, 60)}… » — ${l.join(", ")}`);
+
+/* Un titre de resultat de recherche se coupe au-dela de 65 signes : ce qui
+ * depasse n'est pas lu, et la fin d'un titre porte souvent le sujet. */
+for (const p of pages) {
+  const h = readFileSync(p, "utf8");
+  if (/noindex/.test(h)) continue;
+  const t = (h.match(/<title>([\s\S]*?)<\/title>/) || [])[1] || "";
+  if (t.length > 65) fail(`titre de ${t.length} signes (coupe a 65) dans ${p.slice(ROOT.length + 1)} : « ${t} »`);
+  const d = (h.match(/<meta name="description" content="([^"]*)"/) || [])[1] || "";
+  if (d.length > 165) fail(`description de ${d.length} signes (coupee a 165) dans ${p.slice(ROOT.length + 1)}`);
+}
+
 console.log(fails ? `\n${fails} defaut(s).` : "\nAucun defaut.");
 process.exit(fails ? 1 : 0);

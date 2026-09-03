@@ -10,7 +10,7 @@ import { writeFileSync, mkdirSync, copyFileSync, existsSync } from "node:fs";
 import { join, dirname, basename } from "node:path";
 import {
   posts, pages, categories, ROOT, SITE, mediaManifest,
-  cleanContent, esc, decode, stripTags, dateFr, metaDesc, localMedia, imageMaison, resume,
+  cleanContent, esc, decode, stripTags, dateFr, metaDesc, seoTitle, localMedia, imageMaison, resume, intrusDuCorpus,
 } from "./build.mjs";
 import { head, header, footer, ORGS } from "./render.mjs";
 import { annuaire, fiche } from "./salles.mjs";
@@ -315,7 +315,9 @@ ${autour.map(carteArticle).join("\n")}
 function renderDocument(doc, { isPage }) {
   const url = `/${doc.slug}/`;
   const title = decode(doc.title.rendered);
-  const seoTitle = decode(doc.yoast_head_json?.title || `${title} | UFC.FR`);
+  // Le titre SEO passe par le filtre du corpus : un champ Yoast duplique ou
+  // sans rapport avec le titre reel est ecarte au profit du vrai titre.
+  const seo = seoTitle(doc);
   const img = featuredImage(doc);
   /* « Actualité » est la rubrique fourre-tout : presque tout y est range en
    * plus d'autre chose. Quand elle arrive en tete, le surtitre et le fil
@@ -353,7 +355,7 @@ function renderDocument(doc, { isPage }) {
   // Le corps de l'article est du HTML issu du CMS : il a été nettoyé de toute
   // trace WordPress en amont, jamais réécrit sur le fond. On ne touche pas au
   // texte d'un rédacteur.
-  let body = cleanContent(doc.content.rendered);
+  let body = cleanContent(doc.content.rendered, doc);
   let rosterBloc = "";
   let blocs = [];
 
@@ -419,7 +421,7 @@ function renderDocument(doc, { isPage }) {
     : "";
 
   return `${head({
-    title: seoTitle,
+    title: seo,
     description: metaDesc(doc),
     canonical: url,
     image: img?.url,
@@ -511,4 +513,14 @@ writeFileSync(
   "utf8"
 );
 console.log(`[sitemap] ${written.length + 1} URL`);
+
+/* Ce que le generateur a du retirer parce que le CMS le portait a tort. Ce
+ * n'est pas un defaut du site : c'est une liste de corrections a faire dans
+ * WordPress, et elle doit se voir a chaque construction pour ne pas se faire
+ * oublier. */
+const intrus = intrusDuCorpus();
+if (intrus.length) {
+  console.log(`\n[a corriger dans le CMS] ${intrus.length} fiches ouvrent sur le texte d'une autre :`);
+  for (const l of intrus) console.log(`  · ${l}`);
+}
 console.log("\nTerminé.");

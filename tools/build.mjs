@@ -82,7 +82,10 @@ function articlesMaison() {
         // la premiere phrase du chapo — juste, mais souvent trop courte pour
         // dire ou se trouve la salle et ce qu'elle contient.
         ligne_annuaire: a.ligne_annuaire || "",
-        yoast_head_json: { title: `${a.titre} | UFC.FR`, description: a.meta_description },
+        // Un titre d'onglet n'est pas une manchette : la fiche garde son titre
+        // editorial, et `titre_seo` porte la version qui tient dans un
+        // resultat de recherche. Sans lui, on retombe sur le titre entier.
+        yoast_head_json: { title: a.titre_seo || a.titre, description: a.meta_description },
         _embedded: a.image
           ? {
               "wp:featuredmedia": [
@@ -270,24 +273,178 @@ function localMedia(src) {
  * conformes : chemin local, lazy-loading, dimensions réservées (sans quoi la
  * page saute au chargement — le CLS est un défaut de design, pas un détail).
  */
-function cleanContent(html) {
+/** Les mots significatifs d'un texte, sans accents ni mots outils. */
+function mots(s) {
+  return String(s || "")
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .split(/[^a-z]+/)
+    .filter((w) => w.length > 3);
+}
+
+/** La fin d'un <div> ouvert, en comptant les imbrications. */
+function finDuDiv(html, depuis) {
+  let profondeur = 1, i = depuis;
+  while (i < html.length && profondeur > 0) {
+    const ouvre = html.indexOf("<div", i);
+    const ferme = html.indexOf("</div", i);
+    if (ferme < 0) return html.length;
+    if (ouvre >= 0 && ouvre < ferme) { profondeur++; i = ouvre + 4; }
+    else { profondeur--; i = ferme + 5; if (!profondeur) return ferme; }
+  }
+  return html.length;
+}
+
+/**
+ * Sortir l'article de son constructeur de pages.
+ *
+ * Cinquante-et-un articles sur quatre-vingt-douze ne sont pas du HTML
+ * d'auteur : ce sont des arbres Elementor, ou le texte n'est pas dans des
+ * <p> mais pose nu dans le conteneur d'un widget « text-editor », sous des
+ * titres poses dans des widgets « heading », le tout enveloppe dans trente
+ * niveaux de <div> de gabarit.
+ *
+ * Le nettoyeur precedent coupait le corps au premier marqueur du
+ * constructeur. Sur ces articles-la, ce marqueur est le septieme caractere :
+ * la coupe emportait l'article entier. Ils sont partis en ligne avec un
+ * titre, une photo, une signature — et pas une ligne de texte. J'avais
+ * verifie le poids des pages et l'absence de traces de CMS ; jamais que le
+ * texte avait survecu.
+ *
+ * On ne coupe donc plus : on extrait. Les widgets porteurs de texte rendent
+ * leur contenu dans l'ordre du document, les widgets de gabarit sont
+ * ignores, et la grille « De la meme categorie » borne la lecture.
+ */
+function extraireDuConstructeur(html) {
+  const grille = html.search(/wpr-grid|data-overlay-link/);
+  const corps = grille > 0 ? html.slice(0, html.lastIndexOf("<", grille)) : html;
+
+  const morceaux = [];
+  const re = /data-widget_type="([a-z0-9-]+)\.default"/g;
+  let m;
+  while ((m = re.exec(corps))) {
+    const type = m[1];
+    if (type !== "heading" && type !== "text-editor") continue;
+    const c = corps.indexOf('class="elementor-widget-container"', m.index);
+    if (c < 0) continue;
+    const debut = corps.indexOf(">", c) + 1;
+    const dedans = corps.slice(debut, finDuDiv(corps, debut)).trim();
+    if (!dedans) continue;
+    morceaux.push(
+      type === "heading" || /^<(p|ul|ol|h[1-6]|blockquote|figure|table)\b/i.test(dedans)
+        ? dedans
+        : `<p>${dedans}</p>`
+    );
+  }
+  return morceaux.join("\n");
+}
+
+/**
+ * Retirer un paragraphe de tete qui appartient a une autre fiche.
+ *
+ * Trois portraits ouvrent sur la phrase d'un autre : celui de Dario Bellandi
+ * presente James Webb, celui de Dakota Ditcheva presente Yagshimuradov,
+ * celui de Harry Hardwick reprend mot pour mot Samuel Silva. Le champ a ete
+ * copie-colle dans le CMS et jamais change.
+ *
+ * La regle ne devine pas, elle constate : un paragraphe de tete n'est un
+ * intrus que s'il ouvre AUSSI une autre fiche. Le copier-coller laisse deux
+ * exemplaires identiques, et c'est la seule preuve qu'on accepte.
+ *
+ * Une premiere version retirait tout paragraphe nommant un autre combattant.
+ * Elle allait supprimer du texte juste : la carte d'UFC Paris cite Axel Sola
+ * parce qu'il y combat. Un article d'evenement parle forcement de plusieurs
+ * personnes ; seul un portrait ne parle que d'une.
+ *
+ * De la paire, on garde l'exemplaire chez qui le texte nomme le sujet. Quand
+ * il n'en nomme aucun, on le retire des deux : perdre une accroche coute
+ * moins cher que d'en publier une fausse sur une personne reelle.
+ */
+const intrusSignales = [];
+let _tetes = null;
+
+function tetesDePortraits() {
+  if (_tetes) return _tetes;
+  _tetes = new Map();
+  for (const p of posts) {
+    if (!p.slug.startsWith("portrait-")) continue;
+    let h = String(p.content?.rendered || "");
+    if (/data-elementor-type=/.test(h)) h = extraireDuConstructeur(h);
+    const prem = [...h.matchAll(/<p[^>]*>([\s\S]*?)<\/p>/gi)]
+      .map((m) => stripTags(m[1]).trim())
+      .find((t) => t.length > 40);
+    if (!prem) continue;
+    if (!_tetes.has(prem)) _tetes.set(prem, []);
+    _tetes.get(prem).push(p);
+  }
+  return _tetes;
+}
+
+function retireLesIntrus(html, doc) {
+  if (!doc || !doc.slug?.startsWith("portrait-")) return html;
+  const table = tetesDePortraits();
+  let premierVu = false;
+
+  return html.replace(/<p[^>]*>([\s\S]*?)<\/p>/gi, (bloc, dedans) => {
+    if (premierVu) return bloc;
+    const t = stripTags(dedans).trim();
+    if (t.length <= 40) return bloc;
+    premierVu = true;
+    const porteurs = table.get(t);
+    if (!porteurs || porteurs.length < 2) return bloc;
+    const set = new Set(mots(t));
+    // Le texte cite parfois le seul patronyme — « Yagshimuradov s'est
+    // impose » — la ou la fiche s'intitule « Dovletdzhan Yagshimuradov ».
+    const proprio = porteurs.find((q) => {
+      const n = mots(decode(q.title.rendered));
+      if (n.length && n.every((w) => set.has(w))) return true;
+      const patronyme = n.reduce((a, w) => (w.length > a.length ? w : a), "");
+      return patronyme.length >= 5 && set.has(patronyme);
+    });
+    if (proprio && proprio.id === doc.id) return bloc;
+    intrusSignales.push(
+      `${decode(doc.title.rendered)} — paragraphe d'ouverture partage avec ${porteurs
+        .filter((q) => q.id !== doc.id)
+        .map((q) => decode(q.title.rendered))
+        .join(", ")}${proprio ? ` (appartient à ${decode(proprio.title.rendered)})` : " (propriétaire indéterminé)"}`
+    );
+    return "";
+  });
+}
+
+/** Ce que le build doit dire tout haut : ces fiches sont a corriger au CMS. */
+export function intrusDuCorpus() {
+  return [...new Set(intrusSignales)];
+}
+
+function cleanContent(html, doc) {
   let out = html;
 
-  // 1. Les grilles « articles lies » du CMS.
+  // 1. Le corps venu du constructeur de pages.
+  if (/data-elementor-type=/.test(out)) out = extraireDuConstructeur(out);
+
+  // 1 bis. Le bandeau de fraicheur.
   //
-  // Le theme ajoutait en fin d'article une grille d'articles connexes, rendue
-  // en HTML dans le corps. Elle contient des images, des titres et des liens
-  // dupliques — et notre gabarit propose deja sa propre suite de lecture, tiree
-  // du corpus.
+  // Trente-sept fiches portent « Mise a jour 31 aout 2026 — statut titre. »
+  // en tete de corps. C'est une information que le lecteur veut — cette
+  // ceinture a pu changer de proprietaire — mais posee dans le fil du texte
+  // elle se lit comme la premiere phrase de l'article.
+  out = out.replace(
+    /<p[^>]*>(\s*(?:<strong>)?\s*Mise à jour[\s\S]*?)<\/p>/gi,
+    '<p class="maj">$1</p>'
+  );
+
+  // 1 ter. Les paragraphes de tete qui appartiennent a une autre fiche.
+  out = retireLesIntrus(out, doc);
+
+  // 2. Les grilles « articles lies » du CMS, dans les corps ecrits a la main.
   //
-  // Elle etait jusqu'ici nettoyee de ses classes plutot que supprimee : il en
-  // restait des blocs vides porteurs d'images, invisibles a l'ecran mais bien
-  // presents dans 116 pages. Retirer les attributs d'un bloc mort ne le tue
-  // pas, ca le camoufle. On coupe le corps a l'endroit ou la grille commence.
-  const marqueur = out.search(/wpr-grid|data-overlay-link|data-elementor-type/);
+  // Retirer les attributs d'un bloc mort ne le tue pas, ca le camoufle : on
+  // coupe la ou la grille commence. Le marqueur du constructeur de pages
+  // n'en fait plus partie — c'est lui qui emportait les articles entiers.
+  const marqueur = out.search(/wpr-grid|data-overlay-link/);
   if (marqueur > 0) {
-    // On remonte a l'ouverture de la balise qui la porte, sinon on laisse un
-    // fragment de tag ouvert qui casse le reste du document.
     const debut = out.lastIndexOf("<", marqueur);
     if (debut > 0) out = out.slice(0, debut);
   }
@@ -371,13 +528,31 @@ const decode = (s = "") =>
  * envie de cliquer. On prend le premier vrai paragraphe.
  */
 export function resume(doc, n = 150) {
-  const corps = String(doc.content?.rendered || "")
+  /* Le corps nettoye, pas le brut. Tant que le resume lisait le HTML du
+   * constructeur de pages, il tombait dans la grille « De la meme
+   * categorie » qui ferme chaque fiche : seize portraits se resumaient par
+   * leur voisin — celui de Tang Kai parlait de Yuya Wakamatsu, celui de
+   * Salahdine Parnasse de Sebastian Przybysz. */
+  const corps = String(cleanContent(doc.content?.rendered || "", doc))
     .replace(/<figure[\s\S]*?<\/figure>/gi, "")
     .replace(/<figcaption[\s\S]*?<\/figcaption>/gi, "");
   const paras = [...corps.matchAll(/<p[^>]*>([\s\S]*?)<\/p>/gi)].map((m) => stripTags(m[1]));
-  // Un premier paragraphe de moins de 60 signes est presque toujours un
-  // chapeau technique ou une mention de source : on passe au suivant.
-  const texte = paras.find((t) => t.length > 60) || paras[0] || stripTags(doc.excerpt?.rendered || "");
+  /* Un resume dit de quoi parle l'article. Trois sortes de paragraphes n'en
+   * parlent pas, et se trouvaient pourtant en tete :
+   *
+   * - le bandeau de fraicheur, « Mise a jour 31 aout 2026 — statut titre »,
+   *   present sur trente-sept fiches sur quatre-vingt-douze. Il est utile
+   *   sur la page, il est vide sur une carte ;
+   * - le renvoi de navigation, « Explorez d'autres champions… » ;
+   * - le paragraphe trop court, presque toujours une categorie de poids
+   *   isolee (« Lightweight ») ou une mention de source.
+   *
+   * Quarante pour cent du corpus se presentait donc, dans le fil, sur
+   * l'accueil et dans la recherche, par un avertissement de maintenance au
+   * lieu de son sujet. */
+  const SERVICE = /^\s*(mise à jour\b|explorez\b|à lire aussi\b|voir aussi\b|photo\s|crédit\s)/i;
+  const utile = paras.filter((t) => t.length > 60 && !SERVICE.test(t));
+  const texte = utile[0] || paras.find((t) => t.length > 60) || paras[0] || stripTags(doc.excerpt?.rendered || "");
   if (!texte) return "";
   if (texte.length <= n) return texte;
   const coupe = texte.slice(0, n);
@@ -411,12 +586,128 @@ function dateFr(iso) {
 }
 
 /** Coupe une description à la longueur que Google affiche réellement. */
+/* ------------------------------------------------- metadonnees du CMS --
+ * Ce que la page dit d'elle-meme aux moteurs.
+ *
+ * Le CMS fournit un titre et une description SEO par document, et le
+ * generateur les recopiait tels quels. Six pages annoncaient donc autre
+ * chose qu'elles-memes : la fiche de Tang Kai se presentait sous le surnom
+ * d'Oumar Kane, celle d'Aboubakar Younousov decrivait Aboubacar Bathily,
+ * celle de Timur Khizriev decrivait Shamil Musaev, celle de Gadzhi
+ * Rabadanov decrivait Denis Goltsov. Des champs copies-colles dans le CMS
+ * et jamais changes, sur un site dont toute la strategie est le referencement.
+ *
+ * Une valeur SEO identique sur deux pages n'est juste sur aucune des deux :
+ * l'une des deux ment forcement, et on ne sait pas laquelle. Les deux
+ * repassent donc par le contenu de leur propre page, qui, lui, ne peut pas
+ * se tromper de sujet.
+ */
+function comptePar(lire) {
+  const n = new Map();
+  for (const d of [...posts, ...pages]) {
+    const v = (lire(d) || "").trim();
+    if (v) n.set(v, (n.get(v) || 0) + 1);
+  }
+  return n;
+}
+let _tables = null;
+function tables() {
+  if (!_tables)
+    _tables = {
+      titre: comptePar((d) => d.yoast_head_json?.title),
+      desc: comptePar((d) => d.yoast_head_json?.description),
+      extrait: comptePar((d) => stripTags(d.excerpt?.rendered || "")),
+    };
+  return _tables;
+}
+
+/** Une valeur n'appartient a cette page que si aucune autre ne la porte. */
+const propre = (table, v) => (v && table.get(v.trim()) === 1 ? v.trim() : "");
+
+function yoastPropre(doc, champ) {
+  return propre(champ === "title" ? tables().titre : tables().desc, doc.yoast_head_json?.[champ]);
+}
+
+/**
+ * La description descend de source en source jusqu'a en trouver une qui
+ * n'appartienne qu'a cette page.
+ *
+ * Sur la fiche de Gadzhi Rabadanov, le CMS portait le texte de Denis Goltsov
+ * dans le champ SEO *et* dans l'extrait : ecarter le premier ne suffisait
+ * pas. Le corps de l'article, lui, parle bien de Rabadanov — c'est le
+ * dernier recours, et le plus sur, parce qu'un corps ne se copie-colle pas
+ * d'une fiche a l'autre.
+ */
 function metaDesc(doc) {
-  const y = doc.yoast_head_json?.description;
-  const raw = y || stripTags(doc.excerpt?.rendered || doc.content?.rendered || "");
+  const raw =
+    yoastPropre(doc, "description") ||
+    propre(tables().extrait, stripTags(doc.excerpt?.rendered || "")) ||
+    resume(doc, 400) ||
+    stripTags(doc.content?.rendered || "");
   if (raw.length <= 160) return raw;
   const cut = raw.slice(0, 157);
   return cut.slice(0, cut.lastIndexOf(" ")) + "…";
 }
 
-export { cleanContent, localMedia, esc, decode, stripTags, dateFr, metaDesc, posts, pages, categories, SITE, BRAND, ROOT, mediaManifest };
+/* Un resultat de recherche coupe au-dela de ~65 signes, et la fin d'un titre
+ * porte souvent le sujet : « …et devient champion des poids welters ». La
+ * marque coute dix signes ; elle est utile quand elle tient, nuisible quand
+ * elle fait sauter la fin du titre. On l'ajoute donc seulement si le compte
+ * le permet — Google reconstitue le nom du site par ailleurs. */
+const LIMITE_TITRE = 65;
+
+/**
+ * Raccourcir un titre trop long — a une articulation, jamais au signe pres.
+ *
+ * Coupe ici, le titre se coupe ou la phrase le permet — avant un « et », un
+ * tiret, une virgule — et la proposition qui reste se tient toute seule. Si
+ * aucune articulation ne tombe au bon endroit, on rend le titre entier :
+ * mieux vaut laisser le moteur trancher que trancher au milieu d'un nom.
+ */
+const ARTICULATIONS = [" et ", " \u2014 ", " \u2013 ", " - ", ", ", " : "];
+function raccourcir(titre) {
+  if (titre.length <= LIMITE_TITRE) return titre;
+  let meilleur = "";
+  for (const sep of ARTICULATIONS) {
+    let i = titre.lastIndexOf(sep);
+    while (i > 0) {
+      const bout = titre.slice(0, sep === " : " ? i + 1 : i).trim().replace(/[,:\u2014\u2013-]$/, "").trim();
+      // Une articulation ne sert que si ce qu'elle laisse tient debout : au
+      // moins la moitie de la limite, sinon le titre perd son sujet.
+      if (bout.length <= LIMITE_TITRE && bout.length >= LIMITE_TITRE / 2 && bout.length > meilleur.length) meilleur = bout;
+      i = titre.lastIndexOf(sep, i - 1);
+    }
+  }
+  return meilleur || titre;
+}
+
+function avecMarque(titre) {
+  const complet = `${titre} | ${BRAND}`;
+  if (complet.length <= LIMITE_TITRE) return complet;
+  return raccourcir(titre);
+}
+
+/**
+ * Le titre de l'onglet et du resultat de recherche.
+ *
+ * Meme garde que la description, plus une seconde : un titre SEO qui ne
+ * partage aucun mot significatif avec le titre de la page ne parle pas de
+ * cette page. « UFC 315 : Jack Della Maddalena detrone Belal Muhammad »
+ * s'annoncait « Hexagone MMA debarque a Toulouse ».
+ *
+ * Les titres SEO deliberement differents sont preserves : « KSW : Le Colosse
+ * du MMA Polonais » pour « Konfrontacja Sztuk Walki » partage KSW, donc il
+ * passe. On ne corrige que ce qui n'a aucun lien.
+ */
+function seoTitle(doc) {
+  const vrai = decode(doc.title.rendered);
+  const y = yoastPropre(doc, "title");
+  if (!y) return avecMarque(vrai);
+  const dedans = new Set(mots(vrai));
+  const communs = mots(y).filter((m) => dedans.has(m));
+  if (!communs.length) return avecMarque(vrai);
+  const nu = decode(y).replace(/\s*[|\u2013-]\s*UFC\.FR\s*$/i, "").trim();
+  return avecMarque(nu);
+}
+
+export { cleanContent, localMedia, esc, decode, stripTags, dateFr, metaDesc, seoTitle, posts, pages, categories, SITE, BRAND, ROOT, mediaManifest };
