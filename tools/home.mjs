@@ -36,11 +36,23 @@ function media(p) {
 const T = (p) => esc(decode(p.title.rendered));
 const X = (p, n = 130) => esc(resume(p, n));
 
-function pic(p, cls = "") {
+// Les images deja posees sur la page. L'accueil n'avait pas de
+// dedoublonnage — seules les listes en avaient — et le heros, une carte et le
+// roster pouvaient montrer trois fois le meme homme.
+const vues = new Set();
+
+function pic(p, cls = "", unique = true) {
   const m = media(p);
   if (!m) return "";
+  if (unique) {
+    if (vues.has(m.url)) return "";
+    vues.add(m.url);
+  }
   return `<img src="${m.url}" alt="${esc(m.alt)}"${m.w && m.h ? ` width="${m.w}" height="${m.h}"` : ""} loading="lazy" decoding="async"${cls ? ` class="${cls}"` : ""} />`;
 }
+
+vues.add("/img/parnasse.jpg");
+vues.add("/img/hooker.jpg");
 
 const paris = inCat("ufc-paris-2026");
 const clubs = inCat("clubs-mma-francais");

@@ -69,14 +69,19 @@ const PORTRAITS_MAISON = {
   "saint-denis": "/img/saint-denis.jpg",
 };
 
-// Par sujet, quand aucune personne n'est nommee. Une salle merite une salle,
-// un gala merite une cage, un classement merite une ceinture.
+// Par sujet, et UNIQUEMENT quand le document n'est pas un portrait.
+//
+// La faute que ces trois lignes reparent : `portrait-one-championship-tang-kai`
+// contient « champion ». Le repli s'appliquait donc a toute la galerie ONE
+// Championship, et neuf combattants differents affichaient la meme
+// photographie de ceinture. Un repli generique doit etre le dernier recours,
+// jamais un filet qui attrape ce qui allait bien.
 const SUJETS_MAISON = [
-  [/club|gym|academy|team-|salle/, "/img/gym.jpg"],
-  [/pesee/, "/img/pesee.jpg"],
-  [/classement|champion/, "/img/ceinture.jpg"],
-  [/organisation|differences/, "/img/organisations.jpg"],
-  [/calendrier|hexagone|ares-|gala/, "/img/arena-exterieur.jpg"],
+  [/(^|-)(club|gym|academy|salle)(-|$)|(^|-)team-/, "/img/gym.jpg"],
+  [/(^|-)pesee(-|$)/, "/img/pesee.jpg"],
+  [/(^|-)classements?(-|$)/, "/img/ceinture.jpg"],
+  [/(^|-)(organisation|differences)(-|$)/, "/img/organisations.jpg"],
+  [/(^|-)(calendrier|gala)(-|$)/, "/img/arena-exterieur.jpg"],
 ];
 
 /**
@@ -97,6 +102,10 @@ export function imageMaison(slug) {
     if (m && (meilleur === null || m.index < meilleur.index)) meilleur = { index: m.index, chemin };
   }
   if (meilleur) return { url: meilleur.chemin, unique: true };
+  // Un portrait garde toujours l'image du CMS : c'est la photo de la personne.
+  // Lui appliquer un repli par sujet, c'est remplacer un visage par un objet.
+  if (s.startsWith("portrait-")) return null;
+
   // Les replis par sujet sont generiques par construction : trois articles de
   // classement recevraient la meme ceinture. Ils passent donc au
   // dedoublonnage comme les images du CMS.
