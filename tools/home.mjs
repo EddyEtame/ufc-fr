@@ -16,6 +16,7 @@ import { writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { posts, categories, ROOT, SITE, esc, decode, stripTags, dateFr, localMedia, resume, imageMaison } from "./build.mjs";
 import { head, header, footer } from "./render.mjs";
+import { annuaire, fiche } from "./salles.mjs";
 
 const catBySlug = new Map(categories.map((c) => [c.slug, c]));
 const byDate = [...posts].sort((a, b) => new Date(b.date) - new Date(a.date));
@@ -51,8 +52,15 @@ function pic(p, cls = "", unique = true) {
   return `<img src="${m.url}" alt="${esc(m.alt)}"${m.w && m.h ? ` width="${m.w}" height="${m.h}"` : ""} loading="lazy" decoding="async"${cls ? ` class="${cls}"` : ""} />`;
 }
 
+// Le heros et la section « salles » posent leurs images en dur : on les
+// reserve avant que le fil se serve, sinon les deux fiches Boxing Center
+// reviennent en carte avec la meme photo quelques centaines de pixels plus
+// haut.
 vues.add("/img/parnasse.jpg");
 vues.add("/img/hooker.jpg");
+vues.add("/img/gym.jpg");
+vues.add("/media/clubs/boxing-center-etats-unis.webp");
+vues.add("/media/clubs/boxing-center-ramonville.webp");
 
 const paris = inCat("ufc-paris-2026");
 const clubs = inCat("clubs-mma-francais");
@@ -211,7 +219,13 @@ ${fil
     (p) => `      <a class="ed-aside-item" href="/${p.slug}/" data-reveal>
         ${pic(p)}
         <div>
-          <span class="kicker">${esc(categories.find((c) => (p.categories || []).includes(c.id))?.name || "Actualité")}</span>
+          <span class="kicker">${esc(
+            // La rubrique la plus precise, pas la premiere : « Actualite »
+            // contient presque tout et ne distingue rien.
+            categories
+              .filter((c) => (p.categories || []).includes(c.id))
+              .sort((a, b) => (a.slug === "actualite") - (b.slug === "actualite"))[0]?.name || "Actualité"
+          )}</span>
           <h3>${T(p)}</h3>
           <p>${X(p, 90)}</p>
         </div>
@@ -270,32 +284,34 @@ ${portraits
     </div>
   </section>
 
-  <!-- Palier 4 — les salles. Exigence du cahier des charges §9, et la seule
-       rubrique où le site parle de gens qu'on peut aller voir. -->
-  <section class="ed-club-full">
-    <img class="split-photo" src="/img/gym.jpg" alt="Entraînement de MMA, sac et cage" width="1600" height="1067" />
-    <div class="wrap ed-club-full-grid">
-      <div class="ed-club-full-copy">
-        <div data-reveal>
+  <!-- Palier 4 — les salles.
+       Exigence du cahier des charges §9, et la seule rubrique ou le site parle
+       de lieux ou l'on peut aller. Elle passe sur fond sombre : dans une page
+       claire, c'est ce qui lui donne le poids d'une destination plutot que
+       d'une liste.
+
+       Chaque salle porte deux liens : le reportage chez nous, et le site du
+       club. Le second est place comme une recommandation editoriale — c'est
+       la forme que le cahier des charges §10 a validee pour Cage Fight, et
+       c'est celle qui a du sens : on envoie le lecteur verifier les horaires
+       la ou ils sont a jour. -->
+  <section class="salles">
+    <div class="wrap">
+      <header class="salles-tete" data-reveal>
+        <div>
           <span class="kicker">Les salles</span>
           <h2>Où ça se boxe, en France</h2>
-          <p>${clubs.length} clubs déjà couverts, de Toulouse à Rennes. On y va un par un.</p>
-          <div class="ed-club-cta">
-            <a class="btn btn-fill" href="/clubs-mma-francais/">Tous les clubs</a>
-            <a class="btn btn-line" href="/cage-fight-toulouse-club-mma/">Cage Fight Toulouse</a>
-          </div>
+          <p class="lede">${clubs.length} clubs couverts. On y va un par un, et on dit ce qu’on a vérifié.</p>
         </div>
-        <div class="split-list">
-${clubs
-  .slice(0, 5)
-  .map(
-    (p, i) => `          <a class="row" href="/${p.slug}/" data-reveal>
-            <span class="pos">${String(i + 1).padStart(2, "0")}</span>
-            <span class="nm">${T(p)}</span>
-          </a>`
-  )
-  .join("\n")}
-        </div>
+        <a class="more" href="/clubs-mma-francais/">Toute la rubrique</a>
+      </header>
+
+      <div class="salles-grille">
+${/* Les trois salles de tete viennent de l'annuaire, pas d'une liste ecrite
+     ici : la page d'accueil et la page rubrique montraient sinon deux
+     versions du meme club, et l'une des deux finissait par etre fausse.
+     Une salle publiee demain remonte ici sans qu'on touche a ce fichier. */
+  annuaire().slice(0, 3).map((s) => fiche(s)).join("\n")}
       </div>
     </div>
   </section>

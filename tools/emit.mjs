@@ -10,9 +10,10 @@ import { writeFileSync, mkdirSync, copyFileSync, existsSync } from "node:fs";
 import { join, dirname, basename } from "node:path";
 import {
   posts, pages, categories, ROOT, SITE, mediaManifest,
-  cleanContent, esc, decode, stripTags, dateFr, metaDesc, localMedia, imageMaison,
+  cleanContent, esc, decode, stripTags, dateFr, metaDesc, localMedia, imageMaison, resume,
 } from "./build.mjs";
 import { head, header, footer, ORGS } from "./render.mjs";
+import { annuaire, fiche } from "./salles.mjs";
 
 const written = [];
 
@@ -138,13 +139,14 @@ const ORG_CATEGORY = {
 function featuredImage(doc) {
   // Une photo maison, quand le sujet en a une, passe avant l'image du CMS.
   const maison = imageMaison(doc.slug);
-  if (maison) return { url: maison.url, alt: decode(doc.title.rendered) };
+  if (maison) return { url: maison.url, alt: decode(doc.title.rendered), credit: maison.credit };
   const fm = doc._embedded?.["wp:featuredmedia"]?.[0];
   if (!fm?.source_url) return null;
   const local = localMedia(fm.source_url);
   return {
     url: local ? local.url : fm.source_url,
     alt: fm.alt_text || stripTags(fm.title?.rendered || ""),
+    credit: fm.credit || "",
     width: fm.media_details?.width,
     height: fm.media_details?.height,
   };
@@ -162,12 +164,124 @@ function related(doc, pool, n = 3) {
     .map((x) => x.p);
 }
 
+/* ------------------------------------------------- blocs pleine largeur --
+ * Le corps d'un document est rendu dans `.prose`, dont la largeur est bornee
+ * a la mesure de lecture. C'est juste pour du texte et faux pour une grille :
+ * une galerie de quatorze fiches enfermee dans 720 px se serre dans le tiers
+ * gauche de l'ecran. Aucune regle de debordement n'a jamais tenu contre le
+ * `max-width` du conteneur — la lecon est deja au registre.
+ *
+ * On coupe donc le corps a l'endroit du bloc, et on sort de la colonne de
+ * lecture pour le rendre. C'est une decision de structure, pas de style.
+ */
+const MARQUE = "<!--PLEINE-LARGEUR-->";
+
+function tisser(body, blocs) {
+  const parts = body.split(MARQUE);
+  const out = [`      <div class="prose" data-reveal>\n${parts[0].trim()}\n      </div>`];
+  parts.slice(1).forEach((suite, i) => {
+    out.push(`    </div>
+    <div class="wrap bloc-large">
+${blocs[i]}
+    </div>
+    <div class="wrap-read">`);
+    if (suite.trim()) out.push(`      <div class="prose" data-reveal>\n${suite.trim()}\n      </div>`);
+  });
+  return out.join("\n");
+}
+
+/** Une carte d'article — le composant `.card` du systeme, tel quel. */
+function carteArticle(p) {
+  const t = featuredImage(p);
+  // « Actualite » passe en dernier : c'est la rubrique fourre-tout, et une
+  // carte qui l'affiche n'apprend rien de plus que le titre.
+  const cat = (p.categories || [])
+    .map((id) => catById.get(id))
+    .filter(Boolean)
+    .sort((a, b) => (a.slug === "actualite") - (b.slug === "actualite"))[0];
+  return `        <a class="card" href="/${p.slug}/" data-reveal>
+          ${t ? `<div class="media" data-reveal-media><img src="${t.url}" alt="${esc(t.alt)}" loading="lazy" decoding="async" /></div>` : ""}
+          <div class="card-body">
+            <span class="kicker">${esc(cat?.name || "Actualité")}</span>
+            <h3>${esc(decode(p.title.rendered))}</h3>
+            <p>${esc(resume(p, 130))}</p>
+            <time datetime="${p.date.slice(0, 10)}">${dateFr(p.date)}</time>
+          </div>
+        </a>`;
+}
+
+/**
+ * Ce que la page « Les clubs de MMA français » gagne a ne plus etre du texte.
+ *
+ * Elle tenait deux listes ecrites a la main : les portraits publies, et un
+ * « A lire aussi » qui reprenait les memes noms. Les deux etaient devenues
+ * fausses — ni Boxing Center Etats-Unis ni Ramonville n'y figuraient — et
+ * aucune ne montrait la moindre salle. On les remplace par ce que le corpus
+ * sait deja produire : un annuaire en fiches, puis les articles de la
+ * rubrique. Le texte des puces n'est pas perdu, il devient la ligne de
+ * chaque fiche.
+ */
+function blocsClubs(body, doc) {
+  const blocs = [];
+  const salles = annuaire();
+
+  if (salles.length) {
+    body = body.replace(/<h2>Portraits publiés<\/h2>\s*<ul>[\s\S]*?<\/ul>/, MARQUE);
+    blocs.push(`      <section class="annuaire" aria-labelledby="annuaire-titre">
+        <header class="annuaire-tete" data-reveal>
+          <div>
+            <span class="kicker">L’annuaire</span>
+            <h2 id="annuaire-titre">${salles.length} salles couvertes</h2>
+          </div>
+          <p class="annuaire-note">Chaque fiche renvoie à notre reportage et au site du club. Planning, tarifs&nbsp;: toujours chez le club, jamais chez nous.</p>
+        </header>
+        <div class="annuaire-grille">
+${salles.map((s) => fiche(s)).join("\n")}
+        </div>
+      </section>`);
+  }
+
+  /* La seconde liste — « À lire aussi » — reprenait sept noms de clubs deja
+   * cites vingt lignes plus haut, plus trois textes qui, eux, n'etaient nulle
+   * part ailleurs. Reprendre les clubs en cartes ferait voir deux fois la
+   * meme photo sur une meme page ; on ne garde donc que ce que l'annuaire ne
+   * peut pas porter : la federation, les organisations, les coachs. C'est ce
+   * qui entoure un club, et c'est ce qui manquait. */
+  const autour = ["fmmaf-federation-mma-france-clubs", "coachs-cage-fight-toulouse-jerome-tancrede-yannis",
+    "organisation-hexagone-mma", "organisation-mma-ares-fighting-championship"]
+    .map((sl) => posts.find((p) => p.slug === sl) || pages.find((p) => p.slug === sl))
+    .filter(Boolean);
+  if (autour.length) {
+    body = body.replace(/<h2>À lire aussi<\/h2>\s*<ul>[\s\S]*?<\/ul>/, MARQUE);
+    blocs.push(`      <section class="rubrique-suite" aria-labelledby="suite-titre">
+        <header class="ed-head" data-reveal>
+          <span class="kicker">Autour des clubs</span>
+          <h2 id="suite-titre">Ce qui encadre la pratique</h2>
+          <a class="more" href="/categorie/clubs-mma-francais/">Toute la rubrique</a>
+        </header>
+        <div class="cards grid-4">
+${autour.map(carteArticle).join("\n")}
+        </div>
+      </section>`);
+  }
+
+  return { body, blocs };
+}
+
 function renderDocument(doc, { isPage }) {
   const url = `/${doc.slug}/`;
   const title = decode(doc.title.rendered);
   const seoTitle = decode(doc.yoast_head_json?.title || `${title} | UFC.FR`);
   const img = featuredImage(doc);
-  const cats = (doc.categories || []).map((id) => catById.get(id)).filter(Boolean);
+  /* « Actualité » est la rubrique fourre-tout : presque tout y est range en
+   * plus d'autre chose. Quand elle arrive en tete, le surtitre et le fil
+   * d'Ariane d'un reportage de club annoncent « Actualité » — le mot le
+   * moins informatif du corpus. On la repousse en fin de liste : la rubrique
+   * affichee est la plus precise que le document porte. */
+  const cats = (doc.categories || [])
+    .map((id) => catById.get(id))
+    .filter(Boolean)
+    .sort((a, b) => (a.slug === "actualite") - (b.slug === "actualite"));
   const face = isPage ? "page" : faceOf(doc, cats);
   const org = face === "portrait" ? orgOf(doc.slug) : null;
   const kicker = org || cats[0]?.name || (isPage ? "Rubrique" : "Actualité");
@@ -197,6 +311,7 @@ function renderDocument(doc, { isPage }) {
   // texte d'un rédacteur.
   let body = cleanContent(doc.content.rendered);
   let rosterBloc = "";
+  let blocs = [];
 
   // Le corps importe s'ouvre sur une <figure> qui porte l'image a la une —
   // celle que le gabarit affiche deja juste au-dessus. Chaque article montrait
@@ -208,6 +323,8 @@ function renderDocument(doc, { isPage }) {
       bloc.includes(img.url) || /wp-content|\/media\//.test(bloc) ? "" : bloc
     ).trim();
   }
+
+  if (isPage && doc.slug === "clubs-mma-francais") ({ body, blocs } = blocsClubs(body, doc));
 
   // Les pages organisation portaient une grille de portraits alimentee par le
   // CMS. On la regenere a partir du corpus : meme fonction, mais en liens
@@ -268,13 +385,17 @@ ${header()}
           ? `<figure class="figure lead" data-reveal data-reveal-media><img src="${img.url}" alt="${esc(img.alt)}"${
               img.width && img.height ? ` width="${img.width}" height="${img.height}"` : ""
             } decoding="async" />${
-              face === "portrait" && org ? `<figcaption class="lead-org">${esc(org)}</figcaption>` : ""
+              // Une photo prise chez quelqu'un d'autre se credite. C'est la
+              // regle d'un media, pas une option de mise en page.
+              img.credit
+                ? `<figcaption class="lead-credit">${esc(img.credit)}</figcaption>`
+                : face === "portrait" && org
+                ? `<figcaption class="lead-org">${esc(org)}</figcaption>`
+                : ""
             }</figure>`
           : ""
       }
-      <div class="prose" data-reveal>
-${body}
-      </div>
+${tisser(body, blocs)}
 ${rosterBloc ? `    </div>
     <div class="wrap roster-bloc" data-reveal>${rosterBloc}
     </div>

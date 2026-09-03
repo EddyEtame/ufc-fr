@@ -51,6 +51,8 @@
 
 ## Articles recents
 
+- [Boxing Center Ramonville : la salle du réseau qui met le MMA en tête](https://www.ufc.fr/boxing-center-ramonville-saint-agne/)
+- [Boxing Center États-Unis : 1 200 m² de sports de combat au nord de Toulouse](https://www.ufc.fr/boxing-center-toulouse-etats-unis/)
 - [Ciryl Gane de retour à l’entraînement, unification Aspinall en attente](https://www.ufc.fr/ciryl-gane-retour-entrainement-aspinall/)
 - [Dan Hooker en citations : « je vais ruiner la fête »](https://www.ufc.fr/dan-hooker-citations-ufc-paris-parnasse/)
 - [Morgan Charrière en citations : Lima, Paris, le finish](https://www.ufc.fr/morgan-charriere-citations-ufc-paris/)
@@ -70,7 +72,7 @@
 - [UFC, PFL, ONE, KSW, Hexagone, ARES : quelles différences ?](https://www.ufc.fr/differences-ufc-pfl-one-ksw-hexagone-ares/)
 - [Hexagone MMA à Rouen : 12 septembre 2026, Baybatyrov vs Trivunović](https://www.ufc.fr/hexagone-mma-rouen-12-septembre-2026/)
 - [FMMAF : ce que la fédération change pour les clubs de MMA](https://www.ufc.fr/fmmaf-federation-mma-france-clubs/)
-- [Fondation MMA Marseille : 700 m², cage 5&#215;5, avenue de Toulon](https://www.ufc.fr/fondation-mma-marseille-club/)
+- [Fondation MMA Marseille : 700 m², cage 5×5, avenue de Toulon](https://www.ufc.fr/fondation-mma-marseille-club/)
 - [Hexagone MMA 47 à Toulouse : date, lieu, carte annoncée](https://www.ufc.fr/hexagone-mma-47-toulouse-2026/)
 - [UFC Paris : Mairon Santos forfait, Nathaniel Wood sans adversaire](https://www.ufc.fr/ufc-paris-santos-forfait-wood/)
 - [Salahdine Parnasse en citations : signature UFC, Hooker, fans](https://www.ufc.fr/salahdine-parnasse-citations-ufc-paris/)
@@ -79,10 +81,8 @@
 - [Les coachs de Cage Fight Toulouse : Jérôme, Tancrède, Yannis](https://www.ufc.fr/coachs-cage-fight-toulouse-jerome-tancrede-yannis/)
 - [Ziam vs Sola : le co-main 100 % français de l’UFC Paris 2026](https://www.ufc.fr/ziam-vs-sola-ufc-paris-2026-enjeux/)
 - [Salahdine Parnasse à l’UFC : ce que changent ses débuts à Paris](https://www.ufc.fr/salahdine-parnasse-debuts-ufc-paris-2026/)
-- [Calendrier MMA France automne 2026 : Paris, Rouen, Toulouse](https://www.ufc.fr/calendrier-mma-france-automne-2026/)
-- [ARES 43 : O’Connor vs Diatta pour le titre, le 25 septembre à Paris](https://www.ufc.fr/ares-43-oconnor-diatta-adidas-arena/)
 
 ## Corpus complet
 
-- [Index structure de 107 documents](https://www.ufc.fr/corpus.json)
+- [Index structure de 109 documents](https://www.ufc.fr/corpus.json)
 - Serveur MCP disponible dans le depot du site (mcp/server.mjs) : recherche, lecture d'article, carte de combats, rubriques.

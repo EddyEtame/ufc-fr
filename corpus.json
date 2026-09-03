@@ -8,6 +8,34 @@
  "documents": [
   {
    "type": "article",
+   "titre": "Boxing Center Ramonville : la salle du réseau qui met le MMA en tête",
+   "url": "https://www.ufc.fr/boxing-center-ramonville-saint-agne/",
+   "slug": "boxing-center-ramonville-saint-agne",
+   "publie": "2026-09-03",
+   "maj": "2026-09-03",
+   "rubriques": [
+    "clubs-mma-francais",
+    "actualite"
+   ],
+   "resume": "Rue des Ormes, à Ramonville-Saint-Agne. Le club présente cette adresse comme sa salle spécialisée en arts martiaux mixtes, avec 300 m² d'entraînement en extérieur couvert.",
+   "mots": 312
+  },
+  {
+   "type": "article",
+   "titre": "Boxing Center États-Unis : 1 200 m² de sports de combat au nord de Toulouse",
+   "url": "https://www.ufc.fr/boxing-center-toulouse-etats-unis/",
+   "slug": "boxing-center-toulouse-etats-unis",
+   "publie": "2026-09-03",
+   "maj": "2026-09-03",
+   "rubriques": [
+    "clubs-mma-francais",
+    "actualite"
+   ],
+   "resume": "Sixième salle du réseau toulousain, ouverte avenue des États-Unis. Trois zones de 400 m², deux rings, un plateau de tapis, et du MMA dans une maison qui vient de la boxe.",
+   "mots": 401
+  },
+  {
+   "type": "article",
    "titre": "Ciryl Gane de retour à l’entraînement, unification Aspinall en attente",
    "url": "https://www.ufc.fr/ciryl-gane-retour-entrainement-aspinall/",
    "slug": "ciryl-gane-retour-entrainement-aspinall",
@@ -290,7 +318,7 @@
   },
   {
    "type": "article",
-   "titre": "Fondation MMA Marseille : 700 m², cage 5&#215;5, avenue de Toulon",
+   "titre": "Fondation MMA Marseille : 700 m², cage 5×5, avenue de Toulon",
    "url": "https://www.ufc.fr/fondation-mma-marseille-club/",
    "slug": "fondation-mma-marseille-club",
    "publie": "2026-08-31",
@@ -1410,7 +1438,7 @@
    "publie": "2025-04-23",
    "maj": "2026-08-31",
    "rubriques": [],
-   "resume": "Portraits des Champions MMA – UFC, PFL, One &#038; Plus Plongez dans l’univers des légendes MMA : UFC, PFL, KSW… découvrez leurs parcours, combats et victoires. Les organisations ▼ UFC PFL One Championship Cage Warriors ARES Hexagone MMA KSW L’actualité MMA Champions par organisation : UFC, PFL, KSW",
+   "resume": "Portraits des Champions MMA – UFC, PFL, One & Plus Plongez dans l’univers des légendes MMA : UFC, PFL, KSW… découvrez leurs parcours, combats et victoires. Les organisations ▼ UFC PFL One Championship Cage Warriors ARES Hexagone MMA KSW L’actualité MMA Champions par organisation : UFC, PFL, KSW & Au",
    "mots": 1554
   },
   {
@@ -1421,7 +1449,7 @@
    "publie": "2025-04-23",
    "maj": "2026-08-31",
    "rubriques": [],
-   "resume": "MMA News Sans Garde : UFC, Chocs &#038; Galas Les dernières frappes de l’actu MMA : UFC, France, combats titanesques – tout est là, sans détour. Les organisations ▼ UFC PFL One Championship Cage Warriors ARES Hexagone MMA KSW Portraits de champions Filtrez les news pour suivre ce qui compte vraiment",
+   "resume": "MMA News Sans Garde : UFC, Chocs & Galas Les dernières frappes de l’actu MMA : UFC, France, combats titanesques – tout est là, sans détour. Les organisations ▼ UFC PFL One Championship Cage Warriors ARES Hexagone MMA KSW Portraits de champions Filtrez les news pour suivre ce qui compte vraiment Séle",
    "mots": 1149
   }
  ]

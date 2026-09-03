@@ -26,11 +26,14 @@ const BASE = process.env.BASE || "http://127.0.0.1:4321";
 const CIBLES = [
   ["accueil", "/", 0],
   ["accueil-defile", "/", 1400],
+  ["accueil-salles", "/", ".salles"],
   ["carte", "/carte/ufc-paris-2026/", 1500],
   ["fil", "/actualite-du-mma/", 300],
   ["rubrique", "/categorie/ufc/", 300],
   ["portrait", "/portrait-ufc-john-jones/", 0],
   ["lieu", "/cage-fight-toulouse-club-mma/", 0],
+  ["clubs", "/clubs-mma-francais/", 900],
+  ["clubs-bas", "/clubs-mma-francais/", 2600],
   ["organisation", "/organisation-mma-ksw/", 1400],
 ];
 
@@ -59,7 +62,17 @@ for (const [nom, url, scroll] of CIBLES) {
     });
 
     await page.goto(BASE + url, { waitUntil: "domcontentloaded", timeout: 40000 });
-    if (scroll) { await page.evaluate((y) => window.scrollTo(0, y), scroll); await page.waitForTimeout(1300); }
+    // Un nombre defile de tant de pixels ; une chaine amene la section nommee
+    // en haut de l'ecran. Viser la section par son nom evite de rechercher un
+    // pixel a chaque fois que la page au-dessus change de hauteur.
+    if (scroll) {
+      await page.evaluate((cible) => {
+        if (typeof cible === "number") return window.scrollTo(0, cible);
+        const el = document.querySelector(cible);
+        if (el) window.scrollTo(0, el.getBoundingClientRect().top + window.scrollY - 8);
+      }, scroll);
+      await page.waitForTimeout(1300);
+    }
     await page.waitForTimeout(900);
 
     // Un debordement horizontal est toujours un defaut : il n'existe aucune

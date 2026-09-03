@@ -57,3 +57,9 @@ ce fichier est le plancher.
     surface, un préfixe. Et avant tout push touchant au CSS : `npm run
     shots`, puis regarder les images. Un code HTTP à 200 ne dit rien d'une
     mise en page.
+27. **Une image qui ne montre pas ce dont l'article parle ne l'illustre pas,
+    elle le remplit.** Un repli générique est acceptable pour un article
+    isolé, jamais pour deux articles voisins dans une même grille. Avant de
+    construire une grille : compter les images distinctes qu'elle contient.
+    Et une photo prise sur le site de quelqu'un d'autre se crédite —
+    toujours, sans exception.

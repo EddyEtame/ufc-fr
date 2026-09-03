@@ -31,6 +31,74 @@ const pages = read("pages.json");
 const categories = read("categories.json");
 const mediaManifest = existsSync(join(DATA, "media-manifest.json")) ? read("media-manifest.json") : [];
 
+/* ------------------------------------------------------- articles maison --
+ * Le cahier des charges demande plusieurs articles par semaine, indefiniment
+ * (§15), avec un pipeline assiste (§16). Tant que le corpus se limitait a
+ * l'extraction du CMS, ecrire un nouvel article voulait dire retoucher le
+ * generateur — c'est-a-dire ne pas pouvoir en ecrire.
+ *
+ * Un article maison est un fichier JSON dans data/articles/. Il est traduit
+ * ici dans la forme d'un article du CMS, puis rejoint le corpus : page
+ * dediee, rubrique, fil, recherche, sitemap, corpus machine et serveur MCP le
+ * reprennent sans une ligne de plus.
+ */
+const DIR_MAISON = join(ROOT, "data", "articles");
+const catParSlug = new Map(categories.map((c) => [c.slug, c]));
+
+function articlesMaison() {
+  if (!existsSync(DIR_MAISON)) return [];
+  return readdirSync(DIR_MAISON)
+    .filter((f) => f.endsWith(".json"))
+    .map((f) => {
+      const a = JSON.parse(readFileSync(join(DIR_MAISON, f), "utf8"));
+      const ids = [a.categorie, ...(a.categories_secondaires || [])]
+        .map((slug) => catParSlug.get(slug)?.id)
+        .filter(Boolean);
+
+      // Le chapo ouvre l'article et sert de resume ; la mention de source et
+      // le lien vers le club ferment le corps. Les assembler ici plutot que
+      // dans le JSON garde les fiches lisibles et la mise en forme unique.
+      const corps =
+        `<p class="chapo">${a.chapo}</p>\n` +
+        a.corps +
+        (a.lien_club
+          ? `\n<p class="renvoi">Horaires, tarifs et inscriptions changent d’une saison à l’autre : le club les tient à jour sur <a href="${a.lien_club.url}" rel="noopener">${a.lien_club.texte}</a>.</p>`
+          : "") +
+        (a.source ? `\n<p class="source-note">${a.source}</p>` : "");
+
+      return {
+        id: 900000 + Math.abs([...a.slug].reduce((h, c) => (h * 31 + c.charCodeAt(0)) | 0, 7)) % 90000,
+        slug: a.slug,
+        date: `${a.date}T09:00:00`,
+        date_gmt: `${a.date}T07:00:00`,
+        modified: `${a.date}T09:00:00`,
+        modified_gmt: `${a.date}T07:00:00`,
+        title: { rendered: a.titre },
+        content: { rendered: corps },
+        excerpt: { rendered: `<p>${a.chapo}</p>` },
+        categories: ids,
+        maison: true,
+        yoast_head_json: { title: `${a.titre} | UFC.FR`, description: a.meta_description },
+        _embedded: a.image
+          ? {
+              "wp:featuredmedia": [
+                {
+                  source_url: a.image,
+                  alt_text: a.image_alt || "",
+                  title: { rendered: a.image_alt || "" },
+                  credit: a.image_credit || "",
+                  media_details: {},
+                },
+              ],
+            }
+          : undefined,
+      };
+    });
+}
+
+const maison = articlesMaison();
+posts.push(...maison);
+
 /* ---------------------------------------------------------------- médias --
  * Les binaires vivent dans /media/ à la racine. On garde le nom de fichier
  * d'origine : les slugs WP sont déjà descriptifs, et c'est ce qui permet de
@@ -60,6 +128,42 @@ for (const m of mediaManifest) {
  * quelqu'un dont on a le portrait, c'est ce portrait qui illustre. C'est la
  * difference entre un site alimente et un site tenu.
  */
+/* ------------------------------------------------ photos attribuees --
+ * Une photo nommee pour un slug precis, sans devinette ni motif.
+ *
+ * Douze reportages de club partageaient la meme photo d'illustration : un
+ * boxeur generique servait de facade a Toulouse, Paris, Lille et Nantes a la
+ * fois. C'est le meme defaut que la galerie de ceintures — une image qui ne
+ * montre pas ce dont l'article parle ne l'illustre pas, elle le remplit.
+ *
+ * Chaque salle a desormais sa photo, prise sur le site du club et creditee.
+ * Le credit n'est pas une politesse : on publie l'image de quelqu'un d'autre,
+ * on dit de qui elle vient. Nice reste sans photo — son site n'en publie
+ * aucune — et garde donc le repli : mieux vaut un manque qu'un faux.
+ */
+const PHOTOS_EXACTES = {
+  "cage-fight-toulouse-club-mma": ["/media/clubs/cage-fight-toulouse.webp", "Photo Cage Fight Toulouse"],
+  "unlock-paris-17-club-mma": ["/media/clubs/unlock-paris-17.webp", "Photo Unlock Paris 17"],
+  "nrfight-paris-club-mma": ["/media/clubs/nrfight-paris.webp", "Photo NRFight Paris"],
+  "fondation-mma-marseille-club": ["/media/clubs/fondation-mma-marseille.webp", "Photo Fondation MMA Marseille"],
+  "team-ezbiri-lyon-club-mma": ["/media/clubs/team-ezbiri-lyon.webp", "Photo Team Ezbiri"],
+  "panthers-club-lille-mma": ["/media/clubs/panthers-club-lille.webp", "Photo Panthers Club Lille"],
+  "parabellum-nantes-club-mma": ["/media/clubs/parabellum-nantes.webp", "Photo Julia Briend · Parabellum Combat Club"],
+  "fight-n-fit-bordeaux-club-mma": ["/media/clubs/fight-n-fit-bordeaux.webp", "Photo Fight\u2019n\u2019Fit Bordeaux"],
+  "cage-training-montpellier-lattes": ["/media/clubs/cage-training-lattes.webp", "Photo Cage Training"],
+  "apex-mma-strasbourg": ["/media/clubs/apex-mma-strasbourg.webp", "Photo Apex MMA Strasbourg"],
+  "monkey-gym-rennes-saint-gregoire": ["/media/clubs/monkey-gym-rennes.webp", "Photo Monkey Gym"],
+  "coachs-cage-fight-toulouse-jerome-tancrede-yannis": ["/media/clubs/coachs-cage-fight-toulouse.webp", "Photo Cage Fight Toulouse"],
+  // La page de rubrique s'ouvrait sur une cage polonaise de banque d'images,
+  // et la partageait avec deux articles. Une salle francaise vide, avant le
+  // cours, dit mieux ce dont la page parle.
+  "clubs-mma-francais": ["/media/clubs/rubrique-clubs.webp", "Photo Panthers Club Lille"],
+  // ARES et Hexagone partageaient la meme photo « organisations » : cote a
+  // cote dans une grille, les deux pages se ressemblaient au point de sembler
+  // la meme. Le depot contenait deja une dizaine de photos jamais servies.
+  "organisation-mma-ares-fighting-championship": ["/img/octagon.jpg", ""],
+};
+
 const PORTRAITS_MAISON = {
   parnasse: "/img/parnasse.jpg", hooker: "/img/hooker.jpg", ziam: "/img/ziam.jpg",
   sola: "/img/sola.jpg", charriere: "/img/charriere.jpg", sy: "/img/sy.jpg",
@@ -90,6 +194,10 @@ const SUJETS_MAISON = [
  */
 export function imageMaison(slug) {
   const s = String(slug || "").toLowerCase();
+  // Un article maison apporte sa propre photo : aucun repli ne s'y applique.
+  if (s.startsWith("boxing-center-")) return null;
+  // La photo d'une salle est nommee, pas devinee : elle prime sur tout.
+  if (PHOTOS_EXACTES[s]) return { url: PHOTOS_EXACTES[s][0], credit: PHOTOS_EXACTES[s][1], unique: true };
   // Le nom retenu est celui qui apparait le PLUS TOT dans le slug, pas le
   // premier de la liste : « dan-hooker-citations-ufc-paris-parnasse » parle
   // de Hooker, et une correspondance par ordre de declaration y mettait la
@@ -203,12 +311,25 @@ function cleanContent(html) {
 const esc = (s = "") =>
   String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 
-/** Décode les entités que l'API renvoie déjà encodées dans les titres. */
+/**
+ * Décode les entités que l'API renvoie déjà encodées dans les titres.
+ *
+ * Les numériques sont traitées par la règle générale plutôt qu'une par une :
+ * une table écrite à la main laissait passer tout ce qu'elle n'avait pas
+ * prévu — « cage 5&#215;5 » s'affichait tel quel dans une fiche de club.
+ * `&amp;` se décode en dernier, sinon « &amp;#215; » deviendrait un ×.
+ */
 const decode = (s = "") =>
   String(s)
-    .replace(/&#8211;/g, "–").replace(/&#8217;|&rsquo;/g, "’").replace(/&#8230;/g, "…")
-    .replace(/&laquo;/g, "«").replace(/&raquo;/g, "»").replace(/&nbsp;/g, " ")
-    .replace(/&amp;/g, "&").replace(/&quot;/g, '"').replace(/&#039;/g, "'");
+    .replace(/&#(\d+);/g, (_, n) => String.fromCodePoint(Number(n)))
+    .replace(/&#x([0-9a-f]+);/gi, (_, n) => String.fromCodePoint(parseInt(n, 16)))
+    .replace(/&rsquo;/g, "’").replace(/&lsquo;/g, "‘")
+    .replace(/&ldquo;/g, "“").replace(/&rdquo;/g, "”")
+    .replace(/&hellip;/g, "…").replace(/&ndash;/g, "–").replace(/&mdash;/g, "—")
+    .replace(/&laquo;/g, "«").replace(/&raquo;/g, "»")
+    .replace(/&nbsp;/g, " ").replace(/&times;/g, "×").replace(/&eacute;/g, "é")
+    .replace(/&quot;/g, '"').replace(/&lt;/g, "<").replace(/&gt;/g, ">")
+    .replace(/&amp;/g, "&");
 
 /**
  * Le resume d'un document.

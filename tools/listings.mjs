@@ -55,7 +55,12 @@ function thumb(p, vues) {
 /** Une carte d'article, dans le système de composants existant du site. */
 function card(p, vues) {
   const t = thumb(p, vues);
-  const cat = (p.categories || []).map((id) => catById.get(id)).filter(Boolean)[0];
+  // « Actualite » passe en dernier : c'est la rubrique fourre-tout, et une
+  // carte qui l'affiche n'apprend rien de plus que le titre.
+  const cat = (p.categories || [])
+    .map((id) => catById.get(id))
+    .filter(Boolean)
+    .sort((a, b) => (a.slug === "actualite") - (b.slug === "actualite"))[0];
   return `        <a class="card" href="/${p.slug}/" data-reveal>
           ${
             t

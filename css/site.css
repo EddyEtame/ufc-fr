@@ -3201,3 +3201,254 @@ html.entree-active, html.entree-active body { overflow: hidden; }
   .crumbs .crumb-actuel { display: none; }
   .crumbs a:last-of-type + .crumb-sep { display: none; }
 }
+
+/* =========================================================================
+   LES SALLES
+   La seule rubrique ou le site parle de lieux ou l'on peut se rendre. Elle
+   passe sur fond sombre : dans une page claire, c'est ce qui lui donne le
+   poids d'une destination plutot que d'une liste de plus.
+   ========================================================================= */
+
+.salles {
+  background: var(--void);
+  color: var(--paper);
+  padding: clamp(64px, 11vh, 128px) 0 clamp(70px, 12vh, 140px);
+}
+
+.salles-tete {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 28px;
+  flex-wrap: wrap;
+  margin-bottom: clamp(34px, 6vh, 62px);
+  padding-bottom: 26px;
+  border-bottom: 1px solid rgba(247, 244, 238, 0.16);
+}
+.salles-tete h2 {
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 300;
+  font-size: clamp(34px, 5.2vw, 66px);
+  letter-spacing: -0.04em;
+  line-height: 0.98;
+  margin: 8px 0 0;
+}
+.salles-tete .lede { color: var(--mist); margin: 14px 0 0; max-width: 44ch; }
+.salles-tete .more { color: var(--paper); border-bottom-color: rgba(247, 244, 238, 0.4); }
+.salles-tete .more:hover { color: var(--red); border-bottom-color: var(--red); }
+
+.salles-grille {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: clamp(22px, 3vw, 44px);
+}
+
+.salle { display: flex; flex-direction: column; }
+.salle-media {
+  display: block;
+  overflow: hidden;
+  aspect-ratio: 3 / 2;
+  background: var(--carbon);
+}
+.salle-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* Le sujet d'une photo de salle est l'equipement — ring, cage, tapis — et
+     il occupe le haut du cadre. Un cadrage centre ne montrerait que le sol.
+     La desaturation reste legere : a 0,35 la salle de Ramonville virait au
+     monochrome a cote de ses voisines. */
+  object-position: 50% 34%;
+  filter: grayscale(0.12) contrast(1.04);
+  transition: transform 1s var(--ease), filter 0.6s var(--ease);
+}
+.salle-media:hover img { transform: scale(1.045); filter: grayscale(0) contrast(1); }
+
+/* La carte occupe toute la hauteur de sa cellule et le corps prend le reste :
+   c'est ce qui permet aux rangees de liens de s'aligner d'une fiche a
+   l'autre. Sans cela, un titre sur deux lignes decalait ses liens vers le bas
+   et la grille perdait sa ligne de base. */
+.salle { height: 100%; }
+.salle-corps { padding: 20px 0 0; display: flex; flex-direction: column; gap: 9px; flex: 1; }
+.salle-ville {
+  font-family: var(--ui);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--red);
+}
+.salle h3 {
+  font-family: var(--display);
+  font-size: clamp(19px, 1.9vw, 26px);
+  font-weight: 600;
+  letter-spacing: 0.005em;
+  text-transform: uppercase;
+  line-height: 1.06;
+  margin: 0;
+}
+/* Le composant est neutre : il sert la bande sombre de l'accueil et
+   l'annuaire, qui est sur fond clair. Tant qu'il ecrivait « paper » en dur,
+   les noms de salles etaient blancs sur creme — donc absents. Les couleurs
+   du fond sombre sont declarees plus bas, sous `.salles`. */
+.salle h3 a { color: var(--ink); }
+.salle h3 a:hover { color: var(--red); }
+.salle p { margin: 0; color: var(--ash); font-size: 15px; line-height: 1.45; }
+
+.salle-liens {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 20px;
+  margin-top: auto !important;
+  padding-top: 14px;
+  border-top: 1px solid rgba(14, 14, 14, 0.14);
+}
+.salle-lire,
+.salle-site {
+  font-family: var(--ui);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.salle-lire { color: var(--ink); }
+.salle-lire:hover { color: var(--red); }
+/* Le lien sortant se distingue du lien interne : le lecteur doit savoir qu'il
+   quitte le site avant de cliquer, pas apres. */
+.salle-site { color: var(--ash); display: inline-flex; align-items: center; gap: 6px; }
+.salle-site i { font-style: normal; font-size: 11px; transition: transform 0.3s var(--ease); }
+.salle-site:hover { color: var(--ink); }
+.salle-site:hover i { transform: translate(2px, -2px); }
+
+/* Sur la bande sombre de l'accueil, le composant s'inverse. Un seul endroit,
+   et les deux surfaces restent d'accord. */
+.salles .salle h3 a,
+.salles .salle-lire { color: var(--paper); }
+.salles .salle h3 a:hover,
+.salles .salle-lire:hover { color: var(--red); }
+.salles .salle-liens { border-top-color: rgba(247, 244, 238, 0.14); }
+.salles .salle-site:hover { color: var(--paper); }
+
+@media (max-width: 600px) {
+  .salles-tete { flex-direction: column; align-items: flex-start; }
+  .salles-grille { gap: 34px; }
+  .salle-media { aspect-ratio: 16 / 10; }
+}
+
+/* =========================================================================
+   L'ANNUAIRE DES SALLES — page « Les clubs de MMA français »
+
+   La page tenait sa liste en texte : douze puces, un nom, une adresse. Un
+   annuaire de salles est pourtant la seule page du site dont le lecteur
+   attend qu'elle montre — il cherche un endroit ou aller, pas une reference
+   a citer. Les fiches reprennent le composant `.salle` de l'accueil : meme
+   objet, deux surfaces, une seule definition.
+   ========================================================================= */
+
+/* Un bloc pleine largeur au milieu d'un article. Il sort de la colonne de
+   lecture (720 px) parce qu'une grille n'a pas de mesure de lecture. Le
+   generateur ferme `.wrap-read` et ouvre celui-ci : c'est la structure qui
+   le permet, pas une regle de debordement. */
+.bloc-large {
+  margin: clamp(46px, 7vh, 88px) auto clamp(44px, 6vh, 80px);
+}
+
+.annuaire-tete {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 20px 44px;
+  flex-wrap: wrap;
+  padding-bottom: 22px;
+  margin-bottom: clamp(30px, 4vh, 48px);
+  border-bottom: 2px solid var(--ink);
+}
+.annuaire-tete h2 {
+  font-family: var(--display);
+  font-size: clamp(26px, 3.4vw, 44px);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+  line-height: 1;
+  margin: 6px 0 0;
+}
+.annuaire-note {
+  font-family: var(--ui);
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--ash);
+  max-width: 38ch;
+  margin: 0;
+}
+
+/* Quatorze fiches. `auto-fill` plutot qu'`auto-fit` : avec `auto-fit`, une
+   derniere ligne d'une seule fiche s'etirait sur toute la largeur et cette
+   fiche-la devenait une banniere. On garde la colonne. */
+.annuaire-grille {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(268px, 1fr));
+  gap: clamp(30px, 3.4vw, 52px) clamp(20px, 2.6vw, 38px);
+}
+
+/* Un filet sous chaque fiche : c'est ce qui fait lire la grille comme un
+   annuaire et non comme une suite de cartes flottantes. */
+.annuaire .salle-corps { padding-top: 16px; }
+.annuaire .salle-media { aspect-ratio: 4 / 3; }
+.annuaire .salle h3 { font-size: clamp(17px, 1.5vw, 21px); }
+.annuaire .salle p { font-size: 14px; }
+
+/* Une fiche sans photo. Elle ne se cache pas : le cadre reste, et il dit
+   pourquoi il est vide. C'est une information — le club n'en publie pas —
+   et c'est plus honnete qu'un cliche generique emprunte a un autre. */
+.salle-media-vide {
+  display: flex;
+  align-items: flex-end;
+  background:
+    repeating-linear-gradient(135deg, transparent 0 11px, rgba(14, 14, 14, 0.045) 11px 12px),
+    var(--bone);
+  border: 1px solid rgba(14, 14, 14, 0.12);
+}
+.salle-media-vide span {
+  display: block;
+  padding: 16px 16px 15px;
+  font-family: var(--ui);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  color: var(--ash);
+}
+.salle-media-vide b { display: block; font-weight: 400; font-size: 11px; opacity: 0.72; margin-top: 3px; }
+.salles .salle-media-vide {
+  background:
+    repeating-linear-gradient(135deg, transparent 0 11px, rgba(247, 244, 238, 0.05) 11px 12px),
+    var(--carbon);
+  border-color: rgba(247, 244, 238, 0.12);
+}
+
+/* Le bloc « autour des clubs » : quatre reperes, pas des salles. */
+.rubrique-suite { margin-top: clamp(50px, 7vh, 96px); }
+.rubrique-suite .ed-head { margin-bottom: clamp(26px, 3.5vh, 44px); }
+.grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 40px 26px; }
+.grid-4 .card h3 { font-size: clamp(16px, 1.4vw, 19px); }
+
+/* Le credit d'une photo qui n'est pas la notre. Discret, jamais absent. */
+.lead-credit {
+  font-family: var(--ui);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ash);
+  padding: 9px 0 0;
+}
+
+@media (max-width: 900px) {
+  .grid-4 { grid-template-columns: repeat(2, 1fr); gap: 34px 22px; }
+}
+@media (max-width: 600px) {
+  .annuaire-grille { grid-template-columns: 1fr; gap: 34px; }
+  .annuaire .salle-media { aspect-ratio: 16 / 10; }
+  .annuaire-tete { border-bottom-width: 1px; }
+  .grid-4 { grid-template-columns: 1fr; gap: 30px; }
+}
