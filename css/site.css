@@ -2200,58 +2200,29 @@ html.motion .card-rail .bout.near { opacity: 1; }
    « site genere » — et c'est exactement ce qu'on refuse ici.
    ========================================================================= */
 
-/* --- PORTRAIT — le combattant occupe l'ecran avant qu'on lise une ligne. */
-.face-portrait .wrap-read { max-width: none; padding: 0; }
-.face-portrait .crumbs,
-.face-portrait .ah,
-.face-portrait .prose,
-.face-portrait .related {
-  max-width: var(--read);
-  margin-left: auto;
-  margin-right: auto;
-  padding-left: clamp(18px, 4vw, 32px);
-  padding-right: clamp(18px, 4vw, 32px);
-}
-.face-portrait .figure.lead {
-  position: relative;
-  max-width: none;
-  margin: 0 0 clamp(34px, 6vh, 64px);
-  aspect-ratio: 16 / 9;
-  background: var(--void);
-}
-.face-portrait .figure.lead img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  /* Le cadrage porte sur le haut : sur un portrait, ce qui compte est le
-     visage, et un recadrage centre coupe les fronts. */
-  object-position: 50% 22%;
-}
-.face-portrait .lead-org {
-  position: absolute;
-  left: clamp(18px, 4vw, 40px);
-  bottom: clamp(16px, 3vh, 28px);
-  font-family: var(--display);
-  font-size: clamp(38px, 8vw, 96px);
-  line-height: 0.85;
-  letter-spacing: -0.02em;
-  text-transform: uppercase;
-  color: var(--paper);
-  mix-blend-mode: difference;
-  pointer-events: none;
-}
-.face-portrait .ah h1 { font-size: clamp(34px, 5.4vw, 66px); line-height: 0.96; }
+/* --- PORTRAIT
+   La feuille portait deja, depuis l'origine, une mise en page d'article en
+   deux colonnes au-dessus de 981 px : titre a gauche, photo a droite en 4/5
+   qui deborde du cadre, texte pleine largeur en dessous. C'est une bonne
+   mise en page editoriale, et elle etait la.
 
-/* --- LIEU — la salle porte. Photo large, reperes en rail. */
-.face-lieu .figure.lead { max-width: none; margin: 0 0 clamp(30px, 5vh, 54px); }
-.face-lieu .figure.lead img { width: 100%; aspect-ratio: 21 / 9; object-fit: cover; }
+   Mes premieres regles la combattaient — ratio impose, marges remises a
+   zero, enfants recentres — et disloquaient la page. Elles sont retirees.
+   Un visage d'article ajoute des distinctions ; il ne refait pas la mise en
+   page qui existe. */
+.face-portrait .ah h1 { font-size: clamp(30px, 3.6vw, 52px); line-height: 0.98; }
+.face-portrait .ah .kicker { color: var(--red); }
+
+/* --- LIEU — la salle porte. Le trait rouge sous le titre signale la
+   rubrique sans toucher a la grille, et les intertitres deviennent des
+   reperes plutot que des titres de recit. */
 .face-lieu .ah::after {
   content: "";
   display: block;
   width: 54px;
   height: 3px;
   background: var(--red);
-  margin-top: 22px;
+  margin-top: 18px;
 }
 .face-lieu .prose h2 {
   font-family: var(--ui);
