@@ -2588,8 +2588,13 @@ html.motion .cage-frame .cage-draw { animation: cage-close 1.5s var(--ease) 0.15
   color: var(--mist);
 }
 /* Le compte a rebours est une information, pas un ornement : a trois jours
-   de l'evenement, c'est ce que le visiteur veut savoir en premier. */
+   de l'evenement, c'est ce que le visiteur veut savoir en premier.
+
+   Il echappe aux majuscules du bloc parent : « 46H00 » n'existe pas en
+   francais, le symbole de l'heure est minuscule et le reste — J−2 — porte
+   deja sa propre casse. */
 .hero-when b {
+  text-transform: none;
   font-family: var(--display);
   font-size: clamp(19px, 2.3vw, 30px);
   font-weight: 600;

@@ -113,6 +113,29 @@ const schema = [
   },
 ];
 
+/**
+ * Le compte a rebours, ecrit des la construction.
+ *
+ * Le repli sans JavaScript affichait « 21h00 » — l'heure de l'evenement — a
+ * l'endroit exact ou le script ecrit « 46h00 », qui veut dire « dans 46
+ * heures ». Meme forme, sens oppose. Un lecteur sans JavaScript, ou pendant
+ * les deux cents millisecondes qui precedent son execution, lisait donc une
+ * information fausse.
+ *
+ * On applique ici la regle du script, au mot pres : au-dela de deux jours on
+ * parle en jours, en deca en heures et minutes. La valeur vieillit entre
+ * deux constructions, mais elle vieillit dans le bon sens — elle reste un
+ * compte a rebours, et le script la corrige des qu'il tourne.
+ */
+const EVENEMENT = "2026-09-05T21:00:00+02:00";
+function compteARebours() {
+  const reste = new Date(EVENEMENT).getTime() - Date.now();
+  if (reste <= 0) return "En cours";
+  const h = Math.floor(reste / 36e5);
+  if (h >= 48) return "J\u2212" + Math.floor(h / 24);
+  return h + "h" + String(Math.floor((reste % 36e5) / 6e4)).padStart(2, "0");
+}
+
 const html = `${head({
   title: "UFC.FR — l’actualité du MMA, en français",
   /* 174 signes : Google en affiche environ 160, et c'est la mise en garde
@@ -158,7 +181,7 @@ ${header("/", "home")}
     <div class="hero-foot">
       <p class="hero-when">
         <time datetime="2026-09-05T21:00:00+02:00">Samedi 5 septembre · Accor Arena</time>
-        <b data-countdown="2026-09-05T21:00:00+02:00">21h00</b>
+        <b data-countdown="${EVENEMENT}">${compteARebours()}</b>
       </p>
       <div class="hero-actions">
         <a class="btn btn-fill cut" href="/carte/ufc-paris-2026/">La carte, combat par combat</a>

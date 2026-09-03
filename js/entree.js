@@ -37,12 +37,16 @@
 
   var EVENEMENT = new Date("2026-09-05T21:00:00+02:00").getTime();
 
+  /* La meme regle que le compte a rebours du heros, au mot pres : les deux
+     s'affichaient a une seconde d'intervalle et se contredisaient — « J−1 »
+     ici, « 46h00 » juste apres. Au-dela de deux jours on parle en jours ;
+     en deca, en heures et minutes, parce que c'est ce qui devient utile. */
   function reste() {
     var d = EVENEMENT - Date.now();
     if (d <= 0) return "EN COURS";
-    var j = Math.floor(d / 864e5);
-    if (j >= 1) return "J−" + j;
-    return Math.floor(d / 36e5) + " HEURES";
+    var h = Math.floor(d / 36e5);
+    if (h >= 48) return "J−" + Math.floor(h / 24);
+    return h + "h" + String(Math.floor((d % 36e5) / 6e4)).padStart(2, "0");
   }
 
   var voile = document.createElement("div");
