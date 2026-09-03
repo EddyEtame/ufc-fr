@@ -52,3 +52,8 @@ ce fichier est le plancher.
 24. La cadence de publication est un livrable (CDC §15). Une solution qui empêche
     l'équipe COM de publier a échoué, même si elle est plus belle.
 25. Jamais « fini », jamais « 100 % ». Pourcentage honnête + les écarts.
+26. **Avant d'écrire une règle CSS, lire celles qui portent déjà le même
+    sélecteur.** Un nom de classe générique ne se réutilise jamais : une
+    surface, un préfixe. Et avant tout push touchant au CSS : `npm run
+    shots`, puis regarder les images. Un code HTTP à 200 ne dit rien d'une
+    mise en page.
