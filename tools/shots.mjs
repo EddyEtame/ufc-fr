@@ -1,0 +1,77 @@
+/**
+ * Captures de controle.
+ *
+ * Ce fichier existe a cause d'une faute precise : une soiree entiere de
+ * travail livree en verifiant des codes HTTP et des `grep`, sans jamais
+ * ouvrir une page. Le site est parti en production avec un heros dont les
+ * deux noms se chevauchaient, des cartes dont le titre tenait sur 102 px,
+ * et un cadre decoratif qui recouvrait le heros d'un panneau noir. Aucun de
+ * ces defauts n'etait detectable autrement qu'en regardant.
+ *
+ * `npm run shots` rend chaque type de page en bureau et en telephone, releve
+ * les erreurs de console, et ecrit les images dans .research/shots/ (dossier
+ * ignore par git). A lancer avant tout push qui touche au CSS.
+ */
+import { chromium } from "playwright-core";
+import { mkdirSync } from "node:fs";
+import { join, dirname } from "node:path";
+import { fileURLToPath } from "node:url";
+
+const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
+const OUT = join(ROOT, ".research", "shots");
+const BASE = process.env.BASE || "http://127.0.0.1:4321";
+
+// Un exemplaire de chaque type de page. Une regression touche un type entier :
+// verifier trois articles du meme visage n'apprend rien de plus qu'un seul.
+const CIBLES = [
+  ["accueil", "/", 0],
+  ["accueil-defile", "/", 1400],
+  ["carte", "/carte/ufc-paris-2026/", 1500],
+  ["fil", "/actualite-du-mma/", 300],
+  ["rubrique", "/categorie/ufc/", 300],
+  ["portrait", "/portrait-ufc-john-jones/", 0],
+  ["lieu", "/cage-fight-toulouse-club-mma/", 0],
+  ["organisation", "/organisation-mma-ksw/", 1400],
+];
+
+mkdirSync(OUT, { recursive: true });
+const b = await chromium.launch({ executablePath: process.env.CHROME || "/opt/pw-browsers/chromium" });
+let defauts = 0;
+
+for (const [nom, url, scroll] of CIBLES) {
+  for (const [tag, vp] of [["bureau", { width: 1440, height: 900 }], ["tel", { width: 390, height: 844 }]]) {
+    const ctx = await b.newContext({ viewport: vp });
+    const page = await ctx.newPage();
+    const erreurs = [];
+    page.on("pageerror", (e) => erreurs.push(e.message.slice(0, 120)));
+    // Le message d'une requete echouee ne porte pas l'URL : il faut la lire
+    // dans sa localisation. Les polices distantes sont filtrees parce qu'un
+    // reseau restreint les bloque sans que le site soit en cause.
+    page.on("console", (m) => {
+      if (m.type() !== "error") return;
+      const source = m.location()?.url || "";
+      if (/fonts\.(googleapis|gstatic)\.com/.test(source)) return;
+      erreurs.push(m.text().slice(0, 120) + (source ? ` (${source.slice(-48)})` : ""));
+    });
+    page.on("requestfailed", (r) => {
+      if (/fonts\.(googleapis|gstatic)\.com/.test(r.url())) return;
+      erreurs.push("requete echouee " + r.url().slice(-56));
+    });
+
+    await page.goto(BASE + url, { waitUntil: "domcontentloaded", timeout: 40000 });
+    if (scroll) { await page.evaluate((y) => window.scrollTo(0, y), scroll); await page.waitForTimeout(1300); }
+    await page.waitForTimeout(900);
+
+    // Un debordement horizontal est toujours un defaut : il n'existe aucune
+    // raison valable qu'une page d'actualite defile lateralement.
+    const deborde = await page.evaluate(() => document.documentElement.scrollWidth > window.innerWidth + 1);
+    if (deborde) { erreurs.push("debordement horizontal"); }
+
+    await page.screenshot({ path: join(OUT, `${nom}-${tag}.png`) });
+    if (erreurs.length) { defauts++; console.log(`  ✗ ${nom}/${tag} — ${erreurs.join(" | ")}`); }
+    else console.log(`  ✓ ${nom}/${tag}`);
+    await ctx.close();
+  }
+}
+await b.close();
+console.log(defauts ? `\n${defauts} page(s) a regarder dans .research/shots/` : "\nAucune erreur. Les images restent a regarder : la console propre ne dit rien de la mise en page.");

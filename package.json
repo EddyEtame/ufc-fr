@@ -9,9 +9,13 @@
     "dev": "npm run build && node tools/serve.mjs",
     "extract": "python3 tools/wp-extract.py",
     "check": "node tools/check.mjs",
-    "mcp": "node mcp/server.mjs"
+    "mcp": "node mcp/server.mjs",
+    "shots": "node tools/shots.mjs"
   },
   "engines": {
     "node": ">=18"
+  },
+  "devDependencies": {
+    "playwright-core": "^1.49.0"
   }
 }

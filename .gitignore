@@ -1,4 +1,4 @@
-.research/
-node_modules/
 .DS_Store
+.research/
 Thumbs.db
+node_modules/
