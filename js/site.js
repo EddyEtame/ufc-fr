@@ -22,9 +22,12 @@
   function open() {
     lastFocus = document.activeElement;
     drawer.hidden = false;
-    // Laisse un cadre au navigateur pour appliquer `hidden` avant la
-    // transition, sinon l'ouverture se fait sans animation.
-    requestAnimationFrame(function () { drawer.classList.add("open"); });
+    // Deux cadres, pas un : le premier applique `hidden=false`, le second
+    // laisse le navigateur calculer l'etat de depart avant de le quitter.
+    // Avec un seul cadre, Chrome saute la transition une fois sur trois.
+    requestAnimationFrame(function () {
+      requestAnimationFrame(function () { drawer.classList.add("open"); });
+    });
     burger.setAttribute("aria-expanded", "true");
     burger.setAttribute("aria-label", "Fermer le menu");
     document.documentElement.style.overflow = "hidden";
@@ -33,7 +36,11 @@
 
   function close() {
     drawer.classList.remove("open");
-    drawer.hidden = true;
+    // On attend la fin de la fermeture avant de retirer l'element du flux :
+    // le masquer immediatement escamote l'animation de sortie.
+    var fin = function () { if (!drawer.classList.contains("open")) drawer.hidden = true; };
+    drawer.addEventListener("transitionend", fin, { once: true });
+    window.setTimeout(fin, 480);
     burger.setAttribute("aria-expanded", "false");
     burger.setAttribute("aria-label", "Ouvrir le menu");
     document.documentElement.style.overflow = "";

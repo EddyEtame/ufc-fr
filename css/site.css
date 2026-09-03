@@ -2904,3 +2904,112 @@ body:has(.hero-cage) > header.is-compact { background: var(--paper); }
   .resultat { grid-template-columns: 1fr; grid-template-areas: "kicker" "titre" "resume" "date"; }
   .resultat time { margin-top: 8px; }
 }
+
+/* ------------------------------------------------------------------ eases
+   Le tiroir s'ouvre, il n'apparait pas.
+   Il etait pilote par l'attribut `hidden` seul : aucune transition possible,
+   le menu surgissait et disparaissait d'un cadre a l'autre. Il est desormais
+   toujours dans le flux quand il s'anime, et ce sont l'opacite, l'echelle et
+   le decoupage qui font l'ouverture — jamais `display`, qui ne s'anime pas.
+
+   Les liens entrent en cascade : c'est ce qui distingue un panneau qui
+   s'ouvre d'un panneau qui clignote. */
+.drawer {
+  display: flex;
+  visibility: hidden;
+  opacity: 0;
+  clip-path: inset(0 0 100% 0);
+  transition:
+    opacity 0.34s var(--ease),
+    clip-path 0.52s var(--ease),
+    visibility 0s linear 0.52s;
+}
+.drawer.open {
+  visibility: visible;
+  opacity: 1;
+  clip-path: inset(0 0 0 0);
+  transition:
+    opacity 0.26s var(--ease),
+    clip-path 0.52s var(--ease),
+    visibility 0s;
+}
+.drawer[hidden] { display: none; }
+
+.drawer nav a {
+  opacity: 0;
+  transform: translate3d(0, 16px, 0);
+  transition: opacity 0.42s var(--ease), transform 0.42s var(--ease), color 0.25s var(--ease);
+}
+.drawer.open nav a { opacity: 1; transform: none; }
+/* Chaque lien part 34 ms apres le precedent : la cascade se lit, elle ne
+   traine pas. Quinze liens tiennent en un demi-quart de seconde. */
+.drawer.open nav a:nth-child(1) { transition-delay: 0.08s; }
+.drawer.open nav a:nth-child(2) { transition-delay: 0.114s; }
+.drawer.open nav a:nth-child(3) { transition-delay: 0.148s; }
+.drawer.open nav a:nth-child(4) { transition-delay: 0.182s; }
+.drawer.open nav a:nth-child(5) { transition-delay: 0.216s; }
+.drawer.open nav a:nth-child(6) { transition-delay: 0.25s; }
+.drawer.open nav a:nth-child(7) { transition-delay: 0.284s; }
+.drawer.open nav a:nth-child(8) { transition-delay: 0.318s; }
+.drawer.open nav a:nth-child(9) { transition-delay: 0.352s; }
+.drawer.open nav a:nth-child(10) { transition-delay: 0.386s; }
+.drawer.open nav a:nth-child(n + 11) { transition-delay: 0.42s; }
+
+/* Le bouton devient une croix. Les trois barres pivotent, celle du milieu
+   s'efface : le geste dit ce que le clic fera. */
+.burger i {
+  transition: transform 0.36s var(--ease), opacity 0.2s var(--ease);
+  transform-origin: center;
+}
+.burger[aria-expanded="true"] i:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+.burger[aria-expanded="true"] i:nth-child(2) { opacity: 0; transform: scaleX(0.4); }
+.burger[aria-expanded="true"] i:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+.drawer-close { transition: background 0.25s var(--ease), color 0.25s var(--ease), transform 0.3s var(--ease); }
+.drawer-close:hover { transform: rotate(90deg); }
+
+/* ---------------------------------------------------------------- cadrage
+   Les vignettes coupaient les visages.
+   `object-fit: cover` centre le cadrage : sur une photo verticale posee dans
+   une boite horizontale, le centre tombe sur le torse et la tete sort. On
+   remonte le point d'interet — un portrait se cadre sur le regard, pas sur
+   les abdominaux. */
+/* Le cadrage part du haut, pas d'un pourcentage arbitraire.
+   Une photo de combattant est verticale, la vignette est horizontale : a 18 %
+   le visage sortait encore par le haut. Sur ce type d'image, ce qui compte
+   est toujours dans le premier tiers — on cale donc le cadrage sur le bord
+   superieur, ou se trouve la tete, plutot que de chercher un reglage moyen
+   qui coupe tout le monde un peu. */
+.media img,
+.thumb img { object-position: 50% 0%; }
+/* Les vues d'arene et de salle n'ont pas de visage a preserver : elles se
+   cadrent au centre, ou leur sujet se trouve. */
+.media img[src*="arena"],
+.media img[src*="octagon"],
+.media img[src*="cage"],
+.media img[src*="gym"],
+.media img[src*="accor"] { object-position: 50% 50%; }
+
+/* ------------------------------------------------- en-tete sur telephone
+   Trois defauts constates le tiroir ouvert.
+
+   1. Deux croix. Le burger devenu croix et le bouton de fermeture du tiroir
+      proposaient la meme action a dix pixels l'un de l'autre. Le burger
+      gagne : il est la ou le pouce vient de cliquer. */
+@media (max-width: 980px) {
+  .drawer-close { display: none; }
+
+  /* 2. Le burger tombait au centre : la navigation est masquee et l'appel a
+        l'action aussi, il ne restait que la marque et lui dans un conteneur
+        centre. On force les deux extremites. */
+  .header-inner { justify-content: space-between; }
+  .header-inner .cta { display: none; }
+  .burger { margin-left: auto; }
+}
+
+/* 3. Le mot-symbole etait blanc sur creme, donc invisible, des que le tiroir
+      s'ouvrait en haut de page — l'en-tete y est transparente, mais le
+      tiroir derriere est clair. Tiroir ouvert, la marque redevient encre. */
+body:has(.drawer.open) > header .brand::after { color: var(--ink) !important; }
+body:has(.drawer.open) > header .burger i { background: var(--ink) !important; }
+body:has(.drawer.open) > header { background: var(--paper) !important; }
