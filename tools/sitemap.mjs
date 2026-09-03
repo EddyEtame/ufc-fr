@@ -9,7 +9,7 @@ import { fileURLToPath } from "node:url";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const SITE = "https://www.ufc.fr";
-const IGNORE = new Set([".git", "node_modules", "data", "media", "UFC", "tools", "img", "css", "js", "logo", ".registre"]);
+const IGNORE = new Set([".git", "node_modules", "data", "media", "UFC", "tools", "mcp", "img", "css", "js", "logo", ".registre", ".research", ".pages"]);
 
 const urls = new Set(["/"]);
 (function walk(dir) {
