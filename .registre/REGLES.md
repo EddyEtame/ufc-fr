@@ -88,3 +88,7 @@ ce fichier est le plancher.
     local. LCP et CLS se mesurent en 4G bridée avec le processeur divisé par
     quatre, sinon on ne mesure rien. Et l'image du plus grand élément de
     l'écran n'est jamais en `loading="lazy"`.
+33. **Une mesure hors contexte n'est pas une vérification.** La largeur d'une
+    espace fine mesurée à 40 px ne dit rien de son rendu à 17 px, où elle
+    devient invisible. Mesurer à la taille, dans la police et sur le fond où
+    la chose est réellement composée — puis regarder l'écran.

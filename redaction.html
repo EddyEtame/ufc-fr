@@ -9,7 +9,7 @@
   <link rel="canonical" href="https://www.ufc.fr/redaction.html" />
   <!-- La feuille de polices ne bloque plus le premier rendu.
        Chargee en <link rel="stylesheet"> classique, elle est une ressource
-       bloquante : tant que Google n'a pas repondu, le navigateur n'affiche
+       bloquante : tant que Google n'a pas repondu, le navigateur n'affiche
        rien. Une panne ou une lenteur chez un tiers devenait une page blanche
        chez nous. Avec media="print", le navigateur la telecharge sans
        attendre, et le onload la rend active des qu'elle arrive.
@@ -66,7 +66,7 @@
     <div class="wrap">
       <span class="kicker">Livrable 15</span>
       <h1>Rédaction assistée</h1>
-      <p>L’IA accélère la cadence. Rien ne sort sans relecture humaine : dates, noms, résultats, sources, ton neutre.</p>
+      <p>L’IA accélère la cadence. Rien ne sort sans relecture humaine : dates, noms, résultats, sources, ton neutre.</p>
     </div>
   </div>
 
@@ -74,7 +74,7 @@
     <div class="wrap-read prose">
       <figure class="figure">
         <img src="img/octagon.jpg" alt="Octogone UFC dans une arène comble" />
-        <figcaption class="caption">Photo : Wikimedia Commons · CC BY 2.0 · <a href="credits.html">Tous les crédits</a></figcaption>
+        <figcaption class="caption">Photo : Wikimedia Commons · CC BY 2.0 · <a href="credits.html">Tous les crédits</a></figcaption>
       </figure>
       <p class="crumbs"><a href="index.html">Accueil</a> · Rédaction</p>
       <h2>Workflow</h2>
@@ -83,7 +83,7 @@
         <li>Proposition de titres (agent).</li>
         <li>Sélection COM.</li>
         <li>Brouillon + plan (agent).</li>
-        <li>SEO : title, meta, Hn, maillage.</li>
+        <li>SEO : title, meta, Hn, maillage.</li>
         <li>Relecture humaine obligatoire.</li>
         <li>Visuel (alt + nom de fichier propre).</li>
         <li>Publication (HTML dans <code>articles/</code>).</li>
@@ -92,9 +92,9 @@
       </ol>
 
       <h2>Créer un article</h2>
-      <p>À la racine du dépôt :</p>
+      <p>À la racine du dépôt :</p>
       <pre class="code">node tools/new-article.mjs slug-url "Titre de l’article" "Kicker"</pre>
-      <p>Le script copie <code>tools/template-article.html</code> vers <code>articles/slug-url.html</code>. Ensuite : rédiger, relier depuis Actualités, ajouter l’URL au <code>sitemap.xml</code>.</p>
+      <p>Le script copie <code>tools/template-article.html</code> vers <code>articles/slug-url.html</code>. Ensuite : rédiger, relier depuis Actualités, ajouter l’URL au <code>sitemap.xml</code>.</p>
 
       <h2>Prompt type (agent)</h2>
       <pre class="code">Tu rédiges pour UFC.FR, média MMA indépendant francophone.

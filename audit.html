@@ -9,7 +9,7 @@
   <link rel="canonical" href="https://www.ufc.fr/audit.html" />
   <!-- La feuille de polices ne bloque plus le premier rendu.
        Chargee en <link rel="stylesheet"> classique, elle est une ressource
-       bloquante : tant que Google n'a pas repondu, le navigateur n'affiche
+       bloquante : tant que Google n'a pas repondu, le navigateur n'affiche
        rien. Une panne ou une lenteur chez un tiers devenait une page blanche
        chez nous. Avec media="print", le navigateur la telecharge sans
        attendre, et le onload la rend active des qu'elle arrive.
@@ -83,27 +83,27 @@
     <div class="wrap-read prose">
       <figure class="figure">
         <img src="img/octagon.jpg" alt="Octogone UFC dans une arène comble" />
-        <figcaption class="caption">Photo : Wikimedia Commons · CC BY 2.0 · <a href="credits.html">Tous les crédits</a></figcaption>
+        <figcaption class="caption">Photo : Wikimedia Commons · CC BY 2.0 · <a href="credits.html">Tous les crédits</a></figcaption>
       </figure>
       <p class="crumbs"><a href="index.html">Accueil</a> · <a href="a-propos.html">À propos</a> · Audit</p>
 
       <h2>Ce que le WordPress actuel fait déjà</h2>
-      <p>Le site en ligne est un média MMA, pas une vitrine officielle UFC. Les catégories existent : Actualité, Analyses, ARES, Cage Warriors, Clubs, Combattants, Événements, Hexagone MMA, Interviews, KSW, ONE, PFL, Résultats, UFC, UFC Paris 2026. Le positionnement éditorial du cahier des charges y est <strong>déjà annoncé</strong>.</p>
+      <p>Le site en ligne est un média MMA, pas une vitrine officielle UFC. Les catégories existent : Actualité, Analyses, ARES, Cage Warriors, Clubs, Combattants, Événements, Hexagone MMA, Interviews, KSW, ONE, PFL, Résultats, UFC, UFC Paris 2026. Le positionnement éditorial du cahier des charges y est <strong>déjà annoncé</strong>.</p>
       <p>Des articles récents tournent autour de Paris 2026 (carte, citations Hooker / Charrière / Ziam-Sola, forfait Santos), de portraits de clubs (Cage Training, Apex MMA, Monkey Gym, Maccabi Nice, Fight’n’Fit) et d’une page champions datée fin août 2026.</p>
 
       <h2>Faiblesses constatées</h2>
       <ul>
-        <li><strong>Catégories bruyantes</strong> : « All Posts », « Non Classé », filtres par poids en anglais sur la page actu — peu lisible pour un lecteur francophone.</li>
-        <li><strong>Contenus obsolètes encore indexés</strong> : des URLs parlent d’UFC 315 (mai 2025) ou d’un PFL 2025 comme s’ils étaient d’actualité ; slugs et titres se croisent (ex. une URL « della-maddalena » affiche un titre Hexagone Toulouse).</li>
+        <li><strong>Catégories bruyantes</strong> : « All Posts », « Non Classé », filtres par poids en anglais sur la page actu — peu lisible pour un lecteur francophone.</li>
+        <li><strong>Contenus obsolètes encore indexés</strong> : des URLs parlent d’UFC 315 (mai 2025) ou d’un PFL 2025 comme s’ils étaient d’actualité ; slugs et titres se croisent (ex. une URL « della-maddalena » affiche un titre Hexagone Toulouse).</li>
         <li><strong>SEO fragile</strong> : titres parfois génériques, maillage irrégulier, images souvent les mêmes visuels Wikimedia recyclés, pas de sitemap mis en avant côté recodage.</li>
         <li><strong>Ergonomie</strong> : empilement de filtres identiques répétés, hero peu distinct d’un blog générique, pas de hub Paris 2026 aussi clair qu’un dossier.</li>
         <li><strong>Publication</strong> : le CMS permet le volume, mais sans calendrier ni validation humaine formalisée, le risque d’articles trop courts ou datés reste élevé — exactement ce que le cahier des charges interdit.</li>
       </ul>
 
       <h2>Recommandation</h2>
-      <p><strong>Option 2 — site recodé</strong>, puis migration des URL vers www.ufc.fr. Motifs : architecture des rubriques du CDC, performances, SEO dès la base, dossier Paris 2026 comme hub, page champions datée, clubs avec portraits sourcés, disclaimer d’indépendance visible.</p>
-      <p>Le WordPress reste utile comme <strong>archive à migrer</strong> (réécrire les articles encore justes, rediriger les URLs cassées, jeter le « Non Classé »). Un CMS pourra être reconnecté plus tard ; l’arborescence de ce dépôt ne doit pas changer.</p>
-      <p>Plan de bascule : 1) geler les nouvelles pubs WP hors urgence ; 2) publier ici ; 3) 301 depuis les meilleurs slugs WP ; 4) Search Console + sitemap.xml ; 5) cadence COM via <a href="redaction.html">la rédaction assistée</a>.</p>
+      <p><strong>Option 2 — site recodé</strong>, puis migration des URL vers www.ufc.fr. Motifs : architecture des rubriques du CDC, performances, SEO dès la base, dossier Paris 2026 comme hub, page champions datée, clubs avec portraits sourcés, disclaimer d’indépendance visible.</p>
+      <p>Le WordPress reste utile comme <strong>archive à migrer</strong> (réécrire les articles encore justes, rediriger les URLs cassées, jeter le « Non Classé »). Un CMS pourra être reconnecté plus tard ; l’arborescence de ce dépôt ne doit pas changer.</p>
+      <p>Plan de bascule : 1) geler les nouvelles pubs WP hors urgence ; 2) publier ici ; 3) 301 depuis les meilleurs slugs WP ; 4) Search Console + sitemap.xml ; 5) cadence COM via <a href="redaction.html">la rédaction assistée</a>.</p>
     </div>
   </article>
 
