@@ -10,7 +10,7 @@ import { writeFileSync, mkdirSync, copyFileSync, existsSync } from "node:fs";
 import { join, dirname, basename } from "node:path";
 import {
   posts, pages, categories, ROOT, SITE, mediaManifest,
-  cleanContent, esc, decode, stripTags, dateFr, metaDesc, localMedia,
+  cleanContent, esc, decode, stripTags, dateFr, metaDesc, localMedia, imageMaison,
 } from "./build.mjs";
 import { head, header, footer, ORGS } from "./render.mjs";
 
@@ -136,6 +136,9 @@ const ORG_CATEGORY = {
 };
 
 function featuredImage(doc) {
+  // Une photo maison, quand le sujet en a une, passe avant l'image du CMS.
+  const maison = imageMaison(doc.slug);
+  if (maison) return { url: maison.url, alt: decode(doc.title.rendered) };
   const fm = doc._embedded?.["wp:featuredmedia"]?.[0];
   if (!fm?.source_url) return null;
   const local = localMedia(fm.source_url);

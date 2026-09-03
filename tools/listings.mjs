@@ -9,7 +9,7 @@
  */
 import { writeFileSync, mkdirSync } from "node:fs";
 import { join } from "node:path";
-import { posts, categories, ROOT, SITE, esc, decode, stripTags, dateFr, metaDesc, localMedia, resume } from "./build.mjs";
+import { posts, categories, ROOT, SITE, esc, decode, stripTags, dateFr, metaDesc, localMedia, resume, imageMaison } from "./build.mjs";
 import { head, header, footer } from "./render.mjs";
 
 const byDate = [...posts].sort((a, b) => new Date(b.date) - new Date(a.date));
@@ -25,6 +25,18 @@ const catById = new Map(categories.map((c) => [c.id, c]));
  * de texte, ce qui cree en prime du rythme dans la grille.
  */
 function thumb(p, vues) {
+  const maison = imageMaison(p.slug);
+  if (maison) {
+    // Le dedoublonnage est universel dans une liste. Un portrait est unique
+    // par personne, pas par article : cinq articles sur Parnasse affichaient
+    // cinq fois la meme photo. Le premier la garde, les suivants deviennent
+    // des cartes de texte — ce qui cree du rythme au lieu d'une repetition.
+    if (vues) {
+      if (vues.has(maison.url)) return null;
+      vues.add(maison.url);
+    }
+    return { url: maison.url, alt: decode(p.title.rendered) };
+  }
   const fm = p._embedded?.["wp:featuredmedia"]?.[0];
   if (!fm?.source_url) return null;
   if (vues) {

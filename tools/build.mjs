@@ -51,6 +51,59 @@ for (const m of mediaManifest) {
   mediaByUrl.set(stem, { url: `/media/${rel}`, ...m });
 }
 
+/* ------------------------------------------------------------- curation --
+ * Les images a la une venues du CMS sont generiques : la facade de Bercy et
+ * un octogone de stock illustrent la moitie du corpus, y compris des articles
+ * sur une personne nommee. Le depot, lui, contient les vraies photos.
+ *
+ * On rapproche donc le sujet de l'article de sa photo : si le slug nomme
+ * quelqu'un dont on a le portrait, c'est ce portrait qui illustre. C'est la
+ * difference entre un site alimente et un site tenu.
+ */
+const PORTRAITS_MAISON = {
+  parnasse: "/img/parnasse.jpg", hooker: "/img/hooker.jpg", ziam: "/img/ziam.jpg",
+  sola: "/img/sola.jpg", charriere: "/img/charriere.jpg", sy: "/img/sy.jpg",
+  cornolle: "/img/cornolle.jpg", duclos: "/img/duclos.jpg", aljarouj: "/img/aljarouj.jpg",
+  benouaich: "/img/benouaich.jpg", gane: "/img/gane.jpg", imavov: "/img/imavov.jpg",
+  zebo: "/img/zebo.jpg",
+  "saint-denis": "/img/saint-denis.jpg",
+};
+
+// Par sujet, quand aucune personne n'est nommee. Une salle merite une salle,
+// un gala merite une cage, un classement merite une ceinture.
+const SUJETS_MAISON = [
+  [/club|gym|academy|team-|salle/, "/img/gym.jpg"],
+  [/pesee/, "/img/pesee.jpg"],
+  [/classement|champion/, "/img/ceinture.jpg"],
+  [/organisation|differences/, "/img/organisations.jpg"],
+  [/calendrier|hexagone|ares-|gala/, "/img/arena-exterieur.jpg"],
+];
+
+/**
+ * L'image d'un document, curatee. Renvoie `null` si rien de mieux que
+ * l'image du CMS n'existe — l'appelant garde alors la sienne.
+ */
+export function imageMaison(slug) {
+  const s = String(slug || "").toLowerCase();
+  // Le nom retenu est celui qui apparait le PLUS TOT dans le slug, pas le
+  // premier de la liste : « dan-hooker-citations-ufc-paris-parnasse » parle
+  // de Hooker, et une correspondance par ordre de declaration y mettait la
+  // photo de Parnasse. Le sujet d'un article est nomme en tete de son slug.
+  let meilleur = null;
+  for (const [nom, chemin] of Object.entries(PORTRAITS_MAISON)) {
+    // Le nom doit etre un segment du slug, pas une sous-chaine : « sy »
+    // apparait dans « physique » et illustrerait n'importe quoi.
+    const m = s.match(new RegExp(`(^|-)${nom}(-|$)`));
+    if (m && (meilleur === null || m.index < meilleur.index)) meilleur = { index: m.index, chemin };
+  }
+  if (meilleur) return { url: meilleur.chemin, unique: true };
+  // Les replis par sujet sont generiques par construction : trois articles de
+  // classement recevraient la meme ceinture. Ils passent donc au
+  // dedoublonnage comme les images du CMS.
+  for (const [motif, chemin] of SUJETS_MAISON) if (motif.test(s)) return { url: chemin, unique: false };
+  return null;
+}
+
 /** Ramène n'importe quelle variante d'URL WordPress vers le fichier local. */
 function localMedia(src) {
   if (!src) return null;

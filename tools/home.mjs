@@ -14,7 +14,7 @@
  */
 import { writeFileSync } from "node:fs";
 import { join } from "node:path";
-import { posts, categories, ROOT, SITE, esc, decode, stripTags, dateFr, localMedia, resume } from "./build.mjs";
+import { posts, categories, ROOT, SITE, esc, decode, stripTags, dateFr, localMedia, resume, imageMaison } from "./build.mjs";
 import { head, header, footer } from "./render.mjs";
 
 const catBySlug = new Map(categories.map((c) => [c.slug, c]));
@@ -26,6 +26,8 @@ const inCat = (slug) => {
 const bySlug = (s) => posts.find((p) => p.slug === s);
 
 function media(p) {
+  const maison = imageMaison(p?.slug);
+  if (maison) return { url: maison.url, alt: decode(p.title.rendered) };
   const fm = p?._embedded?.["wp:featuredmedia"]?.[0];
   if (!fm?.source_url) return null;
   const l = localMedia(fm.source_url);
