@@ -10,7 +10,8 @@
     "extract": "python3 tools/wp-extract.py",
     "check": "node tools/check.mjs",
     "mcp": "node mcp/server.mjs",
-    "shots": "node tools/shots.mjs"
+    "shots": "node tools/shots.mjs",
+    "pages": "bash tools/deploy-pages.sh"
   },
   "engines": {
     "node": ">=18"

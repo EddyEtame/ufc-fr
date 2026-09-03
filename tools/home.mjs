@@ -136,8 +136,8 @@ ${header("/", "home")}
         <b data-countdown="2026-09-05T21:00:00+02:00">21h00</b>
       </p>
       <div class="hero-actions">
-        <a class="btn btn-fill cut" href="/carte/${'$'}{"ufc-paris-2026"}/">La carte, combat par combat</a>
-        <a class="btn btn-line cut" href="/${'$'}{une.slug}/">Le dossier</a>
+        <a class="btn btn-fill cut" href="/carte/ufc-paris-2026/">La carte, combat par combat</a>
+        <a class="btn btn-line cut" href="/${une.slug}/">Le dossier</a>
       </div>
     </div>
   </section>

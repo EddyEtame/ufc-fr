@@ -8,7 +8,7 @@ import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
-const SKIP = new Set([".git", "node_modules", "data", "UFC", "tools", ".registre"]);
+const SKIP = new Set([".git", "node_modules", "data", "UFC", "tools", "mcp", ".registre", ".research", ".pages"]);
 const pages = [];
 (function walk(d) {
   for (const n of readdirSync(d)) {
@@ -31,6 +31,9 @@ for (const p of pages) {
   if (/class="js-motion"/.test(h)) fail(`js-motion code en dur dans ${rel}`);
   if (!/rel="icon"/.test(h)) fail(`favicon absent de ${rel}`);
   if (!/og:title/.test(h)) fail(`Open Graph absent de ${rel}`);
+  // Un gabarit mal echappe laisse `${...}` dans le document : le lien
+  // devient inatteignable et rien d'autre ne le signale.
+  if (/\$\{/.test(h)) fail(`litteral de gabarit non evalue dans ${rel}`);
   const h1 = (h.match(/<h1[\s>]/g) || []).length;
   if (h1 !== 1 && !/name="robots" content="noindex/.test(h)) fail(`${h1} h1 dans ${rel}`);
   // 2. Aucune reference locale morte.
