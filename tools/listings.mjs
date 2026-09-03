@@ -52,8 +52,20 @@ function thumb(p, vues) {
   };
 }
 
-/** Une carte d'article, dans le système de composants existant du site. */
-function card(p, vues) {
+/**
+ * Une carte d'article.
+ *
+ * La premiere carte de la liste porte une image plus grande que les autres
+ * (`min-height: 420px`) : c'est elle, le plus grand element de l'ecran, donc
+ * c'est elle que Google mesure. Elle etait en `loading="lazy"` comme ses
+ * voisines — c'est-a-dire qu'elle attendait la mise en page pour commencer a
+ * se telecharger, derriere les polices et la feuille de style. Cinq secondes
+ * sur un telephone en 4G la ou le reste de la page tient en deux.
+ *
+ * Elle se charge donc en priorite, et seulement elle : passer toutes les
+ * cartes en `eager` ferait la course a douze images pour rien.
+ */
+function card(p, vues, tete = false) {
   const t = thumb(p, vues);
   // « Actualite » passe en dernier : c'est la rubrique fourre-tout, et une
   // carte qui l'affiche n'apprend rien de plus que le titre.
@@ -66,7 +78,7 @@ function card(p, vues) {
             t
               ? `<div class="media" data-reveal-media><img src="${t.url}" alt="${esc(t.alt)}"${
                   t.w && t.h ? ` width="${t.w}" height="${t.h}"` : ""
-                } loading="lazy" decoding="async" /></div>`
+                } ${tete ? 'fetchpriority="high" decoding="sync"' : 'loading="lazy" decoding="async"'} /></div>`
               : ""
           }
           <div class="card-body">
@@ -168,7 +180,7 @@ ${
         </header>
 ${filters(activeSlug)}
         <div class="cards grid-3">
-${(() => { const vues = new Set(); return items.map((p) => card(p, vues)).join("\n"); })()}
+${(() => { const vues = new Set(); return items.map((p, i) => card(p, vues, i === 0)).join("\n"); })()}
         </div>
       </div>
     </section>

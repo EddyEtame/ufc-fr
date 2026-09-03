@@ -20,20 +20,19 @@
   <link rel="icon" href="/media/brand/favicon-32.png" sizes="32x32" />
   <link rel="icon" href="/media/brand/favicon-192.png" sizes="192x192" />
   <link rel="apple-touch-icon" href="/media/brand/favicon-192.png" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <!-- La feuille de polices ne bloque plus le premier rendu.
-       Chargee en <link rel="stylesheet"> classique, elle est une ressource
-       bloquante : tant que Google n'a pas repondu, le navigateur n'affiche
-       rien. Une panne ou une lenteur chez un tiers devenait une page blanche
-       chez nous. Avec media="print", le navigateur la telecharge sans
-       attendre, et le onload la rend active des qu'elle arrive.
-       Le texte s'affiche donc dans la police de repli puis bascule — un
-       changement de police est un desagrement, une page blanche est une
-       perte. -->
-  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400;1,6..72,600&family=Oswald:wght@500;600;700&family=Outfit:wght@400;500;600;700&display=swap" />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400;1,6..72,600&family=Oswald:wght@500;600;700&family=Outfit:wght@400;500;600;700&display=swap" media="print" onload="this.media='all';this.onload=null" />
-  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400;1,6..72,600&family=Oswald:wght@500;600;700&family=Outfit:wght@400;500;600;700&display=swap" /></noscript>
+  <!-- Les polices ne viennent plus de chez Google.
+       Meme chargee sans bloquer le rendu, la feuille distante restait un
+       point de rupture : sur un reseau ou fonts.googleapis.com ne repond
+       pas, la requete pendait douze secondes puis echouait, et le plus grand
+       element de la page etait mesure a quatorze secondes — alors que sa
+       photo etait arrivee en une seconde huit.
+       Les trois familles sont sous licence SIL Open Font ; les servir
+       nous-memes supprime deux resolutions DNS, deux poignees de main TLS,
+       une dependance a un tiers, et une requete vers Google depuis le
+       navigateur de chaque lecteur. -->
+  <link rel="preload" as="font" type="font/woff2" href="/fonts/newsreader.woff2" crossorigin />
+  <link rel="preload" as="font" type="font/woff2" href="/fonts/outfit.woff2" crossorigin />
+  <link rel="stylesheet" href="/css/polices.css" />
   <link rel="stylesheet" href="/css/site.css" />
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"UFC.FR","alternateName":"UFC.FR — média MMA indépendant","url":"https://www.ufc.fr/","inLanguage":"fr-FR","potentialAction":{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://www.ufc.fr/recherche/?q={search_term_string}"},"query-input":"required name=search_term_string"}}</script>
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"NewsMediaOrganization","name":"UFC.FR","url":"https://www.ufc.fr/","logo":{"@type":"ImageObject","url":"https://www.ufc.fr/logo/ufc.fr.jpeg"},"description":"Média indépendant d’actualité MMA en France et à l’international. Non affilié à l’Ultimate Fighting Championship.","diversityPolicy":"https://www.ufc.fr/a-propos/","ethicsPolicy":"https://www.ufc.fr/a-propos/"}</script>
@@ -91,7 +90,7 @@
 
     <div class="hero-duel">
       <figure class="hero-man a">
-        <img src="/img/parnasse.jpg" alt="Salahdine Parnasse, double champion KSW, avant ses debuts a l'UFC" width="1200" height="1600" fetchpriority="high" />
+        <img src="/img/parnasse.webp" alt="Salahdine Parnasse, double champion KSW, avant ses debuts a l'UFC" width="1200" height="1600" fetchpriority="high" />
         <figcaption>
           <span class="kicker">France · Debuts UFC</span>
           <span class="hero-name">Parnasse</span>
@@ -99,7 +98,7 @@
       </figure>
       <p class="hero-vs" aria-hidden="true">contre</p>
       <figure class="hero-man b">
-        <img src="/img/hooker.jpg" alt="Dan Hooker, poids legers, Nouvelle-Zelande" width="1200" height="1600" fetchpriority="high" />
+        <img src="/img/hooker.webp" alt="Dan Hooker, poids legers, Nouvelle-Zelande" width="1200" height="1600" fetchpriority="high" />
         <figcaption>
           <span class="kicker">Nouvelle-Zelande</span>
           <span class="hero-name">Hooker</span>
@@ -240,7 +239,7 @@
         <a href="/portrait-one-championship-christian-lee/" data-reveal><img src="/media/2025/05/portrait-one-championship-christian-lee.webp" alt="Combattant de MMA torse nu aux cheveux courts souriant largement, tenant une grande ceinture de championnat dans une arène en cage ornée de confettis dorés, exsudant la victoire et la joie." width="600" height="600" loading="lazy" decoding="async" /><div class="meta"><h3>Christian Lee</h3></div></a>
         <a href="/portrait-one-championship-anatoly-malykhin/" data-reveal><img src="/media/2025/05/portrait-one-anatoly-malykhin.webp" alt="Un combattant musclé, vêtu d'un short rouge et de gants bleus, se tient concentré dans une cage de MMA. En arrière-plan, on aperçoit une partie du logo du ONE FC. L'ambiance est intense." width="600" height="600" loading="lazy" decoding="async" /><div class="meta"><h3>Anatoly Malykhin</h3></div></a>
         <a href="/portrait-ares-felix-klinkhammer/" data-reveal><img src="/media/2025/05/portrait-ares-felix-klinkhammer.webp" alt="Un homme musclé, chauve et barbu pose avec assurance, le bras droit fléchi. Il porte un gant noir. Le fond est d'un gris foncé uni." width="600" height="600" loading="lazy" decoding="async" /><div class="meta"><h3>Felix Klinkhammer</h3></div></a>
-        <a href="/portrait-ares-axel-sola/" data-reveal><img src="/img/sola.jpg" alt="Axel Sola" loading="lazy" decoding="async" /><div class="meta"><h3>Axel Sola</h3></div></a>
+        <a href="/portrait-ares-axel-sola/" data-reveal><img src="/img/sola.webp" alt="Axel Sola" loading="lazy" decoding="async" /><div class="meta"><h3>Axel Sola</h3></div></a>
         <a href="/portrait-ares-jady-menezes/" data-reveal><img src="/media/2025/05/portrait-ares-jady-menezes.webp" alt="L'athlète contracte ses muscles et sourit avec assurance. Il porte un haut de sport gris avec l'inscription « World Fight Sports » et des tatouages ​​sur les bras. Il affiche une humeur énergique et victorieuse." width="600" height="600" loading="lazy" decoding="async" /><div class="meta"><h3>Jady Menezes</h3></div></a>
       </div>
     </div>
@@ -324,7 +323,7 @@
         </ul>
       </div>
       <div class="ed-keys-photo" data-reveal data-reveal-media>
-        <img src="/img/ceinture.jpg" alt="Ceinture de champion MMA" width="1200" height="800" loading="lazy" decoding="async" />
+        <img src="/img/ceinture.webp" alt="Ceinture de champion MMA" width="1200" height="800" loading="lazy" decoding="async" />
       </div>
     </div>
   </section>

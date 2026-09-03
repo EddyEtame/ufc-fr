@@ -20,20 +20,19 @@
   <link rel="icon" href="/media/brand/favicon-32.png" sizes="32x32" />
   <link rel="icon" href="/media/brand/favicon-192.png" sizes="192x192" />
   <link rel="apple-touch-icon" href="/media/brand/favicon-192.png" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <!-- La feuille de polices ne bloque plus le premier rendu.
-       Chargee en <link rel="stylesheet"> classique, elle est une ressource
-       bloquante : tant que Google n'a pas repondu, le navigateur n'affiche
-       rien. Une panne ou une lenteur chez un tiers devenait une page blanche
-       chez nous. Avec media="print", le navigateur la telecharge sans
-       attendre, et le onload la rend active des qu'elle arrive.
-       Le texte s'affiche donc dans la police de repli puis bascule — un
-       changement de police est un desagrement, une page blanche est une
-       perte. -->
-  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400;1,6..72,600&family=Oswald:wght@500;600;700&family=Outfit:wght@400;500;600;700&display=swap" />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400;1,6..72,600&family=Oswald:wght@500;600;700&family=Outfit:wght@400;500;600;700&display=swap" media="print" onload="this.media='all';this.onload=null" />
-  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400;1,6..72,600&family=Oswald:wght@500;600;700&family=Outfit:wght@400;500;600;700&display=swap" /></noscript>
+  <!-- Les polices ne viennent plus de chez Google.
+       Meme chargee sans bloquer le rendu, la feuille distante restait un
+       point de rupture : sur un reseau ou fonts.googleapis.com ne repond
+       pas, la requete pendait douze secondes puis echouait, et le plus grand
+       element de la page etait mesure a quatorze secondes — alors que sa
+       photo etait arrivee en une seconde huit.
+       Les trois familles sont sous licence SIL Open Font ; les servir
+       nous-memes supprime deux resolutions DNS, deux poignees de main TLS,
+       une dependance a un tiers, et une requete vers Google depuis le
+       navigateur de chaque lecteur. -->
+  <link rel="preload" as="font" type="font/woff2" href="/fonts/newsreader.woff2" crossorigin />
+  <link rel="preload" as="font" type="font/woff2" href="/fonts/outfit.woff2" crossorigin />
+  <link rel="stylesheet" href="/css/polices.css" />
   <link rel="stylesheet" href="/css/site.css" />
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"CollectionPage","name":"Analyses","description":"Analyses : lectures de cartes et de hiérarchies, après les faits. Pas de pronostics déguisés en résultats.","url":"https://www.ufc.fr/categorie/analyses/","inLanguage":"fr-FR","isPartOf":{"@type":"WebSite","name":"UFC.FR","url":"https://www.ufc.fr/"},"mainEntity":{"@type":"ItemList","numberOfItems":8,"itemListElement":[{"@type":"ListItem","position":1,"url":"https://www.ufc.fr/ufc-paris-2027/","name":"UFC Paris 2027 : ce qu’on peut dire (et ce qu’on n’invente pas)"},{"@type":"ListItem","position":2,"url":"https://www.ufc.fr/duclos-aljarouj-debuts-ufc-paris-2026/","name":"Duclos et Aljarouj : deux débuts UFC à Paris, sans roman"},{"@type":"ListItem","position":3,"url":"https://www.ufc.fr/femmes-mma-francais-cornelle-benouaich/","name":"Femmes dans le MMA français : Cornolle, Benouaich, et la carte Paris"},{"@type":"ListItem","position":4,"url":"https://www.ufc.fr/comment-fonctionne-carte-ufc/","name":"Comment fonctionne une carte UFC ?"},{"@type":"ListItem","position":5,"url":"https://www.ufc.fr/differences-ufc-pfl-one-ksw-hexagone-ares/","name":"UFC, PFL, ONE, KSW, Hexagone, ARES : quelles différences ?"},{"@type":"ListItem","position":6,"url":"https://www.ufc.fr/fmmaf-federation-mma-france-clubs/","name":"FMMAF : ce que la fédération change pour les clubs de MMA"},{"@type":"ListItem","position":7,"url":"https://www.ufc.fr/ziam-vs-sola-ufc-paris-2026-enjeux/","name":"Ziam vs Sola : le co-main 100 % français de l’UFC Paris 2026"},{"@type":"ListItem","position":8,"url":"https://www.ufc.fr/categories-poids-mma-guide/","name":"Catégories de poids en MMA : le guide simple (UFC et France)"}]}}</script>
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Accueil","item":"https://www.ufc.fr/"},{"@type":"ListItem","position":2,"name":"Analyses","item":"https://www.ufc.fr/categorie/analyses/"}]}</script>
@@ -108,7 +107,7 @@
       </nav>
         <div class="cards grid-3">
         <a class="card" href="/ufc-paris-2027/" data-reveal>
-          <div class="media" data-reveal-media><img src="/media/2026/08/accor-arena-bercy-scaled.jpg" alt="Façade de l’Accor Arena, anciennement Palais omnisports de Paris-Bercy, lieu de l’UFC Paris" width="2560" height="1920" loading="lazy" decoding="async" /></div>
+          <div class="media" data-reveal-media><img src="/media/2026/08/accor-arena-bercy-scaled.jpg" alt="Façade de l’Accor Arena, anciennement Palais omnisports de Paris-Bercy, lieu de l’UFC Paris" width="2560" height="1920" fetchpriority="high" decoding="sync" /></div>
           <div class="card-body">
             <span class="kicker">Analyses</span>
             <h3>UFC Paris 2027 : ce qu’on peut dire (et ce qu’on n’invente pas)</h3>
@@ -117,7 +116,7 @@
           </div>
         </a>
         <a class="card" href="/duclos-aljarouj-debuts-ufc-paris-2026/" data-reveal>
-          <div class="media" data-reveal-media><img src="/img/duclos.jpg" alt="Duclos et Aljarouj : deux débuts UFC à Paris, sans roman" loading="lazy" decoding="async" /></div>
+          <div class="media" data-reveal-media><img src="/img/duclos.webp" alt="Duclos et Aljarouj : deux débuts UFC à Paris, sans roman" loading="lazy" decoding="async" /></div>
           <div class="card-body">
             <span class="kicker">Analyses</span>
             <h3>Duclos et Aljarouj : deux débuts UFC à Paris, sans roman</h3>
@@ -126,7 +125,7 @@
           </div>
         </a>
         <a class="card" href="/femmes-mma-francais-cornelle-benouaich/" data-reveal>
-          <div class="media" data-reveal-media><img src="/img/benouaich.jpg" alt="Femmes dans le MMA français : Cornolle, Benouaich, et la carte Paris" loading="lazy" decoding="async" /></div>
+          <div class="media" data-reveal-media><img src="/img/benouaich.webp" alt="Femmes dans le MMA français : Cornolle, Benouaich, et la carte Paris" loading="lazy" decoding="async" /></div>
           <div class="card-body">
             <span class="kicker">Analyses</span>
             <h3>Femmes dans le MMA français : Cornolle, Benouaich, et la carte Paris</h3>
@@ -135,7 +134,7 @@
           </div>
         </a>
         <a class="card" href="/comment-fonctionne-carte-ufc/" data-reveal>
-          <div class="media" data-reveal-media><img src="/img/gants.jpg" alt="Comment fonctionne une carte UFC ?" loading="lazy" decoding="async" /></div>
+          <div class="media" data-reveal-media><img src="/img/gants.webp" alt="Comment fonctionne une carte UFC ?" loading="lazy" decoding="async" /></div>
           <div class="card-body">
             <span class="kicker">Analyses</span>
             <h3>Comment fonctionne une carte UFC ?</h3>
@@ -144,7 +143,7 @@
           </div>
         </a>
         <a class="card" href="/differences-ufc-pfl-one-ksw-hexagone-ares/" data-reveal>
-          <div class="media" data-reveal-media><img src="/img/organisations.jpg" alt="UFC, PFL, ONE, KSW, Hexagone, ARES : quelles différences ?" loading="lazy" decoding="async" /></div>
+          <div class="media" data-reveal-media><img src="/img/organisations.webp" alt="UFC, PFL, ONE, KSW, Hexagone, ARES : quelles différences ?" loading="lazy" decoding="async" /></div>
           <div class="card-body">
             <span class="kicker">Analyses</span>
             <h3>UFC, PFL, ONE, KSW, Hexagone, ARES : quelles différences ?</h3>
@@ -162,7 +161,7 @@
           </div>
         </a>
         <a class="card" href="/ziam-vs-sola-ufc-paris-2026-enjeux/" data-reveal>
-          <div class="media" data-reveal-media><img src="/img/ziam.jpg" alt="Ziam vs Sola : le co-main 100 % français de l’UFC Paris 2026" loading="lazy" decoding="async" /></div>
+          <div class="media" data-reveal-media><img src="/img/ziam.webp" alt="Ziam vs Sola : le co-main 100 % français de l’UFC Paris 2026" loading="lazy" decoding="async" /></div>
           <div class="card-body">
             <span class="kicker">Analyses</span>
             <h3>Ziam vs Sola : le co-main 100 % français de l’UFC Paris 2026</h3>
@@ -171,7 +170,7 @@
           </div>
         </a>
         <a class="card" href="/categories-poids-mma-guide/" data-reveal>
-          <div class="media" data-reveal-media><img src="/img/pesee.jpg" alt="Catégories de poids en MMA : le guide simple (UFC et France)" loading="lazy" decoding="async" /></div>
+          <div class="media" data-reveal-media><img src="/img/pesee.webp" alt="Catégories de poids en MMA : le guide simple (UFC et France)" loading="lazy" decoding="async" /></div>
           <div class="card-body">
             <span class="kicker">Analyses</span>
             <h3>Catégories de poids en MMA : le guide simple (UFC et France)</h3>

@@ -1,4 +1,14 @@
-@import url("https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,600;1,6..72,300;1,6..72,400;1,6..72,600&display=swap");
+/* Ici se trouvait un `@import url("https://fonts.googleapis.com/...")`.
+   Un @import est totalement bloquant : le navigateur ne peint RIEN tant
+   qu'il n'est pas resolu. Sur un reseau ou Google Fonts ne repond pas, le
+   site restait blanc douze secondes et demie — mesure, pas suppose : FCP a
+   12 640 ms avec la ligne, 80 ms sans elle, toutes choses egales par
+   ailleurs.
+
+   Il annulait aussi le travail fait plus tot pour rendre la feuille de
+   polices non bloquante dans le <head> : la vraie dependance etait ici, en
+   ligne 1, et personne ne l'avait ouverte. Les polices sont desormais
+   servies depuis /fonts/ — voir css/polices.css. */
 
 :root {
   --ink: #0E0E0E;
@@ -747,19 +757,19 @@ table.sheet caption {
   background: linear-gradient(180deg, rgba(7,7,7,0.15) 0%, rgba(7,7,7,0.25) 42%, rgba(7,7,7,0.88) 100%);
 }
 .page-hero.has-photo .wrap { position: relative; z-index: 1; padding: 140px 0 72px; }
-.ph-arena { background-image: url("../img/arena-exterieur.jpg"); background-position: 45% 40%; }
-.ph-arena2 { background-image: url("../img/octagon.jpg"); background-position: center 40%; }
-.ph-octagon { background-image: url("../img/octagon.jpg"); background-position: center 40%; }
-.ph-cage { background-image: url("../img/fight.jpg"); background-position: center 48%; }
-.ph-gym { background-image: url("../img/gym.jpg"); background-position: 42% 38%; }
-.ph-gym-paris { background-image: url("../img/gym-paris.jpg"); background-position: 38% 48%; }
-.ph-belt { background-image: url("../img/ceinture.jpg"); background-position: center 28%; }
-.ph-belt2 { background-image: url("../img/ceinture-combat.jpg"); background-position: center 22%; }
-.ph-paris { background-image: url("../img/arena-exterieur.jpg"); background-position: 45% 40%; }
-.ph-keys { background-image: url("../img/octagon.jpg"); background-position: center 40%; }
-.ph-micro { background-image: url("../img/combattant.jpg"); background-position: 72% 28%; }
-.ph-gants { background-image: url("../img/gants.jpg"); background-position: 58% 16%; }
-.ph-arkea { background-image: url("../img/arkea.jpg"); background-position: 32% 38%; }
+.ph-arena { background-image: url("../img/arena-exterieur.webp"); background-position: 45% 40%; }
+.ph-arena2 { background-image: url("../img/octagon.webp"); background-position: center 40%; }
+.ph-octagon { background-image: url("../img/octagon.webp"); background-position: center 40%; }
+.ph-cage { background-image: url("../img/fight.webp"); background-position: center 48%; }
+.ph-gym { background-image: url("../img/gym.webp"); background-position: 42% 38%; }
+.ph-gym-paris { background-image: url("../img/gym-paris.webp"); background-position: 38% 48%; }
+.ph-belt { background-image: url("../img/ceinture.webp"); background-position: center 28%; }
+.ph-belt2 { background-image: url("../img/ceinture-combat.webp"); background-position: center 22%; }
+.ph-paris { background-image: url("../img/arena-exterieur.webp"); background-position: 45% 40%; }
+.ph-keys { background-image: url("../img/octagon.webp"); background-position: center 40%; }
+.ph-micro { background-image: url("../img/combattant.webp"); background-position: 72% 28%; }
+.ph-gants { background-image: url("../img/gants.webp"); background-position: 58% 16%; }
+.ph-arkea { background-image: url("../img/arkea.webp"); background-position: 32% 38%; }
 .page-hero h1 {
   font-family: var(--serif);
   font-style: italic;
@@ -974,74 +984,74 @@ footer.site {
 }
 
 /* Cadrage par visuel : le sujet reste dans le cadre (cover) */
-.figure img[src$="parnasse.jpg"],
-img[src$="parnasse.jpg"] { object-position: center 12%; }
-.figure img[src$="parnasse-cage.jpg"],
-img[src$="parnasse-cage.jpg"] { object-position: center 28%; }
-.figure img[src$="hooker.jpg"],
-img[src$="hooker.jpg"] { object-position: 50% 42%; }
-.figure img[src$="sola.jpg"],
-img[src$="sola.jpg"] { object-position: center 12%; }
-.figure img[src$="gane.jpg"],
-img[src$="gane.jpg"] { object-position: center 18%; }
-.figure img[src$="gane.jpg"] {
+.figure img[src$="parnasse.webp"],
+img[src$="parnasse.webp"] { object-position: center 12%; }
+.figure img[src$="parnasse-cage.webp"],
+img[src$="parnasse-cage.webp"] { object-position: center 28%; }
+.figure img[src$="hooker.webp"],
+img[src$="hooker.webp"] { object-position: 50% 42%; }
+.figure img[src$="sola.webp"],
+img[src$="sola.webp"] { object-position: center 12%; }
+.figure img[src$="gane.webp"],
+img[src$="gane.webp"] { object-position: center 18%; }
+.figure img[src$="gane.webp"] {
   aspect-ratio: 4 / 5;
   min-height: 420px;
   object-position: center 12%;
 }
-.figure img[src$="charriere.jpg"],
-img[src$="charriere.jpg"] { object-position: center 8%; }
-.figure img[src$="imavov.jpg"],
-img[src$="imavov.jpg"] { object-position: center 6%; }
-.figure img[src$="saint-denis.jpg"],
-img[src$="saint-denis.jpg"] { object-position: center 16%; }
-.figure img[src$="duclos.jpg"],
-img[src$="duclos.jpg"] { object-position: center 8%; }
-.figure img[src$="ziam.jpg"],
-img[src$="ziam.jpg"] { object-position: center 8%; }
-.figure img[src$="zebo.jpg"],
-img[src$="zebo.jpg"] { object-position: center 18%; }
-.figure img[src$="sy.jpg"],
-img[src$="sy.jpg"] { object-position: center 8%; }
-.figure img[src$="cornolle.jpg"],
-img[src$="cornolle.jpg"] { object-position: 38% 18%; }
-.figure img[src$="aljarouj.jpg"],
-img[src$="aljarouj.jpg"] { object-position: center 10%; }
-.figure img[src$="benouaich.jpg"],
-img[src$="benouaich.jpg"] { object-position: center 10%; }
-.figure img[src$="gym.jpg"],
-img[src$="gym.jpg"] { object-position: 22% 40%; }
-.figure img[src$="gym-paris.jpg"],
-img[src$="gym-paris.jpg"] { object-position: 38% 48%; }
-.figure img[src$="gants.jpg"],
-img[src$="gants.jpg"] { object-position: 58% 16%; }
-.figure img[src$="ceinture.jpg"],
-img[src$="ceinture.jpg"] { object-position: center 22%; }
-.figure img[src$="ceinture-combat.jpg"],
-img[src$="ceinture-combat.jpg"] { object-position: center 22%; }
-.figure img[src$="arena-exterieur.jpg"],
-img[src$="arena-exterieur.jpg"] { object-position: 45% 40%; }
-.figure img[src$="octagon.jpg"],
-img[src$="octagon.jpg"] { object-position: center 48%; }
-.figure img[src$="fight.jpg"],
-img[src$="fight.jpg"] { object-position: center 48%; }
-.figure img[src$="grappling.jpg"],
-img[src$="grappling.jpg"] { object-position: 32% 40%; }
-.figure img[src$="clinch.jpg"],
-img[src$="clinch.jpg"] { object-position: 58% 42%; }
-.figure img[src$="combattant.jpg"],
-img[src$="combattant.jpg"] { object-position: 78% 30%; }
-.figure img[src$="pesee.jpg"],
-img[src$="pesee.jpg"] { object-position: 42% 26%; }
-.figure img[src$="victoire.jpg"],
-img[src$="victoire.jpg"] { object-position: center 48%; }
-.figure img[src$="arkea.jpg"],
-img[src$="arkea.jpg"] { object-position: 28% 36%; }
-.figure img[src$="organisations.jpg"],
-img[src$="organisations.jpg"] {
+.figure img[src$="charriere.webp"],
+img[src$="charriere.webp"] { object-position: center 8%; }
+.figure img[src$="imavov.webp"],
+img[src$="imavov.webp"] { object-position: center 6%; }
+.figure img[src$="saint-denis.webp"],
+img[src$="saint-denis.webp"] { object-position: center 16%; }
+.figure img[src$="duclos.webp"],
+img[src$="duclos.webp"] { object-position: center 8%; }
+.figure img[src$="ziam.webp"],
+img[src$="ziam.webp"] { object-position: center 8%; }
+.figure img[src$="zebo.webp"],
+img[src$="zebo.webp"] { object-position: center 18%; }
+.figure img[src$="sy.webp"],
+img[src$="sy.webp"] { object-position: center 8%; }
+.figure img[src$="cornolle.webp"],
+img[src$="cornolle.webp"] { object-position: 38% 18%; }
+.figure img[src$="aljarouj.webp"],
+img[src$="aljarouj.webp"] { object-position: center 10%; }
+.figure img[src$="benouaich.webp"],
+img[src$="benouaich.webp"] { object-position: center 10%; }
+.figure img[src$="gym.webp"],
+img[src$="gym.webp"] { object-position: 22% 40%; }
+.figure img[src$="gym-paris.webp"],
+img[src$="gym-paris.webp"] { object-position: 38% 48%; }
+.figure img[src$="gants.webp"],
+img[src$="gants.webp"] { object-position: 58% 16%; }
+.figure img[src$="ceinture.webp"],
+img[src$="ceinture.webp"] { object-position: center 22%; }
+.figure img[src$="ceinture-combat.webp"],
+img[src$="ceinture-combat.webp"] { object-position: center 22%; }
+.figure img[src$="arena-exterieur.webp"],
+img[src$="arena-exterieur.webp"] { object-position: 45% 40%; }
+.figure img[src$="octagon.webp"],
+img[src$="octagon.webp"] { object-position: center 48%; }
+.figure img[src$="fight.webp"],
+img[src$="fight.webp"] { object-position: center 48%; }
+.figure img[src$="grappling.webp"],
+img[src$="grappling.webp"] { object-position: 32% 40%; }
+.figure img[src$="clinch.webp"],
+img[src$="clinch.webp"] { object-position: 58% 42%; }
+.figure img[src$="combattant.webp"],
+img[src$="combattant.webp"] { object-position: 78% 30%; }
+.figure img[src$="pesee.webp"],
+img[src$="pesee.webp"] { object-position: 42% 26%; }
+.figure img[src$="victoire.webp"],
+img[src$="victoire.webp"] { object-position: center 48%; }
+.figure img[src$="arkea.webp"],
+img[src$="arkea.webp"] { object-position: 28% 36%; }
+.figure img[src$="organisations.webp"],
+img[src$="organisations.webp"] {
   object-position: center center;
 }
-.figure img[src$="organisations.jpg"] {
+.figure img[src$="organisations.webp"] {
   object-fit: contain;
   aspect-ratio: auto;
   max-height: 520px;
@@ -1282,8 +1292,8 @@ section.block.ed-club { padding: 0; }
   object-fit: cover;
   display: block;
 }
-.ed-aside-item img[src$="parnasse.jpg"] { object-position: center 10%; }
-.ed-aside-item img[src$="zebo.jpg"] { object-position: center 24%; }
+.ed-aside-item img[src$="parnasse.webp"] { object-position: center 10%; }
+.ed-aside-item img[src$="zebo.webp"] { object-position: center 24%; }
 .ed-aside-item h3 {
   font-family: var(--serif);
   font-style: italic;
@@ -1544,7 +1554,7 @@ section.block.ed-club { padding: 0; }
   margin-bottom: 28px;
 }
 .ed-portrait-copy .more { color: var(--paper); }
-.ed-portrait-media img[src$="parnasse.jpg"] { object-position: center 6%; }
+.ed-portrait-media img[src$="parnasse.webp"] { object-position: center 6%; }
 
 .roster {
   display: grid;

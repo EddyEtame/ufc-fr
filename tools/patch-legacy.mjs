@@ -68,7 +68,31 @@ for (const file of collect(ROOT)) {
     html = html.replace(/(  <link rel="stylesheet" href="[^"]*site\.css" \/>)/, block + "$1");
   }
 
-  // 3. Coulisses hors index.
+  // 3. Les polices viennent de chez nous, ici comme sur les pages generees.
+  //
+  // Trente-huit pages ecrites a la main chargeaient encore les trois familles
+  // depuis fonts.googleapis.com — deux resolutions DNS, deux poignees de main
+  // TLS, et une requete vers Google depuis le navigateur de chaque lecteur.
+  // Sur un reseau ou ce domaine ne repond pas, la requete pendait douze
+  // secondes avant d'echouer.
+  if (/fonts\.googleapis\.com/.test(html)) {
+    html = html
+      .replace(/[ \t]*<link rel="preconnect" href="https:\/\/fonts\.(?:googleapis|gstatic)\.com"[^>]*>\n?/g, "")
+      .replace(
+        /[ \t]*<link[^>]*href="https:\/\/fonts\.googleapis\.com\/css2[^"]*"[^>]*>\n?/g,
+        ""
+      );
+    if (!/css\/polices\.css/.test(html)) {
+      html = html.replace(
+        /(  <link rel="stylesheet" href="[^"]*site\.css" \/>)/,
+        `  <link rel="preload" as="font" type="font/woff2" href="/fonts/newsreader.woff2" crossorigin />\n` +
+          `  <link rel="preload" as="font" type="font/woff2" href="/fonts/outfit.woff2" crossorigin />\n` +
+          `  <link rel="stylesheet" href="/css/polices.css" />\n$1`
+      );
+    }
+  }
+
+  // 4. Coulisses hors index.
   if (INTERNES.has(rel) && !/name="robots"/.test(html)) {
     html = html.replace(/(<title>)/, '<meta name="robots" content="noindex, follow" />\n  $1');
   }

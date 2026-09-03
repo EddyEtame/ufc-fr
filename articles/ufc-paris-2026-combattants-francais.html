@@ -7,8 +7,6 @@
   <meta name="description" content="Focus sur les Français de UFC Paris 2026 : Parnasse en main event, Ziam vs Sola, Charrière, Oumar Sy, Duclos, Cornolle, Benouaich. Enjeux et parcours." />
   <meta name="robots" content="noindex, follow" />
   <link rel="canonical" href="https://www.ufc.fr/ufc-paris-2026-combattants-francais/" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <!-- La feuille de polices ne bloque plus le premier rendu.
        Chargee en <link rel="stylesheet"> classique, elle est une ressource
        bloquante : tant que Google n'a pas repondu, le navigateur n'affiche
@@ -18,9 +16,7 @@
        Le texte s'affiche donc dans la police de repli puis bascule — un
        changement de police est un desagrement, une page blanche est une
        perte. -->
-  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400;1,6..72,600&family=Oswald:wght@500;600;700&family=Outfit:wght@400;500;600;700&display=swap" />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400;1,6..72,600&family=Oswald:wght@500;600;700&family=Outfit:wght@400;500;600;700&display=swap" media="print" onload="this.media='all';this.onload=null" />
-  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400;1,6..72,600&family=Oswald:wght@500;600;700&family=Outfit:wght@400;500;600;700&display=swap" /></noscript>
+  <noscript></noscript>
   <meta property="og:site_name" content="UFC.FR" />
   <meta property="og:locale" content="fr_FR" />
   <meta property="og:type" content="article" />
@@ -35,6 +31,9 @@
   <link rel="icon" href="/media/brand/favicon-32.png" sizes="32x32" />
   <link rel="icon" href="/media/brand/favicon-192.png" sizes="192x192" />
   <link rel="apple-touch-icon" href="/media/brand/favicon-192.png" />
+  <link rel="preload" as="font" type="font/woff2" href="/fonts/newsreader.woff2" crossorigin />
+  <link rel="preload" as="font" type="font/woff2" href="/fonts/outfit.woff2" crossorigin />
+  <link rel="stylesheet" href="/css/polices.css" />
   <link rel="stylesheet" href="../css/site.css" />
 </head>
 <body>
@@ -78,7 +77,7 @@
         <p class="byline">Rédaction UFC.FR · Publié le 1er septembre 2026 · Mis à jour le 1er septembre 2026</p>
       </header>
       <figure class="figure">
-        <img src="../img/parnasse.jpg" alt="Salahdine Parnasse, double champion KSW" />
+        <img src="../img/parnasse.webp" alt="Salahdine Parnasse, double champion KSW" />
         <figcaption class="caption">Médiathèque UFC.FR · <a href="../credits.html">Tous les crédits</a></figcaption>
       </figure>
       <div class="prose">
@@ -91,7 +90,7 @@
 
         <h2>Farès Ziam vs Axel Sola — 100 % français en poids légers</h2>
         <figure class="figure">
-          <img src="../img/ziam.jpg" alt="Farès Ziam, poids légers UFC" />
+          <img src="../img/ziam.webp" alt="Farès Ziam, poids légers UFC" />
           <figcaption class="caption">Farès Ziam · Fichier fourni · <a href="../credits.html">Tous les crédits</a></figcaption>
         </figure>
         <p><strong>Farès Ziam</strong> est un habitué de l’UFC, connu pour son jeu de distance, ses coups de pied et sa capacité à gérer la cage. <strong>Axel Sola</strong> arrive avec l’élan d’un champion ARES récemment passé pro UFC — rappel : Sola a laissé la ceinture ARES à Walid Masmoudi (voir <a href="ares-42-zebo-conserve-titre.html">ARES 42</a> pour le contexte du circuit français).</p>
@@ -99,7 +98,7 @@
 
         <h2>Morgan Charrière — plumes, public Bercy</h2>
         <figure class="figure">
-          <img src="../img/charriere.jpg" alt="Morgan Charrière, portrait Cage Warriors 109" />
+          <img src="../img/charriere.webp" alt="Morgan Charrière, portrait Cage Warriors 109" />
           <figcaption class="caption">Photo : Emmagomis · Wikimedia Commons · CC BY-SA 4.0 · <a href="../credits.html">Tous les crédits</a></figcaption>
         </figure>
         <p><strong>Morgan Charrière</strong> (« The Last Panda ») a déjà connu l’Accor Arena et possède une base de supporters importante. Face au Brésilien <strong>Felipe Lima</strong>, il cherche à confirmer qu’il reste un outsider crédible en poids plumes — division où quelques victoires enchaînées changent la donne pour un contrat et une visibilité.</p>
@@ -107,7 +106,7 @@
 
         <h2>Oumar Sy — préliminaires, mi-lourds</h2>
         <figure class="figure">
-          <img src="../img/sy.jpg" alt="Oumar Sy, poids mi-lourds" />
+          <img src="../img/sy.webp" alt="Oumar Sy, poids mi-lourds" />
           <figcaption class="caption">Fichier fourni · <a href="../credits.html">Tous les crédits</a></figcaption>
         </figure>
         <p><strong>Oumar Sy</strong> représente la nouvelle génération formée en France avec une visée internationale. Opposé au Lithuanien <strong>Modestas Bukauskas</strong>, il aborde un test de niveau en poids mi-lourds : division exigeante, où l’expérience octagon et la gestion de la puissance font souvent la différence.</p>
@@ -115,21 +114,21 @@
 
         <h2>Matthieu Letho Duclos — moyens, pré-carte</h2>
         <figure class="figure">
-          <img src="../img/duclos.jpg" alt="Matthieu Letho Duclos dans la cage, UFC Apex" />
+          <img src="../img/duclos.webp" alt="Matthieu Letho Duclos dans la cage, UFC Apex" />
           <figcaption class="caption">Médiathèque UFC.FR · <a href="../credits.html">Tous les crédits</a></figcaption>
         </figure>
         <p><strong>Matthieu Letho Duclos</strong> affronte le Brésilien <strong>Luis Felipe Dias</strong> en préliminaires, en <strong>poids moyens</strong>. Il arrive d’Hexagone MMA, où il a porté une ceinture des moyens. Profil striking-first, premier test UFC à domicile : les débuts à Bercy aident le mental, pas les cinq minutes de chaque round.</p>
 
         <h2>Michael Aljarouj — mouches, première UFC</h2>
         <figure class="figure">
-          <img src="../img/aljarouj.jpg" alt="Michael Aljarouj, poids mouches" />
+          <img src="../img/aljarouj.webp" alt="Michael Aljarouj, poids mouches" />
           <figcaption class="caption">Fichier fourni · <a href="../credits.html">Tous les crédits</a></figcaption>
         </figure>
         <p><strong>Michael Aljarouj</strong> débute contre l’Espagnol <strong>Fabià Sintes</strong>, également nouveau venu, en <strong>poids mouches</strong>. Combat de projection : deux styles européens, une catégorie souvent négligée du public français, et une place à prendre chez les −57 kg. Aljarouj a déjà un passé en MMA GP ; l’UFC est un autre tempo.</p>
 
         <h2>Nora Cornolle — coqs femmes</h2>
         <figure class="figure">
-          <img src="../img/cornolle.jpg" alt="Nora Cornolle dans la cage" />
+          <img src="../img/cornolle.webp" alt="Nora Cornolle dans la cage" />
           <figcaption class="caption">Fichier fourni · <a href="../credits.html">Tous les crédits</a></figcaption>
         </figure>
         <p><strong>Nora Cornolle</strong> porte les couleurs françaises chez les femmes, en poids coqs, contre la Polonaise <strong>Klaudia Syguła</strong>. La division féminine coq reste jeune à l’UFC ; une performance marquante à Paris peut accélérer une trajectoire et attirer l’attention des matchmakers.</p>
@@ -137,7 +136,7 @@
 
         <h2>Delphine Benouaich — pailles femmes</h2>
         <figure class="figure">
-          <img src="../img/benouaich.jpg" alt="Delphine Benouaich, poids pailles" />
+          <img src="../img/benouaich.webp" alt="Delphine Benouaich, poids pailles" />
           <figcaption class="caption">Fichier fourni · <a href="../credits.html">Tous les crédits</a></figcaption>
         </figure>
         <p><strong>Delphine Benouaich</strong> affronte <strong>Sofia Montenegro</strong> en poids pailles. Combattante issue du circuit français, elle profite de l’ancrage local de l’événement pour se présenter au public UFC. Les poids pailles féminins offrent des opportunités rapides pour celles qui enchaînent les victoires convaincantes.</p>

@@ -20,20 +20,19 @@
   <link rel="icon" href="/media/brand/favicon-32.png" sizes="32x32" />
   <link rel="icon" href="/media/brand/favicon-192.png" sizes="192x192" />
   <link rel="apple-touch-icon" href="/media/brand/favicon-192.png" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <!-- La feuille de polices ne bloque plus le premier rendu.
-       Chargee en <link rel="stylesheet"> classique, elle est une ressource
-       bloquante : tant que Google n'a pas repondu, le navigateur n'affiche
-       rien. Une panne ou une lenteur chez un tiers devenait une page blanche
-       chez nous. Avec media="print", le navigateur la telecharge sans
-       attendre, et le onload la rend active des qu'elle arrive.
-       Le texte s'affiche donc dans la police de repli puis bascule — un
-       changement de police est un desagrement, une page blanche est une
-       perte. -->
-  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400;1,6..72,600&family=Oswald:wght@500;600;700&family=Outfit:wght@400;500;600;700&display=swap" />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400;1,6..72,600&family=Oswald:wght@500;600;700&family=Outfit:wght@400;500;600;700&display=swap" media="print" onload="this.media='all';this.onload=null" />
-  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400;1,6..72,600&family=Oswald:wght@500;600;700&family=Outfit:wght@400;500;600;700&display=swap" /></noscript>
+  <!-- Les polices ne viennent plus de chez Google.
+       Meme chargee sans bloquer le rendu, la feuille distante restait un
+       point de rupture : sur un reseau ou fonts.googleapis.com ne repond
+       pas, la requete pendait douze secondes puis echouait, et le plus grand
+       element de la page etait mesure a quatorze secondes — alors que sa
+       photo etait arrivee en une seconde huit.
+       Les trois familles sont sous licence SIL Open Font ; les servir
+       nous-memes supprime deux resolutions DNS, deux poignees de main TLS,
+       une dependance a un tiers, et une requete vers Google depuis le
+       navigateur de chaque lecteur. -->
+  <link rel="preload" as="font" type="font/woff2" href="/fonts/newsreader.woff2" crossorigin />
+  <link rel="preload" as="font" type="font/woff2" href="/fonts/outfit.woff2" crossorigin />
+  <link rel="stylesheet" href="/css/polices.css" />
   <link rel="stylesheet" href="/css/site.css" />
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"CollectionPage","name":"Combattants","description":"Combattants : portraits, débuts UFC, Français sur les cartes. Fiches 2025 : vérifier la page Champions.","url":"https://www.ufc.fr/categorie/combattants/","inLanguage":"fr-FR","isPartOf":{"@type":"WebSite","name":"UFC.FR","url":"https://www.ufc.fr/"},"mainEntity":{"@type":"ItemList","numberOfItems":7,"itemListElement":[{"@type":"ListItem","position":1,"url":"https://www.ufc.fr/ciryl-gane-retour-entrainement-aspinall/","name":"Ciryl Gane de retour à l’entraînement, unification Aspinall en attente"},{"@type":"ListItem","position":2,"url":"https://www.ufc.fr/team-ezbiri-lyon-club-mma/","name":"Team Ezbiri Lyon : le club de Farès Ziam, cage à Villeurbanne"},{"@type":"ListItem","position":3,"url":"https://www.ufc.fr/duclos-aljarouj-debuts-ufc-paris-2026/","name":"Duclos et Aljarouj : deux débuts UFC à Paris, sans roman"},{"@type":"ListItem","position":4,"url":"https://www.ufc.fr/femmes-mma-francais-cornelle-benouaich/","name":"Femmes dans le MMA français : Cornolle, Benouaich, et la carte Paris"},{"@type":"ListItem","position":5,"url":"https://www.ufc.fr/coachs-cage-fight-toulouse-jerome-tancrede-yannis/","name":"Les coachs de Cage Fight Toulouse : Jérôme, Tancrède, Yannis"},{"@type":"ListItem","position":6,"url":"https://www.ufc.fr/salahdine-parnasse-debuts-ufc-paris-2026/","name":"Salahdine Parnasse à l’UFC : ce que changent ses débuts à Paris"},{"@type":"ListItem","position":7,"url":"https://www.ufc.fr/ufc-paris-2026-combattants-francais/","name":"UFC Paris 2026 : les 8 combattants français à suivre"}]}}</script>
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Accueil","item":"https://www.ufc.fr/"},{"@type":"ListItem","position":2,"name":"Combattants","item":"https://www.ufc.fr/categorie/combattants/"}]}</script>
@@ -108,7 +107,7 @@
       </nav>
         <div class="cards grid-3">
         <a class="card" href="/ciryl-gane-retour-entrainement-aspinall/" data-reveal>
-          <div class="media" data-reveal-media><img src="/img/gane.jpg" alt="Ciryl Gane de retour à l’entraînement, unification Aspinall en attente" loading="lazy" decoding="async" /></div>
+          <div class="media" data-reveal-media><img src="/img/gane.webp" alt="Ciryl Gane de retour à l’entraînement, unification Aspinall en attente" fetchpriority="high" decoding="sync" /></div>
           <div class="card-body">
             <span class="kicker">Combattants</span>
             <h3>Ciryl Gane de retour à l’entraînement, unification Aspinall en attente</h3>
@@ -126,7 +125,7 @@
           </div>
         </a>
         <a class="card" href="/duclos-aljarouj-debuts-ufc-paris-2026/" data-reveal>
-          <div class="media" data-reveal-media><img src="/img/duclos.jpg" alt="Duclos et Aljarouj : deux débuts UFC à Paris, sans roman" loading="lazy" decoding="async" /></div>
+          <div class="media" data-reveal-media><img src="/img/duclos.webp" alt="Duclos et Aljarouj : deux débuts UFC à Paris, sans roman" loading="lazy" decoding="async" /></div>
           <div class="card-body">
             <span class="kicker">Analyses</span>
             <h3>Duclos et Aljarouj : deux débuts UFC à Paris, sans roman</h3>
@@ -135,7 +134,7 @@
           </div>
         </a>
         <a class="card" href="/femmes-mma-francais-cornelle-benouaich/" data-reveal>
-          <div class="media" data-reveal-media><img src="/img/benouaich.jpg" alt="Femmes dans le MMA français : Cornolle, Benouaich, et la carte Paris" loading="lazy" decoding="async" /></div>
+          <div class="media" data-reveal-media><img src="/img/benouaich.webp" alt="Femmes dans le MMA français : Cornolle, Benouaich, et la carte Paris" loading="lazy" decoding="async" /></div>
           <div class="card-body">
             <span class="kicker">Analyses</span>
             <h3>Femmes dans le MMA français : Cornolle, Benouaich, et la carte Paris</h3>
@@ -153,7 +152,7 @@
           </div>
         </a>
         <a class="card" href="/salahdine-parnasse-debuts-ufc-paris-2026/" data-reveal>
-          <div class="media" data-reveal-media><img src="/img/parnasse.jpg" alt="Salahdine Parnasse à l’UFC : ce que changent ses débuts à Paris" loading="lazy" decoding="async" /></div>
+          <div class="media" data-reveal-media><img src="/img/parnasse.webp" alt="Salahdine Parnasse à l’UFC : ce que changent ses débuts à Paris" loading="lazy" decoding="async" /></div>
           <div class="card-body">
             <span class="kicker">Combattants</span>
             <h3>Salahdine Parnasse à l’UFC : ce que changent ses débuts à Paris</h3>

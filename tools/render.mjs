@@ -51,8 +51,15 @@ const ORGS = [
   ["/organisation-mma-ksw/", "KSW"],
 ];
 
-const FONTS =
-  "https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400;1,6..72,600&family=Oswald:wght@500;600;700&family=Outfit:wght@400;500;600;700&display=swap";
+/* Les polices sont chez nous. Voir css/polices.css pour le pourquoi : un
+ * site d'actualite ne fait pas dependre son texte d'un domaine tiers. */
+const POLICES = "/css/polices.css";
+
+/* Les deux fontes du premier ecran : le serif des titres et l'interface.
+ * Le reste (l'italique du serif, la police d'affichage) arrive ensuite sans
+ * jamais rien bloquer. Precharger les quatre reviendrait a faire la course
+ * contre la photo du heros, qui compte davantage. */
+const FONTES_CRITIQUES = ["/fonts/newsreader.woff2", "/fonts/outfit.woff2"];
 
 /**
  * La tête de page. Le cahier des charges (§11) et la barre jugent cette
@@ -84,20 +91,18 @@ export function head({ title, description, canonical, image, type = "article", s
   <link rel="icon" href="/media/brand/favicon-32.png" sizes="32x32" />
   <link rel="icon" href="/media/brand/favicon-192.png" sizes="192x192" />
   <link rel="apple-touch-icon" href="/media/brand/favicon-192.png" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <!-- La feuille de polices ne bloque plus le premier rendu.
-       Chargee en <link rel="stylesheet"> classique, elle est une ressource
-       bloquante : tant que Google n'a pas repondu, le navigateur n'affiche
-       rien. Une panne ou une lenteur chez un tiers devenait une page blanche
-       chez nous. Avec media="print", le navigateur la telecharge sans
-       attendre, et le onload la rend active des qu'elle arrive.
-       Le texte s'affiche donc dans la police de repli puis bascule — un
-       changement de police est un desagrement, une page blanche est une
-       perte. -->
-  <link rel="preload" as="style" href="${FONTS}" />
-  <link rel="stylesheet" href="${FONTS}" media="print" onload="this.media='all';this.onload=null" />
-  <noscript><link rel="stylesheet" href="${FONTS}" /></noscript>
+  <!-- Les polices ne viennent plus de chez Google.
+       Meme chargee sans bloquer le rendu, la feuille distante restait un
+       point de rupture : sur un reseau ou fonts.googleapis.com ne repond
+       pas, la requete pendait douze secondes puis echouait, et le plus grand
+       element de la page etait mesure a quatorze secondes — alors que sa
+       photo etait arrivee en une seconde huit.
+       Les trois familles sont sous licence SIL Open Font ; les servir
+       nous-memes supprime deux resolutions DNS, deux poignees de main TLS,
+       une dependance a un tiers, et une requete vers Google depuis le
+       navigateur de chaque lecteur. -->
+${FONTES_CRITIQUES.map((f) => `  <link rel="preload" as="font" type="font/woff2" href="${f}" crossorigin />`).join("\n")}
+  <link rel="stylesheet" href="${POLICES}" />
   <link rel="stylesheet" href="/css/site.css" />
 ${schema.map((s) => `  <script type="application/ld+json">${JSON.stringify(s)}</script>`).join("\n")}
 </head>`;

@@ -79,3 +79,12 @@ ce fichier est le plancher.
     une régression, copier le fichier (`cp x x.bak`), pas manipuler l'index.
     Et commiter dès qu'un ensemble cohérent passe le contrôle : un travail
     non commité n'existe pas.
+31. **Une dépendance externe a plusieurs portes d'entrée.** Le `<head>`, les
+    feuilles importées, les `url()` dans le CSS, les gabarits hérités. En
+    corriger une et s'en féliciter, c'est n'avoir rien corrigé : chercher
+    toutes les occurrences du domaine avant de déclarer la chose réglée.
+32. **Mesurer sur un téléphone bridé, pas sur le réseau local.** Une capture
+    d'écran ne dit rien du poids : tout arrive en trente millisecondes en
+    local. LCP et CLS se mesurent en 4G bridée avec le processeur divisé par
+    quatre, sinon on ne mesure rien. Et l'image du plus grand élément de
+    l'écran n'est jamais en `loading="lazy"`.

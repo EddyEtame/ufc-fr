@@ -168,21 +168,21 @@ const PHOTOS_EXACTES = {
   // ARES et Hexagone partageaient la meme photo « organisations » : cote a
   // cote dans une grille, les deux pages se ressemblaient au point de sembler
   // la meme. Le depot contenait deja une dizaine de photos jamais servies.
-  "organisation-mma-ares-fighting-championship": ["/img/octagon.jpg", ""],
+  "organisation-mma-ares-fighting-championship": ["/img/octagon.webp", ""],
 
   /* Cinq articles sans rapport entre eux — un gala rouennais, une carte ARES,
    * un guide des categories de poids, deux resultats UFC — portaient le meme
    * octogone de banque d'images. Chacun recoit une photo qui parle au moins
    * de son sujet : la pesee pour le guide des poids, la cage pour les galas,
    * le sol pour les resultats. Le depot les contenait deja, inutilisees. */
-  "hexagone-mma-rouen-12-septembre-2026": ["/img/victoire.jpg", ""],
-  "ares-43-oconnor-diatta-adidas-arena": ["/img/fight.jpg", ""],
-  "categories-poids-mma-guide": ["/img/pesee.jpg", ""],
-  "ufc-shanghai-song-yadong-ko-umar-nurmagomedov": ["/img/clinch.jpg", ""],
-  "ufc-sacramento-rodrigues-hernandez-resultats": ["/img/grappling.jpg", ""],
+  "hexagone-mma-rouen-12-septembre-2026": ["/img/victoire.webp", ""],
+  "ares-43-oconnor-diatta-adidas-arena": ["/img/fight.webp", ""],
+  "categories-poids-mma-guide": ["/img/pesee.webp", ""],
+  "ufc-shanghai-song-yadong-ko-umar-nurmagomedov": ["/img/clinch.webp", ""],
+  "ufc-sacramento-rodrigues-hernandez-resultats": ["/img/grappling.webp", ""],
   // Six articles ouvraient sur la meme facade de Bercy. Ceux qui parlent de
   // la salle la gardent ; l'explication du fonctionnement d'une carte, non.
-  "comment-fonctionne-carte-ufc": ["/img/gants.jpg", ""],
+  "comment-fonctionne-carte-ufc": ["/img/gants.webp", ""],
   /* Echange entre deux pages de reference. « Champions MMA actuels »
    * s'ouvrait sur un tapis d'octogone couvert de baches publicitaires — pas
    * un champion, pas une ceinture, rien du sujet ; elle recoit la ceinture,
@@ -193,17 +193,17 @@ const PHOTOS_EXACTES = {
    * La photo de champion tenant sa ceinture reste ecartee des deux : elle
    * date de 2012, et illustrer « actuels » avec un champion d'il y a
    * quatorze ans, c'est se tromper de sens. */
-  "champions-mma-actuels": ["/img/ceinture.jpg", ""],
+  "champions-mma-actuels": ["/img/ceinture.webp", ""],
   "classements-ufc-aout-2026": ["/media/2026/08/ufc-octagon-usmc-scaled.jpg", ""],
 };
 
 const PORTRAITS_MAISON = {
-  parnasse: "/img/parnasse.jpg", hooker: "/img/hooker.jpg", ziam: "/img/ziam.jpg",
-  sola: "/img/sola.jpg", charriere: "/img/charriere.jpg", sy: "/img/sy.jpg",
-  cornolle: "/img/cornolle.jpg", duclos: "/img/duclos.jpg", aljarouj: "/img/aljarouj.jpg",
-  benouaich: "/img/benouaich.jpg", gane: "/img/gane.jpg", imavov: "/img/imavov.jpg",
-  zebo: "/img/zebo.jpg",
-  "saint-denis": "/img/saint-denis.jpg",
+  parnasse: "/img/parnasse.webp", hooker: "/img/hooker.webp", ziam: "/img/ziam.webp",
+  sola: "/img/sola.webp", charriere: "/img/charriere.webp", sy: "/img/sy.webp",
+  cornolle: "/img/cornolle.webp", duclos: "/img/duclos.webp", aljarouj: "/img/aljarouj.webp",
+  benouaich: "/img/benouaich.webp", gane: "/img/gane.webp", imavov: "/img/imavov.webp",
+  zebo: "/img/zebo.webp",
+  "saint-denis": "/img/saint-denis.webp",
 };
 
 // Par sujet, et UNIQUEMENT quand le document n'est pas un portrait.
@@ -214,11 +214,11 @@ const PORTRAITS_MAISON = {
 // photographie de ceinture. Un repli generique doit etre le dernier recours,
 // jamais un filet qui attrape ce qui allait bien.
 const SUJETS_MAISON = [
-  [/(^|-)(club|gym|academy|salle)(-|$)|(^|-)team-/, "/img/gym.jpg"],
-  [/(^|-)pesee(-|$)/, "/img/pesee.jpg"],
-  [/(^|-)classements?(-|$)/, "/img/ceinture.jpg"],
-  [/(^|-)(organisation|differences)(-|$)/, "/img/organisations.jpg"],
-  [/(^|-)(calendrier|gala)(-|$)/, "/img/arena-exterieur.jpg"],
+  [/(^|-)(club|gym|academy|salle)(-|$)|(^|-)team-/, "/img/gym.webp"],
+  [/(^|-)pesee(-|$)/, "/img/pesee.webp"],
+  [/(^|-)classements?(-|$)/, "/img/ceinture.webp"],
+  [/(^|-)(organisation|differences)(-|$)/, "/img/organisations.webp"],
+  [/(^|-)(calendrier|gala)(-|$)/, "/img/arena-exterieur.webp"],
 ];
 
 /**

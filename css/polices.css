@@ -1,0 +1,54 @@
+/* =========================================================================
+   LES POLICES, CHEZ NOUS
+
+   Newsreader, Oswald et Outfit sont sous licence SIL Open Font 1.1 :
+   l'hebergement par soi-meme est explicitement permis.
+
+   Elles etaient chargees depuis fonts.googleapis.com. Sur un reseau ou ce
+   tiers ne repond pas, la requete pendait douze secondes puis echouait, et
+   le plus grand element de la page etait mesure a quatorze secondes — alors
+   que sa photo etait arrivee en une seconde huit. Un site d'actualite ne
+   fait pas dependre son texte d'un domaine qu'il ne controle pas.
+
+   Seul le sous-ensemble « latin » est embarque : il couvre le francais
+   accentue, la ligature oe et le signe euro. Et Newsreader est demande sans
+   son axe de taille optique : il coutait 72 Ko par fonte pour un reglage que
+   la feuille de style n'utilise nulle part (font-optical-sizing n'y figure
+   pas une seule fois).
+
+   `font-display: swap` reste : le texte s'affiche tout de suite dans la
+   police de repli, puis bascule. Un changement de police est un desagrement ;
+   une page sans texte est une perte.
+   ========================================================================= */
+
+@font-face {
+  font-family: "Newsreader";
+  font-style: italic;
+  font-weight: 200 600;
+  font-display: swap;
+  src: url("/fonts/newsreader-italic.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Newsreader";
+  font-style: normal;
+  font-weight: 200 600;
+  font-display: swap;
+  src: url("/fonts/newsreader.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Oswald";
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url("/fonts/oswald.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Outfit";
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url("/fonts/outfit.woff2") format("woff2");
+}

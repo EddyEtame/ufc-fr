@@ -7,8 +7,6 @@
   <meta name="description" content="Rubrique interviews UFC.FR : aucun entretien publié pour l’instant. Format, ligne éditoriale et invitation clubs et combattants. Média MMA indépendant." />
   <meta name="robots" content="noindex, follow" />
   <link rel="canonical" href="https://www.ufc.fr/categorie/interviews/" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <!-- La feuille de polices ne bloque plus le premier rendu.
        Chargee en <link rel="stylesheet"> classique, elle est une ressource
        bloquante : tant que Google n'a pas repondu, le navigateur n'affiche
@@ -18,9 +16,7 @@
        Le texte s'affiche donc dans la police de repli puis bascule — un
        changement de police est un desagrement, une page blanche est une
        perte. -->
-  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400;1,6..72,600&family=Oswald:wght@500;600;700&family=Outfit:wght@400;500;600;700&display=swap" />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400;1,6..72,600&family=Oswald:wght@500;600;700&family=Outfit:wght@400;500;600;700&display=swap" media="print" onload="this.media='all';this.onload=null" />
-  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400;1,6..72,600&family=Oswald:wght@500;600;700&family=Outfit:wght@400;500;600;700&display=swap" /></noscript>
+  <noscript></noscript>
   <meta property="og:site_name" content="UFC.FR" />
   <meta property="og:locale" content="fr_FR" />
   <meta property="og:type" content="article" />
@@ -35,6 +31,9 @@
   <link rel="icon" href="/media/brand/favicon-32.png" sizes="32x32" />
   <link rel="icon" href="/media/brand/favicon-192.png" sizes="192x192" />
   <link rel="apple-touch-icon" href="/media/brand/favicon-192.png" />
+  <link rel="preload" as="font" type="font/woff2" href="/fonts/newsreader.woff2" crossorigin />
+  <link rel="preload" as="font" type="font/woff2" href="/fonts/outfit.woff2" crossorigin />
+  <link rel="stylesheet" href="/css/polices.css" />
   <link rel="stylesheet" href="css/site.css" />
 </head>
 <body>

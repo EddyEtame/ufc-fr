@@ -56,9 +56,9 @@ function pic(p, cls = "", unique = true) {
 // reserve avant que le fil se serve, sinon les deux fiches Boxing Center
 // reviennent en carte avec la meme photo quelques centaines de pixels plus
 // haut.
-vues.add("/img/parnasse.jpg");
-vues.add("/img/hooker.jpg");
-vues.add("/img/gym.jpg");
+vues.add("/img/parnasse.webp");
+vues.add("/img/hooker.webp");
+vues.add("/img/gym.webp");
 vues.add("/media/clubs/boxing-center-etats-unis.webp");
 vues.add("/media/clubs/boxing-center-ramonville.webp");
 
@@ -139,7 +139,7 @@ ${header("/", "home")}
 
     <div class="hero-duel">
       <figure class="hero-man a">
-        <img src="/img/parnasse.jpg" alt="Salahdine Parnasse, double champion KSW, avant ses debuts a l'UFC" width="1200" height="1600" fetchpriority="high" />
+        <img src="/img/parnasse.webp" alt="Salahdine Parnasse, double champion KSW, avant ses debuts a l'UFC" width="1200" height="1600" fetchpriority="high" />
         <figcaption>
           <span class="kicker">France · Debuts UFC</span>
           <span class="hero-name">Parnasse</span>
@@ -147,7 +147,7 @@ ${header("/", "home")}
       </figure>
       <p class="hero-vs" aria-hidden="true">contre</p>
       <figure class="hero-man b">
-        <img src="/img/hooker.jpg" alt="Dan Hooker, poids legers, Nouvelle-Zelande" width="1200" height="1600" fetchpriority="high" />
+        <img src="/img/hooker.webp" alt="Dan Hooker, poids legers, Nouvelle-Zelande" width="1200" height="1600" fetchpriority="high" />
         <figcaption>
           <span class="kicker">Nouvelle-Zelande</span>
           <span class="hero-name">Hooker</span>
@@ -337,7 +337,7 @@ ${/* Les trois salles de tete viennent de l'annuaire, pas d'une liste ecrite
         </ul>
       </div>
       <div class="ed-keys-photo" data-reveal data-reveal-media>
-        <img src="/img/ceinture.jpg" alt="Ceinture de champion MMA" width="1200" height="800" loading="lazy" decoding="async" />
+        <img src="/img/ceinture.webp" alt="Ceinture de champion MMA" width="1200" height="800" loading="lazy" decoding="async" />
       </div>
     </div>
   </section>
