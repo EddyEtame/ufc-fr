@@ -6,7 +6,12 @@ import ssl
 import urllib.request
 import urllib.error
 
-USER = "bc.combat31@gmail.com"
+# L'identifiant de publication ne vit pas dans le code. Il etait ecrit en
+# dur dans huit fichiers d'un depot public : le mot de passe etait bien en
+# variable d'environnement, mais un identifiant admin valide, indexe, est
+# la moitie du travail donnee a qui veut entrer. Les deux se lisent
+# desormais dans l'environnement.
+USER = os.environ["WP_USER"]
 PASS = os.environ["WP_APP_PASS"]
 REST = "https://www.ufc.fr/wp-json/wp/v2"
 EL_CACHE = "https://www.ufc.fr/wp-json/elementor/v1/cache"

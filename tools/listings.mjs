@@ -92,10 +92,18 @@ const reel = (c) => compte.get(c.id) || 0;
 
 /** Le rail de filtres : la fonction du WordPress, rendue en liens réels —
  *  donc crawlable, partageable et sans JavaScript. */
+/**
+ * Le rail de rubriques.
+ *
+ * « Tout » ne s'allume que sur le fil. Les portraits n'ont pas de rubrique —
+ * ils traversent les sept organisations — et le rail les annoncait donc comme
+ * « Tout », c'est-a-dire comme le fil complet : le seul repere de la page
+ * designait une autre page.
+ */
 function filters(activeSlug) {
   const live = categories.filter((c) => reel(c) > 0).sort((a, b) => reel(b) - reel(a));
   return `      <nav class="filters" aria-label="Filtrer par rubrique">
-        <a href="/actualite-du-mma/"${!activeSlug ? ' class="on" aria-current="page"' : ""}>Tout <b>${posts.length}</b></a>
+        <a href="/actualite-du-mma/"${activeSlug === "tout" ? ' class="on" aria-current="page"' : ""}>Tout <b>${posts.length}</b></a>
 ${live
   .map(
     (c) =>
@@ -107,7 +115,7 @@ ${live
       </nav>`;
 }
 
-function listPage({ slug, title, seoTitle, description, kicker, lede, items, activeSlug }) {
+function listPage({ slug, title, seoTitle, description, kicker, lede, items, activeSlug, compte, unite }) {
   const url = `/${slug}/`;
   const schema = [
     {
@@ -141,14 +149,22 @@ function listPage({ slug, title, seoTitle, description, kicker, lede, items, act
   const html = `${head({ title: seoTitle, description, canonical: url, type: "website", schema })}
 ${header()}
   <main id="contenu">
-    <section class="block">
+    <section class="block block-liste">
       <div class="wrap">
-        <header class="head" data-reveal>
+        <header class="head tete-liste" data-reveal>
           <div>
             <span class="kicker">${esc(kicker)}</span>
             <h1>${esc(title)}</h1>
             <p class="lede">${esc(lede)}</p>
           </div>
+${
+  // Le nombre d'articles est une donnee, pas une phrase. « 27 articles dans
+  // cette rubrique » occupait la ligne ou aurait du se lire ce que la
+  // rubrique couvre ; le chiffre part a droite, ou la page etait vide.
+  compte
+    ? `          <p class="tete-compte"><b>${compte}</b><span>${esc(unite || (compte > 1 ? "articles" : "article"))}</span></p>`
+    : ""
+}
         </header>
 ${filters(activeSlug)}
         <div class="cards grid-3">
@@ -175,8 +191,10 @@ emitted.push(
     description:
       "Tout le fil UFC.FR : résultats d’événements, galas français, portraits de combattants, analyses et calendrier. Média MMA indépendant.",
     kicker: "Le fil",
-    lede: `${posts.length} articles, du dernier gala français à la carte de Bercy.`,
+    lede: "Tout ce que nous publions, du dernier gala français à la carte de Bercy.",
     items: byDate,
+    compte: posts.length,
+    activeSlug: "tout",
   })
 );
 
@@ -189,8 +207,10 @@ emitted.push(
     seoTitle: "Portraits de champions MMA : UFC, PFL, ONE, KSW, ARES | UFC.FR",
     description: `${portraits.length} portraits de combattants et de championnes et champions, toutes organisations confondues. Parcours, records, style de combat.`,
     kicker: "Les combattants",
-    lede: `${portraits.length} fiches, de l’UFC au KSW, sans classement maison.`,
+    lede: "De l’UFC au KSW. Parcours, records, style — et aucun classement maison.",
     items: portraits,
+    compte: portraits.length,
+    unite: "portraits",
   })
 );
 
@@ -208,8 +228,17 @@ for (const c of categories.filter((x) => reel(x) > 0)) {
         stripTags(c.description) ||
         `Tous les articles UFC.FR classés dans ${c.name} : ${items.length} publications.`,
       kicker: "Rubrique",
-      lede: `${items.length} article${items.length > 1 ? "s" : ""} dans cette rubrique.`,
+      /* Chaque rubrique porte deja une description ecrite dans le CMS —
+       * « Resultats MMA officiels uniquement. Pas de score invente : on
+       * attend l'annonce UFC / orga. » Elle partait dans la balise meta,
+       * invisible, pendant que la page affichait « 27 articles dans cette
+       * rubrique ». Le lecteur voit maintenant ce que la rubrique couvre ;
+       * le compte est a cote, en chiffre. */
+      lede:
+        stripTags(c.description) ||
+        `Tout ce que UFC.FR publie sous ${c.name}.`,
       items,
+      compte: items.length,
       activeSlug: c.slug,
     })
   );

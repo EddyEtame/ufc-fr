@@ -10,7 +10,12 @@ import urllib.parse
 import urllib.request
 from pathlib import Path
 
-USER = "bc.combat31@gmail.com"
+# L'identifiant de publication ne vit pas dans le code. Il etait ecrit en
+# dur dans huit fichiers d'un depot public : le mot de passe etait bien en
+# variable d'environnement, mais un identifiant admin valide, indexe, est
+# la moitie du travail donnee a qui veut entrer. Les deux se lisent
+# desormais dans l'environnement.
+USER = os.environ["WP_USER"]
 PASS = os.environ["WP_APP_PASS"]
 DIR = Path(r"c:\Users\PC\Desktop\UFC\contenus-a-publier")
 IMG_DIR = DIR / "images-wikimedia"

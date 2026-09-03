@@ -18,6 +18,30 @@ Les textes HTML de ce dossier sont prêts à coller dans WordPress (éditeur tex
 
 Ne renvoyez pas le mot de passe du compte dans le chat. Un mot de passe d’application suffit, et se révoque en un clic.
 
+## Les scripts ne contiennent aucun identifiant
+
+Les scripts Python de ce dossier lisent **deux** variables d'environnement. Rien
+n'est écrit en dur : ce dépôt a été public, et un identifiant admin valide dans
+du code indexé est la moitié du travail donnée à qui veut entrer.
+
+```bash
+export WP_USER="l-identifiant-wordpress"       # le login, pas forcément l'e-mail
+export WP_APP_PASS="xxxx xxxx xxxx xxxx xxxx"  # mot de passe d'application
+python3 publish_wp.py
+```
+
+Sous Windows (PowerShell) :
+
+```powershell
+$env:WP_USER = "l-identifiant-wordpress"
+$env:WP_APP_PASS = "xxxx xxxx xxxx xxxx xxxx"
+python publish_wp.py
+```
+
+Un mot de passe d'application se révoque en un clic dans **Utilisateurs →
+Profil**. S'il a circulé, on le révoque et on en crée un autre — c'est prévu
+pour ça.
+
 ## Fichiers à publier (ordre)
 
 | Fichier | Type | Slug | Priorité |

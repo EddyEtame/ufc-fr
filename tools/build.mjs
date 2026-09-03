@@ -372,7 +372,24 @@ export function resume(doc, n = 150) {
   return coupe.slice(0, coupe.lastIndexOf(" ")) + "…";
 }
 
-const stripTags = (s = "") => decode(String(s).replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim());
+/**
+ * Le texte d'un fragment HTML, sans ses balises.
+ *
+ * Chaque balise devient une espace — sinon « <strong>Paris</strong>2026 »
+ * donnerait « Paris2026 ». Mais quand la balise fermait juste avant une
+ * ponctuation, l'espace reste : « huit Français . » s'affichait ainsi sur les
+ * cartes du fil. On recolle le point et la virgule, jamais le deux-points ni
+ * le point-virgule, qui gardent leur espace en français.
+ */
+const stripTags = (s = "") =>
+  decode(
+    String(s)
+      .replace(/<[^>]*>/g, " ")
+      .replace(/\s+/g, " ")
+      .replace(/\s+([.,)\]])/g, "$1")
+      .replace(/([(\[])\s+/g, "$1")
+      .trim()
+  );
 
 const MOIS = ["janvier","février","mars","avril","mai","juin","juillet","août","septembre","octobre","novembre","décembre"];
 function dateFr(iso) {
