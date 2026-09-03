@@ -196,6 +196,7 @@ function renderDocument(doc, { isPage }) {
   // trace WordPress en amont, jamais réécrit sur le fond. On ne touche pas au
   // texte d'un rédacteur.
   let body = cleanContent(doc.content.rendered);
+  let rosterBloc = "";
 
   // Le corps importe s'ouvre sur une <figure> qui porte l'image a la une —
   // celle que le gabarit affiche deja juste au-dessus. Chaque article montrait
@@ -218,7 +219,12 @@ function renderDocument(doc, { isPage }) {
       .filter((p) => p.slug.startsWith("portrait-"))
       .sort((a, b) => new Date(b.date) - new Date(a.date));
     if (roster.length) {
-      body += `\n<h2>Les combattants de cette organisation</h2>\n<div class="roster">\n${roster
+      // Rendu comme un bloc distinct, hors de `.prose`. Tant qu'il etait
+      // concatene au corps, il heritait de la largeur de lecture (720 px) :
+      // cinq portraits se serraient dans le tiers gauche d'un ecran large, et
+      // aucune regle de debordement ne tenait contre le `max-width` du
+      // conteneur. La structure regle ce que le CSS n'arrivait pas a forcer.
+      rosterBloc = `\n<h2>Les combattants de cette organisation</h2>\n<div class="roster">\n${roster
         .map((p) => {
           const t = featuredImage(p);
           return `  <a href="/${p.slug}/">${
@@ -265,6 +271,10 @@ ${header()}
       <div class="prose" data-reveal>
 ${body}
       </div>
+${rosterBloc ? `    </div>
+    <div class="wrap roster-bloc" data-reveal>${rosterBloc}
+    </div>
+    <div class="wrap-read${sibs.length ? "" : " wrap-read-vide"}">` : ""}
 ${
   sibs.length
     ? `      <aside class="related" data-reveal>
