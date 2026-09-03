@@ -92,3 +92,14 @@ ce fichier est le plancher.
     espace fine mesurée à 40 px ne dit rien de son rendu à 17 px, où elle
     devient invisible. Mesurer à la taille, dans la police et sur le fond où
     la chose est réellement composée — puis regarder l'écran.
+34. **Ne jamais réécrire le défilement du navigateur.** Aucune interpolation
+    maison ne bat l'inertie que le système calcule : il connaît la vitesse du
+    geste, le matériel, les réglages d'accessibilité. Si un effet doit suivre
+    le défilement, c'est `animation-timeline: scroll()` — sur le compositeur,
+    pas sur le fil principal. Et se mesurer : combien de pixels la page
+    parcourt-elle pour vingt crans de molette ?
+35. **Le mouvement se paie en trames.** Une transition sur `clip-path`,
+    `filter`, `width` ou `height` repeint l'élément à chaque trame ; seuls
+    `transform` et `opacity` passent par le compositeur. Et un effet posé sur
+    quatre-vingt-douze éléments n'informe plus, il décore — le compter avant
+    de le poser.

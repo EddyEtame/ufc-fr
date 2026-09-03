@@ -225,6 +225,24 @@ const SUJETS_MAISON = [
  * L'image d'un document, curatee. Renvoie `null` si rien de mieux que
  * l'image du CMS n'existe — l'appelant garde alors la sienne.
  */
+/**
+ * La version vignette d'une image, quand elle existe.
+ *
+ * Une carte de liste affiche son image sur 430 px au plus et recevait
+ * l'original — souvent 1 600 px. Le navigateur telechargeait huit fois trop
+ * d'octets puis decodait huit fois trop de pixels, sur le fil principal, en
+ * plein defilement. `tools/vignettes.mjs` fabrique les versions de 640 px ;
+ * cette fonction les sert la ou l'image est petite a l'ecran.
+ *
+ * Les photos d'ouverture d'article et le heros gardent l'original : ils
+ * occupent toute la colonne, parfois tout l'ecran.
+ */
+export function vignette(url) {
+  if (!url || !url.startsWith("/")) return url;
+  const nom = url.split("/").pop().replace(/\.[a-z]+$/i, "") + ".webp";
+  return existsSync(join(ROOT, "media", "vignettes", nom)) ? "/media/vignettes/" + nom : url;
+}
+
 export function imageMaison(slug) {
   const s = String(slug || "").toLowerCase();
   // Un article maison apporte sa propre photo : aucun repli ne s'y applique.

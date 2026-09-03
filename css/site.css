@@ -1932,32 +1932,37 @@ section.block.ed-club { padding: 0; }
    condition.
    ========================================================================= */
 
-/* Les blocs ne s'estompent pas, ils se decouvrent. Un fondu dit « ceci
-   apparait » ; un devoilement par le bas dit « ceci etait la, tu y arrives »
-   — ce qui est vrai d'un article qu'on fait defiler. Le clip-path fait le
-   travail, la translation ne fait que l'accompagner. */
+/* Les blocs ne s'estompent pas, ils montent.
+ *
+ * Le devoilement se faisait par `clip-path: inset()`, pour dire « ceci etait
+ * la, tu y arrives » plutot que « ceci apparait ». L'intention etait juste,
+ * son cout ne l'etait pas : `clip-path` ne s'anime pas sur le compositeur,
+ * chaque trame repeint l'element entier. Mesure sur un defilement de vingt
+ * crans, processeur divise par quatre : 25 trames longues sur 123 avec, 6
+ * sur 135 sans. C'est la moitie du hachage que le defilement donnait a voir.
+ *
+ * `transform` et `opacity` sont les deux seules proprietes que le navigateur
+ * anime sans repasser par la mise en page. La montee dit la meme chose — le
+ * bloc vient d'en bas, on descend vers lui — et elle ne coute rien. */
 html.motion [data-reveal] {
   opacity: 0;
-  clip-path: inset(0 0 22% 0);
-  transform: translate3d(0, 18px, 0);
+  transform: translate3d(0, 22px, 0);
   transition:
-    opacity 0.5s var(--ease),
-    clip-path 0.78s var(--ease),
-    transform 0.78s var(--ease);
-  will-change: opacity, clip-path, transform;
+    opacity 0.55s var(--ease),
+    transform 0.72s var(--ease);
 }
 html.motion [data-reveal].shown {
   opacity: 1;
-  clip-path: inset(0 0 0 0);
   transform: none;
-  will-change: auto;
 }
 
 /* Le heros s'ouvre au defilement : les deux combattants s'ecartent, la
    couture laisse voir le noir. Les transformations sont posees par le
    script ; ici on ne fait qu'annoncer au navigateur ce qui va bouger. */
-.hero-cage .hero-man { will-change: transform; }
-.hero-cage .hero-vs { will-change: transform, opacity; }
+/* `will-change` etait pose pour l'ancien effet en JavaScript. Il promeut la
+   couche en memoire video ; laisse en permanence sur deux grandes images, il
+   coute plus qu'il ne rapporte. Les animations de defilement ci-dessous
+   tournent deja sur le compositeur. */
 
 /* Le compteur : chiffre en display, aligne sur la ligne de base du libelle,
    pour que la montee ne fasse pas sauter la mise en page. */
@@ -1996,7 +2001,12 @@ html.motion [data-reveal-media] { overflow: hidden; }
 html.motion [data-reveal-media] img {
   transform: scale(1.06);
   transition: transform 1.15s var(--ease);
+  /* `will-change` seulement ici, et seulement le temps du mouvement : ces
+     images sont grandes, et promouvoir une couche en permanence coute de la
+     memoire video pour rien une fois l'animation finie. */
+  will-change: transform;
 }
+html.motion [data-reveal-media].shown img { will-change: auto; }
 html.motion [data-reveal-media].shown img { transform: scale(1); }
 
 /* Le titre d'article arrive seul, sans attendre le reste : c'est la première
@@ -3797,4 +3807,108 @@ section.block > .wrap > .tete-liste { margin-bottom: 40px; }
 .recherche input[type="search"]:hover::-webkit-search-cancel-button,
 .recherche input[type="search"]::-webkit-search-cancel-button:hover {
   background-color: var(--red);
+}
+
+/* =========================================================================
+   LE DEFILEMENT EST CELUI DU NAVIGATEUR
+
+   Le site embarquait un defilement « lisse » maison : il interceptait la
+   molette (`preventDefault`), accumulait une cible et interpolait vers elle
+   a 11 % par trame. Mesure sur vingt crans de molette — 2 400 px demandes :
+   la page en parcourait 300. Puis la boucle rattrapait d'un coup.
+
+   C'est exactement ce qu'on ressentait : sec au depart, tres lent ensuite,
+   et une ruee vers le bas de la page. Le pavé tactile aggravait tout, chaque
+   geste envoyant des dizaines d'evenements qui s'additionnaient.
+
+   Aucune interpolation maison ne bat l'inertie que le systeme calcule : elle
+   connait la vitesse du geste, le materiel, les reglages d'accessibilite.
+   On la rend au navigateur. Le seul lissage qu'on garde est celui des ancres
+   internes, qui tient en une ligne — et qui se tait si le lecteur a demande
+   moins de mouvement.
+   ========================================================================= */
+
+@media (prefers-reduced-motion: no-preference) {
+  html { scroll-behavior: smooth; }
+}
+
+/* =========================================================================
+   L'OUVERTURE DU DUEL, SUR LA LIGNE DE TEMPS DU DEFILEMENT
+
+   Les deux combattants s'ecartent quand la lecture quitte le heros, et la
+   couture s'efface : c'est le geste du debut de soiree. Il etait calcule en
+   JavaScript, dans un ecouteur de defilement qui lisait la geometrie puis
+   ecrivait un `transform` a chaque trame — le schema exact qui force le
+   navigateur a recalculer la mise en page en plein defilement, et qui
+   donnait des images « qui bougent bizarrement ».
+
+   `animation-timeline: scroll()` confie la meme chose au compositeur : la
+   progression est liee au defilement, pas au fil principal, et rien ne peut
+   plus saccader. La ou la propriete n'existe pas encore, la regle entiere
+   est ignoree : le heros reste immobile, ce qui est une mise en page — pas
+   un defaut.
+
+   L'ecartement est volontairement faible (3,5 % de part et d'autre). Un
+   effet qu'on remarque est un effet rate ; celui-ci doit se sentir.
+   ========================================================================= */
+
+@supports (animation-timeline: scroll()) {
+  @media (prefers-reduced-motion: no-preference) {
+    @keyframes duel-gauche { to { transform: translate3d(-3.5%, 0, 0); } }
+    @keyframes duel-droite { to { transform: translate3d(3.5%, 0, 0); } }
+    @keyframes duel-couture {
+      to { opacity: 0; transform: translate(-50%, -50%) scale(0.88); }
+    }
+
+    .hero-cage .hero-man.a,
+    .hero-cage .hero-man.b,
+    .hero-cage .hero-vs {
+      animation-timing-function: linear;
+      animation-fill-mode: both;
+      animation-timeline: scroll(root block);
+      /* La course se joue sur la premiere hauteur d'ecran : au-dela, le
+         heros est hors champ et l'effet n'a plus de spectateur. */
+      animation-range: 0 100vh;
+    }
+    .hero-cage .hero-man.a { animation-name: duel-gauche; }
+    .hero-cage .hero-man.b { animation-name: duel-droite; }
+    .hero-cage .hero-vs { animation-name: duel-couture; }
+  }
+}
+
+/* La profondeur des images d'ouverture — le parallaxe — a ete retiree, pas
+   deplacee. Elle deplacait l'image de 6 % de sa hauteur pendant le
+   defilement, ce qui, additionne au defilement maison, se lisait comme un
+   glissement parasite. Une image d'article n'a rien a gagner a flotter. */
+
+/* =========================================================================
+   LES LONGUES LISTES NE PEIGNENT QUE CE QU'ON REGARDE
+
+   Le fil complet fait quatre-vingt-douze cartes et dix-sept mille pixels de
+   haut. Le navigateur en calculait la mise en page et la peinture en entier,
+   y compris les quatre-vingts cartes qu'on ne verra jamais sans defiler :
+   22 trames longues sur 136 pendant un defilement, dont cinq au-dela de
+   50 ms.
+
+   `content-visibility: auto` laisse le navigateur sauter le travail d'un
+   element hors champ. `contain-intrinsic-size` lui donne la hauteur a
+   reserver en attendant, sans quoi la barre de defilement sauterait a chaque
+   carte qui entre — le remede serait pire que le mal.
+
+   La valeur vient de la mesure : une carte du fil fait 430 px de haut, une
+   fiche d'annuaire 390.
+   ========================================================================= */
+
+@supports (content-visibility: auto) {
+  .cards .card,
+  .annuaire .salle,
+  .roster > a {
+    content-visibility: auto;
+  }
+  .cards .card { contain-intrinsic-size: auto 430px; }
+  .annuaire .salle { contain-intrinsic-size: auto 390px; }
+  .roster > a { contain-intrinsic-size: auto 260px; }
+  /* La premiere carte porte l'image que le navigateur mesure comme le plus
+     grand element de l'ecran : elle ne se saute jamais. */
+  .cards .card:first-child { content-visibility: visible; }
 }

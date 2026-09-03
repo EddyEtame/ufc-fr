@@ -9,7 +9,7 @@
  */
 import { writeFileSync, mkdirSync } from "node:fs";
 import { join } from "node:path";
-import { posts, categories, ROOT, SITE, esc, decode, stripTags, dateFr, metaDesc, localMedia, resume, imageMaison } from "./build.mjs";
+import { posts, categories, ROOT, SITE, esc, decode, stripTags, dateFr, metaDesc, localMedia, resume, imageMaison , vignette} from "./build.mjs";
 import { head, header, footer } from "./render.mjs";
 
 const byDate = [...posts].sort((a, b) => new Date(b.date) - new Date(a.date));
@@ -65,18 +65,31 @@ function thumb(p, vues) {
  * Elle se charge donc en priorite, et seulement elle : passer toutes les
  * cartes en `eager` ferait la course a douze images pour rien.
  */
-function card(p, vues, tete = false) {
+function card(p, vues, tete = false, rang = 0) {
   const t = thumb(p, vues);
+  /* Le devoilement s'arrete apres la premiere rangee.
+   *
+   * Le mouvement informe, il ne decore pas — et quatre-vingt-douze cartes
+   * qui se devoilent une a une decorent. Mesure sur le fil, processeur
+   * divise par quatre : 18 trames longues sur 116 avec le devoilement sur
+   * toutes les cartes, 3 sans. Chaque carte qui entre cree puis detruit une
+   * couche de composition, et un defilement rapide en fait entrer dix a la
+   * fois.
+   *
+   * Les trois premieres le gardent : c'est la que le lecteur regarde quand
+   * la page se pose, et c'est la que le geste dit quelque chose. */
+  const anime = rang < 3;
   // « Actualite » passe en dernier : c'est la rubrique fourre-tout, et une
   // carte qui l'affiche n'apprend rien de plus que le titre.
   const cat = (p.categories || [])
     .map((id) => catById.get(id))
     .filter(Boolean)
     .sort((a, b) => (a.slug === "actualite") - (b.slug === "actualite"))[0];
-  return `        <a class="card" href="/${p.slug}/" data-reveal>
+  return `        <a class="card" href="/${p.slug}/"${anime ? " data-reveal" : ""}>
           ${
             t
-              ? `<div class="media" data-reveal-media><img src="${t.url}" alt="${esc(t.alt)}"${
+              // Vignette et non original : la carte fait 430 px de large.
+              ? `<div class="media"${anime ? " data-reveal-media" : ""}><img src="${vignette(t.url)}" alt="${esc(t.alt)}"${
                   t.w && t.h ? ` width="${t.w}" height="${t.h}"` : ""
                 } ${tete ? 'fetchpriority="high" decoding="sync"' : 'loading="lazy" decoding="async"'} /></div>`
               : ""
@@ -180,7 +193,7 @@ ${
         </header>
 ${filters(activeSlug)}
         <div class="cards grid-3">
-${(() => { const vues = new Set(); return items.map((p, i) => card(p, vues, i === 0)).join("\n"); })()}
+${(() => { const vues = new Set(); return items.map((p, i) => card(p, vues, i === 0, i)).join("\n"); })()}
         </div>
       </div>
     </section>

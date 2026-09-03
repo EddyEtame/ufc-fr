@@ -10,7 +10,7 @@ import { writeFileSync, mkdirSync, copyFileSync, existsSync } from "node:fs";
 import { join, dirname, basename } from "node:path";
 import {
   posts, pages, categories, ROOT, SITE, mediaManifest,
-  cleanContent, esc, decode, stripTags, dateFr, metaDesc, seoTitle, localMedia, imageMaison, resume, intrusDuCorpus,
+  cleanContent, esc, decode, stripTags, dateFr, metaDesc, seoTitle, localMedia, imageMaison, resume, intrusDuCorpus, vignette,
 } from "./build.mjs";
 import { head, header, footer, ORGS } from "./render.mjs";
 import { annuaire, fiche } from "./salles.mjs";
@@ -244,7 +244,7 @@ function carteArticle(p) {
     .filter(Boolean)
     .sort((a, b) => (a.slug === "actualite") - (b.slug === "actualite"))[0];
   return `        <a class="card" href="/${p.slug}/" data-reveal>
-          ${t ? `<div class="media" data-reveal-media><img src="${t.url}" alt="${esc(t.alt)}" loading="lazy" decoding="async" /></div>` : ""}
+          ${t ? `<div class="media" data-reveal-media><img src="${vignette(t.url)}" alt="${esc(t.alt)}" loading="lazy" decoding="async" /></div>` : ""}
           <div class="card-body">
             <span class="kicker">${esc(cat?.name || "Actualité")}</span>
             <h3>${esc(decode(p.title.rendered))}</h3>
@@ -391,7 +391,7 @@ function renderDocument(doc, { isPage }) {
         .map((p) => {
           const t = featuredImage(p);
           return `  <a href="/${p.slug}/">${
-            t ? `<img src="${t.url}" alt="${esc(t.alt)}" loading="lazy" decoding="async" />` : ""
+            t ? `<img src="${vignette(t.url)}" alt="${esc(t.alt)}" loading="lazy" decoding="async" />` : ""
           }<div class="meta"><h3>${esc(decode(p.title.rendered).replace(/^Portrait\s*[:\u2013-]\s*/i, "").split(/[,\u2013]/)[0])}</h3></div></a>`;
         })
         .join("\n")}\n</div>`;

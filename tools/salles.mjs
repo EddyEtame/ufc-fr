@@ -18,7 +18,7 @@
  * ecrit, on le remet la ou il se lit.
  */
 import {
-  posts, pages, categories, cleanContent, decode, esc, stripTags, resume, localMedia, imageMaison,
+  posts, pages, categories, cleanContent, decode, esc, stripTags, resume, localMedia, imageMaison, vignette,
 } from "./build.mjs";
 
 const CAT = "clubs-mma-francais";
@@ -185,11 +185,14 @@ export function annuaire() {
 
 /** Une fiche de l'annuaire. Deux liens, jamais un seul : le reportage chez
  *  nous, et le site du club. Le lecteur doit savoir lequel le fait sortir. */
-export function fiche(s, { lazy = true } = {}) {
-  return `        <article class="salle" data-reveal>
-          <a class="salle-media${s.photo ? "" : " salle-media-vide"}" href="${s.interne}" data-reveal-media>${
+export function fiche(s, { lazy = true, anime = false } = {}) {
+  // Le devoilement ne sert que les trois fiches de l'accueil. Sur les quatorze
+  // de l'annuaire il decore, et chaque carte qui entre coute une couche de
+  // composition en plein defilement.
+  return `        <article class="salle"${anime ? " data-reveal" : ""}>
+          <a class="salle-media${s.photo ? "" : " salle-media-vide"}" href="${s.interne}"${anime ? " data-reveal-media" : ""}>${
             s.photo
-              ? `<img src="${s.photo.url}" alt="${esc(s.photo.alt)}"${lazy ? ' loading="lazy"' : ""} decoding="async" />`
+              ? `<img src="${vignette(s.photo.url)}" alt="${esc(s.photo.alt)}"${lazy ? ' loading="lazy"' : ""} decoding="async" />`
               : `<span>Pas encore de photo<b>Le club n’en publie aucune</b></span>`
           }</a>
           <div class="salle-corps">

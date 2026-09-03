@@ -100,69 +100,22 @@
   }
 
   /* ------------------------------------------------------------------ heros
-   * Le duel s'ouvre au defilement : les deux combattants s'ecartent et la
-   * couture s'ouvre sur le noir. Ce n'est pas un effet — c'est le geste du
-   * debut de soiree, et il ne se declenche que quand on quitte le heros.
+   * L'ouverture du duel et la profondeur des images d'ouverture etaient
+   * calculees ici, dans deux ecouteurs de defilement qui lisaient la
+   * geometrie (`getBoundingClientRect`) puis ecrivaient un `transform` a
+   * chaque trame. C'est le schema qui force le navigateur a recalculer la
+   * mise en page en plein defilement, et c'est ce qui donnait des images
+   * « qui bougent bizarrement ».
    *
-   * Fait en JS plutot qu'en `animation-timeline` CSS parce que le support de
-   * scroll() n'est pas encore acquis partout, et qu'un heros immobile chez
-   * un visiteur sur deux serait pire que pas d'effet du tout.
+   * Les deux sont passes en CSS, sur la ligne de temps du defilement
+   * (`animation-timeline: scroll()`), ou le compositeur les anime sans
+   * repasser par le fil principal. La ou la propriete n'existe pas encore,
+   * rien ne bouge — un heros immobile est une mise en page, un heros
+   * saccade est un defaut.
+   *
+   * Il ne reste donc aucun ecouteur de defilement dans ce fichier.
    */
-  var heros = document.querySelector(".hero-cage");
-  if (heros) {
-    var gauche = heros.querySelector(".hero-man.a");
-    var droite = heros.querySelector(".hero-man.b");
-    var couture = heros.querySelector(".hero-vs");
-    var enAttente = false;
 
-    function ecarter() {
-      enAttente = false;
-      var h = heros.offsetHeight || 1;
-      // Progression de 0 a 1 sur la premiere hauteur de heros. Au-dela, on
-      // arrete de calculer : le heros est hors champ.
-      var p = Math.min(1, Math.max(0, window.scrollY / h));
-      if (p > 0.999) return;
-      var d = p * 7; // pourcentage d'ecartement, volontairement discret
-      if (gauche) gauche.style.transform = "translate3d(-" + d + "%,0,0)";
-      if (droite) droite.style.transform = "translate3d(" + d + "%,0,0)";
-      if (couture) {
-        couture.style.opacity = String(1 - p * 1.6);
-        couture.style.transform = "translate(-50%,-50%) scale(" + (1 - p * 0.12) + ")";
-      }
-    }
-
-    window.addEventListener("scroll", function () {
-      if (enAttente) return;
-      enAttente = true;
-      requestAnimationFrame(ecarter);
-    }, { passive: true });
-    ecarter();
-  }
-
-  /* ------------------------------------------------------------- profondeur
-   * Les images d'ouverture se deplacent moins vite que le texte. Le decalage
-   * est faible — 6 % de la hauteur — parce qu'un parallaxe qu'on remarque
-   * est un parallaxe rate : il doit se sentir, pas se voir.
-   */
-  var profondes = document.querySelectorAll("[data-profondeur] img");
-  if (profondes.length) {
-    var attenteP = false;
-    function deplacer() {
-      attenteP = false;
-      profondes.forEach(function (img) {
-        var cadre = img.parentElement.getBoundingClientRect();
-        if (cadre.bottom < 0 || cadre.top > window.innerHeight) return;
-        var centre = (cadre.top + cadre.height / 2 - window.innerHeight / 2) / window.innerHeight;
-        img.style.transform = "translate3d(0," + (-centre * 6).toFixed(2) + "%,0) scale(1.08)";
-      });
-    }
-    window.addEventListener("scroll", function () {
-      if (attenteP) return;
-      attenteP = true;
-      requestAnimationFrame(deplacer);
-    }, { passive: true });
-    deplacer();
-  }
 })();
 
 /**

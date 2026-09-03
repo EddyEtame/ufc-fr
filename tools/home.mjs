@@ -14,7 +14,7 @@
  */
 import { writeFileSync } from "node:fs";
 import { join } from "node:path";
-import { posts, categories, ROOT, SITE, esc, decode, stripTags, dateFr, localMedia, resume, imageMaison } from "./build.mjs";
+import { posts, categories, ROOT, SITE, esc, decode, stripTags, dateFr, localMedia, resume, imageMaison, vignette } from "./build.mjs";
 import { head, header, footer } from "./render.mjs";
 import { annuaire, fiche } from "./salles.mjs";
 
@@ -49,7 +49,7 @@ function pic(p, cls = "", unique = true) {
     if (vues.has(m.url)) return "";
     vues.add(m.url);
   }
-  return `<img src="${m.url}" alt="${esc(m.alt)}"${m.w && m.h ? ` width="${m.w}" height="${m.h}"` : ""} loading="lazy" decoding="async"${cls ? ` class="${cls}"` : ""} />`;
+  return `<img src="${vignette(m.url)}" alt="${esc(m.alt)}"${m.w && m.h ? ` width="${m.w}" height="${m.h}"` : ""} loading="lazy" decoding="async"${cls ? ` class="${cls}"` : ""} />`;
 }
 
 // Le heros et la section « salles » posent leurs images en dur : on les
@@ -340,7 +340,7 @@ ${/* Les trois salles de tete viennent de l'annuaire, pas d'une liste ecrite
      ici : la page d'accueil et la page rubrique montraient sinon deux
      versions du meme club, et l'une des deux finissait par etre fausse.
      Une salle publiee demain remonte ici sans qu'on touche a ce fichier. */
-  annuaire().slice(0, 3).map((s) => fiche(s)).join("\n")}
+  annuaire().slice(0, 3).map((s) => fiche(s, { anime: true })).join("\n")}
       </div>
     </div>
   </section>
