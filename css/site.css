@@ -2830,3 +2830,77 @@ body:has(.hero-cage) > header.is-compact { background: var(--paper); }
   .ed-head { grid-template-columns: 1fr; }
   .ed-head > .more { grid-column: 1; grid-row: 4; justify-self: start; margin-top: 14px; }
 }
+
+/* La recherche.
+   Le champ est le sujet de la page : il occupe la largeur de lecture et se
+   lit a la taille d'un titre. Un champ de recherche discret sur une page qui
+   ne sert qu'a chercher est une contradiction. */
+.recherche { margin: 34px 0 8px; }
+.recherche input {
+  width: 100%;
+  padding: 18px 0;
+  border: 0;
+  border-bottom: 2px solid var(--ink);
+  background: transparent;
+  font-family: var(--serif);
+  font-size: clamp(24px, 3.4vw, 40px);
+  font-style: italic;
+  color: var(--ink);
+  outline: none;
+}
+.recherche input::placeholder { color: var(--mist); }
+.recherche input:focus-visible { border-bottom-color: var(--red); outline: none; }
+.recherche-etat {
+  margin: 12px 0 0;
+  min-height: 1.2em;
+  font-family: var(--ui);
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ash);
+}
+
+.recherche-resultats { display: grid; gap: 0; margin-top: 26px; }
+.resultat {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-template-areas: "kicker kicker" "titre date" "resume resume";
+  gap: 4px 24px;
+  padding: 26px 0;
+  border-top: 1px solid var(--mist);
+  color: var(--ink);
+  transition: padding-left 0.4s var(--ease);
+}
+.resultat:hover { padding-left: 12px; }
+.resultat .kicker { grid-area: kicker; }
+.resultat h2 {
+  grid-area: titre;
+  margin: 0;
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(20px, 2.2vw, 28px);
+  line-height: 1.15;
+  transition: color 0.3s var(--ease);
+}
+.resultat:hover h2 { color: var(--red); }
+.resultat time {
+  grid-area: date;
+  font-family: var(--ui);
+  font-size: 12px;
+  color: var(--ash);
+  font-variant-numeric: tabular-nums;
+}
+.resultat p { grid-area: resume; margin: 6px 0 0; color: var(--ash); font-size: 15px; max-width: 70ch; }
+
+.visuallyhidden {
+  position: absolute;
+  width: 1px; height: 1px;
+  margin: -1px; padding: 0;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap;
+}
+
+@media (max-width: 600px) {
+  .resultat { grid-template-columns: 1fr; grid-template-areas: "kicker" "titre" "resume" "date"; }
+  .resultat time { margin-top: 8px; }
+}

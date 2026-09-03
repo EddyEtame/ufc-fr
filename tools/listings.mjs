@@ -127,9 +127,11 @@ ${header()}
     <section class="block">
       <div class="wrap">
         <header class="head" data-reveal>
-          <span class="kicker">${esc(kicker)}</span>
-          <h1>${esc(title)}</h1>
-          <p class="lede">${esc(lede)}</p>
+          <div>
+            <span class="kicker">${esc(kicker)}</span>
+            <h1>${esc(title)}</h1>
+            <p class="lede">${esc(lede)}</p>
+          </div>
         </header>
 ${filters(activeSlug)}
         <div class="cards grid-3">

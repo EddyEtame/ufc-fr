@@ -37,6 +37,7 @@ const DRAWER = [
   ["/analyses/", "Analyses"],
   ["/interviews/", "Interviews"],
   ["/forum-communaute-mma/", "Forum"],
+  ["/recherche/", "Rechercher"],
   ["/a-propos/", "À propos"],
 ];
 
