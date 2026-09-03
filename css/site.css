@@ -88,7 +88,10 @@ body > header {
 }
 body > header.is-compact {
   height: 56px;
-  background: rgba(247, 244, 238, 0.94);
+  /* Opaque : a 94 %, le titre de la page transparaissait sous la barre en
+     defilant. Une en-tete collante qui laisse lire le contenu au travers
+     rend les deux illisibles. */
+  background: var(--paper);
   border-bottom-color: var(--mist);
 }
 body.home > header {
