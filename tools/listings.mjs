@@ -78,10 +78,22 @@ function card(p, vues) {
         </a>`;
 }
 
+/**
+ * Le nombre d'articles reellement publies dans une rubrique.
+ *
+ * Le champ `count` vient de l'API du CMS et ne connait que les articles du
+ * CMS. Depuis que le corpus accueille des articles maison, il ment : le rail
+ * annoncait « Clubs de MMA francais 14 » au-dessus d'une liste de seize. On
+ * compte ce qu'on affiche.
+ */
+const compte = new Map();
+for (const p of posts) for (const id of p.categories || []) compte.set(id, (compte.get(id) || 0) + 1);
+const reel = (c) => compte.get(c.id) || 0;
+
 /** Le rail de filtres : la fonction du WordPress, rendue en liens réels —
  *  donc crawlable, partageable et sans JavaScript. */
 function filters(activeSlug) {
-  const live = categories.filter((c) => c.count > 0).sort((a, b) => b.count - a.count);
+  const live = categories.filter((c) => reel(c) > 0).sort((a, b) => reel(b) - reel(a));
   return `      <nav class="filters" aria-label="Filtrer par rubrique">
         <a href="/actualite-du-mma/"${!activeSlug ? ' class="on" aria-current="page"' : ""}>Tout <b>${posts.length}</b></a>
 ${live
@@ -89,7 +101,7 @@ ${live
     (c) =>
       `        <a href="/categorie/${c.slug}/"${
         c.slug === activeSlug ? ' class="on" aria-current="page"' : ""
-      }>${esc(c.name)} <b>${c.count}</b></a>`
+      }>${esc(c.name)} <b>${reel(c)}</b></a>`
   )
   .join("\n")}
       </nav>`;
@@ -184,7 +196,7 @@ emitted.push(
 
 // Une page par rubrique : c'est le filtre du WordPress transformé en URL
 // propre, donc en surface indexable.
-for (const c of categories.filter((x) => x.count > 0)) {
+for (const c of categories.filter((x) => reel(x) > 0)) {
   const items = byDate.filter((p) => (p.categories || []).includes(c.id));
   if (!items.length) continue;
   emitted.push(

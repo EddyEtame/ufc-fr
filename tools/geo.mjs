@@ -17,6 +17,13 @@ import { writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { posts, pages, categories, ROOT, SITE, stripTags, decode } from "./build.mjs";
 
+/* Le `count` du CMS ignore les articles maison. On compte le corpus reel :
+ * ce fichier est ce que les moteurs de reponse lisent, il ne peut pas mentir
+ * sur le volume publie. */
+const compte = new Map();
+for (const p of posts) for (const id of p.categories || []) compte.set(id, (compte.get(id) || 0) + 1);
+const reel = (c) => compte.get(c.id) || 0;
+
 const catById = new Map(categories.map((c) => [c.id, c]));
 const recents = [...posts].sort((a, b) => new Date(b.date) - new Date(a.date));
 
@@ -49,8 +56,8 @@ ${lignes(pages.filter((p) => p.slug !== "ufc-fr-mma"))}
 
 ## Rubriques
 
-${categories.filter((c) => c.count > 0).sort((a, b) => b.count - a.count)
-  .map((c) => `- [${c.name}](${SITE}/categorie/${c.slug}/) — ${c.count} articles`).join("\n")}
+${categories.filter((c) => reel(c) > 0).sort((a, b) => reel(b) - reel(a))
+  .map((c) => `- [${c.name}](${SITE}/categorie/${c.slug}/) — ${reel(c)} articles`).join("\n")}
 
 ## Articles recents
 

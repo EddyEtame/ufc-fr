@@ -352,6 +352,17 @@ function renderDocument(doc, { isPage }) {
     }
   }
 
+  /* Le titre est compose en display, tres grand, dans une boite de 16
+   * caracteres : juste pour « Les champions », faux pour « UFC 315 : Jack
+   * Della Maddalena detrone Belal Muhammad et devient champion des poids
+   * welters », qui tombait sur six lignes de trois mots. Quarante des cent
+   * neuf documents sont dans ce cas.
+   *
+   * Un journal ne compose pas une manchette et un titre de brève au meme
+   * corps. Le CSS ne sait pas mesurer un texte, mais le generateur connait
+   * sa longueur : il pose le palier, la feuille de style s'en sert. */
+  const palier = title.length > 70 ? " t-tres-long" : title.length > 48 ? " t-long" : "";
+
   return `${head({
     title: seoTitle,
     description: metaDesc(doc),
@@ -362,7 +373,7 @@ function renderDocument(doc, { isPage }) {
   })}
 ${header()}
   <main id="contenu">
-  <article class="article face-${face}">
+  <article class="article face-${face}${palier}">
     <div class="wrap-read">
       <p class="crumbs">${trail
         .map(([n, u], i) =>

@@ -3452,3 +3452,83 @@ html.entree-active, html.entree-active body { overflow: hidden; }
   .annuaire-tete { border-bottom-width: 1px; }
   .grid-4 { grid-template-columns: 1fr; gap: 30px; }
 }
+
+/* =========================================================================
+   LE CORPS DU TITRE SUIT SA LONGUEUR
+
+   `.article h1` compose en 84 px dans une boite de 16 caracteres. C'est une
+   manchette, et c'est juste tant que le titre en est une. Passe cinquante
+   signes — quarante documents sur cent neuf — le meme reglage donne cinq ou
+   six lignes de trois mots, une colonne etroite a cote d'une photo pleine
+   hauteur, et un titre qu'on lit en descendant.
+
+   Le generateur pose le palier ; ici on ne fait que composer. Les titres
+   courts ne sont pas touches : la manchette reste une manchette.
+   ========================================================================= */
+
+.article.t-long .ah h1 {
+  font-size: clamp(30px, 4.2vw, 56px);
+  max-width: 21ch;
+  line-height: 1.02;
+  letter-spacing: -0.035em;
+}
+.article.t-tres-long .ah h1 {
+  font-size: clamp(27px, 3.4vw, 44px);
+  max-width: 26ch;
+  line-height: 1.08;
+  letter-spacing: -0.025em;
+}
+
+/* =========================================================================
+   LES TROIS PARAGRAPHES QUI NE SONT PAS DU CORPS
+
+   Un article maison ouvre sur un chapo, se ferme sur un renvoi vers le site
+   du sujet et sur la mention de ses sources. Les trois etaient rendus comme
+   du texte courant : trois fonctions editoriales distinctes, une seule
+   apparence, donc aucune. Un lecteur doit voir au premier coup d'oeil ou
+   commence l'article et ou finit ce que nous avons verifie.
+   ========================================================================= */
+
+/* Le chapeau. Il resume et il annonce le ton — il se lit avant de decider
+   de lire. Serif, plus grand que le corps, plus clair que le titre. */
+.prose .chapo {
+  font-family: var(--serif);
+  font-size: clamp(20px, 1.7vw, 24px);
+  line-height: 1.45;
+  letter-spacing: -0.012em;
+  color: var(--steel);
+  margin: 0 0 34px;
+  padding-bottom: 26px;
+  border-bottom: 1px solid rgba(14, 14, 14, 0.12);
+}
+
+/* Le renvoi vers le site du club. C'est une recommandation editoriale, pas
+   une publicite : elle se distingue du corps sans se deguiser en encart
+   sponsorise. Le filet vertical est reserve aux citations, celui-ci prend
+   un fond — sinon les deux se confondraient. */
+.prose .renvoi {
+  background: var(--bone);
+  padding: 18px 22px;
+  margin: 34px 0 0;
+  font-size: 16px;
+  line-height: 1.55;
+  color: var(--steel);
+}
+.prose .renvoi a { font-weight: 600; }
+
+/* La mention de source. Elle doit etre lisible et discrete : c'est ce qui
+   permet a un lecteur de verifier, et ce qui nous engage. */
+.prose .source-note {
+  margin: 22px 0 0;
+  padding-top: 16px;
+  border-top: 1px solid rgba(14, 14, 14, 0.14);
+  font-family: var(--ui);
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--ash);
+}
+
+@media (max-width: 600px) {
+  .prose .chapo { font-size: 19px; padding-bottom: 20px; margin-bottom: 26px; }
+  .prose .renvoi { padding: 16px 18px; font-size: 15px; }
+}

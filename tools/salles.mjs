@@ -100,6 +100,16 @@ function listeManuelle() {
   return table;
 }
 
+/** La premiere phrase entiere d'un texte, sans point de suspension. */
+function phrase(texte, max = 145) {
+  const t = String(texte || "").replace(/\s*[.…]+\s*$/, "");
+  const fin = t.search(/[.!?](?:\s|$)/);
+  const une = fin > 24 ? t.slice(0, fin + 1) : t;
+  if (une.length <= max) return une;
+  const coupe = une.lastIndexOf(" ", max);
+  return une.slice(0, coupe > 40 ? coupe : max).replace(/[,;:]$/, "") + "…";
+}
+
 /** Le site officiel du club, tel qu'il est deja cite dans l'article. */
 function siteDuClub(doc) {
   for (const a of doc.content.rendered.matchAll(/href="(https?:\/\/[^"]+)"/g)) {
@@ -160,7 +170,11 @@ export function annuaire() {
       // titre d'article, pas un nom de salle.
       nom: dit?.nom || titre.split(/\s*:\s*/)[0],
       ville: VILLES[slug] || "",
-      ligne: dit?.ligne || resume(doc, 130),
+      // La ligne d'une fiche se termine. Une coupe a 130 signes laissait
+      // « deux rings, un plateau de tapis, et du… » sous une photo : une
+      // phrase interrompue dit qu'on n'a pas relu. On prend la premiere
+      // phrase entiere, et on ne tronque que si elle est vraiment longue.
+      ligne: doc.ligne_annuaire || dit?.ligne || phrase(resume(doc, 260)),
       photo: photo(doc),
       interne: `/${slug}/`,
       site,

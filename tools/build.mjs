@@ -78,6 +78,10 @@ function articlesMaison() {
         excerpt: { rendered: `<p>${a.chapo}</p>` },
         categories: ids,
         maison: true,
+        // La ligne que la fiche d'annuaire affiche. Sans elle, on retombe sur
+        // la premiere phrase du chapo — juste, mais souvent trop courte pour
+        // dire ou se trouve la salle et ce qu'elle contient.
+        ligne_annuaire: a.ligne_annuaire || "",
         yoast_head_json: { title: `${a.titre} | UFC.FR`, description: a.meta_description },
         _embedded: a.image
           ? {
@@ -162,6 +166,20 @@ const PHOTOS_EXACTES = {
   // cote dans une grille, les deux pages se ressemblaient au point de sembler
   // la meme. Le depot contenait deja une dizaine de photos jamais servies.
   "organisation-mma-ares-fighting-championship": ["/img/octagon.jpg", ""],
+
+  /* Cinq articles sans rapport entre eux — un gala rouennais, une carte ARES,
+   * un guide des categories de poids, deux resultats UFC — portaient le meme
+   * octogone de banque d'images. Chacun recoit une photo qui parle au moins
+   * de son sujet : la pesee pour le guide des poids, la cage pour les galas,
+   * le sol pour les resultats. Le depot les contenait deja, inutilisees. */
+  "hexagone-mma-rouen-12-septembre-2026": ["/img/victoire.jpg", ""],
+  "ares-43-oconnor-diatta-adidas-arena": ["/img/fight.jpg", ""],
+  "categories-poids-mma-guide": ["/img/pesee.jpg", ""],
+  "ufc-shanghai-song-yadong-ko-umar-nurmagomedov": ["/img/clinch.jpg", ""],
+  "ufc-sacramento-rodrigues-hernandez-resultats": ["/img/grappling.jpg", ""],
+  // Six articles ouvraient sur la meme facade de Bercy. Ceux qui parlent de
+  // la salle la gardent ; l'explication du fonctionnement d'une carte, non.
+  "comment-fonctionne-carte-ufc": ["/img/gants.jpg", ""],
 };
 
 const PORTRAITS_MAISON = {

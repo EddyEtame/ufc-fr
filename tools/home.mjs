@@ -240,7 +240,7 @@ ${fil
       <div class="chiffres" data-reveal>
         <p class="compteur"><b data-compte="${posts.length}">0</b><span>articles</span></p>
         <p class="compteur"><b data-compte="${portraits.length}">0</b><span>portraits</span></p>
-        <p class="compteur"><b data-compte="${clubs.length}">0</b><span>clubs français</span></p>
+        <p class="compteur"><b data-compte="${annuaire().length}">0</b><span>clubs français</span></p>
         <p class="compteur"><b data-compte="7">0</b><span>organisations</span></p>
       </div>
       <div class="split-list home-list">
@@ -301,7 +301,10 @@ ${portraits
         <div>
           <span class="kicker">Les salles</span>
           <h2>Où ça se boxe, en France</h2>
-          <p class="lede">${clubs.length} clubs couverts. On y va un par un, et on dit ce qu’on a vérifié.</p>
+          <p class="lede">${/* Le compte de l'annuaire, pas celui de la rubrique : la rubrique
+               contient aussi une federation et des portraits de coachs, et
+               l'accueil annoncait seize salles la ou la page en montre
+               quatorze. */ annuaire().length} salles couvertes. On y va une par une, et on dit ce qu’on a vérifié.</p>
         </div>
         <a class="more" href="/clubs-mma-francais/">Toute la rubrique</a>
       </header>

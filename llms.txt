@@ -33,9 +33,9 @@
 
 ## Rubriques
 
-- [Actualité](https://www.ufc.fr/categorie/actualite/) — 44 articles
+- [Actualité](https://www.ufc.fr/categorie/actualite/) — 46 articles
 - [UFC](https://www.ufc.fr/categorie/ufc/) — 27 articles
-- [Clubs de MMA français](https://www.ufc.fr/categorie/clubs-mma-francais/) — 14 articles
+- [Clubs de MMA français](https://www.ufc.fr/categorie/clubs-mma-francais/) — 16 articles
 - [UFC Paris 2026](https://www.ufc.fr/categorie/ufc-paris-2026/) — 13 articles
 - [ARES](https://www.ufc.fr/categorie/ares/) — 9 articles
 - [ONE Championship](https://www.ufc.fr/categorie/one-championship/) — 9 articles
