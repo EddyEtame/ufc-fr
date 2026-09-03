@@ -136,6 +136,50 @@ const ORG_CATEGORY = {
   "organisation-mma-ksw": "ksw",
 };
 
+/**
+ * L'ouverture d'une page organisation.
+ *
+ * Les sept pages partageaient un montage de banque d'images ou les sept
+ * logotypes etaient colles cote a cote : sur la page KSW, le lecteur voyait
+ * d'abord les logos de l'UFC, de ONE et de la PFL. Une image qui met en
+ * avant les concurrents du sujet ne l'illustre pas, elle le noie.
+ *
+ * On n'a pas de photographie propre a chaque organisation, et les visuels
+ * d'evenement ne se reprennent pas comme la photo qu'un club publie de sa
+ * salle. Alors on ne fait pas semblant : l'ouverture devient typographique.
+ * Le sigle est ce que le lecteur reconnait, et les trois reperes en dessous
+ * sont ce que le site sait reellement — pays, annee, et ce qu'on en publie.
+ */
+const ORG_FICHE = {
+  "organisation-mma-ultimate-fighting-championship": { sigle: "UFC", pays: "États-Unis", depuis: "1993" },
+  "organisation-mma-professional-fighters-league": { sigle: "PFL", pays: "États-Unis", depuis: "2018" },
+  "organisation-mma-one-championship": { sigle: "ONE", pays: "Singapour", depuis: "2011" },
+  "organisation-mma-cage-warriors": { sigle: "CW", pays: "Royaume-Uni", depuis: "2001" },
+  "organisation-mma-ares-fighting-championship": { sigle: "ARES", pays: "France", depuis: "2019" },
+  "organisation-hexagone-mma": { sigle: "HEXAGONE", pays: "France", depuis: "2020" },
+  "organisation-mma-ksw": { sigle: "KSW", pays: "Pologne", depuis: "2004" },
+};
+
+function ouvertureOrg(doc) {
+  const f = ORG_FICHE[doc.slug];
+  if (!f) return "";
+  /* Une page n'a pas de rubrique — seuls les articles en ont. Compter les
+   * « articles lies » a la page donnait donc zero sur les sept pages. On
+   * compte la rubrique que la page represente. */
+  const cat = ORG_CATEGORY[doc.slug];
+  const nArticles = posts.filter((p) =>
+    (p.categories || []).some((id) => catById.get(id)?.slug === cat)
+  ).length;
+  return `      <div class="org-ouverture" data-reveal>
+        <span class="org-sigle">${esc(f.sigle)}</span>
+        <dl class="org-reperes">
+          <div><dt>Pays</dt><dd>${esc(f.pays)}</dd></div>
+          <div><dt>Depuis</dt><dd>${esc(f.depuis)}</dd></div>
+          <div><dt>Chez nous</dt><dd>${nArticles} article${nArticles > 1 ? "s" : ""}</dd></div>
+        </dl>
+      </div>`;
+}
+
 function featuredImage(doc) {
   // Une photo maison, quand le sujet en a une, passe avant l'image du CMS.
   const maison = imageMaison(doc.slug);
@@ -361,7 +405,18 @@ function renderDocument(doc, { isPage }) {
    * Un journal ne compose pas une manchette et un titre de brève au meme
    * corps. Le CSS ne sait pas mesurer un texte, mais le generateur connait
    * sa longueur : il pose le palier, la feuille de style s'en sert. */
-  const palier = title.length > 70 ? " t-tres-long" : title.length > 48 ? " t-long" : "";
+  /* Un titre court peut contenir un mot qui, lui, ne l'est pas :
+   * « Konfrontacja Sztuk Walki – KSW » fait trente signes et se composait
+   * donc en 84 px, ou « Konfrontacja » depasse a lui seul la colonne. Les
+   * pages organisation et plusieurs portraits etaient dans ce cas. On mesure
+   * donc les deux : la longueur du titre, et celle de son plus long mot. */
+  const motLong = title.split(/[\s\u2013\u2014-]+/).reduce((n, m) => Math.max(n, m.length), 0);
+  const palier =
+    title.length > 70 ? " t-tres-long"
+    : title.length > 48 ? " t-long"
+    : motLong >= 14 ? " t-mot-tres-long"
+    : motLong >= 11 ? " t-mot-long"
+    : "";
 
   return `${head({
     title: seoTitle,
@@ -392,7 +447,9 @@ ${header()}
         }</p>
       </header>
       ${
-        img
+        ORG_FICHE[doc.slug]
+          ? ouvertureOrg(doc)
+          : img
           ? `<figure class="figure lead" data-reveal data-reveal-media><img src="${img.url}" alt="${esc(img.alt)}"${
               img.width && img.height ? ` width="${img.width}" height="${img.height}"` : ""
             } decoding="async" />${

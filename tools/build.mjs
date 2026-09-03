@@ -180,6 +180,18 @@ const PHOTOS_EXACTES = {
   // Six articles ouvraient sur la meme facade de Bercy. Ceux qui parlent de
   // la salle la gardent ; l'explication du fonctionnement d'une carte, non.
   "comment-fonctionne-carte-ufc": ["/img/gants.jpg", ""],
+  /* Echange entre deux pages de reference. « Champions MMA actuels »
+   * s'ouvrait sur un tapis d'octogone couvert de baches publicitaires — pas
+   * un champion, pas une ceinture, rien du sujet ; elle recoit la ceinture,
+   * qui est litteralement ce dont elle parle et qui ne nomme personne. Les
+   * classements heritent de l'octogone : une hierarchie de division se dit
+   * mieux par la cage que par un titre.
+   *
+   * La photo de champion tenant sa ceinture reste ecartee des deux : elle
+   * date de 2012, et illustrer « actuels » avec un champion d'il y a
+   * quatorze ans, c'est se tromper de sens. */
+  "champions-mma-actuels": ["/img/ceinture.jpg", ""],
+  "classements-ufc-aout-2026": ["/media/2026/08/ufc-octagon-usmc-scaled.jpg", ""],
 };
 
 const PORTRAITS_MAISON = {

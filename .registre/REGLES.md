@@ -63,3 +63,9 @@ ce fichier est le plancher.
     construire une grille : compter les images distinctes qu'elle contient.
     Et une photo prise sur le site de quelqu'un d'autre se crédite —
     toujours, sans exception.
+28. **Jamais de propriété raccourcie sur un sélecteur déjà servi ailleurs.**
+    `margin: 0 0 34px` écrase les quatre côtés, dont celui qu'une autre règle
+    tenait pour une raison. Écrire le côté qu'on change. Et quand une valeur
+    trahit une intention (`calc((100% - 100vw) / 2)` ne s'écrit pas par
+    hasard), vérifier à l'écran qu'elle produit encore quelque chose : une
+    règle morte ne lève aucune erreur, elle ne fait simplement plus rien.
