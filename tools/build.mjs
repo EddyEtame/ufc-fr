@@ -135,6 +135,25 @@ function localMedia(src) {
 function cleanContent(html) {
   let out = html;
 
+  // 1. Les grilles « articles lies » du CMS.
+  //
+  // Le theme ajoutait en fin d'article une grille d'articles connexes, rendue
+  // en HTML dans le corps. Elle contient des images, des titres et des liens
+  // dupliques — et notre gabarit propose deja sa propre suite de lecture, tiree
+  // du corpus.
+  //
+  // Elle etait jusqu'ici nettoyee de ses classes plutot que supprimee : il en
+  // restait des blocs vides porteurs d'images, invisibles a l'ecran mais bien
+  // presents dans 116 pages. Retirer les attributs d'un bloc mort ne le tue
+  // pas, ca le camoufle. On coupe le corps a l'endroit ou la grille commence.
+  const marqueur = out.search(/wpr-grid|data-overlay-link|data-elementor-type/);
+  if (marqueur > 0) {
+    // On remonte a l'ouverture de la balise qui la porte, sinon on laisse un
+    // fragment de tag ouvert qui casse le reste du document.
+    const debut = out.lastIndexOf("<", marqueur);
+    if (debut > 0) out = out.slice(0, debut);
+  }
+
   // Images : source locale + attributs de performance.
   out = out.replace(/<img\b([^>]*)>/gi, (tag, attrs) => {
     const src = (attrs.match(/\ssrc="([^"]+)"/i) || [])[1];

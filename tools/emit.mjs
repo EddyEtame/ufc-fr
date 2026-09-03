@@ -197,6 +197,17 @@ function renderDocument(doc, { isPage }) {
   // texte d'un rédacteur.
   let body = cleanContent(doc.content.rendered);
 
+  // Le corps importe s'ouvre sur une <figure> qui porte l'image a la une —
+  // celle que le gabarit affiche deja juste au-dessus. Chaque article montrait
+  // donc deux fois la meme photo, l'une sous l'autre. On retire celle du
+  // corps : le gabarit la presente mieux, en pleine largeur, et la legende
+  // qu'elle portait est un credit, pas une information de lecture.
+  if (img) {
+    body = body.replace(/^\s*<figure[^>]*>[\s\S]*?<\/figure>/i, (bloc) =>
+      bloc.includes(img.url) || /wp-content|\/media\//.test(bloc) ? "" : bloc
+    ).trim();
+  }
+
   // Les pages organisation portaient une grille de portraits alimentee par le
   // CMS. On la regenere a partir du corpus : meme fonction, mais en liens
   // reels, donc indexables et sans JavaScript.
