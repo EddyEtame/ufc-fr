@@ -10,7 +10,7 @@ import { writeFileSync, mkdirSync, copyFileSync, existsSync } from "node:fs";
 import { join, dirname, basename } from "node:path";
 import {
   posts, pages, categories, ROOT, SITE, mediaManifest,
-  cleanContent, esc, decode, stripTags, dateFr, metaDesc, seoTitle, localMedia, imageMaison, resume, intrusDuCorpus, vignette, jeuDeLargeurs,
+  cleanContent, esc, decode, stripTags, dateFr, metaDesc, seoTitle, localMedia, imageMaison, resume, intrusDuCorpus, vignette, jeuDeLargeurs, largeurOriginale,
 } from "./build.mjs";
 import { head, header, footer, ORGS } from "./render.mjs";
 import { annuaire, fiche } from "./salles.mjs";
@@ -534,7 +534,16 @@ ${header()}
            * en 300. Le mouvement retardait la page d'une seconde et demie
            * pour un effet que personne n'a le temps de voir, puisqu'il joue
            * avant meme le premier defilement. */
-          ? `<figure class="figure lead"><img src="${img.url}" alt="${esc(img.alt)}"${
+          ? `<figure class="figure lead${
+              /* Cinquante-quatre documents sur cent neuf portent une photo de
+               * moins de 1 100 px : les fiches importees du CMS sont souvent
+               * en 600. Le cadre d'ouverture fait 1 184 px de large, et
+               * `cover` les y agrandissait du double — la moitie des photos
+               * d'ouverture du site etait visiblement floue.
+               * Une petite photo se montre a sa taille, entiere et nette,
+               * plutot qu'agrandie et recadree. */
+              (largeurOriginale(img.url) || 9999) < 1100 ? " petite" : ""
+            }" style="--px: ${largeurOriginale(img.url) || 1200}px"><img src="${img.url}" alt="${esc(img.alt)}"${
               img.width && img.height ? ` width="${img.width}" height="${img.height}"` : ""
             }${
               /* La photo d'ouverture etait servie a sa taille d'origine —

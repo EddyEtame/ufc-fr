@@ -4636,3 +4636,53 @@ body:has(.drawer.open) > header .brand img { content: url("/logo/ufc-fr.webp"); 
    plus dans la liste. */
 .foot-cols h3 a { color: inherit; text-decoration: none; }
 .foot-cols h3 a:hover { color: var(--ink); }
+
+/* Le cadrage d'un portrait garde la tete.
+   Le cadre d'ouverture est un 4/5 de 1 184 px de large ; les photos du CMS
+   sont souvent carrees, en 600 px. `cover` centre alors la coupe et retire
+   deux cents pixels en haut : sur la fiche de Jon Jones, le visage etait
+   coupe au front. Un portrait se cadre par le haut — c'est la que se trouve
+   ce qu'on est venu voir. */
+.article.face-portrait .figure.lead img { object-position: center 18%; }
+
+/* =========================================================================
+   UNE PETITE PHOTO NE S'AGRANDIT PAS
+
+   Le cadre d'ouverture d'un article fait 1 184 px de large et impose un
+   format 4/5. Cinquante-quatre documents sur cent neuf portent une photo de
+   moins de 1 100 px — les fiches importees du CMS sont souvent en 600 — et
+   `cover` les y agrandissait du double avant de les recadrer. La moitie des
+   photos d'ouverture du site etait floue, et sur les portraits le visage
+   sortait du cadre par le haut.
+
+   `--px` porte la largeur reelle du fichier, lue dans son en-tete. La photo
+   s'affiche a sa taille, entiere, dans son format d'origine. C'est moins
+   spectaculaire qu'un plein cadre ; c'est net, et c'est la photo.
+   ========================================================================= */
+
+.article .figure.petite img {
+  width: 100%;
+  max-width: var(--px, 900px);
+  height: auto;
+  aspect-ratio: auto;
+  min-height: 0;
+  max-height: none;
+  margin: 0 auto;
+}
+/* Pas de fond : sans cela, le cadre garde la largeur de sa colonne et le
+   carbone remplit ce que la photo ne couvre pas — un aplat noir de six cents
+   pixels a cote du portrait. Le cadre se reduit a la photo. */
+.article .figure.petite { background: none; }
+@media (min-width: 981px) {
+  .article .figure.petite {
+    margin-right: 0;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+  }
+  .article .figure.petite img { margin: 0; }
+}
+
+/* Le cadrage d'un portrait garde la tete, quand la photo est assez grande
+   pour remplir le cadre et doit donc etre recadree. */
+.article.face-portrait .figure.lead:not(.petite) img { object-position: center 18%; }

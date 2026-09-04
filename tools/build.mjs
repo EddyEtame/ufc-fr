@@ -289,7 +289,7 @@ export function jeuDeLargeurs(url) {
  * depend de rien. Trois formats suffisent : c'est tout ce que le site sert.
  */
 const tailleCache = new Map();
-function largeurOriginale(url) {
+export function largeurOriginale(url) {
   if (tailleCache.has(url)) return tailleCache.get(url);
   let L = 0;
   try {
