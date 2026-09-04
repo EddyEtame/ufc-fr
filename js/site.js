@@ -93,3 +93,40 @@
 
   majuscule();
 })();
+
+/**
+ * Le lissage des ancres, et lui seul.
+ *
+ * La feuille de style portait `scroll-behavior: smooth` sur la racine. Cette
+ * declaration ne connait pas la difference entre un lien d'ancre et la barre
+ * d'espace : elle anime aussi les fleches du clavier, page suivante, et le
+ * clic dans la barre de defilement. Un lecteur au clavier recevait donc une
+ * interpolation imposee la ou il attendait un saut d'ecran net.
+ *
+ * Le lissage est desormais pose au clic, sur l'element vise, et nulle part
+ * ailleurs. Il se tait si le lecteur a demande moins de mouvement, et il
+ * laisse l'adresse changer pour que le lien reste partageable.
+ */
+(function () {
+  "use strict";
+  var doux = window.matchMedia && window.matchMedia("(prefers-reduced-motion: no-preference)");
+
+  document.addEventListener("click", function (e) {
+    if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+    var a = e.target.closest && e.target.closest('a[href^="#"]');
+    if (!a) return;
+    var id = a.getAttribute("href").slice(1);
+    if (!id) return;
+    var cible = document.getElementById(id) || document.getElementsByName(id)[0];
+    if (!cible) return;
+    e.preventDefault();
+    cible.scrollIntoView({ behavior: doux && doux.matches ? "smooth" : "auto", block: "start" });
+    // L'adresse doit suivre : sans cela le lien d'ancre n'est plus copiable,
+    // et le bouton « precedent » ne revient pas au point de depart.
+    if (history.pushState) history.pushState(null, "", "#" + id);
+    // `scrollIntoView` ne donne pas le focus : un lecteur au clavier
+    // continuerait de tabuler depuis le lien, pas depuis la cible.
+    if (!cible.hasAttribute("tabindex")) cible.setAttribute("tabindex", "-1");
+    cible.focus({ preventScroll: true });
+  });
+})();

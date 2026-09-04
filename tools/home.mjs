@@ -43,7 +43,7 @@ function media(p) {
  * haut. On essaie donc dans l'ordre : la photo maison si elle est libre,
  * sinon celle de l'article dans le CMS, sinon la premiere disponible.
  */
-function imageDeLaUne(p) {
+function imageDuBloc(p) {
   const candidats = [];
   const maison = imageMaison(p?.slug);
   if (maison) candidats.push({ url: maison.url, alt: decode(p.title.rendered) });
@@ -59,6 +59,34 @@ function imageDeLaUne(p) {
   }
   return candidats.find((c) => !vues.has(nomDeFichier(c.url))) || candidats[0] || null;
 }
+
+/**
+ * Une image qui ne peut pas manquer.
+ *
+ * `pic()` rend une chaine vide des que la photo a deja servi sur la page.
+ * C'est juste pour un bloc secondaire ; c'est un trou pour une carte, qui
+ * reserve 220 px de haut a son illustration. Les deux fiches Boxing Center
+ * de l'accueil sortaient ainsi sans image : leurs photos etaient reservees
+ * par la section « salles » quelques centaines de pixels plus bas.
+ *
+ * Ici la regle s'inverse : on prend la premiere photo libre, et s'il n'y en
+ * a aucune de libre on repete plutot que de laisser le cadre vide. Un
+ * doublon se remarque ; un trou se remarque davantage.
+ */
+function picSure(p, cls = "", grand = false) {
+  const m = imageDuBloc(p);
+  if (!m) return "";
+  vues.add(nomDeFichier(m.url));
+  const src = grand ? m.url : vignette(m.url);
+  return `<img src="${src}" alt="${esc(m.alt)}"${m.w && m.h ? ` width="${m.w}" height="${m.h}"` : ""}${grand ? ' fetchpriority="high"' : ' loading="lazy"'} decoding="async"${cls ? ` class="${cls}"` : ""} />`;
+}
+
+// La rubrique la plus precise, pas la premiere : « Actualite » contient
+// presque tout et ne distingue rien.
+const rubrique = (p) =>
+  categories
+    .filter((c) => (p.categories || []).includes(c.id))
+    .sort((a, b) => (a.slug === "actualite") - (b.slug === "actualite"))[0]?.name || "Actualité";
 
 const T = (p) => esc(decode(p.title.rendered));
 const X = (p, n = 130) => esc(resume(p, n));
@@ -105,12 +133,51 @@ for (const f of ["parnasse", "hooker", "gym", "boxing-center-etats-unis", "boxin
 const paris = inCat("ufc-paris-2026");
 const clubs = inCat("clubs-mma-francais");
 const portraits = byDate.filter((p) => p.slug.startsWith("portrait-"));
-const fil = byDate.filter((p) => !p.slug.startsWith("portrait-")).slice(0, 7);
+// Le fil de l'accueil : ni portraits ni fiches de salle. Les deux ont leur
+// section plus bas, avec leur photo. Sans ce filtre, les deux fiches Boxing
+// Center sortaient en carte sous la une — avec la meme photo que la section
+// « salles » huit cents pixels plus bas, et rien de plus a dire.
+const fil = byDate
+  .filter((p) => !p.slug.startsWith("portrait-") && !clubs.some((c) => c.id === p.id))
+  .slice(0, 12);
 
 // Le dossier Bercy ouvre la page : trois jours avant l'événement, c'est la
 // seule hiérarchie défendable.
 const une = bySlug("ufc-paris-2026-date-lieu-carte-enjeux") || paris[0];
 const carte = bySlug("ufc-paris-2026-carte-complete-hooker-parnasse") || paris[1];
+
+/* La photo de la une est choisie et reservee ici, avant les cartes.
+   Elle l'etait au rendu, c'est-a-dire apres : les cartes croyaient libre une
+   image que la une allait prendre, et l'une des deux sortait avec la photo
+   du heros. Une reservation qui arrive apres la selection ne reserve rien. */
+const mediaUne = imageDuBloc(carte || une);
+if (mediaUne) vues.add(nomDeFichier(mediaUne.url));
+
+/**
+ * Les deux cartes sous la une.
+ *
+ * Elles reservent 220 px de haut a une photo : ce sont les deux seuls blocs
+ * illustres du palier. On prend donc les deux premiers articles du fil qui
+ * ont encore une photo libre, pas les deux premiers tout court — sinon la
+ * carte sortait avec l'image du heros, deja posee huit cents pixels plus
+ * haut. L'ordre du fil est chronologique et douze articles s'y presentent :
+ * en sauter un ou deux ne change pas la hierarchie, montrer deux fois la
+ * meme photo si.
+ */
+const cartes = [];
+for (const p of fil) {
+  if (cartes.length === 2) break;
+  const m = imageDuBloc(p);
+  if (m && !vues.has(nomDeFichier(m.url))) cartes.push(p);
+}
+// Faute de deux photos libres, on complete par le debut du fil — sans
+// reprendre celui qu'on vient de retenir.
+for (const p of fil) {
+  if (cartes.length === 2) break;
+  if (!cartes.includes(p)) cartes.push(p);
+}
+const reste = fil.filter((p) => !cartes.includes(p));
+
 
 const schema = [
   {
@@ -277,14 +344,11 @@ ${[
          * cents pixels — la photo de Bercy avait deja ete prise par un autre
          * bloc, et `pic()` renvoie une chaine vide quand l'image est deja
          * vue. Un doublon se remarque ; un trou se remarque davantage. */
-        (() => {
-          const m = imageDeLaUne(carte || une);
-          if (!m) return "";
-          vues.add(nomDeFichier(m.url));
-          return `<img src="${m.url}" alt="${esc(m.alt)}"${
-            m.w && m.h ? ` width="${m.w}" height="${m.h}"` : ""
-          } fetchpriority="high" decoding="async" />`;
-        })()
+        mediaUne
+          ? `<img src="${mediaUne.url}" alt="${esc(mediaUne.alt)}"${
+              mediaUne.w && mediaUne.h ? ` width="${mediaUne.w}" height="${mediaUne.h}"` : ""
+            } fetchpriority="high" decoding="async" />`
+          : ""
       }</div>
       <div class="ed-lead-copy">
         <span class="kicker">Dossier</span>
@@ -293,19 +357,12 @@ ${[
       </div>
     </a>
     <div class="wrap ed-aside">
-${fil
-  .slice(0, 2)
+${cartes
   .map(
     (p) => `      <a class="ed-aside-item" href="/${p.slug}/" data-reveal>
-        ${pic(p)}
+        <div class="ed-aside-media">${picSure(p)}</div>
         <div>
-          <span class="kicker">${esc(
-            // La rubrique la plus precise, pas la premiere : « Actualite »
-            // contient presque tout et ne distingue rien.
-            categories
-              .filter((c) => (p.categories || []).includes(c.id))
-              .sort((a, b) => (a.slug === "actualite") - (b.slug === "actualite"))[0]?.name || "Actualité"
-          )}</span>
+          <span class="kicker">${esc(rubrique(p))}</span>
           <h3>${T(p)}</h3>
           <p>${X(p, 90)}</p>
         </div>
@@ -330,12 +387,12 @@ ${/* Le chiffre est ecrit des la construction, pas laisse a zero.
         <p class="compteur"><b data-compte="7">7</b><span>organisations</span></p>
       </div>
       <div class="split-list home-list">
-${fil
-  .slice(2)
+${reste
   .map(
     (p, i) => `        <a class="row" href="/${p.slug}/" data-reveal>
           <span class="pos">${String(i + 1).padStart(2, "0")}</span>
           <span class="nm">${T(p)}</span>
+          <span class="cat">${esc(rubrique(p))}</span>
           <span class="rec">${dateFr(p.date).replace(/ 2026$/, "")}</span>
         </a>`
   )

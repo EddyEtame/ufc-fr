@@ -32,8 +32,6 @@
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
-html.js-motion { scroll-behavior: auto; }
 html, body { background: var(--paper); color: var(--ink); overflow-x: clip; }
 body { font-family: var(--ui); line-height: 1.55; letter-spacing: 0.01em; }
 img { display: block; max-width: 100%; }
@@ -3836,9 +3834,14 @@ section.block > .wrap > .tete-liste { margin-bottom: 40px; }
    moins de mouvement.
    ========================================================================= */
 
-@media (prefers-reduced-motion: no-preference) {
-  html { scroll-behavior: smooth; }
-}
+/* `scroll-behavior: smooth` sur la racine ne se limite pas aux ancres : il
+   anime aussi la barre d'espace, les fleches, page suivante, et le clic dans
+   la barre de defilement. Le lecteur au clavier recuperait donc une
+   interpolation imposee la ou il attendait un saut d'ecran — la meme
+   sensation de mollesse qu'on venait de retirer a la molette.
+   La racine reste en `auto`. Le lissage des ancres est pose au clic, sur
+   l'element vise, par js/site.js : c'est le seul endroit ou il informe. */
+html { scroll-behavior: auto; }
 
 /* =========================================================================
    L'OUVERTURE DU DUEL, SUR LA LIGNE DE TEMPS DU DEFILEMENT
@@ -3976,3 +3979,177 @@ section.block > .wrap > .tete-liste { margin-bottom: 40px; }
   section.void .ed-head::after,
   .salles .ed-head::after { background: rgba(247, 244, 238, 0.16); }
 }
+
+/* =========================================================================
+   PASSE DE DENSITE — LE VIDE, LA LISIBILITE, LES CADRES QUI NE PORTENT RIEN
+
+   Reproche recu, verifiable : « il y a beaucoup d'espace vide ». La mesure
+   (tools/vide.mjs, qui releve les bandes horizontales ou aucun element ne
+   peint) donnait 6,4 % sur l'accueil quand les autres pages sont a 1 %. Mais
+   le chiffre ne dit pas tout : une rangee de 79 px qui porte quatre mots et
+   laisse 1 200 px de blanc entre le titre et la date n'est pas comptee comme
+   vide, et se lit pourtant comme du vide.
+   ========================================================================= */
+
+/* 1. L'EN-TETE ILLISIBLE SUR LE PREMIER ECRAN
+   Regle heritee : sur les pages a heros sombre, l'en-tete non defilee est
+   entierement transparente, et sa navigation est ecrite en couleur papier.
+   Le heros de l'accueil ouvre sur une photo claire — le logo et les six
+   entrees du menu s'y effacaient. Une barre de navigation qui depend de la
+   luminosite d'une photo n'est pas une barre de navigation. Le voile la rend
+   lisible sur n'importe quelle image, et se dissipe avant le bas du bandeau
+   pour ne pas couper le heros. */
+body:has(.card-page) > header:not(.is-compact),
+body:has(.hero-cage) > header:not(.is-compact) {
+  background: linear-gradient(180deg, rgba(7, 7, 7, 0.58) 0%, rgba(7, 7, 7, 0.28) 62%, rgba(7, 7, 7, 0) 100%);
+}
+
+/* 2. LA UNE : UNE PHOTO, PAS UN CIEL
+   Le bloc faisait 86 vh — 774 px sur un portable de bureau — pour une
+   photographie de l'exterieur de l'Accor Arena dont les deux tiers etaient du
+   ciel couvert. La photo est recadree (tools/recadre.mjs, 2 560 × 1 920 →
+   1 800 × 675) et le cadre suit son format : le batiment le remplit.
+   Le sur-cadrage de 16 % (`inset: -8%`) servait au parallaxe, qui a ete
+   retire ; il ne fait plus que rogner. */
+.ed-lead { min-height: min(64vh, 580px); }
+.ed-lead-media img { inset: 0; height: 100%; object-position: center 54%; }
+.ed-lead-copy { padding: 96px 0 56px; }
+.ed-lead-copy h3 { font-size: clamp(38px, 5.4vw, 72px); }
+
+/* 3. LES DEUX FICHES SOUS LA UNE
+   Elles sortaient sans image : leurs photos etaient reservees par la section
+   « salles », et `pic()` rend une chaine vide dans ce cas. Cote HTML,
+   `picSure()` garantit desormais une image ; cote feuille, le cadre a une
+   hauteur propre pour que rien ne s'effondre si elle manque quand meme. */
+.ed-aside { padding: 36px 0 56px; gap: 36px 40px; }
+.ed-aside-media {
+  overflow: hidden;
+  background: var(--carbon);
+  aspect-ratio: 16 / 10;
+}
+.ed-aside-item .ed-aside-media img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  transition: transform 0.9s var(--ease);
+}
+.ed-aside-item:hover .ed-aside-media img { transform: scale(1.04); }
+.ed-aside-item p {
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--ash);
+  max-width: 46ch;
+}
+
+/* 4. LA LISTE NUMEROTEE — LA PLUS GROSSE RESERVE DE VIDE
+   Cinq rangees de 79 px, un numero a gauche, un titre, une date renvoyee au
+   bord droit : 1 200 px de blanc au milieu de chaque ligne, et cinq titres
+   pour 400 px de haut. La colonne du milieu recoit la rubrique — une
+   information que la page n'affichait nulle part ailleurs — et la rangee
+   se resserre. Douze articles au lieu de cinq, dans moins de hauteur. */
+.home-list .row {
+  grid-template-columns: 44px minmax(0, 1fr) minmax(0, 190px) 72px;
+  gap: 0 20px;
+  padding: 14px 0;
+  transition: background-color 0.25s var(--ease), padding-left 0.25s var(--ease);
+}
+.home-list .row:first-child { border-top: 1px solid rgba(7, 7, 7, 0.1); }
+.home-list .pos { font-size: 15px; letter-spacing: 0.02em; }
+.home-list .nm {
+  font-size: 20px;
+  line-height: 1.25;
+  transition: color 0.25s var(--ease);
+}
+.home-list .cat {
+  font-family: var(--ui);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--ash);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.home-list .rec { text-align: right; white-space: nowrap; }
+.home-list .row:hover { background: rgba(7, 7, 7, 0.035); padding-left: 12px; }
+.home-list .row:hover .nm { color: var(--red); }
+.home-list .row:hover .cat { color: var(--ink); }
+
+@media (max-width: 900px) {
+  /* Sur telephone la rubrique passe sous le titre : elle ne vaut pas une
+     colonne de 190 px la ou il en reste 300 en tout. */
+  .home-list .row {
+    grid-template-columns: 34px minmax(0, 1fr) auto;
+    gap: 4px 14px;
+    padding: 13px 0;
+  }
+  .home-list .nm { grid-column: 2; font-size: 17px; }
+  .home-list .cat { grid-column: 2; grid-row: 2; }
+  .home-list .rec { grid-column: 3; grid-row: 1; }
+  .home-list .row:hover { padding-left: 0; }
+}
+
+/* 5. LES NOMS DU ROSTER
+   Ecrits en serif italique 24 px, couleur papier, sur un degre de noir qui
+   s'arretait a 55 % de la hauteur : « Anatoly Malykhin » se posait sur une
+   enseigne bleue en pleine lumiere et disparaissait. Le voile descend plus
+   bas et plus franc, et le nom recoit le poids qui lui manquait. */
+.roster a::after {
+  background: linear-gradient(to top, rgba(7, 7, 7, 0.92) 0%, rgba(7, 7, 7, 0.55) 34%, rgba(7, 7, 7, 0.06) 72%);
+}
+.roster .meta h3 {
+  font-size: 22px;
+  font-weight: 500;
+  color: var(--paper);
+  text-shadow: 0 1px 14px rgba(7, 7, 7, 0.55);
+}
+.roster .meta::before {
+  content: "";
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: var(--red);
+  margin-bottom: 10px;
+  transform-origin: left center;
+  transform: scaleX(0.45);
+  transition: transform 0.4s var(--ease);
+}
+.roster a:hover .meta::before { transform: scaleX(1); }
+
+/* 6. LE RYTHME DE L'ACCUEIL
+   88 px de blanc au-dessus du premier en-tete de section, puis 80 px sous la
+   derniere : le haut de page respirait pour deux. */
+.ed-week .wrap.ed-head { padding: 56px 0 0; }
+.ed-week { padding: 0 0 56px; }
+.ed-week .wrap > .chiffres { margin: 40px 0 8px; }
+
+/* 7. LES QUATRE CHIFFRES ET LA COLONNE DE RUBRIQUE
+   Les chiffres se serraient a gauche et laissaient 560 px de blanc a droite ;
+   la rubrique flottait au milieu de la rangee, a 400 px du titre et a 200 du
+   quantieme, sans se rattacher a l'un ni a l'autre. Les chiffres prennent la
+   largeur, la rubrique rejoint la date : deux informations de meme nature —
+   ce qu'est l'article, quand il est paru — font un bloc, pas deux ilots. */
+.ed-week .chiffres {
+  justify-content: space-between;
+  padding-top: clamp(24px, 3.5vh, 40px);
+  margin-top: clamp(20px, 3vh, 34px);
+}
+/* Enferme dans une requete de largeur : posee a plat, cette declaration
+   arrivait apres la mise en page telephone et lui rendait ses quatre
+   colonnes — 44 + 150 + 68 px de reserve dans 350 px de large, et le titre
+   sortait a un mot par ligne. */
+@media (min-width: 901px) {
+  .home-list .cat { text-align: right; }
+  .home-list .row { grid-template-columns: 44px minmax(0, 1fr) minmax(0, 150px) 68px; gap: 0 24px; }
+}
+
+/* 8. LES TROIS DERNIERES BANDES VIDES DE L'ACCUEIL
+   Mesure : 145 px entre le bandeau d'info et le premier titre de section,
+   128 entre les deux fiches et les chiffres, 157 entre la derniere ligne du
+   fil et le titre suivant. Ce sont trois marges qui s'additionnent sans le
+   savoir — la marge de la section, celle du bloc, celle de l'element.
+   Une seule suffit a dire « nouvelle section » : c'est celle de la section. */
+.ed-week .wrap.ed-head { padding: 0; }
+.ed-week .ed-aside { padding: 32px 0 28px; }
+.ed-week { padding: 0 0 24px; }
