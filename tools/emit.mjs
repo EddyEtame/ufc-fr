@@ -170,7 +170,13 @@ function ouvertureOrg(doc) {
   const nArticles = posts.filter((p) =>
     (p.categories || []).some((id) => catById.get(id)?.slug === cat)
   ).length;
-  return `      <div class="org-ouverture" data-reveal>
+  /* Le sigle se compose a la largeur du cadre, pas a celle de la fenetre.
+   * « HEXAGONE » se coupait en « HEXAG / ONE » : la taille etait bornee au
+   * quart de la fenetre, et le mot restant trop large, `overflow-wrap:
+   * anywhere` le brisait au milieu. On donne a la feuille le nombre de
+   * lettres du plus long mot ; elle en deduit la taille qui tient. */
+  const lettres = Math.max(...f.sigle.split(/\s+/).map((m) => m.length));
+  return `      <div class="org-ouverture" data-reveal style="--sigle-lettres: ${lettres}">
         <span class="org-sigle">${esc(f.sigle)}</span>
         <dl class="org-reperes">
           <div><dt>Pays</dt><dd>${esc(f.pays)}</dd></div>

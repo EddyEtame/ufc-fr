@@ -456,6 +456,24 @@ function cleanContent(html, doc) {
   // 1 ter. Les paragraphes de tete qui appartiennent a une autre fiche.
   out = retireLesIntrus(out, doc);
 
+  // 1 quater. Les pictogrammes decoratifs du CMS.
+  //
+  // Les sept pages organisation ouvraient chacun de leurs intertitres par un
+  // losange bleu — « 🔹 Presentation generale » — et deux fiches de resultats
+  // posaient un calendrier et une punaise en tete de cellule. Quatre-vingt
+  // quatre losanges sur le site. Ils ne disent rien que le titre ne dise, ils
+  // se composent dans une fonte que le site ne choisit pas, et ils passaient
+  // tels quels dans le sommaire du rail et dans les donnees structurees.
+  //
+  // La coupe porte sur les blocs pictographiques (U+1F300–U+1FAFF) et sur eux
+  // seuls : « ♂ » et « ♀ » distinguent les divisions masculines des
+  // feminines dans un tableau de categories de poids, « ↗ » signale un lien
+  // sortant, « → » sert dans le texte. Ce sont des signes, pas du decor.
+  out = out
+    .replace(/[\u{1F300}-\u{1FAFF}]\uFE0F?/gu, "")
+    .replace(/(<(?:h[1-6]|td|th|li|p)[^>]*>)\s+/gi, "$1")
+    .replace(/\s+([.,;:!?])/g, (m, p1) => (/[;:!?]/.test(p1) ? m : p1));
+
   // 2. Les grilles « articles lies » du CMS, dans les corps ecrits a la main.
   //
   // Retirer les attributs d'un bloc mort ne le tue pas, ca le camoufle : on

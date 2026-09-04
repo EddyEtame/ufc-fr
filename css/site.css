@@ -3652,6 +3652,10 @@ section.block > .wrap > .tete-liste { margin-bottom: 40px; }
    ========================================================================= */
 
 .org-ouverture {
+  /* Le cadre devient l'unite de mesure du sigle : `cqw` vaut 1 % de sa
+     largeur, pas 1 % de celle de la fenetre. Sans cela, la taille etait
+     calee sur `vw` alors que le cadre n'occupe que la moitie de l'ecran. */
+  container-type: inline-size;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
@@ -3671,11 +3675,18 @@ section.block > .wrap > .tete-liste { margin-bottom: 40px; }
   display: block;
   font-family: var(--display);
   font-weight: 700;
-  font-size: min(clamp(60px, 14vw, 190px), 24vw);
+  /* La seconde borne : la largeur du cadre divisee par le nombre de lettres
+     du plus long mot (`--sigle-lettres`, pose par le gabarit), au facteur
+     d'avance moyen de la fonte d'affichage. « HEXAGONE » tient donc a la
+     taille qui lui convient, « CW » garde la sienne. */
+  font-size: min(clamp(60px, 14vw, 190px), calc(88cqw / var(--sigle-lettres, 4) * 1.34));
   line-height: 0.82;
   letter-spacing: -0.045em;
   color: var(--paper);
-  overflow-wrap: anywhere;
+  /* Jamais au milieu d'un mot : c'est ce qui donnait « HEXAG / ONE ». */
+  overflow-wrap: normal;
+  word-break: keep-all;
+  hyphens: none;
 }
 
 .org-reperes {
