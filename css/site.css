@@ -4598,3 +4598,20 @@ body:has(.drawer.open) > header .brand img { content: url("/logo/ufc-fr.webp"); 
 @media (max-width: 760px) {
   .recherche-vide { grid-template-columns: 1fr; gap: 30px; }
 }
+
+/* La grille a quatre colonnes du bloc « autour des clubs » : la breve y prend
+   la hauteur de ses voisines, comme dans les grilles a trois. */
+.cards.grid-4 .card-breve { min-height: 300px; }
+.cards.grid-4 .card-breve .card-body h3 { font-size: clamp(19px, 1.6vw, 23px); }
+
+/* Dans une grille a quatre, il n'y a pas de tete d'affiche.
+   `.cards .card:first-child .media { min-height: 420px }` sert les pages de
+   liste, ou la premiere carte ouvre le fil. Applique a la grille de quatre du
+   bloc « autour des clubs », il decalait le premier titre de 140 px sous les
+   trois autres — une rangee qui n'est plus une rangee. */
+.cards.grid-4 .card:first-child .media { min-height: 280px; }
+
+/* Cent vingt pixels sous la derniere ligne d'un article, avant un pied qui en
+   remet soixante : deux cents pixels de blanc entre la fin du texte et le
+   premier lien utile. */
+.article { padding-bottom: clamp(48px, 7vh, 76px); }

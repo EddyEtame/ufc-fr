@@ -304,7 +304,10 @@ function carteArticle(p) {
     .map((id) => catById.get(id))
     .filter(Boolean)
     .sort((a, b) => (a.slug === "actualite") - (b.slug === "actualite"))[0];
-  return `        <a class="card" href="/${p.slug}/" data-reveal>
+  // Meme regle que dans les listes : une carte sans photo est une breve, et
+  // elle en a la forme. Sans cette classe, trois cartes sur quatre du bloc
+  // « Autour des clubs » flottaient a 220 px au-dessus des autres.
+  return `        <a class="card${t ? "" : " card-breve"}" href="/${p.slug}/" data-reveal>
           ${t ? `<div class="media" data-reveal-media><img src="${vignette(t.url)}" alt="${esc(t.alt)}" loading="lazy" decoding="async" /></div>` : ""}
           <div class="card-body">
             <span class="kicker">${esc(cat?.name || "Actualité")}</span>
