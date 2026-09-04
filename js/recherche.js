@@ -17,6 +17,10 @@
   var champ = document.getElementById("q");
   var sortie = document.querySelector("[data-resultats]");
   var etat = document.querySelector("[data-etat]");
+  /* Les suggestions montrees tant que le champ est vide : rubriques et
+     derniers articles. Elles sont dans le HTML — donc indexables et utiles
+     sans JavaScript — et cedent la place aux resultats des qu'on tape. */
+  var vide = document.querySelector("[data-vide]");
   if (!champ || !sortie) return;
 
   var index = null;
@@ -73,7 +77,13 @@
   }
 
   function rendre(res, q) {
-    if (!q.trim()) { sortie.innerHTML = ""; etat.textContent = ""; return; }
+    if (!q.trim()) {
+      sortie.innerHTML = "";
+      etat.textContent = "";
+      if (vide) vide.hidden = false;
+      return;
+    }
+    if (vide) vide.hidden = true;
     if (!res.length) {
       sortie.innerHTML = "";
       etat.textContent = "Rien pour « " + q + " ». Essayez un nom seul, ou une ville.";

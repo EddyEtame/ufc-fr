@@ -2841,7 +2841,9 @@ body:has(.hero-cage) > header.is-compact { background: var(--paper); }
    Le champ est le sujet de la page : il occupe la largeur de lecture et se
    lit a la taille d'un titre. Un champ de recherche discret sur une page qui
    ne sert qu'a chercher est une contradiction. */
-.recherche { margin: 34px 0 8px; }
+/* 34 px au-dessus et le rembourrage du champ en dessous faisaient deux
+   bandes de 95 px sur une page qui n'en compte que quatre. */
+.recherche { margin: 18px 0 0; }
 .recherche input {
   width: 100%;
   padding: 18px 0;
@@ -4515,4 +4517,84 @@ body:has(.drawer.open) > header .brand img { content: url("/logo/ufc-fr.webp"); 
   .article > .wrap-read:has(> header.ah):not(:has(> .figure)):not(:has(> .org-ouverture)) > header.ah {
     grid-column: 1 / -1;
   }
+}
+
+/* =========================================================================
+   LA PAGE DE RECHERCHE SANS REQUETE
+
+   Un titre, une invite, un champ, puis deux cents pixels de blanc avant le
+   pied : 22,7 % de la page. Un lecteur qui atterrit la — depuis un moteur,
+   depuis le tiroir — ne sait pas toujours quoi chercher, et n'a rien a lire
+   en attendant de le savoir.
+
+   Les rubriques avec leur volume, et les six derniers articles. C'est un plan
+   du site : ecrit dans le HTML, donc utile sans JavaScript et lisible par un
+   moteur, et masque des qu'on tape.
+   ========================================================================= */
+
+.recherche-vide {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(32px, 5vw, 72px);
+  margin-top: clamp(34px, 5vh, 56px);
+}
+.rv-titre {
+  font-family: var(--ui);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--red);
+  margin: 0 0 14px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--mist);
+}
+.rv-bloc ul,
+.rv-bloc ol { list-style: none; margin: 0; padding: 0; }
+.rv-rubriques { display: flex; flex-wrap: wrap; gap: 8px; }
+.rv-rubriques a {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 8px;
+  padding: 8px 14px;
+  border: 1px solid var(--mist);
+  color: var(--ink);
+  text-decoration: none;
+  font-family: var(--ui);
+  font-size: 14px;
+  transition: background-color 0.2s var(--ease), border-color 0.2s var(--ease);
+}
+.rv-rubriques a:hover { background: var(--ink); border-color: var(--ink); color: var(--paper); }
+.rv-rubriques b { font-size: 11px; color: var(--red); font-weight: 600; }
+.rv-rubriques a:hover b { color: var(--paper); }
+
+.rv-recents { counter-reset: rv; }
+.rv-recents a {
+  display: grid;
+  grid-template-columns: 26px minmax(0, 1fr);
+  gap: 10px;
+  padding: 11px 0;
+  border-bottom: 1px solid rgba(7, 7, 7, 0.08);
+  color: var(--ink);
+  text-decoration: none;
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 17px;
+  line-height: 1.25;
+  transition: color 0.2s var(--ease);
+}
+.rv-recents a::before {
+  counter-increment: rv;
+  content: counter(rv, decimal-leading-zero);
+  font-family: var(--display);
+  font-style: italic;
+  font-weight: 700;
+  font-size: 12px;
+  color: var(--red);
+}
+.rv-recents li:last-child a { border-bottom: 0; }
+.rv-recents a:hover { color: var(--red); }
+
+@media (max-width: 760px) {
+  .recherche-vide { grid-template-columns: 1fr; gap: 30px; }
 }

@@ -38,6 +38,16 @@ const index = [...posts, ...pages.filter((p) => p.slug !== "ufc-fr-mma")].map((p
 
 writeFileSync(join(ROOT, "recherche-index.json"), JSON.stringify(index), "utf8");
 
+/* Ce qu'on montre tant que le champ est vide : les rubriques avec leur
+ * volume, et les six derniers articles. Un lecteur qui arrive ici ne sait pas
+ * toujours quoi chercher — et un moteur qui passe y trouve un plan du site. */
+const rubriques = categories
+  .map((c) => ({ ...c, n: posts.filter((p) => (p.categories || []).includes(c.id)).length }))
+  .filter((c) => c.n > 0 && c.slug !== "actualite")
+  .sort((a, b) => b.n - a.n || a.name.localeCompare(b.name, "fr"));
+
+const recents = [...posts].sort((a, b) => new Date(b.date) - new Date(a.date)).slice(0, 6);
+
 const schema = {
   "@context": "https://schema.org",
   "@type": "SearchResultsPage",
@@ -73,6 +83,35 @@ ${header()}
         </form>
 
         <div class="recherche-resultats" data-resultats></div>
+
+        <!-- Une page de recherche vide est un cul-de-sac : un champ, une
+             invite, et deux cents pixels de blanc avant le pied. Ces deux
+             blocs disparaissent des qu'on tape (js/recherche.js les masque)
+             et reviennent quand on efface. Ils sont dans le HTML, donc
+             indexables et utiles sans JavaScript : la page de recherche
+             devient un plan du site. -->
+        <div class="recherche-vide" data-vide>
+          <section class="rv-bloc">
+            <h2 class="rv-titre">Par rubrique</h2>
+            <ul class="rv-rubriques">
+${rubriques
+  .map(
+    (r) => `              <li><a href="/categorie/${r.slug}/">${esc(r.name)}<b>${r.n}</b></a></li>`
+  )
+  .join("\n")}
+            </ul>
+          </section>
+          <section class="rv-bloc">
+            <h2 class="rv-titre">Les plus récents</h2>
+            <ol class="rv-recents">
+${recents
+  .map(
+    (p) => `              <li><a href="/${p.slug}/">${esc(decode(p.title.rendered))}</a></li>`
+  )
+  .join("\n")}
+            </ol>
+          </section>
+        </div>
       </div>
     </section>
   </main>

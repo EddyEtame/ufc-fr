@@ -94,6 +94,45 @@
         </form>
 
         <div class="recherche-resultats" data-resultats></div>
+
+        <!-- Une page de recherche vide est un cul-de-sac : un champ, une
+             invite, et deux cents pixels de blanc avant le pied. Ces deux
+             blocs disparaissent des qu'on tape (js/recherche.js les masque)
+             et reviennent quand on efface. Ils sont dans le HTML, donc
+             indexables et utiles sans JavaScript : la page de recherche
+             devient un plan du site. -->
+        <div class="recherche-vide" data-vide>
+          <section class="rv-bloc">
+            <h2 class="rv-titre">Par rubrique</h2>
+            <ul class="rv-rubriques">
+              <li><a href="/categorie/ufc/">UFC<b>27</b></a></li>
+              <li><a href="/categorie/clubs-mma-francais/">Clubs de MMA français<b>16</b></a></li>
+              <li><a href="/categorie/ufc-paris-2026/">UFC Paris 2026<b>13</b></a></li>
+              <li><a href="/categorie/ares/">ARES<b>9</b></a></li>
+              <li><a href="/categorie/one-championship/">ONE Championship<b>9</b></a></li>
+              <li><a href="/categorie/analyses/">Analyses<b>8</b></a></li>
+              <li><a href="/categorie/combattants/">Combattants<b>7</b></a></li>
+              <li><a href="/categorie/pfl/">PFL<b>6</b></a></li>
+              <li><a href="/categorie/cage-warriors/">Cage Warriors<b>5</b></a></li>
+              <li><a href="/categorie/hexagone-mma/">Hexagone MMA<b>5</b></a></li>
+              <li><a href="/categorie/ksw/">KSW<b>5</b></a></li>
+              <li><a href="/categorie/evenements/">Événements<b>4</b></a></li>
+              <li><a href="/categorie/interviews/">Interviews<b>4</b></a></li>
+              <li><a href="/categorie/resultats/">Résultats<b>2</b></a></li>
+            </ul>
+          </section>
+          <section class="rv-bloc">
+            <h2 class="rv-titre">Les plus récents</h2>
+            <ol class="rv-recents">
+              <li><a href="/boxing-center-ramonville-saint-agne/">Boxing Center Ramonville : la salle du réseau qui met le MMA en tête</a></li>
+              <li><a href="/boxing-center-toulouse-etats-unis/">Boxing Center États-Unis : 1 200 m² de sports de combat au nord de Toulouse</a></li>
+              <li><a href="/ciryl-gane-retour-entrainement-aspinall/">Ciryl Gane de retour à l’entraînement, unification Aspinall en attente</a></li>
+              <li><a href="/dan-hooker-citations-ufc-paris-parnasse/">Dan Hooker en citations : « je vais ruiner la fête »</a></li>
+              <li><a href="/morgan-charriere-citations-ufc-paris/">Morgan Charrière en citations : Lima, Paris, le finish</a></li>
+              <li><a href="/monkey-gym-rennes-saint-gregoire/">Monkey Gym Saint-Grégoire : MMA, muay-thaï, club de Rennes</a></li>
+            </ol>
+          </section>
+        </div>
       </div>
     </section>
   </main>
