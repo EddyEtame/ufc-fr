@@ -4292,8 +4292,13 @@ body:has(.hero-cage) > header:not(.is-compact) {
    police d'affichage — a ete supprime : le site sert la vraie marque partout,
    en variante claire sur les fonds sombres. `marque.png` pesait 33 Ko sur
    chaque page a heros sombre pour un dessin qui doublait le logo. */
-body:has(.card-page) .brand img,
-body:has(.hero-cage) .brand img {
+/* `> header` et non `.brand` partout : le pied de page porte le meme
+   composant de marque sur fond papier. Sans cette restriction, il recevait la
+   variante claire — un logo couleur papier sur du papier, dont il ne restait
+   que l'octogone rouge et le « .FR ». Le mot « UFC » avait disparu du pied de
+   chacune des 164 pages. */
+body:has(.card-page) > header .brand img,
+body:has(.hero-cage) > header .brand img {
   display: block;
   width: auto;
   height: 40px;
@@ -4615,3 +4620,19 @@ body:has(.drawer.open) > header .brand img { content: url("/logo/ufc-fr.webp"); 
    remet soixante : deux cents pixels de blanc entre la fin du texte et le
    premier lien utile. */
 .article { padding-bottom: clamp(48px, 7vh, 76px); }
+
+/* Le cadre de la photo « pour s'y retrouver » suit la hauteur de la liste
+   qu'il accompagne, au lieu d'un format 4/3 fixe qui laissait deux cents
+   pixels de vide sous lui. Une photo verticale y tient mieux qu'un panorama :
+   la colonne est haute et etroite. */
+@media (min-width: 981px) {
+  .ed-keys-grid { align-items: stretch; }
+  .ed-keys-photo { aspect-ratio: auto; height: 100%; min-height: 420px; }
+  .ed-keys-photo img { object-position: center 22%; }
+}
+
+/* Le titre de colonne du pied devient cliquable quand la rubrique a une page.
+   Il garde sa couleur : c'est un titre qui mene quelque part, pas un lien de
+   plus dans la liste. */
+.foot-cols h3 a { color: inherit; text-decoration: none; }
+.foot-cols h3 a:hover { color: var(--ink); }

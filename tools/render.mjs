@@ -174,8 +174,9 @@ export function footer() {
           <a href="/mma-portraits-de-champions/">Portraits de champions</a>
         </div>
         <div>
-          <h3>Organisations</h3>
+          <h3><a href="/organisations/">Organisations</a></h3>
 ${ORGS.slice(0, 5).map(([h, l]) => `          <a href="${h}">${l}</a>`).join("\n")}
+          <a href="/organisations/">Toutes les sept</a>
         </div>
         <div>
           <h3>France</h3>

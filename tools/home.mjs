@@ -480,11 +480,17 @@ ${/* Les trois salles de tete viennent de l'annuaire, pas d'une liste ecrite
           <li><a href="/champions-mma-actuels/"><em>01</em><span><strong>Les champions, là, maintenant</strong><b>UFC, PFL, ONE, KSW, ARES, Hexagone. Daté.</b></span></a></li>
           <li><a href="/classements-ufc-aout-2026/"><em>02</em><span><strong>Les classements UFC</strong><b>Divisions par divisions, mis à jour.</b></span></a></li>
           <li><a href="/calendrier-mma-france-automne-2026/"><em>03</em><span><strong>Le calendrier français</strong><b>Hexagone, ARES, FMMAF. Ce qui arrive.</b></span></a></li>
-          <li><a href="/organisation-mma-ultimate-fighting-championship/"><em>04</em><span><strong>Les organisations</strong><b>Qui organise quoi, et pour qui.</b></span></a></li>
+          <li><a href="/organisations/"><em>04</em><span><strong>Les organisations</strong><b>Qui organise quoi, et pour qui.</b></span></a></li>
         </ul>
       </div>
       <div class="ed-keys-photo" data-reveal data-reveal-media>
-        <img src="/img/ceinture.webp" alt="Ceinture de champion MMA" width="1200" height="800" loading="lazy" decoding="async" />
+        <!-- ceinture.webp est un gros plan flou d'une ceinture posee. Il
+             ouvrait ce bloc sur une image dont on ne distingue rien, dans le
+             seul endroit de l'accueil ou la photo est purement illustrative
+             — donc le seul ou elle n'a que sa qualite pour elle.
+             ceinture-combat.webp montre un champion tenant la sienne : c'est
+             net, et ca dit ce que le bloc annonce. -->
+        <img src="/img/ceinture-combat.webp" alt="Un champion UFC tenant sa ceinture" width="1417" height="2126" loading="lazy" decoding="async" />
       </div>
     </div>
   </section>
