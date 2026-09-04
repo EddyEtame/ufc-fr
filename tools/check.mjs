@@ -49,10 +49,20 @@ for (const p of pages) {
   const imgs = [...h.matchAll(/<img[^>]+src="([^"]+)"/g)]
     .map((m) => m[1])
     .filter((src) => !/logo\/|media\/brand\//.test(src));
+  /* On compare les noms de fichier, pas les URL. Depuis que les listes
+   * servent des vignettes, `/img/hooker.webp` et
+   * `/media/vignettes/hooker.webp` sont la meme photo sous deux adresses :
+   * le controle les laissait passer, et l'accueil montrait deux fois le meme
+   * homme a deux cents pixels d'ecart. */
   const compte = {};
-  for (const src of imgs) compte[src] = (compte[src] || 0) + 1;
-  for (const [src, n] of Object.entries(compte)) {
-    if (n > 1) fail(`${src} apparait ${n} fois dans ${rel}`);
+  const exemples = {};
+  for (const src of imgs) {
+    const cle = src.split("/").pop().replace(/\.[a-z0-9]+$/i, "");
+    compte[cle] = (compte[cle] || 0) + 1;
+    (exemples[cle] = exemples[cle] || []).push(src);
+  }
+  for (const [cle, n] of Object.entries(compte)) {
+    if (n > 1) fail(`${cle} apparait ${n} fois dans ${rel} (${[...new Set(exemples[cle])].join(", ")})`);
   }
   }
 
@@ -146,6 +156,26 @@ try {
     if (!CLES_VERCEL.has(k)) fail(`vercel.json : propriete « ${k} » inconnue de Vercel — l'import sera refuse`);
 } catch (e) {
   if (e.code !== "ENOENT") fail(`vercel.json illisible : ${e.message}`);
+}
+
+/**
+ * Aucun cadre d'image ne reste vide.
+ *
+ * Le bloc « a la une » de l'accueil rendait `<div class="ed-lead-media">
+ * </div>` — cinq cents pixels de gris plat au milieu de la page. La fonction
+ * qui pose les images renvoie une chaine vide quand la photo a deja servi
+ * ailleurs sur la page, et personne ne verifiait ce que ca laissait.
+ *
+ * Un doublon se remarque ; un trou se remarque davantage.
+ */
+for (const p of pages) {
+  const h = readFileSync(p, "utf8");
+  const rel = p.slice(ROOT.length + 1);
+  for (const classe of ["ed-lead-media", "media", "salle-media", "ed-keys-photo", "ed-portrait-media"]) {
+    const re = new RegExp(`<(?:div|a|figure)[^>]*class="[^"]*\\b${classe}\\b[^"]*"[^>]*>\\s*</(?:div|a|figure)>`, "g");
+    const n = (h.match(re) || []).length;
+    if (n) fail(`${n} cadre(s) « ${classe} » sans image dans ${rel}`);
+  }
 }
 
 console.log(fails ? `\n${fails} defaut(s).` : "\nAucun defaut.");

@@ -34,6 +34,32 @@ function media(p) {
   const l = localMedia(fm.source_url);
   return { url: l ? l.url : fm.source_url, alt: fm.alt_text || "", w: fm.media_details?.width, h: fm.media_details?.height };
 }
+/**
+ * L'image du bloc « a la une ».
+ *
+ * Elle ne peut etre ni absente ni deja vue. La photo maison choisie par slug
+ * donnait Hooker pour « ufc-paris-2026-carte-complete-hooker-parnasse » —
+ * l'homme qui occupe deja la moitie droite du heros, deux cents pixels plus
+ * haut. On essaie donc dans l'ordre : la photo maison si elle est libre,
+ * sinon celle de l'article dans le CMS, sinon la premiere disponible.
+ */
+function imageDeLaUne(p) {
+  const candidats = [];
+  const maison = imageMaison(p?.slug);
+  if (maison) candidats.push({ url: maison.url, alt: decode(p.title.rendered) });
+  const fm = p?._embedded?.["wp:featuredmedia"]?.[0];
+  if (fm?.source_url) {
+    const l = localMedia(fm.source_url);
+    candidats.push({
+      url: l ? l.url : fm.source_url,
+      alt: fm.alt_text || decode(p.title.rendered),
+      w: fm.media_details?.width,
+      h: fm.media_details?.height,
+    });
+  }
+  return candidats.find((c) => !vues.has(nomDeFichier(c.url))) || candidats[0] || null;
+}
+
 const T = (p) => esc(decode(p.title.rendered));
 const X = (p, n = 130) => esc(resume(p, n));
 
@@ -42,25 +68,39 @@ const X = (p, n = 130) => esc(resume(p, n));
 // roster pouvaient montrer trois fois le meme homme.
 const vues = new Set();
 
-function pic(p, cls = "", unique = true) {
+/**
+ * Une image de bloc.
+ *
+ * `grand` sert le fichier d'origine au lieu de la vignette de 640 px : le
+ * bloc « a la une » occupe toute la largeur sur cinq cents pixels de haut,
+ * une vignette y serait floue.
+ *
+ * Le dedoublonnage compare les noms de fichier, pas les URL : depuis que les
+ * listes servent des vignettes, `/img/hooker.webp` et
+ * `/media/vignettes/hooker.webp` sont la meme photo sous deux adresses, et
+ * la page pouvait la montrer deux fois.
+ */
+const nomDeFichier = (u) => String(u).split("/").pop().replace(/\.[a-z0-9]+$/i, "");
+
+function pic(p, cls = "", unique = true, grand = false) {
   const m = media(p);
   if (!m) return "";
+  const cle = nomDeFichier(m.url);
   if (unique) {
-    if (vues.has(m.url)) return "";
-    vues.add(m.url);
+    if (vues.has(cle)) return "";
+    vues.add(cle);
+  } else {
+    vues.add(cle);
   }
-  return `<img src="${vignette(m.url)}" alt="${esc(m.alt)}"${m.w && m.h ? ` width="${m.w}" height="${m.h}"` : ""} loading="lazy" decoding="async"${cls ? ` class="${cls}"` : ""} />`;
+  const src = grand ? m.url : vignette(m.url);
+  return `<img src="${src}" alt="${esc(m.alt)}"${m.w && m.h ? ` width="${m.w}" height="${m.h}"` : ""}${grand ? ' fetchpriority="high"' : ' loading="lazy"'} decoding="async"${cls ? ` class="${cls}"` : ""} />`;
 }
 
 // Le heros et la section « salles » posent leurs images en dur : on les
 // reserve avant que le fil se serve, sinon les deux fiches Boxing Center
 // reviennent en carte avec la meme photo quelques centaines de pixels plus
 // haut.
-vues.add("/img/parnasse.webp");
-vues.add("/img/hooker.webp");
-vues.add("/img/gym.webp");
-vues.add("/media/clubs/boxing-center-etats-unis.webp");
-vues.add("/media/clubs/boxing-center-ramonville.webp");
+for (const f of ["parnasse", "hooker", "gym", "boxing-center-etats-unis", "boxing-center-ramonville"]) vues.add(f);
 
 const paris = inCat("ufc-paris-2026");
 const clubs = inCat("clubs-mma-francais");
@@ -231,7 +271,21 @@ ${[
       <a class="more" href="/actualite-du-mma/">Tout le fil (${posts.length})</a>
     </div>
     <a class="ed-lead" href="/${carte ? carte.slug : une.slug}/" data-reveal data-reveal-media>
-      <div class="ed-lead-media" data-profondeur>${pic(carte || une)}</div>
+      <div class="ed-lead-media">${
+        /* `unique: false` : c'est le plus grand bloc editorial de la page, il
+         * passe avant le dedoublonnage. Il rendait un cadre vide de cinq
+         * cents pixels — la photo de Bercy avait deja ete prise par un autre
+         * bloc, et `pic()` renvoie une chaine vide quand l'image est deja
+         * vue. Un doublon se remarque ; un trou se remarque davantage. */
+        (() => {
+          const m = imageDeLaUne(carte || une);
+          if (!m) return "";
+          vues.add(nomDeFichier(m.url));
+          return `<img src="${m.url}" alt="${esc(m.alt)}"${
+            m.w && m.h ? ` width="${m.w}" height="${m.h}"` : ""
+          } fetchpriority="high" decoding="async" />`;
+        })()
+      }</div>
       <div class="ed-lead-copy">
         <span class="kicker">Dossier</span>
         <h2>${T(carte || une)}</h2>
@@ -264,10 +318,16 @@ ${fil
            argument est le volume et la tenue. Autant le dire avec les nombres,
            qui montent quand on arrive dessus. -->
       <div class="chiffres" data-reveal>
-        <p class="compteur"><b data-compte="${posts.length}">0</b><span>articles</span></p>
-        <p class="compteur"><b data-compte="${portraits.length}">0</b><span>portraits</span></p>
-        <p class="compteur"><b data-compte="${annuaire().length}">0</b><span>clubs français</span></p>
-        <p class="compteur"><b data-compte="7">0</b><span>organisations</span></p>
+${/* Le chiffre est ecrit des la construction, pas laisse a zero.
+     Sans JavaScript — ou pendant les deux cents millisecondes qui precedent
+     son execution — la page annoncait « 0 articles, 0 portraits, 0 clubs
+     francais ». Un media qui affiche zero article se decrit comme vide.
+     Le script anime la montee quand le bloc entre a l'ecran ; s'il ne tourne
+     pas, la verite reste affichee. */ ""}
+        <p class="compteur"><b data-compte="${posts.length}">${posts.length}</b><span>articles</span></p>
+        <p class="compteur"><b data-compte="${portraits.length}">${portraits.length}</b><span>portraits</span></p>
+        <p class="compteur"><b data-compte="${annuaire().length}">${annuaire().length}</b><span>clubs français</span></p>
+        <p class="compteur"><b data-compte="7">7</b><span>organisations</span></p>
       </div>
       <div class="split-list home-list">
 ${fil

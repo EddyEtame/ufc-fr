@@ -389,7 +389,15 @@ nav.main a.on { opacity: 1; color: var(--red); }
   opacity: 0.45;
 }
 
-section.block { padding: 120px 0; }
+/* Le rythme de la page.
+ *
+ * 120 px en haut et en bas font 240 px de vide entre deux sections. Mesure
+ * sur l'accueil : six bandes de 150 a 260 px sans le moindre element, soit
+ * 19 % de la hauteur de la page. Ce n'est pas de la respiration, c'est un
+ * gabarit qui n'a pas ete regarde — les autres pages du site sont a 1 %.
+ *
+ * On garde de l'air, on retire le vide. */
+section.block { padding: clamp(58px, 7.5vh, 92px) 0; }
 section.bone { background: var(--bone); }
 section.void { background: var(--void); color: var(--paper); }
 
@@ -397,7 +405,7 @@ section.void { background: var(--void); color: var(--paper); }
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
-  margin-bottom: 56px;
+  margin-bottom: clamp(34px, 4.5vh, 52px);
   gap: 32px;
 }
 .head h1, .head h2 {
@@ -3900,15 +3908,71 @@ section.block > .wrap > .tete-liste { margin-bottom: 40px; }
    ========================================================================= */
 
 @supports (content-visibility: auto) {
+  /* Seules les longues listes y gagnent. Le roster fait douze vignettes :
+     le saut n'economise rien et empeche la page de s'imprimer entiere. */
   .cards .card,
-  .annuaire .salle,
-  .roster > a {
+  .annuaire .salle {
     content-visibility: auto;
   }
   .cards .card { contain-intrinsic-size: auto 430px; }
   .annuaire .salle { contain-intrinsic-size: auto 390px; }
-  .roster > a { contain-intrinsic-size: auto 260px; }
   /* La premiere carte porte l'image que le navigateur mesure comme le plus
      grand element de l'ecran : elle ne se saute jamais. */
   .cards .card:first-child { content-visibility: visible; }
+}
+
+/* =========================================================================
+   L'EN-TETE DE SECTION SE RESSERRE
+
+   Chaque section de l'accueil s'annoncait par un surtitre, un titre en
+   display de 76 px, un chapeau, et un lien renvoye a l'extreme droite. Le
+   bloc faisait pres de 380 px de haut pour trois lignes de texte, et sa
+   moitie droite restait vide sur toute la hauteur — le lien seul, en bas.
+
+   Mesure sur l'accueil : six bandes sans le moindre element, 19 % de la
+   hauteur de la page. Les autres pages du site sont a 1 %.
+
+   Le titre et le chapeau se lisent l'un apres l'autre, pas l'un sous
+   l'autre : le chapeau passe a droite, sur la ligne de base du titre. Le
+   bloc perd un tiers de sa hauteur, la moitie droite porte enfin quelque
+   chose, et rien n'est retire.
+   ========================================================================= */
+
+@media (min-width: 981px) {
+  .ed-head {
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+    column-gap: clamp(40px, 5vw, 88px);
+    row-gap: 10px;
+    align-items: baseline;
+  }
+  .ed-head > .kicker { grid-column: 1; grid-row: 1; }
+  .ed-head > h1,
+  .ed-head > h2 { grid-column: 1; grid-row: 2; }
+  /* Le chapeau monte a cote du titre, cale sur sa derniere ligne. */
+  .ed-head > .lede {
+    grid-column: 2;
+    grid-row: 2;
+    align-self: end;
+    max-width: 40ch;
+    margin: 0 0 6px;
+  }
+  .ed-head > .more {
+    grid-column: 2;
+    grid-row: 3;
+    justify-self: end;
+    align-self: start;
+    margin-top: 4px;
+  }
+  /* Un filet ferme l'en-tete : il dit ou la section commence sans qu'on ait
+     besoin de cent soixante pixels de blanc pour le faire comprendre. */
+  .ed-head::after {
+    content: "";
+    grid-column: 1 / -1;
+    grid-row: 4;
+    height: 1px;
+    background: var(--mist);
+    margin-top: clamp(16px, 2vh, 26px);
+  }
+  section.void .ed-head::after,
+  .salles .ed-head::after { background: rgba(247, 244, 238, 0.16); }
 }
