@@ -198,7 +198,7 @@ const schema = [
     "@type": "NewsMediaOrganization",
     name: "UFC.FR",
     url: SITE + "/",
-    logo: { "@type": "ImageObject", url: SITE + "/logo/ufc.fr.jpeg" },
+    logo: { "@type": "ImageObject", url: SITE + "/logo/ufc-fr.webp" },
     description: "Média indépendant d’actualité MMA en France et à l’international. Non affilié à l’Ultimate Fighting Championship.",
     diversityPolicy: SITE + "/a-propos/",
     ethicsPolicy: SITE + "/a-propos/",

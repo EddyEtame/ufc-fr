@@ -52,7 +52,7 @@ const publisher = {
   "@type": "NewsMediaOrganization",
   name: "UFC.FR",
   url: SITE + "/",
-  logo: { "@type": "ImageObject", url: SITE + "/logo/ufc.fr.jpeg" },
+  logo: { "@type": "ImageObject", url: SITE + "/logo/ufc-fr.webp" },
   description:
     "Média indépendant d’actualité MMA en France et à l’international. Non affilié à l’Ultimate Fighting Championship.",
 };
@@ -234,6 +234,87 @@ ${blocs[i]}
   return out.join("\n");
 }
 
+/* ------------------------------------------------------------- le rail --
+ * La colonne de droite d'un article.
+ *
+ * Mesure sur une page d'article en 1 440 px : la colonne de lecture fait
+ * 720 px, la page 1 360, et les 640 px restants ne portaient rien — sur
+ * toute la hauteur, sur les cent soixante-trois pages du site. C'est la plus
+ * grande reserve de vide du site, et la mesure des bandes horizontales ne la
+ * voyait pas : elle ne regarde que les hauteurs.
+ *
+ * On n'y met pas de decor. On y met deux choses qu'un lecteur d'article
+ * cherche vraiment : ou il en est dans le texte, et quoi lire ensuite.
+ *
+ * Le sommaire n'apparait qu'a partir de trois intertitres : au-dessous, il
+ * repete le titre au lieu de decouper le texte.
+ */
+function ancresDuCorps(body) {
+  const vues = new Set();
+  const ancres = [];
+  const html = body.replace(/<h2([^>]*)>([\s\S]*?)<\/h2>/gi, (m, attrs, dedans) => {
+    const texte = stripTags(dedans).trim();
+    if (!texte) return m;
+    const deja = /\bid="([^"]+)"/.exec(attrs);
+    let id = deja ? deja[1] : texte
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-|-$/g, "")
+      .slice(0, 48) || "section";
+    // Deux intertitres homonymes existent (« Le contexte », par exemple) :
+    // un identifiant en double renvoie toujours au premier.
+    let n = 2;
+    const base = id;
+    while (vues.has(id)) id = `${base}-${n++}`;
+    vues.add(id);
+    ancres.push({ id, texte });
+    return deja ? m : `<h2${attrs} id="${id}">${dedans}</h2>`;
+  });
+  return { html, ancres };
+}
+
+// « A lire aussi », « Sources » : des intertitres de service. Ils gardent
+// leur identifiant — l'adresse reste citable — mais n'entrent pas au
+// sommaire, qui doit decouper le sujet, pas lister les annexes.
+const SERVICE_H2 = /^(à lire (aussi|ensuite)|voir aussi|sources?|sur le meme sujet|en bref)\b/i;
+
+function rail(ancres, sibs) {
+  const morceaux = [];
+  const plan = ancres.filter((a) => !SERVICE_H2.test(a.texte));
+  if (plan.length >= 3) {
+    morceaux.push(`        <nav class="rail-bloc rail-sommaire" aria-label="Sommaire de l'article">
+          <h2 class="rail-titre">Sur cette page</h2>
+          <ol>
+${plan
+  .map((a) => `            <li><a href="#${a.id}">${esc(a.texte)}</a></li>`)
+  .join("\n")}
+          </ol>
+        </nav>`);
+  }
+  if (sibs.length) {
+    morceaux.push(`        <section class="rail-bloc rail-suite" aria-labelledby="rail-suite-titre">
+          <h2 class="rail-titre" id="rail-suite-titre">À lire ensuite</h2>
+          <ul>
+${sibs
+  .map((sp) => {
+    const c = (sp.categories || [])
+      .map((id) => catById.get(id))
+      .filter(Boolean)
+      .sort((a, b) => (a.slug === "actualite") - (b.slug === "actualite"))[0];
+    return `            <li><a href="/${sp.slug}/"><span class="rail-rub">${esc(
+      c?.name || "Actualité"
+    )}</span><span class="rail-nom">${esc(decode(sp.title.rendered))}</span></a></li>`;
+  })
+  .join("\n")}
+          </ul>
+        </section>`);
+  }
+  if (!morceaux.length) return "";
+  return `      <aside class="rail" data-reveal>\n${morceaux.join("\n")}\n      </aside>`;
+}
+
 /** Une carte d'article — le composant `.card` du systeme, tel quel. */
 function carteArticle(p) {
   const t = featuredImage(p);
@@ -370,6 +451,12 @@ function renderDocument(doc, { isPage }) {
     ).trim();
   }
 
+  // Les intertitres recoivent un identifiant : c'est ce qui rend le sommaire
+  // du rail possible, et ce qui rend une section d'article citable par son
+  // adresse.
+  let ancres = [];
+  ({ html: body, ancres } = ancresDuCorps(body));
+
   if (isPage && doc.slug === "clubs-mma-francais") ({ body, blocs } = blocsClubs(body, doc));
 
   // Les pages organisation portaient une grille de portraits alimentee par le
@@ -465,6 +552,7 @@ ${header()}
             }</figure>`
           : ""
       }
+${rail(ancres, sibs)}
 ${tisser(body, blocs)}
 ${rosterBloc ? `    </div>
     <div class="wrap roster-bloc" data-reveal>${rosterBloc}

@@ -4153,3 +4153,179 @@ body:has(.hero-cage) > header:not(.is-compact) {
 .ed-week .wrap.ed-head { padding: 0; }
 .ed-week .ed-aside { padding: 32px 0 28px; }
 .ed-week { padding: 0 0 24px; }
+
+/* =========================================================================
+   LE RAIL — 640 PX DE VIDE SUR CENT SOIXANTE-TROIS PAGES
+
+   Mesure sur une page d'article en 1 440 px de large : la colonne de lecture
+   fait 720 px, la page 1 360, et les 640 px restants ne portaient rien, sur
+   toute la hauteur du texte. C'est la plus grande reserve de vide du site —
+   plus grande que tout ce que l'accueil pouvait rendre — et l'outil de mesure
+   ne la voyait pas : il ne releve que les bandes horizontales.
+
+   Le rail n'est pas du remplissage. Il porte les deux questions qu'un lecteur
+   d'article se pose vraiment : ou j'en suis dans le texte, et quoi ensuite.
+   Il est colle, parce qu'un sommaire qui defile hors de l'ecran ne sert plus
+   a rien passe le premier ecran ; il ne suit pas sur telephone, ou il passe
+   simplement entre la photo et le texte, avant la lecture.
+   ========================================================================= */
+
+.rail {
+  margin: 0 0 34px;
+  font-family: var(--ui);
+}
+.rail-bloc + .rail-bloc { margin-top: 26px; }
+.rail-titre {
+  font-family: var(--ui);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--red);
+  margin: 0 0 12px;
+  padding-bottom: 9px;
+  border-bottom: 1px solid var(--mist);
+}
+.rail ol,
+.rail ul { list-style: none; margin: 0; padding: 0; }
+.rail li { margin: 0; }
+.rail a {
+  display: block;
+  padding: 9px 0;
+  color: var(--ink);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(7, 7, 7, 0.07);
+  transition: color 0.2s var(--ease), padding-left 0.2s var(--ease);
+}
+.rail li:last-child a { border-bottom: 0; }
+.rail a:hover { color: var(--red); padding-left: 6px; }
+
+.rail-sommaire ol { counter-reset: plan; }
+.rail-sommaire a {
+  font-size: 14px;
+  line-height: 1.4;
+  display: grid;
+  grid-template-columns: 26px minmax(0, 1fr);
+  align-items: baseline;
+}
+.rail-sommaire a::before {
+  counter-increment: plan;
+  content: counter(plan, decimal-leading-zero);
+  font-family: var(--display);
+  font-style: italic;
+  font-weight: 700;
+  font-size: 12px;
+  color: var(--red);
+}
+/* L'entree du sommaire qui correspond a la section lue. Posee par
+   js/motion.js, qui suit deja les entrees a l'ecran. */
+.rail-sommaire a.on { color: var(--red); }
+
+.rail-suite .rail-rub {
+  display: block;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ash);
+  margin-bottom: 3px;
+}
+.rail-suite .rail-nom {
+  display: block;
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 16px;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+}
+
+@media (min-width: 981px) {
+  /* La grille de l'article passe de deux colonnes a trois : le titre, la
+     suite de la colonne de lecture, et le rail. La photo d'ouverture couvre
+     les deux dernieres — elle garde son debord a droite ; le texte couvre les
+     deux premieres et reste borne a la mesure de lecture. */
+  .article > .wrap-read:has(> header.ah) {
+    grid-template-columns:
+      minmax(240px, 0.4fr)
+      minmax(0, 0.6fr)
+      clamp(230px, 21vw, 310px);
+    column-gap: clamp(32px, 3.4vw, 56px);
+  }
+  .article header.ah { grid-column: 1; }
+  .article .figure { grid-column: 2 / -1; }
+  .article .prose,
+  .article .related { grid-column: 1 / 3; max-width: none; }
+  .article .caption { grid-column: 2 / -1; }
+  .article .rail {
+    grid-column: 3;
+    grid-row: 3 / span 40;
+    position: sticky;
+    top: calc(var(--header) + 24px);
+    align-self: start;
+    margin: 4px 0 0;
+  }
+}
+
+@media (max-width: 980px) {
+  /* Sans grille, le rail se place dans le flux, entre la photo et le texte.
+     Le sommaire s'y replie : sur telephone, six entrees avant le premier
+     paragraphe repoussent l'article sous la ligne de flottaison. */
+  .rail { margin: 26px 0 30px; }
+  .rail-sommaire ol {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+    column-gap: 26px;
+  }
+}
+
+/* Le logo n'a plus besoin d'un mode de fusion : son fond est transparent
+   (tools/logo.mjs). `mix-blend-mode: multiply` ne marchait de toute facon
+   plus depuis que l'en-tete porte un `backdrop-filter`, lequel ouvre un
+   contexte d'empilement — le melange ne trouvait plus le fond de la page, et
+   un rectangle blanc entourait le logo sur les 163 pages. */
+.brand img { mix-blend-mode: normal; }
+/* Sur fond sombre — heros de l'accueil, page carte — la feuille masque
+   l'image et redessine le nom en texte clair (`.brand::after`). On garde :
+   inverser un logo bichrome donne un logo faux, et les deux dessins
+   ensemble en donnent deux. */
+
+/* La colonne de lecture ne prend pas toute la largeur qu'on vient de lui
+   rendre : 1 000 px a 19 px font 95 signes par ligne, la ou l'oeil en suit
+   75 sans perdre le debut de la suivante. Le reste devient gouttiere. */
+@media (min-width: 981px) {
+  .article .prose,
+  .article .related { max-width: 800px; }
+}
+
+/* =========================================================================
+   UNE MARQUE, UN DESSIN
+
+   Le site portait deux logos. Sur un article : l'image de marque. Sur
+   l'accueil et sur la page carte : une icone d'octogone plus « UFC.FR »
+   compose en police d'affichage — un dessin de substitution, ne parce que le
+   logo etait un JPEG a fond blanc, illisible sur du noir.
+
+   Le fond est transparent depuis tools/logo.mjs, et une variante claire
+   existe (encre papier, rouge conserve). Le lockup de substitution disparait :
+   un lecteur qui passe de l'accueil a un article doit reconnaitre la meme
+   marque.
+   ========================================================================= */
+
+body:has(.card-page) .brand::before,
+body:has(.hero-cage) .brand::before,
+body:has(.card-page) .brand::after,
+body:has(.hero-cage) .brand::after { content: none; }
+body:has(.card-page) .brand img,
+body:has(.hero-cage) .brand img {
+  display: block;
+  visibility: visible;
+  width: auto;
+  height: 40px;
+  content: url("/logo/ufc-fr-clair.webp");
+}
+body:has(.card-page) > header.is-compact .brand img,
+body:has(.hero-cage) > header.is-compact .brand img {
+  height: 34px;
+  content: url("/logo/ufc-fr.webp");
+}
+body:has(.drawer.open) > header .brand img { content: url("/logo/ufc-fr.webp"); }
