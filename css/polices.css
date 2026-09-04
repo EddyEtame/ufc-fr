@@ -52,3 +52,82 @@
   font-display: swap;
   src: url("/fonts/outfit.woff2") format("woff2");
 }
+
+/* =========================================================================
+   LES POLICES DE REPLI, AJUSTEES AUX METRIQUES
+
+   `font-display: swap` affiche le texte tout de suite dans une police de
+   repli, puis bascule. C'est le bon choix — une page sans texte est une
+   perte — mais la bascule deplace ce qui suit si les deux polices n'ont pas
+   la meme chasse. Mesure sur la page carte : 0,033 de decalage cumule a
+   115 ms, sur `.lede`, `.card-count` et le corps de la carte, c'est-a-dire
+   tout ce qui se trouve sous le titre.
+
+   Mesure de la meme phrase composee a 100 px :
+
+     Newsreader          2 941 px
+     Georgia             2 857 px      −3 %
+     serif generique     3 590 px     +22 %
+     Outfit              3 072 px
+     Arial               3 179 px      +3 %
+     system-ui           3 503 px     +14 %
+
+   Le repli generique est donc 22 % trop large : sur un poste sans Georgia —
+   c'est-a-dire sous Linux, et sur une part des Android — le titre occupait
+   une ligne de plus, et tout descendait avant de remonter.
+
+   `size-adjust` corrige la chasse du repli pour que les deux compositions
+   fassent la meme largeur. Les `local()` couvrent les postes qui ont ces
+   polices ; la derniere ligne rattrape les autres.
+   ========================================================================= */
+
+/* L'italique a sa propre chasse et sa propre fonte de repli. Sans cette
+   declaration, tous les titres du site — composes en Newsreader italique —
+   retombaient sur le serif generique, 22 % plus large : le titre d'article
+   occupait cinq lignes avant la bascule et quatre apres, et tout ce qui
+   suivait remontait de 30 px. C'etait la totalite du decalage cumule des
+   pages d'article. Mesure a 100 px : Newsreader italique 2 802, Times
+   italique 2 902 — d'ou 96,5 %. */
+@font-face {
+  font-family: "Newsreader repli";
+  font-style: italic;
+  src: local("Times New Roman Italic"), local("Liberation Serif Italic"), local("Nimbus Roman Italic"), local("Tinos Italic");
+  /* 94 % et non 96,5 : la premiere valeur venait d'une mesure a 100 px en
+     graisse 400. Les titres sont composes a 30 px en graisse 300, ou l'ecart
+     n'est pas le meme — 623 px contre 639. Regle 33 : une mesure hors
+     contexte n'est pas une verification. */
+  size-adjust: 94%;
+  ascent-override: 92%;
+  descent-override: 24%;
+  line-gap-override: 0%;
+}
+
+@font-face {
+  font-family: "Newsreader repli";
+  font-style: normal;
+  /* Georgia n'est pas cite : elle est sensiblement plus large que Times, et
+     on ne peut pas la mesurer ici pour l'ajuster. On cale sur la famille
+     Times, mesuree : 2 857 px contre 2 941 pour Newsreader. */
+  src: local("Times New Roman"), local("Liberation Serif"), local("Nimbus Roman"), local("Tinos");
+  size-adjust: 103%;
+  ascent-override: 92%;
+  descent-override: 24%;
+  line-gap-override: 0%;
+}
+
+@font-face {
+  font-family: "Outfit repli";
+  src: local("Helvetica Neue"), local("Arial"), local("Liberation Sans"), local("DejaVu Sans");
+  size-adjust: 96.5%;
+  ascent-override: 100%;
+  descent-override: 25%;
+  line-gap-override: 0%;
+}
+
+/* Pas de repli ajuste pour Oswald. Mesure : sur cette machine, aucune des
+   polices condensees citees n'est installee, et le repli tombe sur la fonte
+   par defaut — 2 857 px contre 2 557 pour Oswald. Calibrer `size-adjust` sur
+   ce qu'on mesure ici reviendrait a le fausser pour les postes ou Impact
+   existe vraiment. Oswald ne compose que des chiffres, des sigles et des
+   boutons : le decalage y coute peu, et une correction invalidable coute
+   davantage. Regle 33. */

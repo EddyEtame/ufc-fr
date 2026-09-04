@@ -125,7 +125,7 @@ export function header(current = "", corps = "") {
   <a class="skip" href="#contenu">Aller au contenu</a>
   <header>
     <div class="header-inner">
-      <a class="brand" href="/"><img src="/logo/ufc-fr.webp" alt="UFC.FR, média MMA indépendant" width="480" height="136" /></a>
+      <a class="brand" href="/"><img src="/logo/ufc-fr.webp" alt="UFC.FR, média MMA indépendant" width="320" height="91" /></a>
       <nav class="main" aria-label="Principale">
 ${NAV.map(([h, l]) => `        <a${on(h)} href="${h}">${l}</a>`).join("\n")}
       </nav>
@@ -144,7 +144,7 @@ ${DRAWER.map(([h, l]) => `      <a href="${h}">${l}</a>`).join("\n")}
 export function footer() {
   return `  <footer class="site">
     <div class="wrap foot" data-reveal>
-      <a class="brand" href="/"><img src="/logo/ufc-fr.webp" alt="UFC.FR" width="480" height="136" /></a>
+      <a class="brand" href="/"><img src="/logo/ufc-fr.webp" alt="UFC.FR" width="320" height="91" /></a>
       <div class="foot-cols">
         <div>
           <h3>Média</h3>

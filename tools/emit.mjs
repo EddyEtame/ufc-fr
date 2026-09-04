@@ -10,7 +10,7 @@ import { writeFileSync, mkdirSync, copyFileSync, existsSync } from "node:fs";
 import { join, dirname, basename } from "node:path";
 import {
   posts, pages, categories, ROOT, SITE, mediaManifest,
-  cleanContent, esc, decode, stripTags, dateFr, metaDesc, seoTitle, localMedia, imageMaison, resume, intrusDuCorpus, vignette,
+  cleanContent, esc, decode, stripTags, dateFr, metaDesc, seoTitle, localMedia, imageMaison, resume, intrusDuCorpus, vignette, jeuDeLargeurs,
 } from "./build.mjs";
 import { head, header, footer, ORGS } from "./render.mjs";
 import { annuaire, fiche } from "./salles.mjs";
@@ -238,6 +238,13 @@ ${blocs[i]}
     if (suite.trim()) out.push(`      <div class="prose" data-reveal>\n${suite.trim()}\n      </div>`);
   });
   return out.join("\n");
+}
+
+/** Les attributs `srcset`/`sizes` d'une grande image, ou rien si elle n'a
+ *  pas de jeu de largeurs (elle est deja assez petite). */
+function srcsetOuvrant(url, sizes) {
+  const jeu = jeuDeLargeurs(url);
+  return jeu ? ` srcset="${jeu}" sizes="${sizes}"` : "";
 }
 
 /* ------------------------------------------------------------- le rail --
@@ -547,9 +554,27 @@ ${header()}
         ORG_FICHE[doc.slug]
           ? ouvertureOrg(doc)
           : img
-          ? `<figure class="figure lead" data-reveal data-reveal-media><img src="${img.url}" alt="${esc(img.alt)}"${
+          /* Pas de `data-reveal` sur la photo d'ouverture.
+           *
+           * Le devoilement pose `opacity: 0` jusqu'a ce que le script tourne.
+           * Or cette photo est, sur presque toutes les pages, le plus grand
+           * element de l'ecran — celui que Google chronometre. Elle etait
+           * donc invisible jusqu'a l'execution du JavaScript : mesure sur
+           * telephone bride, 2 550 ms de LCP pour une image de 34 Ko arrivee
+           * en 300. Le mouvement retardait la page d'une seconde et demie
+           * pour un effet que personne n'a le temps de voir, puisqu'il joue
+           * avant meme le premier defilement. */
+          ? `<figure class="figure lead"><img src="${img.url}" alt="${esc(img.alt)}"${
               img.width && img.height ? ` width="${img.width}" height="${img.height}"` : ""
-            } decoding="async" />${
+            }${
+              /* La photo d'ouverture etait servie a sa taille d'origine —
+               * 1 800 px — a un telephone dont la colonne fait 390 px CSS :
+               * 224 Ko sur 608 Ko de page pour la seule facade de Bercy. Le
+               * navigateur choisit desormais dans le jeu de largeurs : il
+               * connait la densite de l'ecran et la largeur de la fenetre,
+               * nous non. */
+              srcsetOuvrant(img.url, "(min-width: 981px) 62vw, 100vw")
+            } fetchpriority="high" decoding="async" />${
               // Une photo prise chez quelqu'un d'autre se credite. C'est la
               // regle d'un media, pas une option de mise en page.
               img.credit

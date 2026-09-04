@@ -25,9 +25,12 @@
   --header: 64px;
   --max: 1440px;
   --read: 720px;
+  /* Le repli est une police declaree, pas un nom generique : voir
+     css/polices.css. `size-adjust` lui donne la chasse de la vraie police,
+     de sorte que la bascule au chargement ne deplace plus rien. */
   --display: "Oswald", Impact, sans-serif;
-  --serif: "Newsreader", "Iowan Old Style", Georgia, serif;
-  --ui: "Outfit", system-ui, sans-serif;
+  --serif: "Newsreader", "Newsreader repli", "Iowan Old Style", Georgia, serif;
+  --ui: "Outfit", "Outfit repli", system-ui, sans-serif;
   --ease: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -2041,7 +2044,13 @@ html.motion .ah [data-reveal] { transition-duration: 0.72s; }
 
 .card-hero {
   position: relative;
-  padding: clamp(90px, 14vh, 160px) 0 clamp(50px, 8vh, 90px);
+  /* `svh` et non `vh`. L'unite `vh` se recalcule quand la barre d'adresse du
+     navigateur mobile se retracte : le rembourrage du heros perdait 40 px en
+     pleine lecture, et toute la page remontait d'autant. Mesure : c'etait la
+     totalite du decalage cumule de la page carte (0,033), le plus mauvais du
+     site. `svh` vaut la hauteur la plus petite que la fenetre prend, donc
+     elle ne bouge pas. */
+  padding: clamp(90px, 14svh, 160px) 0 clamp(50px, 8svh, 90px);
   border-bottom: 1px solid rgba(247, 244, 238, 0.12);
 }
 .card-hero .crumbs { color: var(--ash); margin-bottom: 26px; }
@@ -2705,17 +2714,6 @@ body:has(.hero-cage) .burger i { background: var(--paper); }
    forme une vignette claire sur fond noir. La mediatheque contient la marque
    en PNG detoure — c'est elle qu'on sert sur les pages sombres, sans
    redessiner quoi que ce soit. */
-body:has(.card-page) .brand img,
-body:has(.hero-cage) .brand img { visibility: hidden; }
-body:has(.card-page) .brand,
-body:has(.hero-cage) .brand {
-  background: url("/media/brand/marque.png") left center / contain no-repeat;
-  width: 42px;
-  height: 42px;
-  display: block;
-}
-body:has(.card-page) .brand img,
-body:has(.hero-cage) .brand img { width: 42px; height: 42px; }
 
 /* 4. Le trace de l'octogone depassait en bas a gauche : le point de depart
    du polygone et celui du trace ne coincidaient pas visuellement. On arrondit
@@ -2734,34 +2732,6 @@ body:has(.hero-cage) .brand img { width: 42px; height: 42px; }
    Le PNG detoure est un pictogramme carre : seul, il flotte et ne dit pas le
    nom du media. On le double du mot-symbole compose — la typographie du site
    fait le travail, sans dependre d'un fichier image qui n'existe pas. */
-body:has(.card-page) .brand,
-body:has(.hero-cage) .brand {
-  width: auto;
-  height: auto;
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  background: none;
-}
-body:has(.card-page) .brand::before,
-body:has(.hero-cage) .brand::before {
-  content: "";
-  width: 30px;
-  height: 30px;
-  flex: 0 0 30px;
-  background: url("/media/brand/marque.png") center / contain no-repeat;
-}
-body:has(.card-page) .brand::after,
-body:has(.hero-cage) .brand::after {
-  content: "UFC.FR";
-  font-family: var(--display);
-  font-size: 21px;
-  font-weight: 700;
-  letter-spacing: 0.01em;
-  color: var(--paper);
-}
-body:has(.card-page) .brand img,
-body:has(.hero-cage) .brand img { display: none; }
 
 /* 7. L'en-tete sombre etait un degrade gris, ni transparent ni opaque. Il
    devient franc : rien en haut de page, plein des qu'on defile. */
@@ -2777,7 +2747,6 @@ body:has(.hero-cage) > header.is-compact nav.main a { color: var(--ink); }
 body:has(.hero-cage) > header.is-compact nav.main a.on,
 body:has(.hero-cage) > header.is-compact nav.main a:hover { color: var(--red); }
 body:has(.hero-cage) > header.is-compact .burger i { background: var(--ink); }
-body:has(.hero-cage) > header.is-compact .brand::after { color: var(--ink); }
 
 /* 8. Le pied de heros respirait mal : la date collee a gauche, les boutons
    colles a droite, une bande noire vide entre les deux. On le ramene dans la
@@ -3047,7 +3016,6 @@ body:has(.hero-cage) > header.is-compact { background: var(--paper); }
 /* 3. Le mot-symbole etait blanc sur creme, donc invisible, des que le tiroir
       s'ouvrait en haut de page — l'en-tete y est transparente, mais le
       tiroir derriere est clair. Tiroir ouvert, la marque redevient encre. */
-body:has(.drawer.open) > header .brand::after { color: var(--ink) !important; }
 body:has(.drawer.open) > header .burger i { background: var(--ink) !important; }
 body:has(.drawer.open) > header { background: var(--paper) !important; }
 
@@ -4295,10 +4263,6 @@ body:has(.hero-cage) > header:not(.is-compact) {
    contexte d'empilement — le melange ne trouvait plus le fond de la page, et
    un rectangle blanc entourait le logo sur les 163 pages. */
 .brand img { mix-blend-mode: normal; }
-/* Sur fond sombre — heros de l'accueil, page carte — la feuille masque
-   l'image et redessine le nom en texte clair (`.brand::after`). On garde :
-   inverser un logo bichrome donne un logo faux, et les deux dessins
-   ensemble en donnent deux. */
 
 /* La colonne de lecture ne prend pas toute la largeur qu'on vient de lui
    rendre : 1 000 px a 19 px font 95 signes par ligne, la ou l'oeil en suit
@@ -4322,14 +4286,13 @@ body:has(.hero-cage) > header:not(.is-compact) {
    marque.
    ========================================================================= */
 
-body:has(.card-page) .brand::before,
-body:has(.hero-cage) .brand::before,
-body:has(.card-page) .brand::after,
-body:has(.hero-cage) .brand::after { content: none; }
+/* Le lockup de substitution — une icone PNG plus « UFC.FR » compose en
+   police d'affichage — a ete supprime : le site sert la vraie marque partout,
+   en variante claire sur les fonds sombres. `marque.png` pesait 33 Ko sur
+   chaque page a heros sombre pour un dessin qui doublait le logo. */
 body:has(.card-page) .brand img,
 body:has(.hero-cage) .brand img {
   display: block;
-  visibility: visible;
   width: auto;
   height: 40px;
   content: url("/logo/ufc-fr-clair.webp");

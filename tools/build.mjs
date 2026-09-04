@@ -243,6 +243,80 @@ export function vignette(url) {
   return existsSync(join(ROOT, "media", "vignettes", nom)) ? "/media/vignettes/" + nom : url;
 }
 
+/**
+ * Le jeu de largeurs d'une image, pour un `srcset`.
+ *
+ * La photo d'ouverture d'un article etait servie a sa taille d'origine —
+ * 1 800 px — a un telephone dont la colonne fait 390 px CSS. Meme a forte
+ * densite, 780 px reels suffisent : la moitie des octets telecharges ne
+ * servait a rien. Mesure : 224 Ko sur 608 Ko de page pour la seule photo de
+ * Bercy.
+ *
+ * On declare donc les largeurs qui existent vraiment sur le disque, et on
+ * laisse le navigateur choisir. Il sait la densite de l'ecran et la largeur
+ * de la fenetre ; nous non.
+ */
+export function jeuDeLargeurs(url) {
+  if (!url || !url.startsWith("/")) return null;
+  const base = url.split("/").pop().replace(/\.[a-z]+$/i, "");
+  const parts = [];
+  for (const [L, suff] of [[640, ""], [960, "-960"], [1280, "-1280"]]) {
+    const nom = base + suff + ".webp";
+    if (existsSync(join(ROOT, "media", "vignettes", nom))) parts.push(`/media/vignettes/${nom} ${L}w`);
+  }
+  if (!parts.length) return null;
+  // L'original ferme le jeu : c'est la seule largeur dont on est sur qu'elle
+  // existe, et la seule qui serve les tres grands ecrans. Sa largeur reelle
+  // vient du manifeste ; sans elle, `srcset` mentirait au navigateur, qui
+  // choisit sur la foi du chiffre declare.
+  const dim = largeurOriginale(url);
+  if (!dim) return null;
+  if (dim <= 1280) return null; // le jeu ne servirait a rien
+  parts.push(`${url} ${dim}w`);
+  return parts.join(", ");
+}
+
+/**
+ * La largeur reelle d'une image, lue dans son en-tete.
+ *
+ * Le manifeste du CMS ne vaut que pour les fichiers qu'il connait, et il ment
+ * des qu'on recadre : apres recadrage de la facade de Bercy, il annoncait
+ * encore 2 560 px pour un fichier de 1 800. Or `srcset` engage le navigateur
+ * sur la foi du chiffre declare — un chiffre faux lui fait telecharger le
+ * mauvais fichier.
+ *
+ * On lit donc l'en-tete du fichier, ce qui tient en trente lignes et ne
+ * depend de rien. Trois formats suffisent : c'est tout ce que le site sert.
+ */
+const tailleCache = new Map();
+function largeurOriginale(url) {
+  if (tailleCache.has(url)) return tailleCache.get(url);
+  let L = 0;
+  try {
+    const b = readFileSync(join(ROOT, url.replace(/^\//, "")));
+    if (b[0] === 0x89 && b[1] === 0x50) {
+      // PNG : largeur sur quatre octets a l'offset 16.
+      L = b.readUInt32BE(16);
+    } else if (b[0] === 0xff && b[1] === 0xd8) {
+      // JPEG : parcourir les segments jusqu'a un marqueur SOF.
+      let i = 2;
+      while (i < b.length - 9) {
+        if (b[i] !== 0xff) { i++; continue; }
+        const m = b[i + 1];
+        if (m >= 0xc0 && m <= 0xcf && m !== 0xc4 && m !== 0xc8 && m !== 0xcc) { L = b.readUInt16BE(i + 7); break; }
+        i += 2 + b.readUInt16BE(i + 2);
+      }
+    } else if (b.toString("ascii", 0, 4) === "RIFF" && b.toString("ascii", 8, 12) === "WEBP") {
+      const type = b.toString("ascii", 12, 16);
+      if (type === "VP8X") L = 1 + (b[24] | (b[25] << 8) | (b[26] << 16));
+      else if (type === "VP8L") L = 1 + (((b[22] | (b[23] << 8)) & 0x3fff));
+      else if (type === "VP8 ") L = b.readUInt16LE(26) & 0x3fff;
+    }
+  } catch { L = 0; }
+  tailleCache.set(url, L);
+  return L;
+}
+
 export function imageMaison(slug) {
   const s = String(slug || "").toLowerCase();
   // Un article maison apporte sa propre photo : aucun repli ne s'y applique.

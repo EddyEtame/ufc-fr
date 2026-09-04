@@ -14,7 +14,7 @@
  */
 import { writeFileSync } from "node:fs";
 import { join } from "node:path";
-import { posts, categories, ROOT, SITE, esc, decode, stripTags, dateFr, localMedia, resume, imageMaison, vignette } from "./build.mjs";
+import { posts, categories, ROOT, SITE, esc, decode, stripTags, dateFr, localMedia, resume, imageMaison, vignette, jeuDeLargeurs } from "./build.mjs";
 import { head, header, footer } from "./render.mjs";
 import { annuaire, fiche } from "./salles.mjs";
 
@@ -347,6 +347,13 @@ ${[
         mediaUne
           ? `<img src="${mediaUne.url}" alt="${esc(mediaUne.alt)}"${
               mediaUne.w && mediaUne.h ? ` width="${mediaUne.w}" height="${mediaUne.h}"` : ""
+            }${
+              /* 224 Ko de facade de Bercy telecharges sur un telephone de
+               * 390 px de large. Le navigateur choisit sa largeur. */
+              (() => {
+                const jeu = jeuDeLargeurs(mediaUne.url);
+                return jeu ? ` srcset="${jeu}" sizes="100vw"` : "";
+              })()
             } fetchpriority="high" decoding="async" />`
           : ""
       }</div>

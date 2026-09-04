@@ -24,7 +24,18 @@ import { fileURLToPath } from "node:url";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const SORTIE = join(ROOT, "media", "vignettes");
-const LARGEUR = 640;
+/** Le suffixe d'une largeur : 640 reste sans suffixe, par compatibilite des
+ *  adresses deja publiees et deja commitees. */
+const suffixe = (L) => (L === 640 ? "" : `-${L}`);
+/* Deux largeurs, pas une.
+ *
+ * 640 px sert les cartes de liste, qui s'affichent sur 430 px au plus.
+ * 1 280 px sert les photos d'ouverture d'article : sur un telephone a forte
+ * densite, la colonne fait 390 px CSS, soit 780 px reels — la vignette de
+ * 640 y serait floue, et l'original de 1 800 fait telecharger deux fois
+ * trop. C'est la mesure qui l'a montre : la photo d'ouverture de l'article
+ * Bercy pesait 224 Ko a elle seule, sur 608 Ko de page. */
+const LARGEURS = [640, 960, 1280];
 const MIME = { ".jpg": "jpeg", ".jpeg": "jpeg", ".png": "png", ".webp": "webp" };
 
 /** Toutes les images que le site peut servir en vignette. */
@@ -51,7 +62,8 @@ const page = await nav.newPage();
 
 let faites = 0, sautees = 0, avant = 0, apres = 0;
 for (const f of fichiers) {
-  const nom = basename(f).replace(/\.[a-z]+$/i, "") + ".webp";
+ for (const LARGEUR of LARGEURS) {
+  const nom = basename(f).replace(/\.[a-z]+$/i, "") + suffixe(LARGEUR) + ".webp";
   const dest = join(SORTIE, nom);
   const src = readFileSync(f);
   // On ne refait pas ce qui existe et qui est plus recent que sa source.
@@ -80,6 +92,7 @@ for (const f of fichiers) {
   avant += src.length;
   apres += buf.length;
   faites++;
+ }
 }
 await nav.close();
 console.log(

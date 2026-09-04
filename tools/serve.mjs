@@ -2,8 +2,15 @@
  * Serveur local. Sert les dossiers en resolvant /slug/ vers son index.html,
  * exactement comme Vercel : sans ca, on developpe contre un comportement
  * different de la production et on decouvre les 404 apres le deploiement.
+ *
+ * Il compresse aussi le texte, pour la meme raison. Vercel le fait ; sans
+ * cela, `tools/perf.mjs` mesurait 143 Ko de feuille de style la ou le lecteur
+ * en recoit 24, et le plus gros poste de chaque page etait un artefact du
+ * serveur de developpement. Une mesure prise dans des conditions que
+ * personne ne connait ne mesure rien.
  */
 import { createServer } from "node:http";
+import { gzipSync } from "node:zlib";
 import { readFile, stat } from "node:fs/promises";
 import { join, extname, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -25,8 +32,19 @@ createServer(async (req, res) => {
     try {
       const info = await stat(file);
       if (!info.isFile()) continue;
-      res.writeHead(200, { "Content-Type": TYPES[extname(file)] || "application/octet-stream" });
-      res.end(await readFile(file));
+      const type = TYPES[extname(file)] || "application/octet-stream";
+      let corps = await readFile(file);
+      const entetes = { "Content-Type": type };
+      // Les images et les polices sont deja compressees : les repasser au
+      // gzip coute du temps et rend des octets en plus.
+      if (/^(text\/|application\/(json|xml|javascript))/.test(type) &&
+          /\bgzip\b/.test(req.headers["accept-encoding"] || "")) {
+        corps = gzipSync(corps);
+        entetes["Content-Encoding"] = "gzip";
+      }
+      entetes["Content-Length"] = corps.length;
+      res.writeHead(200, entetes);
+      res.end(corps);
       return;
     } catch { /* candidat suivant */ }
   }

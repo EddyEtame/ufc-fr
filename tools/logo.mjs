@@ -60,7 +60,10 @@ const r = await page.evaluate(async (b64) => {
   // charge sur chacune des cent soixante-trois pages est un defaut de
   // performance, pas un detail.
   const lg = x1 - x0 + 1, ht = y1 - y0 + 1;
-  const L = Math.min(lg, 480);
+  // 320 px : le logo s'affiche sur 40 px de haut, soit 141 de large ; a
+  // densite double cela fait 282. Servir 480 px, c'etait 33 Ko par variante
+  // et deux variantes chargees des qu'on defile sur une page a heros sombre.
+  const L = Math.min(lg, 320);
   const c2 = document.createElement("canvas");
   c2.width = L;
   c2.height = Math.round((ht / lg) * L);
