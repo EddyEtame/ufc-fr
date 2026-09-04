@@ -4340,3 +4340,59 @@ body:has(.hero-cage) > header.is-compact .brand img {
   content: url("/logo/ufc-fr.webp");
 }
 body:has(.drawer.open) > header .brand img { content: url("/logo/ufc-fr.webp"); }
+
+/* =========================================================================
+   LA BREVE — LA CARTE SANS PHOTO
+
+   Plusieurs articles partagent la meme illustration generique (la facade de
+   Bercy, l'octogone des Marines) et cinq articles sur un meme combattant
+   partagent son portrait. Une liste ne montre donc la photo qu'une fois ; les
+   suivants sortent sans image. L'intention notee dans le code etait de « creer
+   du rythme ». Ce n'est pas ce qui arrivait : sur /categorie/ufc/, une rangee
+   entiere de trois cartes de texte laissait 280 px de trou au milieu de la
+   grille, et se lisait comme une page cassee.
+
+   Une carte sans photo n'est pas une carte ratee : c'est une breve. On lui
+   donne la forme d'une breve — la hauteur de ses voisines, un filet rouge qui
+   l'ouvre, un titre plus grand puisqu'il porte seul, et l'aplomb du bloc. La
+   grille retrouve son alignement et gagne le rythme qu'on lui promettait.
+   ========================================================================= */
+
+.cards .card-breve {
+  background: rgba(7, 7, 7, 0.035);
+  border-top: 2px solid var(--red);
+  padding: 26px 24px 24px;
+  min-height: 340px;
+  justify-content: space-between;
+  transition: background-color 0.3s var(--ease);
+}
+.cards .card-breve:hover { background: rgba(7, 7, 7, 0.06); }
+/* Le corps prend toute la tuile et repartit : titre en haut, date en bas.
+   Sans cela le texte se tassait dans le tiers superieur et la breve
+   recreait, a l'interieur d'elle-meme, le trou qu'elle etait censee
+   combler. */
+.cards .card-breve .card-body {
+  padding: 0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+.cards .card-breve .card-body time { margin-top: auto; padding-top: 18px; }
+.cards .card-breve .card-body h3 {
+  font-size: clamp(24px, 2.2vw, 32px);
+  line-height: 1.06;
+  margin-top: 10px;
+}
+.cards .card-breve .card-body p {
+  margin-top: 14px;
+  max-width: 42ch;
+}
+/* La premiere carte de la liste est plus grande que les autres : sa breve
+   doit l'etre aussi, sinon la premiere rangee se decale. */
+.cards .card-breve:first-child { min-height: 480px; }
+.cards .card-breve:first-child .card-body h3 { font-size: clamp(30px, 3.2vw, 46px); }
+
+@media (max-width: 700px) {
+  .cards .card-breve,
+  .cards .card-breve:first-child { min-height: 0; padding: 22px 20px 20px; }
+}

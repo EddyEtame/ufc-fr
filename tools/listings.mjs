@@ -85,7 +85,12 @@ function card(p, vues, tete = false, rang = 0) {
     .map((id) => catById.get(id))
     .filter(Boolean)
     .sort((a, b) => (a.slug === "actualite") - (b.slug === "actualite"))[0];
-  return `        <a class="card" href="/${p.slug}/"${anime ? " data-reveal" : ""}>
+  /* Une carte sans image n'est pas une carte ratee : c'est une breve. Elle
+   * porte sa propre classe, et la feuille lui donne la hauteur des autres —
+   * sans quoi une rangee entiere de cartes de texte laissait un trou de
+   * 280 px dans la grille, ce qu'on lisait comme une page cassee et non
+   * comme du rythme. */
+  return `        <a class="card${t ? "" : " card-breve"}" href="/${p.slug}/"${anime ? " data-reveal" : ""}>
           ${
             t
               // Vignette et non original : la carte fait 430 px de large.
