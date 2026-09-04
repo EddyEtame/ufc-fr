@@ -178,5 +178,48 @@ for (const p of pages) {
   }
 }
 
+/* ------------------------------------------------------- les contrats --
+ * Ce qu'une page donnee doit contenir, quoi qu'il arrive.
+ *
+ * Ce controle existe a cause d'une disparition silencieuse. Les intertitres
+ * du corps ont recu un identifiant pour alimenter le sommaire du rail ;
+ * `blocsClubs` reconnaissait le sien a son texte exact — `<h2>Portraits
+ * publiés</h2>` — et ne l'a plus trouve. L'annuaire des quatorze salles a
+ * disparu de la page clubs. Le build n'a rien dit, le controle non plus, et
+ * les liens etaient tous valides : il ne restait simplement plus rien a
+ * lier. Une page peut maigrir de moitie sans qu'aucune regle generale ne s'en
+ * apercoive.
+ *
+ * On ne peut pas decrire toutes les pages. On decrit celles dont la
+ * disparition d'un bloc coute quelque chose — un engagement contractuel, une
+ * rubrique entiere, le coeur d'une page.
+ */
+const CONTRATS = [
+  ["clubs-mma-francais/index.html", [
+    [/class="salle"/g, 14, "fiches de l'annuaire"],
+    [/https:\/\/club-mma-toulouse\.com/g, 1, "lien contractuel Cage Fight"],
+  ]],
+  ["index.html", [
+    [/class="salle"/g, 3, "fiches de salle en accueil"],
+    [/https:\/\/club-mma-toulouse\.com/g, 1, "lien contractuel Cage Fight"],
+    [/boxing-center-toulouse-etats-unis/g, 1, "renvoi Boxing Center États-Unis"],
+    [/boxing-center-ramonville-saint-agne/g, 1, "renvoi Boxing Center Ramonville"],
+    [/class="row"/g, 8, "lignes du fil"],
+    [/class="roster"/g, 1, "grille des combattants"],
+  ]],
+  ["actualite-du-mma/index.html", [[/class="card"/g, 80, "cartes du fil"]]],
+  ["champions-mma-actuels/index.html", [[/<h2/g, 3, "sections"]]],
+  ["carte/ufc-paris-2026/index.html", [[/class="bout/g, 14, "combats de la carte"]]],
+];
+for (const [rel, regles] of CONTRATS) {
+  const f = join(ROOT, rel);
+  if (!existsSync(f)) { fail(`page attendue absente : ${rel}`); continue; }
+  const h = readFileSync(f, "utf8");
+  for (const [re, mini, quoi] of regles) {
+    const n = (h.match(re) || []).length;
+    if (n < mini) fail(`${rel} : ${n} ${quoi} au lieu de ${mini} au moins`);
+  }
+}
+
 console.log(fails ? `\n${fails} defaut(s).` : "\nAucun defaut.");
 process.exit(fails ? 1 : 0);

@@ -103,3 +103,19 @@ ce fichier est le plancher.
     `transform` et `opacity` passent par le compositeur. Et un effet posé sur
     quatre-vingt-douze éléments n'informe plus, il décore — le compter avant
     de le poser.
+36. **Un outil de mesure mesure ce qu'on lui a demandé, pas ce qui manque.**
+    Le relevé des bandes horizontales vides donnait 1 % sur les pages
+    d'article — et le tiers droit de chacune était vide sur toute sa hauteur,
+    640 px sur 163 pages. Une page sans bande vide peut être vide. Avant de
+    conclure d'un chiffre, se demander ce que l'outil ne peut pas voir, et
+    regarder la page.
+37. **Une déclaration posée à plat après une requête de largeur la
+    remplace.** `@media (max-width: 900px)` puis, plus bas, la même propriété
+    sans requête : le téléphone reçoit la valeur du bureau. Toute règle
+    ajoutée en fin de feuille doit être enfermée dans sa requête, ou vérifiée
+    aux deux largeurs — la vérifier à une seule ne vérifie rien.
+38. **Une réservation qui arrive après la sélection ne réserve rien.** La
+    photo de la une était marquée « prise » au rendu, c'est-à-dire après le
+    choix des cartes : elles croyaient libre une image qu'elles allaient
+    perdre, et l'une sortait avec la photo du héros. Réserver d'abord,
+    choisir ensuite.

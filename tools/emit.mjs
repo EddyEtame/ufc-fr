@@ -351,7 +351,7 @@ function blocsClubs(body, doc) {
   const salles = annuaire();
 
   if (salles.length) {
-    body = body.replace(/<h2>Portraits publiés<\/h2>\s*<ul>[\s\S]*?<\/ul>/, MARQUE);
+    body = body.replace(/<h2[^>]*>Portraits publiés<\/h2>\s*<ul>[\s\S]*?<\/ul>/, MARQUE);
     blocs.push(`      <section class="annuaire" aria-labelledby="annuaire-titre">
         <header class="annuaire-tete" data-reveal>
           <div>
@@ -377,7 +377,7 @@ ${salles.map((s) => fiche(s)).join("\n")}
     .map((sl) => posts.find((p) => p.slug === sl) || pages.find((p) => p.slug === sl))
     .filter(Boolean);
   if (autour.length) {
-    body = body.replace(/<h2>À lire aussi<\/h2>\s*<ul>[\s\S]*?<\/ul>/, MARQUE);
+    body = body.replace(/<h2[^>]*>À lire aussi<\/h2>\s*<ul>[\s\S]*?<\/ul>/, MARQUE);
     blocs.push(`      <section class="rubrique-suite" aria-labelledby="suite-titre">
         <header class="ed-head" data-reveal>
           <span class="kicker">Autour des clubs</span>
@@ -451,12 +451,6 @@ function renderDocument(doc, { isPage }) {
     ).trim();
   }
 
-  // Les intertitres recoivent un identifiant : c'est ce qui rend le sommaire
-  // du rail possible, et ce qui rend une section d'article citable par son
-  // adresse.
-  let ancres = [];
-  ({ html: body, ancres } = ancresDuCorps(body));
-
   if (isPage && doc.slug === "clubs-mma-francais") ({ body, blocs } = blocsClubs(body, doc));
 
   // Les pages organisation portaient une grille de portraits alimentee par le
@@ -506,6 +500,14 @@ function renderDocument(doc, { isPage }) {
     : motLong >= 14 ? " t-mot-tres-long"
     : motLong >= 11 ? " t-mot-long"
     : "";
+
+  /* Les identifiants d'intertitre sont poses en dernier, apres tous les
+   * traitements qui reconnaissent un intertitre a son texte exact.
+   * Pose en premier, cet ajout d'attribut avait fait echouer
+   * `<h2>Portraits publies</h2>` dans blocsClubs : l'annuaire des quatorze
+   * salles avait disparu de la page clubs, sans erreur ni avertissement. */
+  let ancres = [];
+  ({ html: body, ancres } = ancresDuCorps(body));
 
   return `${head({
     title: seo,
