@@ -5,6 +5,58 @@
   "buildCommand": "echo 'site pre-genere, aucune construction necessaire'",
   "outputDirectory": ".",
   "trailingSlash": true,
+  "redirects": [
+    {
+      "source": "/resultats",
+      "destination": "/categorie/resultats/",
+      "permanent": true
+    },
+    {
+      "source": "/analyses",
+      "destination": "/categorie/analyses/",
+      "permanent": true
+    },
+    {
+      "source": "/interviews",
+      "destination": "/categorie/interviews/",
+      "permanent": true
+    },
+    {
+      "source": "/evenements",
+      "destination": "/categorie/evenements/",
+      "permanent": true
+    },
+    {
+      "source": "/combattants",
+      "destination": "/categorie/combattants/",
+      "permanent": true
+    },
+    {
+      "source": "/ufc-paris-2026",
+      "destination": "/categorie/ufc-paris-2026/",
+      "permanent": true
+    },
+    {
+      "source": "/actualites",
+      "destination": "/actualite-du-mma/",
+      "permanent": true
+    },
+    {
+      "source": "/clubs",
+      "destination": "/clubs-mma-francais/",
+      "permanent": true
+    },
+    {
+      "source": "/champions",
+      "destination": "/champions-mma-actuels/",
+      "permanent": true
+    },
+    {
+      "source": "/forum",
+      "destination": "/forum-communaute-mma/",
+      "permanent": true
+    }
+  ],
   "headers": [
     {
       "source": "/media/(.*)",

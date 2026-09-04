@@ -9,11 +9,24 @@
  */
 import { esc } from "./build.mjs";
 
+/* Les adresses sont celles de documents qui existent.
+ *
+ * Sept d'entre elles n'en designaient aucun : /resultats/, /ufc-paris-2026/,
+ * /combattants/, /organisations/, /evenements/, /analyses/, /interviews/.
+ * Elles venaient du prototype ecrit a la main, ou ces pages sont des fichiers
+ * .html a la racine — et ni le serveur local ni Vercel ne convertissent
+ * /resultats/ en resultats.html. « Resultats » dans la barre principale et le
+ * bouton rouge present sur les cent soixante-trois pages renvoyaient donc un
+ * 404, en production, verifie sur l'adresse publiee.
+ *
+ * Les rubriques pointent vers leur page de categorie, qui est generee depuis
+ * le corpus et qui fait foi. /organisations/ existe desormais pour de bon
+ * (tools/organisations.mjs) : sept fiches sans index, ca manquait. */
 const NAV = [
   ["/", "Accueil"],
   ["/actualite-du-mma/", "Actualités"],
-  ["/ufc-paris-2026/", "UFC Paris 2026"],
-  ["/resultats/", "Résultats"],
+  ["/categorie/ufc-paris-2026/", "UFC Paris 2026"],
+  ["/categorie/resultats/", "Résultats"],
   ["/clubs-mma-francais/", "Clubs"],
   ["/champions-mma-actuels/", "Champions"],
 ];
@@ -24,18 +37,18 @@ const NAV = [
 const DRAWER = [
   ["/", "Accueil"],
   ["/actualite-du-mma/", "Actualités"],
-  ["/resultats/", "Résultats"],
-  ["/evenements/", "Événements"],
-  ["/ufc-paris-2026/", "UFC Paris 2026"],
+  ["/categorie/resultats/", "Résultats"],
+  ["/categorie/evenements/", "Événements"],
+  ["/categorie/ufc-paris-2026/", "UFC Paris 2026"],
   ["/calendrier-mma-france-automne-2026/", "Calendrier MMA France"],
   ["/classements-ufc-aout-2026/", "Classements UFC"],
-  ["/combattants/", "Combattants"],
+  ["/categorie/combattants/", "Combattants"],
   ["/mma-portraits-de-champions/", "Portraits de champions"],
   ["/organisations/", "Organisations"],
   ["/clubs-mma-francais/", "Clubs de MMA français"],
   ["/champions-mma-actuels/", "Champions actuels"],
-  ["/analyses/", "Analyses"],
-  ["/interviews/", "Interviews"],
+  ["/categorie/analyses/", "Analyses"],
+  ["/categorie/interviews/", "Interviews"],
   ["/forum-communaute-mma/", "Forum"],
   ["/recherche/", "Rechercher"],
   ["/a-propos/", "À propos"],
@@ -129,7 +142,7 @@ export function header(current = "", corps = "") {
       <nav class="main" aria-label="Principale">
 ${NAV.map(([h, l]) => `        <a${on(h)} href="${h}">${l}</a>`).join("\n")}
       </nav>
-      <a class="cta cut" href="/ufc-paris-2026/">Paris 2026</a>
+      <a class="cta cut" href="/carte/ufc-paris-2026/">Paris 2026</a>
       <button class="burger" type="button" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="menu" data-menu><i></i><i></i><i></i></button>
     </div>
   </header>
@@ -149,13 +162,13 @@ export function footer() {
         <div>
           <h3>Média</h3>
           <a href="/actualite-du-mma/">Actualités</a>
-          <a href="/resultats/">Résultats</a>
-          <a href="/analyses/">Analyses</a>
-          <a href="/interviews/">Interviews</a>
+          <a href="/categorie/resultats/">Résultats</a>
+          <a href="/categorie/analyses/">Analyses</a>
+          <a href="/categorie/interviews/">Interviews</a>
         </div>
         <div>
           <h3>Dossiers</h3>
-          <a href="/ufc-paris-2026/">UFC Paris 2026</a>
+          <a href="/categorie/ufc-paris-2026/">UFC Paris 2026</a>
           <a href="/calendrier-mma-france-automne-2026/">Calendrier MMA France</a>
           <a href="/classements-ufc-aout-2026/">Classements UFC</a>
           <a href="/mma-portraits-de-champions/">Portraits de champions</a>

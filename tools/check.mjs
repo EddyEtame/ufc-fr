@@ -20,6 +20,8 @@ const pages = [];
 
 let fails = 0;
 const fail = (m) => { console.log("  ✗ " + m); fails++; };
+/** Les adresses de page sans document, comptees une fois pour tout le site. */
+const liensMorts = new Map();
 
 console.log(`[controle] ${pages.length} pages`);
 
@@ -70,6 +72,27 @@ for (const p of pages) {
   for (const a of new Set([...h.matchAll(/(?:src|href)="(\/[^"]+\.(?:jpg|jpeg|png|webp|css|js|gif|svg))"/g)].map((m) => m[1]))) {
     if (!existsSync(join(ROOT, a))) fail(`${a} manquant (${rel})`);
   }
+
+  /* 3 bis. Aucun lien de navigation mort.
+   *
+   * La regle ci-dessus ne regardait que les fichiers portant une extension :
+   * images, feuilles, scripts. Les liens de page — ceux qui composent la
+   * navigation — n'etaient pas verifies du tout. Resultat : « Resultats »
+   * dans la barre principale et le bouton rouge « Paris 2026 », present sur
+   * chacune des cent soixante-trois pages, renvoyaient un 404 en
+   * production. Sept adresses, huit cent quatre-vingt-deux liens.
+   *
+   * Une adresse en /slug/ doit correspondre a slug/index.html. Un fichier
+   * .html a la racine ne suffit pas : le serveur ne fait pas la conversion,
+   * ni en local ni chez l'hebergeur — c'est verifie, pas suppose. */
+  for (const a of new Set([...h.matchAll(/href="(\/[^"#?]*)"/g)].map((m) => m[1]))) {
+    if (/\.[a-z0-9]{2,5}$/i.test(a)) continue; // traite par la regle ci-dessus
+    const cible = a === "/" ? "index.html" : join(a.replace(/^\/|\/$/g, ""), "index.html");
+    if (!existsSync(join(ROOT, cible))) liensMorts.set(a, (liensMorts.get(a) || 0) + 1);
+  }
+}
+for (const [a, n] of [...liensMorts].sort((x, y) => y[1] - x[1])) {
+  fail(`${a} n'existe pas — ${n} lien${n > 1 ? "s" : ""} vers cette adresse`);
 }
 /**
  * Un article a du texte. C'est le controle qui manquait.

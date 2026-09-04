@@ -41,3 +41,34 @@ c'est l'ancien HTML qui part en ligne.
 Les médias sont immuables (un an) parce que leur nom contient leur chemin
 d'origine et ne change jamais sans que le contenu change. Le CSS et le JS sont
 revalidés toutes les heures : ce sont eux qui bougent.
+
+## `redirects` — les sept adresses mortes
+
+Le prototype écrit à la main posait ses pages en fichiers `.html` à la racine :
+`resultats.html`, `analyses.html`, `combattants.html`… La navigation, elle, a
+toujours pointé vers `/resultats/`, `/analyses/`, `/combattants/`. Or **ni le
+serveur local ni Vercel ne convertissent `/resultats/` en `resultats.html`** —
+vérifié sur l'adresse publiée, pas supposé :
+
+```
+/resultats/          404
+/ufc-paris-2026/     404
+/combattants/        404
+/organisations/      404
+/evenements/         404
+/analyses/           404
+/interviews/         404
+```
+
+Sept adresses, cent vingt-six pages chacune : **882 liens morts**, dont
+« Résultats » dans la barre principale et le bouton rouge « Paris 2026 »,
+présent sur chaque page du site.
+
+La navigation pointe désormais vers les pages qui existent — les rubriques
+générées, sous `/categorie/…/` — et `/organisations/` est devenue une vraie
+page (`tools/organisations.mjs`). Les redirections ci-dessous rattrapent les
+anciennes adresses si quelqu'un les a notées quelque part.
+
+`npm run check` refuse maintenant tout lien de page dont le document n'existe
+pas. L'ancienne règle ne regardait que les fichiers portant une extension —
+images, feuilles, scripts — et n'a donc jamais vu la navigation.

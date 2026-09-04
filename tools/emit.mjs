@@ -14,6 +14,7 @@ import {
 } from "./build.mjs";
 import { head, header, footer, ORGS } from "./render.mjs";
 import { annuaire, fiche } from "./salles.mjs";
+import { ORG_CATEGORY, ORG_FICHE } from "./orgs-data.mjs";
 
 const written = [];
 
@@ -125,40 +126,6 @@ function orgOf(slug) {
   return m ? ORG_LABEL[m[1]] : null;
 }
 
-/** Quelle rubrique alimente la grille de chaque page organisation. */
-const ORG_CATEGORY = {
-  "organisation-mma-ultimate-fighting-championship": "ufc",
-  "organisation-mma-professional-fighters-league": "pfl",
-  "organisation-mma-one-championship": "one-championship",
-  "organisation-mma-cage-warriors": "cage-warriors",
-  "organisation-mma-ares-fighting-championship": "ares",
-  "organisation-hexagone-mma": "hexagone-mma",
-  "organisation-mma-ksw": "ksw",
-};
-
-/**
- * L'ouverture d'une page organisation.
- *
- * Les sept pages partageaient un montage de banque d'images ou les sept
- * logotypes etaient colles cote a cote : sur la page KSW, le lecteur voyait
- * d'abord les logos de l'UFC, de ONE et de la PFL. Une image qui met en
- * avant les concurrents du sujet ne l'illustre pas, elle le noie.
- *
- * On n'a pas de photographie propre a chaque organisation, et les visuels
- * d'evenement ne se reprennent pas comme la photo qu'un club publie de sa
- * salle. Alors on ne fait pas semblant : l'ouverture devient typographique.
- * Le sigle est ce que le lecteur reconnait, et les trois reperes en dessous
- * sont ce que le site sait reellement — pays, annee, et ce qu'on en publie.
- */
-const ORG_FICHE = {
-  "organisation-mma-ultimate-fighting-championship": { sigle: "UFC", pays: "États-Unis", depuis: "1993" },
-  "organisation-mma-professional-fighters-league": { sigle: "PFL", pays: "États-Unis", depuis: "2018" },
-  "organisation-mma-one-championship": { sigle: "ONE", pays: "Singapour", depuis: "2011" },
-  "organisation-mma-cage-warriors": { sigle: "CW", pays: "Royaume-Uni", depuis: "2001" },
-  "organisation-mma-ares-fighting-championship": { sigle: "ARES", pays: "France", depuis: "2019" },
-  "organisation-hexagone-mma": { sigle: "HEXAGONE", pays: "France", depuis: "2020" },
-  "organisation-mma-ksw": { sigle: "KSW", pays: "Pologne", depuis: "2004" },
-};
 
 function ouvertureOrg(doc) {
   const f = ORG_FICHE[doc.slug];
